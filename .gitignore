@@ -6,3 +6,6 @@ sftp-config.json
 composer.lock
 .subsplit
 .php_cs.cache
+soar.log
+soar
+tests.php
