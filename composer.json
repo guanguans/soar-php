@@ -1,0 +1,46 @@
+{
+    "name": "guanguans/soar-php",
+    "keywords": [
+        "soar",
+        "sql",
+        "mysql",
+        "debug",
+        "php"
+    ],
+    "description": "sql debugging tool",
+    "support": {
+        "issues": "https://github.com/guanguans/soar-php/issues",
+        "source": "https://github.com/guanguans/soar-php"
+    },
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "琯琯",
+            "email": "yzmguanguan@gmail.com"
+        }
+    ],
+    "require": {
+        "php":">=5.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5 || ~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Guanguans\\SoarPHP\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Guanguans\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "tests": "./vendor/bin/phpunit --coverage-text --color=always --debug --verbose"
+    },
+    "scripts-descriptions": {
+        "tests": "Run the phpunit tests."
+    }
+}
