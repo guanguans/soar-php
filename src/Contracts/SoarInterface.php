@@ -10,6 +10,6 @@
 
 namespace Guanguans\SoarPHP\Contracts;
 
-interface SoarPHPInterface
+interface SoarInterface
 {
 }

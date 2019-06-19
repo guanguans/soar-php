@@ -15,7 +15,7 @@
  */
 function soar_config($key = '')
 {
-    $config = require __DIR__.'/../config/SoarPHP.php';
+    $config = require __DIR__.'/../config/soar.php';
 
     if (empty($key)) {
         return $config;

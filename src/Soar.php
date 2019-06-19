@@ -10,10 +10,10 @@
 
 namespace Guanguans\SoarPHP;
 
-use Guanguans\SoarPHP\Contracts\SoarPHPInterface;
+use Guanguans\SoarPHP\Contracts\SoarInterface;
 use Guanguans\SoarPHP\Exceptions\Exception;
 
-class SoarPHP implements SoarPHPInterface
+class Soar implements SoarInterface
 {
     protected $config = [];
 
