@@ -31,6 +31,19 @@ class Soar implements SoarInterface
         $this->soarPath = $config['soar_path'];
     }
 
+    public static function soar($command)
+    {
+        if (false === strpos($command, 'soar')) {
+            throw new Exception('command error');
+        }
+
+        return shell_exec($command);
+    }
+
+    public function assemblyCommand($type, $sql)
+    {
+    }
+
     /**
      * @return array
      */
@@ -47,26 +60,51 @@ class Soar implements SoarInterface
         $this->config = $config;
     }
 
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     */
     public function analysis($sql)
     {
         return shell_exec("echo '$sql' | $this->soarPath -report-type html");
     }
 
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     */
     public function syntaxCheck($sql)
     {
         return shell_exec("echo '$sql' | $this->soarPath -only-syntax-check");
     }
 
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     */
     public function fingerPrint($sql)
     {
         return shell_exec("echo '$sql' | $this->soarPath -report-type=fingerprint");
     }
 
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     */
     public function pretty($sql)
     {
         return shell_exec("echo '$sql' | $this->soarPath -report-type=pretty");
     }
 
+    /**
+     * @param $explain
+     *
+     * @return string|null
+     */
     public function analysisExplain($explain)
     {
         $explain = 'EOF
@@ -80,6 +118,11 @@ EOF';
         return shell_exec("$this->soarPath -report-type explain-digest << $explain");
     }
 
+    /**
+     * @param $markdown
+     *
+     * @return string|null
+     */
     public function md2html($markdown)
     {
         return shell_exec("echo '$markdown' | $this->soarPath -report-type md2html");
