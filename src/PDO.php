@@ -61,7 +61,7 @@ EOF';
      */
     public function getStrExplain($sql)
     {
-        $explain = $this->getExplain($sql);
+        $explain = $this->getArrExplain($sql);
 
         return sprintf(
             $this->explainSkeleton,
@@ -85,11 +85,27 @@ EOF';
      *
      * @return mixed
      */
-    public function getExplain($sql)
+    public function getArrExplain($sql)
     {
         foreach ($this->conn->query('EXPLAIN '.$sql, PDO::FETCH_ASSOC) as $row) {
             return $row;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getExplainSkeleton()
+    {
+        return $this->explainSkeleton;
+    }
+
+    /**
+     * @param string $explainSkeleton
+     */
+    public function setExplainSkeleton($explainSkeleton)
+    {
+        $this->explainSkeleton = $explainSkeleton;
     }
 
     /**
