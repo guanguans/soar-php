@@ -8,24 +8,21 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-/**
- * @param string $key
- *
- * @return mixed|void|null
- */
-function soar_config($key = '')
-{
-    $config = require __DIR__.'/../config/soar.php';
+use Guanguans\SoarPHP\Config;
 
-    if (empty($key)) {
-        return $config;
+if (!function_exists('soar_config')) {
+    /**
+     * @param null $key
+     *
+     * @return \Guanguans\SoarPHP\Config|mixed
+     */
+    function soar_config($key = null)
+    {
+        $config = new Config(require __DIR__.'/../config/soar.php');
+        if (null === $key) {
+            return $config;
+        }
+
+        return $config->get($key);
     }
-
-    if (!strpos($key, '.')) {
-        return isset($config[$key]) ? $config[$key] : null;
-    }
-
-    $key = explode('.', $key);
-
-    return isset($config[$key[0]][$key[1]]) ? $config[$key[0]][$key[1]] : null;
 }
