@@ -24,11 +24,11 @@ class PDO extends BasePDO
      * @var string
      */
     private $explainSkeleton = 'EOF
-+----+-------------+-------+------+---------------+------+---------+------+------+-------+
-| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra |
-+----+-------------+-------+------+---------------+------+---------+------+------+-------+
-| %s |      %s     |   %s  |  %s  |       %s      |  %s  |    %s   |  %s  |  %s  |   %s  |
-+----+-------------+-------+------+---------------+------+---------+------+------+-------+
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+| %s |      %s     |    %s   |     %s     |  %s  |       %s      |  %s  |   %s    |  %s  |  %s  |     %s   |   %s  |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
 EOF';
 
     /**
@@ -68,12 +68,14 @@ EOF';
             $explain['id'],
             $explain['select_type'],
             $explain['table'],
+            $explain['partitions'],
             $explain['type'],
             $explain['possible_keys'],
             $explain['key'],
             $explain['key_len'],
             $explain['ref'],
             $explain['rows'],
+            $explain['filtered'],
             $explain['Extra']
         );
     }
