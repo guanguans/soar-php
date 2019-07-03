@@ -15,6 +15,10 @@ use Guanguans\SoarPHP\Exceptions\Exception;
 
 class Soar implements SoarInterface
 {
+    protected $pdo = null;
+
+    protected $pdoConfig = [];
+
     protected $config = [];
 
     protected $soarPath;
@@ -38,6 +42,32 @@ class Soar implements SoarInterface
         }
 
         return shell_exec($command);
+    }
+
+    /**
+     * @param mixed $pdoConfig
+     */
+    public function setPdoConfig($pdoConfig)
+    {
+        $this->pdoConfig = $pdoConfig;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdo()
+    {
+        if (null !== $this->pdo) {
+            return $this->pdo;
+        }
+
+        if (!empty($this->pdoConfig)) {
+            return new PDO('mysql:host='.$this->pdoConfig['host'].';port='.$this->pdoConfig['port'].';dbname='.$this->pdoConfig['dbname'], $this->pdoConfig['username'], $this->pdoConfig['password']);
+        }
+
+        $soarDsn = explode('=>', $this->config['soar_dsn']['addr']);
+
+        return new PDO('mysql:host='.$soarDsn[0].';port='.$soarDsn[1].';dbname='.$this->config['soar_dsn']['dbname'], 'root', 'root');
     }
 
     public function assemblyCommand($type, $sql)
@@ -105,15 +135,9 @@ class Soar implements SoarInterface
      *
      * @return string|null
      */
-    public function analysisExplain($explain)
+    public function analysisExplain($sql)
     {
-        $explain = 'EOF
-+----+-------------+-------+------+---------------+------+---------+------+------+-------+
-| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra |
-+----+-------------+-------+------+---------------+------+---------+------+------+-------+
-|  1 | SIMPLE      | film  | ALL  | NULL          | NULL | NULL    | NULL | 1131 |       |
-+----+-------------+-------+------+---------------+------+---------+------+------+-------+
-EOF';
+        $explain = $this->getPdo()->getStrExplain($sql);
 
         return shell_exec("$this->soarPath -report-type explain-digest << $explain");
     }

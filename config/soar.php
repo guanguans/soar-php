@@ -13,8 +13,9 @@ return [
     'soar_log_output'   => 'soar.log',
     'soar_dsn'          => [
         'addr'     => '127.0.0.1=>3306',
+        'dbname'   => 'fastadmin',
         'user'     => 'root',
-        'password' => '123456',
+        'password' => 'root',
         'disable'  => false,
     ],
     'soar_ignore_rules' => '',
