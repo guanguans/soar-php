@@ -43,7 +43,7 @@ EOF';
         $dsn,
         $username = null,
         $password = null,
-        array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+        array $options = [self::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
     ) {
         parent::__construct($dsn, $username, $password, $options);
 
@@ -87,7 +87,7 @@ EOF';
      */
     public function getArrExplain($sql)
     {
-        foreach ($this->conn->query('EXPLAIN '.$sql, PDO::FETCH_ASSOC) as $row) {
+        foreach ($this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC) as $row) {
             return $row;
         }
     }
