@@ -157,7 +157,7 @@ class Soar implements SoarInterface
             if (is_array($config) && ('-test-dsn' !== $key && '-online-dsn' !== $key)) {
                 $configStr .= " $key=".json_encode($config).' ';
             }
-            if (('-test-dsn' === $key || '-online-dsn' === $key) && true === $config['disable']) {
+            if (('-test-dsn' === $key || '-online-dsn' === $key) && isset($config['disable']) && true !== $config['disable']) {
                 $formatStr = "{$config['username']}:{$config['password']}@{$config['host']}:{$config['port']}/{$config['dbname']}";
                 $configStr .= " $key=$formatStr ";
             }
