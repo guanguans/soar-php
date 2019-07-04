@@ -1,0 +1,34 @@
+language: php
+
+php:
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
+    - 7.3
+
+dist: trusty
+sudo: false
+
+before_script:
+    - wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
+    - composer self-update
+    - composer install --no-interaction --dev
+
+script:
+    - ./vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+
+after_script:
+    - bash <(curl -s https://codecov.io/bash)
+
+after_failure:
+    - curl "https://api.day.app/${API_DAY_TOKEN}/soar-php 构建失败 https://travis-ci.org/guanguans/soar-php/builds"
+
+after_success:
+    - curl "https://api.day.app/${API_DAY_TOKEN}/soar-php 构建成功"
+
+notifications:
+    email: false
+
+matrix:
+    fast_finish: true
