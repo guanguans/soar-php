@@ -12,4 +12,60 @@ namespace Guanguans\SoarPHP\Contracts;
 
 interface SoarInterface
 {
+    /**
+     * SoarInterface constructor.
+     *
+     * @param array $config
+     */
+    public function __construct(array $config);
+
+    /**
+     * @param $command
+     *
+     * @return mixed
+     */
+    public function exec($command);
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function score($sql);
+
+    /**
+     * @param $sql
+     * @param $format
+     *
+     * @return mixed
+     */
+    public function explain($sql, $format);
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function syntaxCheck($sql);
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function fingerPrint($sql);
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function pretty($sql);
+
+    /**
+     * @param $markdown
+     *
+     * @return mixed
+     */
+    public function md2html($markdown);
 }
