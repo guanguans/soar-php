@@ -11,45 +11,101 @@
 namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Contracts\SoarInterface;
-use Guanguans\SoarPHP\Exceptions\Exception;
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
+use Guanguans\SoarPHP\Support\Arr;
 
 class Soar implements SoarInterface
 {
-    protected $pdo = null;
+    /**
+     * @var
+     */
+    protected $config;
 
-    protected $pdoConfig = [];
-
-    protected $config = [];
-
+    /**
+     * @var
+     */
     protected $soarPath;
 
-    public function __construct($config)
-    {
-        if (empty($config['soar_path'])) {
-            throw new Exception('config error');
-        }
-        if (!file_exists($config['soar_path'])) {
-            throw new Exception($config['soar_path'].'not exists');
-        }
-        $this->config = $config;
-        $this->soarPath = $config['soar_path'];
-    }
+    /**
+     * @var
+     */
+    protected $pdo;
 
-    public static function soar($command)
+    /**
+     * @var
+     */
+    protected $pdoConfig;
+
+    /**
+     * Soar constructor.
+     *
+     * @param array $config
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
+    public function __construct(array $config)
     {
-        if (false === strpos($command, 'soar')) {
-            throw new Exception('command error');
+        if (empty($config)) {
+            throw new InvalidConfigException('Config cannot be empty');
         }
 
-        return shell_exec($command);
+        if (!file_exists($config['-soar-path']) || !is_executable($config['-soar-path'])) {
+            throw new InvalidConfigException(sprintf("File does not exist, or the file is unreadable: '%s'", $config['-soar-path']));
+        }
+
+        if (null !== $config['-online-dsn']) {
+            $this->setPdo(new PDO('mysql:host='.$config['-online-dsn']['host'].';port='.$config['-online-dsn']['port'].';dbname='.$config['-online-dsn']['dbname'], $config['-online-dsn']['username'], $config['-online-dsn']['password']));
+            $this->setPdoConfig($config['-online-dsn']);
+        }
+
+        if (null !== $config['-test-dsn']) {
+            $this->setPdo(new PDO('mysql:host='.$config['-test-dsn']['host'].';port='.$config['-test-dsn']['port'].';dbname='.$config['-test-dsn']['dbname'], $config['-test-dsn']['username'], $config['-test-dsn']['password']));
+            $this->setPdoConfig($config['-test-dsn']);
+        }
+
+        $this->setConfig($config);
+        $this->setSoarPath($config['-soar-path']);
     }
 
     /**
-     * @param mixed $pdoConfig
+     * @return mixed
      */
-    public function setPdoConfig($pdoConfig)
+    public function getSoarPath()
     {
-        $this->pdoConfig = $pdoConfig;
+        return $this->soarPath;
+    }
+
+    /**
+     * @param mixed $soarPath
+     */
+    public function setSoarPath($soarPath)
+    {
+        $this->soarPath = $soarPath;
+    }
+
+    /**
+     * @param array $pdoConfig
+     */
+    public function setPdoConfig(array $pdoConfig)
+    {
+        $this->pdoConfig = new Config($pdoConfig);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdoConfig()
+    {
+        return $this->pdoConfig;
+    }
+
+    /**
+     * @param mixed $pdo
+     */
+    public function setPdo(PDO $pdo)
+    {
+        $this->pdo = $pdo;
     }
 
     /**
@@ -61,21 +117,15 @@ class Soar implements SoarInterface
             return $this->pdo;
         }
 
-        if (!empty($this->pdoConfig)) {
-            return new PDO('mysql:host='.$this->pdoConfig['host'].';port='.$this->pdoConfig['port'].';dbname='.$this->pdoConfig['dbname'], $this->pdoConfig['username'], $this->pdoConfig['password']);
+        if (null === $this->pdoConfig) {
+            throw new InvalidConfigException(sprintf("Config cannot be empty: '%s' or '%s'", '-online-dsn', '-test-dsn'));
         }
 
-        $soarDsn = explode('=>', $this->config['soar_dsn']['addr']);
-
-        return new PDO('mysql:host='.$soarDsn[0].';port='.$soarDsn[1].';dbname='.$this->config['soar_dsn']['dbname'], 'root', 'root');
-    }
-
-    public function assemblyCommand($type, $sql)
-    {
+        return new PDO('mysql:host='.$this->pdoConfig->host.';port='.$this->pdoConfig->port.';dbname='.$this->pdoConfig->dbname, $this->pdoConfig->username, $this->pdoConfig->password);
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getConfig()
     {
@@ -85,70 +135,162 @@ class Soar implements SoarInterface
     /**
      * @param array $config
      */
-    public function setConfig($config)
+    public function setConfig(array $config)
     {
-        $this->config = $config;
+        $this->config = new Config($config);
     }
 
     /**
-     * @param $sql
+     * @param array $configs
      *
-     * @return string|null
+     * @return string
      */
-    public function analysis($sql)
+    public function getFormatConfig(array $configs)
     {
-        return shell_exec("echo '$sql' | $this->soarPath -report-type html");
+        Arr::forget($configs, '-soar-path');
+
+        $configStr = '';
+        foreach ($configs as $key => $config) {
+            if (!is_array($config)) {
+                $configStr .= " $key=$config ";
+            }
+            if (is_array($config) && ('-test-dsn' !== $key && '-online-dsn' !== $key)) {
+                $configStr .= " $key=".json_encode($config).' ';
+            }
+            if (('-test-dsn' === $key || '-online-dsn' === $key) && true === $config['disable']) {
+                $formatStr = "{$config['username']}:{$config['password']}@{$config['host']}:{$config['port']}/{$config['dbname']}";
+                $configStr .= " $key=$formatStr ";
+            }
+        }
+
+        return $configStr;
+    }
+
+    /**
+     * @param $command
+     *
+     * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
+    public function exec($command)
+    {
+        if (!is_string($command)) {
+            throw new InvalidArgumentException('Command type must be a string');
+        }
+        if (false === strpos($command, 'soar')) {
+            throw new InvalidArgumentException(sprintf("Command error: '%s'", $command));
+        }
+
+        return shell_exec($command);
     }
 
     /**
      * @param $sql
      *
      * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
+    public function score($sql)
+    {
+        return $this->exec("echo '$sql' | $this->soarPath ".$this->getFormatConfig($this->config->toArray()));
+    }
+
+    /**
+     * @param $sql
+     * @param $format
+     *
+     * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
+    public function explain($sql, $format)
+    {
+        if (!\in_array(\strtolower($format), ['md', 'html'])) {
+            throw new InvalidArgumentException('Invalid type value(md/html): '.$format);
+        }
+
+        $output = $this->exec("$this->soarPath ".$this->getFormatConfig($this->config->toArray()).' -report-type explain-digest << '.$this->getPdo()->getStrExplain($sql));
+        if ('html' === \strtolower($format)) {
+            return $this->md2html($output);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
+    public function mdExplain($sql)
+    {
+        return $this->explain($sql, 'md');
+    }
+
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
+    public function htmlExplain($sql)
+    {
+        return $this->explain($sql, 'html');
+    }
+
+    /**
+     * @param $sql
+     *
+     * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function syntaxCheck($sql)
     {
-        return shell_exec("echo '$sql' | $this->soarPath -only-syntax-check");
+        return $this->exec("echo '$sql' | $this->soarPath -only-syntax-check");
     }
 
     /**
      * @param $sql
      *
      * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function fingerPrint($sql)
     {
-        return shell_exec("echo '$sql' | $this->soarPath -report-type=fingerprint");
+        return $this->exec("echo '$sql' | $this->soarPath -report-type=fingerprint");
     }
 
     /**
      * @param $sql
      *
      * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function pretty($sql)
     {
-        return shell_exec("echo '$sql' | $this->soarPath -report-type=pretty");
-    }
-
-    /**
-     * @param $explain
-     *
-     * @return string|null
-     */
-    public function analysisExplain($sql)
-    {
-        $explain = $this->getPdo()->getStrExplain($sql);
-
-        return shell_exec("$this->soarPath -report-type explain-digest << $explain");
+        return $this->exec("echo '$sql' | $this->soarPath -report-type=pretty");
     }
 
     /**
      * @param $markdown
      *
      * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function md2html($markdown)
     {
-        return shell_exec("echo '$markdown' | $this->soarPath -report-type md2html");
+        return $this->exec("echo '$markdown' | $this->soarPath -report-type md2html");
     }
 }

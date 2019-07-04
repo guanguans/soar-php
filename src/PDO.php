@@ -16,9 +16,9 @@ use PDOException;
 class PDO extends BasePDO
 {
     /**
-     * @var \PDO|null
+     * @var \PDO
      */
-    private $conn = null;
+    private $conn;
 
     /**
      * @var string
@@ -101,7 +101,7 @@ EOF';
     }
 
     /**
-     * @param string $explainSkeleton
+     * @param $explainSkeleton
      */
     public function setExplainSkeleton($explainSkeleton)
     {
