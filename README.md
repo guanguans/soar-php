@@ -1,27 +1,68 @@
-<h1 align="center"> soar-php </h1>
+<h1 align="center">soar-php</h1>
 
-<p align="center"> sql debugging tool.</p>
+<p align="center">SQL 语句优化器</p>
 
-## Installing
+## 环境要求
+
+* PHP >= 5.6
+* ext-pdo
+* ext-json
+
+## 安装
 
 ``` shell
-$ composer require guanguans/soar-php -dev -vvv
+$ composer require guanguans/soar-php -dev
 ```
 
-## Usage
+## 使用
 
-TODO
+``` php
+<?php
 
-## Contributing
+require_once __DIR__.'/vendor/autoload.php';
 
-You can contribute in one of three ways:
+use Guanguans\SoarPHP\Soar;
 
-1. File bug reports using the [issue tracker](https://github.com/guanguans/soar-php/issues).
-2. Answer questions or fix bugs on the [issue tracker](https://github.com/guanguans/soar-php/issues).
-3. Contribute new features or update the wiki.
+$config = [
+    // soar 路径
+    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar',
+    // 测试环境配置
+    '-test-dsn' => [
+        'host' => '127.0.0.1',
+        'port' => '3306',
+        'dbname' => 'fastadmin',
+        'username' => 'root',
+        'password' => 'root',
+        'disable' => true,
+    ],
+    // 日志输出文件
+    '-log-output' => './soar.log',
+    '-report-type' => 'html',
+];
+$soarPhp = new Soar($config);
+$sql = 'select * from fa_user where id=1';
 
-_The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and PSR-2 coding guidelines. Any new code contributions must be accompanied by unit tests where applicable._
+// SQL 评分
+echo $soarPhp->score($sql);
+
+// 语法检查
+echo $soarPhp->syntaxCheck($sql);
+
+// SQL 指纹
+echo $soarPhp->fingerPrint($sql);
+
+// SQL 美化
+var_dump($soarPhp->pretty($sql));
+
+// sql explain 分析
+echo $soarPhp->explain($sql, 'html');
+echo $soarPhp->mdExplain($sql);
+echo $soarPhp->htmlExplain($sql);
+
+// markdown 转化为 html
+echo $soarPhp->md2html("## 这是一个测试");
+```
 
 ## License
 
-MIT
+[MIT](LICENSE)
