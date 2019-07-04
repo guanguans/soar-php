@@ -19,7 +19,7 @@
 ## 安装
 
 ``` shell
-$ composer require guanguans/soar-php -dev
+$ composer require guanguans/soar-php --dev
 ```
 
 ## 使用示例
