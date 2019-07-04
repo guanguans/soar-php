@@ -1,6 +1,6 @@
 <h1 align="center">soar-php</h1>
 
-<p align="center">SQL 语句优化器</p>
+<p align="center">SQL 语句优化器和重写器</p>
 
 [![Build Status](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/?branch=master)
@@ -18,7 +18,21 @@
 $ composer require guanguans/soar-php -dev
 ```
 
-## 使用
+## 使用示例
+
+### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)
+
+``` bash
+# macOS
+$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.darwin-amd64
+# linux
+$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
+# windows
+$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd64
+# 用其他命令或下载器下载都可以
+```
+
+### 初始化配置
 
 ``` php
 <?php
@@ -28,43 +42,109 @@ require_once __DIR__.'/vendor/autoload.php';
 use Guanguans\SoarPHP\Soar;
 
 $config = [
-    // soar 路径
+    // 下载的 soar 的路径
     '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar',
     // 测试环境配置
     '-test-dsn' => [
         'host' => '127.0.0.1',
         'port' => '3306',
-        'dbname' => 'fastadmin',
+        'dbname' => 'database',
         'username' => 'root',
-        'password' => 'root',
-        'disable' => true,
+        'password' => '123456',
     ],
     // 日志输出文件
     '-log-output' => './soar.log',
+    // 报告输出格式: 默认  markdown [markdown, html, json]
     '-report-type' => 'html',
 ];
-$soarPhp = new Soar($config);
+$soar = new Soar($config);
+```
+
+### SQL 评分
+
+``` php
+$sql = 'select * from fa_user';
+echo $soar->score($sql);
+```
+
+**输出结果：**
+
+<img src="docs/score.png" width="100%">
+
+### SQL explain 分析解读
+
+``` php
+// 输出 html 格式
+echo $soar->htmlExplain($sql);
+// 输出 md 格式
+echo $soar->mdExplain($sql);
+// 输出 html 格式
+echo $soar->explain($sql, 'html');
+// 输出 md 格式
+echo $soar->explain($sql, 'md');
+
+```
+
+**输出结果：**
+
+<img src="docs/explain.png" width="100%">
+
+### 语法检查
+
+``` php
+$sql = 'selec * from fa_user';
+echo $soar->syntaxCheck($sql);
+```
+
+**输出结果：**
+
+``` sql
+At SQL 1 : line 1 column 5 near "selec * from fa_user" (total length 20)
+```
+
+### SQL 指纹
+
+``` php
 $sql = 'select * from fa_user where id=1';
+echo $soar->fingerPrint($sql);
+```
 
-// SQL 评分
-echo $soarPhp->score($sql);
+**输出结果：**
 
-// 语法检查
-echo $soarPhp->syntaxCheck($sql);
+``` sql
+select * from fa_user where id = ?
+```
 
-// SQL 指纹
-echo $soarPhp->fingerPrint($sql);
+### SQL 美化
 
-// SQL 美化
-var_dump($soarPhp->pretty($sql));
+``` php
+$sql = 'select * from fa_user where id=1';
+var_dump($soar->pretty($sql));
+```
 
-// sql explain 分析
-echo $soarPhp->explain($sql, 'html');
-echo $soarPhp->mdExplain($sql);
-echo $soarPhp->htmlExplain($sql);
+**输出结果：**
 
-// markdown 转化为 html
-echo $soarPhp->md2html("## 这是一个测试");
+``` sql
+SELECT  
+  * 
+FROM  
+  fa_user  
+WHERE  
+  id  = 1;
+```
+
+### markdown 转化为 html
+
+``` php
+echo $soar->md2html("## 这是一个测试");
+```
+
+**输出结果：**
+
+``` html
+...
+<h2>这是一个测试</h2>
+...
 ```
 
 ## License
