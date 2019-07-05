@@ -1,13 +1,13 @@
 <h1 align="center">soar-php</h1>
 
 <p align="center">
-    <a>简体中文</a> |
-    <a href="README-EN.md">ENGLISH</a>
+    <a href="README.md">简体中文</a> |
+    <a>ENGLISH</a>
 </p>
 
-<p align="center">SQL 语句优化器和重写器</p>
+<p align="center">SQL statement optimizer and rewriter</p>
 
-> **[soar-php](https://github.com/guanguans/soar-php)** 是一个基于小米公司开源的 [soar](https://github.com/XiaoMi/soar) 开发的 PHP 扩展包，是 PHP 工程师的 SQL 语句调优开发利器。
+> **[soar-php](https://github.com/guanguans/soar-php)** is a PHP extension package based on Xiaomi's open source [soar](https://github.com/XiaoMi/soar) development. It is a SQL statement tuning development tool for PHP engineers.
 
 [![Build Status](https://travis-ci.org/guanguans/soar-php.svg?branch=master)](https://travis-ci.org/guanguans/soar-php)
 [![Build Status](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/build-status/master)
@@ -17,21 +17,21 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v/stable)](https://packagist.org/packages/guanguans/soar-php)
 [![License](https://poser.pugx.org/guanguans/soar-php/license)](https://packagist.org/packages/guanguans/soar-php)
 
-## 环境要求
+## Requirements
 
 * PHP >= 5.6
 * ext-pdo
 * ext-json
 
-## 安装
+## Installation
 
 ``` shell
 $ composer require guanguans/soar-php --dev
 ```
 
-## 使用
+## Usage
 
-### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)，更多详细安装请参考 [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md)
+### Download [XiaoMi](https://github.com/XiaoMi/) open source SQL optimizer [soar](https://github.com/XiaoMi/soar/releases), please refer to [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md) for more detailed installation
 
 ``` bash
 # macOS
@@ -40,12 +40,12 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.darwin-amd64
 $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
 # windows
 $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd64
-# 用其他命令或下载器下载均可以
+# Download with other commands or downloader
 ```
 
-### 初始化配置，更多详细配置请参考 [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
+### Initial configuration, please refer to [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md) for more detailed configuration
 
-#### 方法一、运行时初始化配置
+#### 一、The runtime initialization configuration
 
 ``` php
 <?php
@@ -55,9 +55,9 @@ require_once __DIR__.'/vendor/autoload.php';
 use Guanguans\SoarPHP\Soar;
 
 $config = [
-    // 下载的 soar 的路径
+    // The runtime initialization configuration.
     '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
-    // 测试环境配置
+    // Test environment configuration
     '-test-dsn' => [
         'host' => '127.0.0.1',
         'port' => '3306',
@@ -65,24 +65,24 @@ $config = [
         'username' => 'root',
         'password' => '123456',
     ],
-    // 日志输出文件
+    // log output file
     '-log-output' => './soar.log',
-    // 报告输出格式: 默认  markdown [markdown, html, json]
+    // Report output format: default markdown [markdown, html, json]
     '-report-type' => 'html',
 ];
 $soar = new Soar($config);
 ```
 
-#### 方法二、配置文件初始化配置
+#### 二、Configuration file initial config
 
-`vendor` 同级目录下新建 `.soar.dist` 或者 `.soar`，内容参考 [.soar.example](.soar.example)，例如：
+Create file `.soar.dist` or `.soar` in the `vendor` same directory , content reference [.soar.example](.soar.example), for example:
 
 ``` php
 <?php
 return [
-    // 下载的 soar 的路径
+    // The runtime initialization configuration.
     '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
-    // 测试环境配置
+    // Test environment configuration
     '-test-dsn' => [
         'host' => '127.0.0.1',
         'port' => '3306',
@@ -90,14 +90,14 @@ return [
         'username' => 'root',
         'password' => '123456',
     ],
-    // 日志输出文件
+    // log output file
     '-log-output' => './soar.log',
-    // 报告输出格式: 默认  markdown [markdown, html, json]
+    // Report output format: default markdown [markdown, html, json]
     '-report-type' => 'html',
 ];
 ```
 
-然后初始化
+Then initialize
 
 ``` php
 <?php
@@ -109,82 +109,81 @@ use Guanguans\SoarPHP\Soar;
 $soar = new Soar();
 ```
 
-#### 配置优先级：运行时初始化配置 > .soar > .soar.dist
+#### Configure priority: `runtime initiali config` > `.soar` > `.soar.dist`
 
-### SQL 评分
+### SQL score
 
-**方法调用：**
+**Method call:**
 
 ``` php
 $sql ="SELECT * FROM `fa_user` `user` LEFT JOIN `fa_user_group` `group` ON `user`.`group_id`=`group`.`id`;";
 echo $soar->score($sql);
 ```
 
-**输出结果：**
+**Output results:**
 
 ![](docs/score.png)
 
-### explain 信息解读
+### explain information
 
-**方法调用：**
+**Method call:**
 
 ``` php
 $sql = "SELECT * FROM `fa_auth_group_access` `aga` LEFT JOIN `fa_auth_group` `ag` ON `aga`.`group_id`=`ag`.`id`;";
-// 输出 html 格式
+// Output html format
 echo $soar->htmlExplain($sql);
-// 输出 md 格式
+// Output markdown format
 echo $soar->mdExplain($sql);
-// 输出 html 格式
+// Output html format
 echo $soar->explain($sql, 'html');
-// 输出 md 格式
+// Output markdown format
 echo $soar->explain($sql, 'md');
-
 ```
 
-**输出结果：**
+**Output results:**
 
 ![](docs/explain.png)
 
-### 语法检查
+### Grammar check
 
-**方法调用：**
+**Method call:**
 
 ``` php
 $sql = 'selec * from fa_user';
 echo $soar->syntaxCheck($sql);
 ```
 
-**输出结果：**
+**Output results:**
 
 ``` sql
 At SQL 1 : line 1 column 5 near "selec * from fa_user" (total length 20)
 ```
 
-### SQL 指纹
+### SQL fingerprint
 
-**方法调用：**
+**Method call:**
 
 ``` php
 $sql = 'select * from fa_user where id=1';
 echo $soar->fingerPrint($sql);
 ```
 
-**输出结果：**
+**Output results:**
 
 ``` sql
 select * from fa_user where id = ?
 ```
 
-### SQL 美化
+### SQL pretty
 
-**方法调用：**
+**Method call:**
 
 ``` php
 $sql = 'select * from fa_user where id=1';
 var_dump($soar->pretty($sql));
 ```
 
-**输出结果：**
+**Output results:**
 
 ``` sql
 SELECT  
@@ -195,39 +194,39 @@ WHERE
   id  = 1;
 ```
 
-### markdown 转化为 html
+### Markdown to html
 
-**方法调用：**
+**Method call:**
 
 ``` php
-echo $soar->md2html("## 这是一个测试");
+echo $soar->md2html("## this is a test");
 ```
 
-**输出结果：**
+**Output results:**
 
 ``` html
 ...
-<h2>这是一个测试</h2>
+<h2>this is a test</h2>
 ...
 ```
 
-### 执行任意 soar 命令
+### Execute any `soar` command
 
-**方法调用：**
+**Method call:**
 
 ``` php
-echo $soar->exec("echo '## 这是另一个测试' | /Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64 -report-type md2html");
+echo $soar->exec("echo '## This is another test'' | /Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64 -report-type md2html");
 ```
 
-**输出结果：**
+**Output results:**
 
 ``` html
 ...
-<h2>这是另一个测试</h2>
+<h2>This is another test'</h2>
 ...
 ```
 
-## 参考链接
+## Reference link
 
 * [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)，[XiaoMi](https://github.com/XiaoMi)
 
