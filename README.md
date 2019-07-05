@@ -2,6 +2,8 @@
 
 <p align="center">SQL 语句优化器和重写器</p>
 
+> **[soar-php](https://github.com/guanguans/soar-php)** 是一个基于小米公司开源的 [soar](https://github.com/XiaoMi/soar) 开发的 PHP 扩展包，是 PHP 工程师的 SQL 语句调优开发利器。
+
 [![Build Status](https://travis-ci.org/guanguans/soar-php.svg?branch=master)](https://travis-ci.org/guanguans/soar-php)
 [![Build Status](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/?branch=master)
@@ -22,9 +24,9 @@
 $ composer require guanguans/soar-php --dev
 ```
 
-## 使用示例
+## 使用
 
-### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)
+### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)，更多详细安装请参考 [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md)
 
 ``` bash
 # macOS
@@ -33,10 +35,10 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.darwin-amd64
 $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
 # windows
 $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd64
-# 用其他命令或下载器下载都可以
+# 用其他命令或下载器下载均可以
 ```
 
-### 初始化配置
+### 初始化配置，更多详细配置请参考 [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
 
 ``` php
 <?php
@@ -47,7 +49,7 @@ use Guanguans\SoarPHP\Soar;
 
 $config = [
     // 下载的 soar 的路径
-    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar',
+    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // 测试环境配置
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -66,18 +68,23 @@ $soar = new Soar($config);
 
 ### SQL 评分
 
+**方法调用：**
+
 ``` php
-$sql = 'select * from fa_user';
+$sql ="SELECT * FROM `fa_user` `user` LEFT JOIN `fa_user_group` `group` ON `user`.`group_id`=`group`.`id`;";
 echo $soar->score($sql);
 ```
 
 **输出结果：**
 
-<img src="docs/score.png" width="100%">
+![](docs/score.png)
 
-### SQL explain 分析解读
+### explain 信息解读
+
+**方法调用：**
 
 ``` php
+$sql = "SELECT * FROM `fa_auth_group_access` `aga` LEFT JOIN `fa_auth_group` `ag` ON `aga`.`group_id`=`ag`.`id`;";
 // 输出 html 格式
 echo $soar->htmlExplain($sql);
 // 输出 md 格式
@@ -91,9 +98,11 @@ echo $soar->explain($sql, 'md');
 
 **输出结果：**
 
-<img src="docs/explain.png" width="100%">
+![](docs/explain.png)
 
 ### 语法检查
+
+**方法调用：**
 
 ``` php
 $sql = 'selec * from fa_user';
@@ -108,6 +117,8 @@ At SQL 1 : line 1 column 5 near "selec * from fa_user" (total length 20)
 
 ### SQL 指纹
 
+**方法调用：**
+
 ``` php
 $sql = 'select * from fa_user where id=1';
 echo $soar->fingerPrint($sql);
@@ -120,6 +131,8 @@ select * from fa_user where id = ?
 ```
 
 ### SQL 美化
+
+**方法调用：**
 
 ``` php
 $sql = 'select * from fa_user where id=1';
@@ -139,6 +152,8 @@ WHERE
 
 ### markdown 转化为 html
 
+**方法调用：**
+
 ``` php
 echo $soar->md2html("## 这是一个测试");
 ```
@@ -150,6 +165,26 @@ echo $soar->md2html("## 这是一个测试");
 <h2>这是一个测试</h2>
 ...
 ```
+
+### 执行任意 soar 命令
+
+**方法调用：**
+
+``` php
+echo $soar->exec("echo '## 这是另一个测试' | /Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64 -report-type md2html");
+```
+
+**输出结果：**
+
+``` html
+...
+<h2>这是另一个测试</h2>
+...
+```
+
+## 参考链接
+
+* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)，[XiaoMi](https://github.com/XiaoMi)
 
 ## License
 
