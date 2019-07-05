@@ -16,6 +16,16 @@
     <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>
+            <exclude>
+                <directory>src/Contracts</directory>
+                <directory>src/Exceptions</directory>
+                <directory>src/Services</directory>
+                <directory>src/Support</directory>
+                <directory>src/Traits</directory>
+                <file>src/Config.php</file>
+                <file>src/Helpers.php</file>
+                <file>src/PDO.php</file>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>

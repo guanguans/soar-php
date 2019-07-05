@@ -69,11 +69,27 @@ class SoarService implements SoarInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getSoarPath()
+    {
+        return $this->soarPath;
+    }
+
+    /**
      * @param mixed $soarPath
      */
     public function setSoarPath($soarPath)
     {
         $this->soarPath = $soarPath;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdoConfig()
+    {
+        return $this->pdoConfig;
     }
 
     /**
