@@ -26,6 +26,7 @@ if (!function_exists('soar_config')) {
                  ] as $file) {
             if (file_exists($file)) {
                 $config = require $file;
+
                 break;
             }
         }
