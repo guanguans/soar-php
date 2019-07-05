@@ -12,7 +12,7 @@ return PhpCsFixer\Config::create()
     ->setRules(array(
         '@Symfony' => true,
         'header_comment' => array(
-            'commentType' => 'PHPDoc',
+            // 'commentType' => 'PHPDoc',
             'header' => $header
         ),
         'array_syntax' => array('syntax' => 'short'),
