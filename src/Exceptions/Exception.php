@@ -1,7 +1,7 @@
 <?php
 
-/**
- * This file is part of the guanguans/soar-php.
+/*
+ * *This file is part of the guanguans/soar-php.
  *
  * (c) 琯琯 <yzmguanguan@gmail.com>
  *
