@@ -10,8 +10,18 @@
 
 namespace Guanguans\Tests;
 
-class ToDoTest extends TestCase
+use Guanguans\SoarPHP\Soar;
+
+class SoarTest extends TestCase
 {
+    protected $soar;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->soar = new Soar();
+    }
+
     public function testToDo()
     {
         $this->assertStringStartsWith('to', 'to do tests');

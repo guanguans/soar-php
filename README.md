@@ -211,6 +211,34 @@ echo $soar->md2html("## 这是一个测试");
 ...
 ```
 
+### soar 帮助
+
+**方法调用：**
+
+``` php
+var_dump($soar->help());
+```
+
+**输出结果：**
+
+``` yaml
+···
+'Usage of /Users/yaozm/Documents/wwwroot/soar-php/soar:
+  -allow-charsets string
+    	AllowCharsets (default "utf8,utf8mb4")
+  -allow-collates string
+    	AllowCollates
+  -allow-drop-index
+    	AllowDropIndex, 允许输出删除重复索引的建议
+  -allow-engines string
+    	AllowEngines (default "innodb")
+  -allow-online-as-test
+    	AllowOnlineAsTest, 允许线上环境也可以当作测试环境
+  -blacklist string
+    	指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。
+···    
+```
+
 ### 执行任意 soar 命令
 
 **方法调用：**

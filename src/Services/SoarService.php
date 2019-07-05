@@ -250,4 +250,14 @@ class SoarService implements SoarInterface
     {
         return $this->exec("echo '$markdown' | $this->soarPath -report-type md2html");
     }
+
+    /**
+     * @return string|null
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
+    public function help()
+    {
+        return $this->exec("$this->soarPath --help");
+    }
 }
