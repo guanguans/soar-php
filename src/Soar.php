@@ -14,9 +14,15 @@ use Guanguans\SoarPHP\Contracts\SoarInterface;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Support\Arr;
+use Guanguans\SoarPHP\Traits\Exec;
+use Guanguans\SoarPHP\Traits\HasAttributes;
 
 class Soar implements SoarInterface
 {
+    use HasAttributes;
+
+    use Exec;
+
     /**
      * @var
      */
@@ -164,25 +170,6 @@ class Soar implements SoarInterface
         }
 
         return $configStr;
-    }
-
-    /**
-     * @param $command
-     *
-     * @return string|null
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     */
-    public function exec($command)
-    {
-        if (!is_string($command)) {
-            throw new InvalidArgumentException('Command type must be a string');
-        }
-        if (false === strpos($command, 'soar')) {
-            throw new InvalidArgumentException(sprintf("Command error: '%s'", $command));
-        }
-
-        return shell_exec($command);
     }
 
     /**
