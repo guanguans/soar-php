@@ -18,7 +18,20 @@ if (!function_exists('soar_config')) {
      */
     function soar_config($key = null)
     {
-        $config = new Config(require __DIR__.'/../config/soar.php');
+        foreach ([
+                     __DIR__.'/../../../../.soar',
+                     __DIR__.'/../.soar',
+                     __DIR__.'/../../../../.soar.dist',
+                     __DIR__.'/../.soar.dist',
+                 ] as $file) {
+            if (file_exists($file)) {
+                $config = require $file;
+                break;
+            }
+        }
+
+        $config = new Config(isset($config) ? $config : []);
+
         if (null === $key) {
             return $config;
         }

@@ -10,6 +10,8 @@
 
 namespace Guanguans\SoarPHP\Traits;
 
+use Guanguans\SoarPHP\Exceptions\Exception;
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\Arr;
 use Guanguans\SoarPHP\Support\Str;
 
@@ -169,6 +171,8 @@ trait HasAttributes
      * Return all items.
      *
      * @return array
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function all()
     {
@@ -180,10 +184,12 @@ trait HasAttributes
     /**
      * Magic call.
      *
-     * @param string $method
-     * @param array  $args
+     * @param $method
+     * @param $args
      *
-     * @return $this
+     * @return \Guanguans\SoarPHP\Traits\HasAttributes
+     *
+     * @throws Exception
      */
     public function __call($method, $args)
     {
@@ -191,7 +197,7 @@ trait HasAttributes
             return $this->with(substr($method, 4), array_shift($args));
         }
 
-        throw new \Exception(sprintf('Method "%s" does not exists.', $method));
+        throw new Exception(sprintf('Method "%s" does not exists.', $method));
     }
 
     /**
@@ -239,8 +245,8 @@ trait HasAttributes
     protected function checkRequiredAttributes()
     {
         foreach ($this->getRequired() as $attribute) {
-            if (is_null($this->get($attribute))) {
-                throw new InvalidArgumentExceptionException(sprintf('"%s" cannot be empty.', $attribute));
+            if (null === $this->get($attribute)) {
+                throw new InvalidArgumentException(sprintf('"%s" cannot be empty.', $attribute));
             }
         }
     }

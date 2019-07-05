@@ -9,3 +9,5 @@ composer.lock
 soar.log
 soar
 tests.php
+.soar
+.soar.dist
