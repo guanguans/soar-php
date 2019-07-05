@@ -4,14 +4,14 @@ checks:
         duplication: true
 filter:
     excluded_paths:
-        - tests/*
-        - 'bin/*'
+        - 'tests/*'
         - 'config/*'
-        - 'src/Helpers.php'
         - 'src/Config.php'
-        - 'src/Exception/'
-        - 'src/Support/'
-        - 'src/Contract/'
+        - 'src/Helpers.php'
+        - 'src/PDO.php'
+        - 'src/Contracts/*'
+        - 'src/Exceptions/*'
+        - 'src/Support/*'
 build:
     tests:
         override:

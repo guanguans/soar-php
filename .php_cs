@@ -11,7 +11,10 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules(array(
         '@Symfony' => true,
-        'header_comment' => array('header' => $header),
+        'header_comment' => array(
+            'commentType' => 'PHPDoc',
+            'header' => $header
+        ),
         'array_syntax' => array('syntax' => 'short'),
         'ordered_imports' => true,
         'no_useless_else' => true,
