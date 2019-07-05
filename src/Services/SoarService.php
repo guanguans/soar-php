@@ -51,7 +51,7 @@ class SoarService implements SoarInterface
      */
     public function __construct(array $config = [])
     {
-        if (empty($config = array_merge($config, soar_config()->toArray()))) {
+        if (empty($config = array_merge(soar_config()->toArray(), $config))) {
             throw new InvalidConfigException('Config is empty or .soar|.soar.dist config file not exist');
         }
 
