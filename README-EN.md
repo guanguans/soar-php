@@ -215,7 +215,8 @@ echo $soar->md2html("## this is a test");
 **Method call:**
 
 ``` php
-echo $soar->exec("echo '## This is another test'' | /Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64 -report-type md2html");
+$command = "echo '## 这是另一个测试' | /Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64 -report-type md2html";
+echo $soar->exec($command);
 ```
 
 **Output results:**
