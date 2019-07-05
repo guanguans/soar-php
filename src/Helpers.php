@@ -7,7 +7,6 @@
  *
  * This source file is subject to the MIT license that is bundled.
  */
-
 use Guanguans\SoarPHP\Config;
 
 if (!function_exists('soar_config')) {
