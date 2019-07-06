@@ -10,6 +10,8 @@
 
 namespace Guanguans\SoarPHP\Support;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+
 /**
  * Array helper from Illuminate\Support\Arr.
  */
@@ -406,18 +408,24 @@ class Arr
     }
 
     /**
-     * Set an array item to a given value using "dot" notation.
+     * * Set an array item to a given value using "dot" notation.
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param array  $array
-     * @param string $key
-     * @param mixed  $value
+     * @param array $array
+     * @param $key
+     * @param $value
      *
-     * @return array
+     * @return array|mixed
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public static function set(array &$array, string $key, $value)
+    public static function set(array &$array, $key, $value)
     {
+        if (!is_string($key)) {
+            throw new InvalidArgumentException('Array key type must be a string');
+        }
+
         $keys = explode('.', $key);
 
         while (count($keys) > 1) {
