@@ -24,10 +24,10 @@ after_script:
     - bash <(curl -s https://codecov.io/bash)
 
 after_failure:
-    - curl "https://api.day.app/${API_DAY_TOKEN}/soar-php 构建失败 https://travis-ci.org/guanguans/soar-php/builds"
+    - curl "https://api.day.app/${API_URL_TOKEN}/soar-php-构建失败?url=https://travis-ci.org/guanguans/soar-php/builds"
 
 after_success:
-    - curl "https://api.day.app/${API_DAY_TOKEN}/soar-php 构建成功"
+    - curl "https://api.day.app/${API_CONTENT_TOKEN}/soar-php-构建成功"
 
 notifications:
     email: false
