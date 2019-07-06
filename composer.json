@@ -7,7 +7,7 @@
         "debug",
         "php"
     ],
-    "description": "sql debugging tool",
+    "description": "SQL optimizer and rewriter php extension package.",
     "support": {
         "issues": "https://github.com/guanguans/soar-php/issues",
         "source": "https://github.com/guanguans/soar-php"
