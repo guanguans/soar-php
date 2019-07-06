@@ -21,7 +21,7 @@ class SoarTest extends TestCase
         parent::setUp();
 
         $this->soar = new Soar([
-            '-soar-path' => './../soar.linux-amd64',
+            '-soar-path' => './soar.linux-amd64',
             '-test-dsn' => [
                 'host' => '127.0.0.1',
                 'port' => '3306',
