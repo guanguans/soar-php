@@ -51,7 +51,7 @@ class SoarService implements SoarInterface
      */
     public function __construct(array $config = [])
     {
-        if (empty($config = array_merge(soar_config()->toArray(), $config))) {
+        if (empty($config = soar_config()->merge($config)->all())) {
             throw new InvalidConfigException('Config is empty or .soar|.soar.dist config file not exist');
         }
 
@@ -129,7 +129,7 @@ class SoarService implements SoarInterface
      */
     public function setConfig(array $config)
     {
-        $this->config = new Config($config);
+        $this->config = $config;
     }
 
     /**
@@ -167,7 +167,7 @@ class SoarService implements SoarInterface
      */
     public function score($sql)
     {
-        return $this->exec("echo '$sql;' | $this->soarPath ".$this->getFormatConfig($this->config->toArray()));
+        return $this->exec("echo '$sql;' | $this->soarPath ".$this->getFormatConfig($this->config));
     }
 
     /**
@@ -185,7 +185,7 @@ class SoarService implements SoarInterface
             throw new InvalidArgumentException('Invalid type value(md/html): '.$format);
         }
 
-        $output = $this->exec("$this->soarPath ".$this->getFormatConfig($this->config->toArray()).' -report-type explain-digest << '.$this->getPdo()->getStrExplain($sql));
+        $output = $this->exec("$this->soarPath ".$this->getFormatConfig($this->config).' -report-type explain-digest << '.$this->getPdo()->getStrExplain($sql));
         if ('html' === \strtolower($format)) {
             return $this->md2html($output);
         }

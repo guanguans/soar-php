@@ -15,5 +15,5 @@ use Guanguans\SoarPHP\Traits\HasAttributes;
 
 class Soar extends SoarService
 {
-    // use HasAttributes;
+    use HasAttributes;
 }
