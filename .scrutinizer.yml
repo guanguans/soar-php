@@ -5,14 +5,13 @@ checks:
 filter:
     excluded_paths:
         - 'tests/*'
-        - 'config/*'
-        - 'src/Config.php'
-        - 'src/Helpers.php'
-        - 'src/PDO.php'
         - 'src/Contracts/*'
         - 'src/Exceptions/*'
         - 'src/Support/*'
         - 'src/Traits/*'
+        - 'src/Config.php'
+        - 'src/Helpers.php'
+        - 'src/PDO.php'
 build:
     tests:
         override:

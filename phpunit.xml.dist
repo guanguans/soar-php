@@ -19,7 +19,6 @@
             <exclude>
                 <directory>src/Contracts</directory>
                 <directory>src/Exceptions</directory>
-                <directory>src/Services</directory>
                 <directory>src/Support</directory>
                 <directory>src/Traits</directory>
                 <file>src/Config.php</file>
