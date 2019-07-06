@@ -12,6 +12,7 @@ filter:
         - 'src/Contracts/*'
         - 'src/Exceptions/*'
         - 'src/Support/*'
+        - 'src/Traits/*'
 build:
     tests:
         override:
