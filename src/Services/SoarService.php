@@ -97,7 +97,7 @@ class SoarService implements SoarInterface
      */
     public function setPdoConfig(array $pdoConfig)
     {
-        $this->pdoConfig = new Config($pdoConfig);
+        $this->pdoConfig = $pdoConfig;
     }
 
     /**
@@ -110,9 +110,9 @@ class SoarService implements SoarInterface
         }
 
         return $this->pdo = new PDO(
-            'mysql:host='.$this->pdoConfig->host.';port='.$this->pdoConfig->port.';dbname='.$this->pdoConfig->dbname,
-            $this->pdoConfig->username,
-            $this->pdoConfig->password
+            'mysql:host='.$this->pdoConfig['host'].';port='.$this->pdoConfig['port'].';dbname='.$this->pdoConfig['dbname'],
+            $this->pdoConfig['username'],
+            $this->pdoConfig['password']
         );
     }
 
