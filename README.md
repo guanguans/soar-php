@@ -24,6 +24,15 @@
 * ext-pdo
 * ext-json
 
+## 框架中使用
+
+- [x] [ThinkPHP](https://github.com/guanguans/think-soar)
+- [ ] Symfony
+- [ ] Laravel
+- [ ] Lumen
+- [ ] Yii2
+- [ ] Slim
+
 ## 安装
 
 ``` shell
