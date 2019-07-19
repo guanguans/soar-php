@@ -26,7 +26,7 @@
 
 ## 框架中使用
 
-- [x] [ThinkPHP](https://github.com/guanguans/think-soar)
+- [x] ThinkPHP - [think-soar](https://github.com/guanguans/think-soar)
 - [ ] Symfony
 - [ ] Laravel
 - [ ] Lumen
