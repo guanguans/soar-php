@@ -13,6 +13,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "leslieeilsel",
+      "name": "Leslie Lau",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/25165449?v=4",
+      "profile": "http://leslieeilsel.com/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
