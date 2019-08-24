@@ -87,7 +87,12 @@ EOF';
      */
     public function getArrExplain($sql)
     {
-        foreach ($this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC) as $row) {
+        $res = $this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC);
+        if (false === $res) {
+            throw new PDOException(sprintf('Sql statement error: %s', $sql));
+        }
+
+        foreach ($res as $row) {
             return $row;
         }
     }
