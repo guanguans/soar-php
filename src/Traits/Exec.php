@@ -29,8 +29,13 @@ trait Exec
         if (!is_string($command)) {
             throw new InvalidArgumentException('Command type must be a string');
         }
+
         if (false === strpos(strtolower($command), 'soar')) {
             throw new InvalidArgumentException(sprintf("Command error: '%s'", $command));
+        }
+
+        if (true === isWinOs()) {
+            $command = 'powershell '.$command;
         }
 
         return shell_exec($command);
