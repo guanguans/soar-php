@@ -65,18 +65,18 @@ EOF';
 
         return sprintf(
             $this->explainSkeleton,
-            $explain['id'],
-            $explain['select_type'],
-            $explain['table'],
-            $explain['partitions'],
-            $explain['type'],
-            $explain['possible_keys'],
-            $explain['key'],
-            $explain['key_len'],
-            $explain['ref'],
-            $explain['rows'],
-            $explain['filtered'],
-            $explain['Extra']
+            empty($explain['id']) ? '' : $explain['id'],
+            empty($explain['select_type']) ? '' : $explain['select_type'],
+            empty($explain['table']) ? '' : $explain['table'],
+            empty($explain['partitions']) ? '' : $explain['partitions'],
+            empty($explain['type']) ? '' : $explain['type'],
+            empty($explain['possible_keys']) ? '' : $explain['possible_keys'],
+            empty($explain['key']) ? '' : $explain['key'],
+            empty($explain['key_len']) ? '' : $explain['key_len'],
+            empty($explain['ref']) ? '' : $explain['ref'],
+            empty($explain['rows']) ? '' : $explain['rows'],
+            empty($explain['filtered']) ? '' : $explain['filtered'],
+            empty($explain['Extra']) ? '' : $explain['Extra']
         );
     }
 
