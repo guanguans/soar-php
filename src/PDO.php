@@ -64,7 +64,7 @@ EOF';
         $explain = $this->getArrExplain($sql);
 
         return sprintf(
-            $this->explainSkeleton,
+            $this->getExplainSkeleton(),
             $explain['id'],
             $explain['select_type'],
             $explain['table'],
@@ -87,6 +87,10 @@ EOF';
      */
     public function getArrExplain($sql)
     {
+        if (empty($sql)) {
+            throw new PDOException('Sql statement cannot be empty.');
+        }
+
         $res = $this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC);
         if (false === $res) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
