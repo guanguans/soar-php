@@ -61,7 +61,7 @@ EOF';
      */
     public function getStrExplain($sql)
     {
-        $explain = $this->getArrExplain($sql);
+        $explain = $this->getAllExplain($sql);
 
         return sprintf(
             $this->getExplainSkeleton(),
@@ -83,21 +83,76 @@ EOF';
     /**
      * @param $sql
      *
-     * @return mixed
+     * @return array|mixed
      */
-    public function getArrExplain($sql)
+    public function getAllExplain($sql)
     {
         if (empty($sql)) {
             throw new PDOException('Sql statement cannot be empty.');
         }
 
-        $res = $this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC);
-        if (false === $res) {
+        if ($this->getMysqlVersion() >= 5.7) {
+            return $this->getExplain($sql);
+        }
+
+        return array_merge($this->getPartitionsExplain($sql), $this->getFilteredExplain($sql));
+    }
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function getExplain($sql)
+    {
+        if (false === ($explain = $this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
-        foreach ($res as $row) {
+        foreach ($explain as $row) {
             return $row;
+        }
+    }
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function getPartitionsExplain($sql)
+    {
+        if (false === ($explainPartitions = $this->conn->query('EXPLAIN partitions '.$sql, self::FETCH_ASSOC))) {
+            throw new PDOException(sprintf('Sql statement error: %s', $sql));
+        }
+
+        foreach ($explainPartitions as $row) {
+            return $row;
+        }
+    }
+
+    /**
+     * @param $sql
+     *
+     * @return mixed
+     */
+    public function getFilteredExplain($sql)
+    {
+        if (false === ($explainFiltered = $this->conn->query('EXPLAIN extended '.$sql, self::FETCH_ASSOC))) {
+            throw new PDOException(sprintf('Sql statement error: %s', $sql));
+        }
+
+        foreach ($explainFiltered as $row) {
+            return $row;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMysqlVersion()
+    {
+        foreach ($this->conn->query('SELECT version();', self::FETCH_ASSOC) as $row) {
+            return $row['version()'];
         }
     }
 
