@@ -27,12 +27,12 @@
 
 ## 框架中使用
 
+- [x] Laravel - [laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
 - [x] ThinkPHP - [think-soar](https://github.com/guanguans/think-soar)
-- [ ] Symfony
-- [ ] Laravel
-- [ ] Lumen
 - [ ] Yii2
+- [ ] Symfony
 - [ ] Slim
+- [ ] Lumen
 
 ## 安装
 

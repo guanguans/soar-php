@@ -24,6 +24,15 @@
 * ext-pdo
 * ext-json
 
+## Used in the framework
+
+- [x] Laravel - [laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+- [x] ThinkPHP - [think-soar](https://github.com/guanguans/think-soar)
+- [ ] Yii2
+- [ ] Symfony
+- [ ] Slim
+- [ ] Lumen
+
 ## Installation
 
 ``` shell
