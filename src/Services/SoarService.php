@@ -12,12 +12,10 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Services;
 
-use Guanguans\SoarPHP\Config;
 use Guanguans\SoarPHP\Contracts\SoarInterface;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\PDO;
-use Guanguans\SoarPHP\Support\Arr;
 use Guanguans\SoarPHP\Traits\HasExecAble;
 
 class SoarService implements SoarInterface
@@ -25,12 +23,12 @@ class SoarService implements SoarInterface
     use HasExecAble;
 
     /**
-     * @var
+     * @var array
      */
     protected $config;
 
     /**
-     * @var
+     * @var string
      */
     protected $soarPath;
 
@@ -40,7 +38,7 @@ class SoarService implements SoarInterface
     protected $pdo;
 
     /**
-     * @var
+     * @var array
      */
     protected $pdoConfig;
 
@@ -71,25 +69,25 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getSoarPath()
+    public function getSoarPath(): string
     {
         return $this->soarPath;
     }
 
     /**
-     * @param mixed $soarPath
+     * @param string $soarPath
      */
-    public function setSoarPath($soarPath)
+    public function setSoarPath(string $soarPath)
     {
         $this->soarPath = $soarPath;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getPdoConfig()
+    public function getPdoConfig(): array
     {
         return $this->pdoConfig;
     }
@@ -105,7 +103,7 @@ class SoarService implements SoarInterface
     /**
      * @return \Guanguans\SoarPHP\PDO
      */
-    public function getPdo()
+    public function getPdo(): PDO
     {
         if (null !== $this->pdo) {
             return $this->pdo;
@@ -119,9 +117,9 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getConfig()
+    public function getConfig(): array
     {
         return $this->config;
     }
@@ -141,8 +139,7 @@ class SoarService implements SoarInterface
      */
     public function getFormatConfig(array $configs)
     {
-        Arr::forget($configs, '-soar-path');
-
+        unset($configs['-soar-path']);
         $configStr = '';
         foreach ($configs as $key => $config) {
             if (!is_array($config)) {
@@ -161,27 +158,26 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function score($sql)
+    public function score(string $sql): string
     {
         return $this->exec("echo '$sql;' | $this->soarPath ".$this->getFormatConfig($this->config));
     }
 
     /**
-     * @param $sql
-     * @param $format
+     * @param string $sql
+     * @param string $format
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
-    public function explain($sql, $format)
+    public function explain(string $sql, string $format): string
     {
         if (!\in_array(\strtolower($format), ['md', 'html'])) {
             throw new InvalidArgumentException('Invalid type value(md/html): '.$format);
@@ -196,85 +192,85 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
-    public function mdExplain($sql)
+    public function mdExplain(string $sql): string
     {
         return $this->explain($sql, 'md');
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
-    public function htmlExplain($sql)
+    public function htmlExplain(string $sql): string
     {
         return $this->explain($sql, 'html');
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function syntaxCheck($sql)
+    public function syntaxCheck(string $sql): string
     {
         return $this->exec("echo '$sql;' | $this->soarPath -only-syntax-check");
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function fingerPrint($sql)
+    public function fingerPrint(string $sql): string
     {
         return $this->exec("echo '$sql;' | $this->soarPath -report-type=fingerprint");
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function pretty($sql)
+    public function pretty(string $sql): string
     {
         return $this->exec("echo '$sql;' | $this->soarPath -report-type=pretty");
     }
 
     /**
-     * @param $markdown
+     * @param string $markdown
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function md2html($markdown)
+    public function md2html(string $markdown): string
     {
         return $this->exec("echo '$markdown' | $this->soarPath -report-type md2html");
     }
 
     /**
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function help()
+    public function help(): string
     {
         return $this->exec("$this->soarPath --help");
     }
