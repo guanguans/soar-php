@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the guanguans/soar-php.
  *
@@ -13,9 +15,9 @@ namespace Guanguans\SoarPHP\Traits;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 
 /**
- * Trait Exec.
+ * Trait HasExecAble.
  */
-trait Exec
+trait HasExecAble
 {
     /**
      * @param $command
