@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Traits;
 
-use PDOException;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use PDOException;
 
 trait PDOExplainAttributes
 {
