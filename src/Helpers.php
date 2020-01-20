@@ -42,13 +42,3 @@ if (!function_exists('soar_config')) {
         return $config->get($key);
     }
 }
-
-if (!function_exists('isWinOs')) {
-    /**
-     * @return bool
-     */
-    function isWinOs()
-    {
-        return PATH_SEPARATOR !== ':';
-    }
-}
