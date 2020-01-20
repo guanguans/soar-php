@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the guanguans/soar-php.
  *
@@ -16,11 +18,11 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\PDO;
 use Guanguans\SoarPHP\Support\Arr;
-use Guanguans\SoarPHP\Traits\Exec;
+use Guanguans\SoarPHP\Traits\HasExecAble;
 
 class SoarService implements SoarInterface
 {
-    use Exec;
+    use HasExecAble;
 
     /**
      * @var

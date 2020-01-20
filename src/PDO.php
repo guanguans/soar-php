@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the guanguans/soar-php.
  *
@@ -45,13 +47,12 @@ EOF';
         $password = null,
         array $options = [self::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
     ) {
-        parent::__construct($dsn, $username, $password, $options);
-
         try {
-            $this->conn = new BasePDO($dsn, $username, $password, $options);
+            parent::__construct($dsn, $username, $password, $options);
         } catch (PDOException $e) {
             throw new PDOException($e->getMessage());
         }
+        $this->conn = new BasePDO($dsn, $username, $password, $options);
     }
 
     /**
@@ -59,7 +60,7 @@ EOF';
      *
      * @return string
      */
-    public function getStrExplain($sql)
+    public function getStrExplain(string $sql): string
     {
         $explain = $this->getAllExplain($sql);
 
@@ -121,7 +122,8 @@ EOF';
      */
     public function getPartitionsExplain($sql)
     {
-        if (false === ($explainPartitions = $this->conn->query('EXPLAIN partitions '.$sql, self::FETCH_ASSOC))) {
+        if (false === ($explainPartitions = $this->conn->query('EXPLAIN partitions '.$sql,
+                self::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
@@ -137,7 +139,8 @@ EOF';
      */
     public function getFilteredExplain($sql)
     {
-        if (false === ($explainFiltered = $this->conn->query('EXPLAIN extended '.$sql, self::FETCH_ASSOC))) {
+        if (false === ($explainFiltered = $this->conn->query('EXPLAIN extended '.$sql,
+                self::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
