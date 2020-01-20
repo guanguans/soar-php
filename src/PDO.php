@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use PDO as BasePDO;
 use PDOException;
 
@@ -59,6 +60,8 @@ EOF';
      * @param string $sql
      *
      * @return string
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getStrExplain(string $sql): string
     {
@@ -85,6 +88,8 @@ EOF';
      * @param string $sql
      *
      * @return array
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getAllExplain(string $sql): array
     {
@@ -92,70 +97,28 @@ EOF';
             throw new PDOException('Sql statement cannot be empty.');
         }
 
-        if ($this->getMysqlVersion() >= 5.7) {
-            return $this->getExplain($sql);
-        }
-
-        return array_merge($this->getPartitionsExplain($sql), $this->getFilteredExplain($sql));
+        return array_merge($this->getExplain($sql, 'partitions'), $this->getExplain($sql, 'extended'));
     }
 
     /**
-     * @param string $sql
+     * @param string      $sql
+     * @param string|null $type
      *
      * @return array
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function getExplain(string $sql): array
+    public function getExplain(string $sql, string $type = null): array
     {
-        if (false === ($explain = $this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC))) {
+        if (null !== $type && !\in_array(\strtolower($type), ['partitions', 'extended'])) {
+            throw new InvalidArgumentException('Invalid type value(partitions/extended): '.$type);
+        }
+        if (false === ($explain = $this->conn->query('EXPLAIN '.$type.' '.$sql, self::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
         foreach ($explain as $row) {
             return $row;
-        }
-    }
-
-    /**
-     * @param string $sql
-     *
-     * @return array
-     */
-    public function getPartitionsExplain(string $sql): array
-    {
-        if (false === ($explainPartitions = $this->conn->query('EXPLAIN partitions '.$sql,
-                self::FETCH_ASSOC))) {
-            throw new PDOException(sprintf('Sql statement error: %s', $sql));
-        }
-
-        foreach ($explainPartitions as $row) {
-            return $row;
-        }
-    }
-
-    /**
-     * @param string $sql
-     *
-     * @return array
-     */
-    public function getFilteredExplain(string $sql): array
-    {
-        if (false === ($explainFiltered = $this->conn->query('EXPLAIN extended '.$sql,
-                self::FETCH_ASSOC))) {
-            throw new PDOException(sprintf('Sql statement error: %s', $sql));
-        }
-
-        foreach ($explainFiltered as $row) {
-            return $row;
-        }
-    }
-
-    /**
-     * @return float
-     */
-    public function getMysqlVersion(): float
-    {
-        foreach ($this->conn->query('SELECT version();', self::FETCH_ASSOC) as $row) {
-            return $row['version()'];
         }
     }
 
@@ -168,7 +131,7 @@ EOF';
     }
 
     /**
-     * @param $explainSkeleton
+     * @param string $explainSkeleton
      */
     public function setExplainSkeleton(string $explainSkeleton)
     {
