@@ -56,7 +56,7 @@ EOF';
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
      * @return string
      */
@@ -82,11 +82,11 @@ EOF';
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return array|mixed
+     * @return array
      */
-    public function getAllExplain($sql)
+    public function getAllExplain(string $sql): array
     {
         if (empty($sql)) {
             throw new PDOException('Sql statement cannot be empty.');
@@ -100,11 +100,11 @@ EOF';
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return array
      */
-    public function getExplain($sql)
+    public function getExplain(string $sql): array
     {
         if (false === ($explain = $this->conn->query('EXPLAIN '.$sql, self::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
@@ -116,11 +116,11 @@ EOF';
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return array
      */
-    public function getPartitionsExplain($sql)
+    public function getPartitionsExplain(string $sql): array
     {
         if (false === ($explainPartitions = $this->conn->query('EXPLAIN partitions '.$sql,
                 self::FETCH_ASSOC))) {
@@ -133,11 +133,11 @@ EOF';
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return array
      */
-    public function getFilteredExplain($sql)
+    public function getFilteredExplain(string $sql): array
     {
         if (false === ($explainFiltered = $this->conn->query('EXPLAIN extended '.$sql,
                 self::FETCH_ASSOC))) {
@@ -150,9 +150,9 @@ EOF';
     }
 
     /**
-     * @return mixed
+     * @return float
      */
-    public function getMysqlVersion()
+    public function getMysqlVersion(): float
     {
         foreach ($this->conn->query('SELECT version();', self::FETCH_ASSOC) as $row) {
             return $row['version()'];
@@ -162,7 +162,7 @@ EOF';
     /**
      * @return string
      */
-    public function getExplainSkeleton()
+    public function getExplainSkeleton(): string
     {
         return $this->explainSkeleton;
     }
@@ -170,7 +170,7 @@ EOF';
     /**
      * @param $explainSkeleton
      */
-    public function setExplainSkeleton($explainSkeleton)
+    public function setExplainSkeleton(string $explainSkeleton)
     {
         $this->explainSkeleton = $explainSkeleton;
     }
