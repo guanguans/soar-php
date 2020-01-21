@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the guanguans/soar-php.
  *
@@ -11,30 +13,27 @@
 namespace Guanguans\SoarPHP\Traits;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\SoarPHP\Support\OsHelper;
 
 /**
- * Trait Exec.
+ * Trait HasExecAble.
  */
-trait Exec
+trait HasExecAble
 {
     /**
-     * @param $command
+     * @param string $command
      *
-     * @return string|null
+     * @return string
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function exec($command)
+    public function exec(string $command): string
     {
-        if (!is_string($command)) {
-            throw new InvalidArgumentException('Command type must be a string');
-        }
-
         if (false === strpos(strtolower($command), 'soar')) {
             throw new InvalidArgumentException(sprintf("Command error: '%s'", $command));
         }
 
-        if (true === isWinOs()) {
+        if (true === OsHelper::isWindows()) {
             $command = 'powershell '.$command;
         }
 

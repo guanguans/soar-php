@@ -21,9 +21,8 @@
 
 ## Requirements
 
-* PHP >= 5.6
+* PHP >= 7.1
 * ext-pdo
-* ext-json
 
 ## Used in the framework
 
@@ -33,7 +32,6 @@
 - [ ] Yii2
 - [ ] Symfony
 - [ ] Slim
-- [ ] Lumen
 
 ## Installation
 

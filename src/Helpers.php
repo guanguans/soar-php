@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the guanguans/soar-php.
  *
@@ -38,15 +40,5 @@ if (!function_exists('soar_config')) {
         }
 
         return $config->get($key);
-    }
-}
-
-if (!function_exists('isWinOs')) {
-    /**
-     * @return bool
-     */
-    function isWinOs()
-    {
-        return PATH_SEPARATOR !== ':';
     }
 }

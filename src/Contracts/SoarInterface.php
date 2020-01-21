@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the guanguans/soar-php.
  *
@@ -20,52 +22,52 @@ interface SoarInterface
     public function __construct(array $config);
 
     /**
-     * @param $command
+     * @param string $command
      *
-     * @return mixed
+     * @return string
      */
-    public function exec($command);
+    public function exec(string $command): string;
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return string
      */
-    public function score($sql);
+    public function score(string $sql): string;
 
     /**
-     * @param $sql
-     * @param $format
+     * @param string $sql
+     * @param string $format
      *
-     * @return mixed
+     * @return string
      */
-    public function explain($sql, $format);
+    public function explain(string $sql, string $format): string;
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return string
      */
-    public function syntaxCheck($sql);
+    public function syntaxCheck(string $sql): string;
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return string
      */
-    public function fingerPrint($sql);
+    public function fingerPrint(string $sql): string;
 
     /**
-     * @param $sql
+     * @param string $sql
      *
-     * @return mixed
+     * @return string
      */
-    public function pretty($sql);
+    public function pretty(string $sql): string;
 
     /**
-     * @param $markdown
+     * @param string $markdown
      *
-     * @return mixed
+     * @return string
      */
-    public function md2html($markdown);
+    public function md2html(string $markdown): string;
 }

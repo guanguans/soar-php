@@ -21,9 +21,8 @@
 
 ## 环境要求
 
-* PHP >= 5.6
+* PHP >= 7.1
 * ext-pdo
-* ext-json
 
 ## 框架中使用
 
@@ -33,7 +32,6 @@
 - [ ] Yii2
 - [ ] Symfony
 - [ ] Slim
-- [ ] Lumen
 
 ## 安装
 
