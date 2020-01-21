@@ -89,7 +89,9 @@ EOF';
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
-        foreach ($explain as $row) return $row;
+        foreach ($explain as $row) {
+            return $row;
+        }
     }
 
     /**
