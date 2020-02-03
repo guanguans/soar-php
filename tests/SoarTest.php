@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
+use Guanguans\SoarPHP\PDO;
 use Guanguans\SoarPHP\Soar;
 
 class SoarTest extends TestCase
@@ -28,7 +29,7 @@ class SoarTest extends TestCase
                 'host' => '127.0.0.1',
                 'port' => '3306',
                 'dbname' => 'dbname',
-                'usersname' => 'usersname',
+                'username' => 'username',
                 'password' => 'password',
             ],
             '-log-output' => './soar.log',
@@ -59,6 +60,11 @@ class SoarTest extends TestCase
         $this->assertArrayHasKey('key2', $this->soar->getPdoConfig());
     }
 
+    public function testGetPdo()
+    {
+        $this->assertInstanceOf(PDO::class, $this->soar->getPdo());
+    }
+
     public function testSetConfig()
     {
         $this->soar->setConfig(['key' => 'value']);
@@ -75,6 +81,62 @@ class SoarTest extends TestCase
     {
         $this->assertStringStartsWith(' -', $this->soar->getFormatConfig(['-log-output' => 'soar.log']));
         $this->assertSame(' -log-output=soar.log ', $this->soar->getFormatConfig(['-log-output' => 'soar.log']));
+        $this->assertStringContainsString('{"', $this->soar->getFormatConfig([
+            '-test' => [
+                'key1' => 'val1',
+                'key2' => 'val2',
+            ],
+        ]));
+        $this->assertStringContainsString('"}', $this->soar->getFormatConfig([
+            '-test' => [
+                'key1' => 'val1',
+                'key2' => 'val2',
+            ],
+        ]));
+        $this->assertStringContainsString(':', $this->soar->getFormatConfig([
+                ' -test-dsn ' => [
+                    'host' => '127.0.0.1',
+                    'port' => '3306',
+                    'dbname' => 'dbname',
+                    'username' => 'usersname',
+                    'password' => 'password',
+                    'disable' => false,
+                ],
+            ]
+        ));
+        $this->assertStringContainsString('@', $this->soar->getFormatConfig([
+                '-test-dsn' => [
+                    'host' => '127.0.0.1',
+                    'port' => '3306',
+                    'dbname' => 'dbname',
+                    'username' => 'usersname',
+                    'password' => 'password',
+                    'disable' => false,
+                ],
+            ]
+        ));
+        $this->assertStringContainsString('/', $this->soar->getFormatConfig([
+                '-test-dsn' => [
+                    'host' => '127.0.0.1',
+                    'port' => '3306',
+                    'dbname' => 'dbname',
+                    'username' => 'usersname',
+                    'password' => 'password',
+                    'disable' => false,
+                ],
+            ]
+        ));
+        $this->assertEmpty($this->soar->getFormatConfig([
+                '-test-dsn' => [
+                    'host' => '127.0.0.1',
+                    'port' => '3306',
+                    'dbname' => 'dbname',
+                    'username' => 'usersname',
+                    'password' => 'password',
+                    'disable' => true,
+                ],
+            ]
+        ));
     }
 
     public function testExec()
@@ -102,6 +164,11 @@ class SoarTest extends TestCase
     {
         $this->assertStringMatchesFormat('%A', $this->soar->syntaxCheck('selec * from fa_userss;'));
         $this->assertStringMatchesFormat('%a', $this->soar->syntaxCheck('selec * from fa_userss;'));
+    }
+
+    public function testFingerPrint()
+    {
+        $this->assertStringContainsString('?', $this->soar->fingerPrint('select * from users where id = 1;'));
     }
 
     public function testPretty()
