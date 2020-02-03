@@ -60,11 +60,6 @@ class SoarTest extends TestCase
         $this->assertArrayHasKey('key2', $this->soar->getPdoConfig());
     }
 
-    public function testGetPdo()
-    {
-        $this->assertInstanceOf(PDO::class, $this->soar->getPdo());
-    }
-
     public function testSetConfig()
     {
         $this->soar->setConfig(['key' => 'value']);
