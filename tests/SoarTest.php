@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
-use Guanguans\SoarPHP\PDO;
 use Guanguans\SoarPHP\Soar;
 
 class SoarTest extends TestCase
