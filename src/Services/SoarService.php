@@ -166,7 +166,7 @@ class SoarService implements SoarInterface
      */
     public function score(string $sql): string
     {
-        return $this->exec("echo '$sql;' | $this->soarPath ".$this->getFormatConfig($this->config));
+        return $this->exec("echo \" $sql \" | $this->soarPath ".$this->getFormatConfig($this->config));
     }
 
     /**
@@ -226,7 +226,7 @@ class SoarService implements SoarInterface
      */
     public function syntaxCheck(string $sql): string
     {
-        return $this->exec("echo '$sql;' | $this->soarPath -only-syntax-check");
+        return $this->exec("echo \" $sql \" | $this->soarPath -only-syntax-check");
     }
 
     /**
@@ -238,7 +238,7 @@ class SoarService implements SoarInterface
      */
     public function fingerPrint(string $sql): string
     {
-        return $this->exec("echo '$sql;' | $this->soarPath -report-type=fingerprint");
+        return $this->exec("echo \" $sql \" | $this->soarPath -report-type=fingerprint");
     }
 
     /**
@@ -250,7 +250,7 @@ class SoarService implements SoarInterface
      */
     public function pretty(string $sql): string
     {
-        return $this->exec("echo '$sql;' | $this->soarPath -report-type=pretty");
+        return $this->exec("echo \" $sql \" | $this->soarPath -report-type=pretty");
     }
 
     /**
