@@ -87,7 +87,8 @@ class SoarTest extends TestCase
                 'key2' => 'val2',
             ],
         ]));
-        $this->assertStringContainsString(':', $this->soar->getFormatConfig([
+        $this->assertStringContainsString(':', $this->soar->getFormatConfig(
+            [
                 ' -test-dsn ' => [
                     'host' => '127.0.0.1',
                     'port' => '3306',
@@ -98,7 +99,8 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertStringContainsString('@', $this->soar->getFormatConfig([
+        $this->assertStringContainsString('@', $this->soar->getFormatConfig(
+            [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
                     'port' => '3306',
@@ -109,7 +111,8 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertStringContainsString('/', $this->soar->getFormatConfig([
+        $this->assertStringContainsString('/', $this->soar->getFormatConfig(
+            [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
                     'port' => '3306',
@@ -120,7 +123,8 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertEmpty($this->soar->getFormatConfig([
+        $this->assertEmpty($this->soar->getFormatConfig(
+            [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
                     'port' => '3306',
