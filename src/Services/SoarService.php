@@ -56,7 +56,7 @@ class SoarService implements SoarInterface
         }
 
         if (!file_exists($config['-soar-path']) || !is_executable($config['-soar-path'])) {
-            throw new InvalidConfigException(sprintf("File does not exist, or the file is unreadable: '%s'", $config['-soar-path']));
+            throw new InvalidConfigException(sprintf("File does not exist, or the file is unexecuteable: '%s'", $config['-soar-path']));
         }
 
         if (!array_key_exists('-test-dsn', $config) || (array_key_exists('disable', $config['-test-dsn']) && true === $config['-test-dsn']['disable'])) {
