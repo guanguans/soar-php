@@ -50,6 +50,7 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
 # windows
 $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd64
 # 用其他命令或下载器下载均可以
+$ chmod +x soar.* # 添加可执行权限
 ```
 
 ### 初始化配置，更多详细配置请参考 [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
