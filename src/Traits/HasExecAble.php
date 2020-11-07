@@ -21,10 +21,6 @@ use Guanguans\SoarPHP\Support\OsHelper;
 trait HasExecAble
 {
     /**
-     * @param string $command
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function exec(string $command): string

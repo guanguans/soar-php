@@ -29,9 +29,8 @@ class PDO extends BasePDO
      * PDO constructor.
      *
      * @param $dsn
-     * @param null  $username
-     * @param null  $password
-     * @param array $options
+     * @param null $username
+     * @param null $password
      */
     public function __construct(
         $dsn,
