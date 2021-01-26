@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Services;
 
-use Guanguans\SoarPHP\Contracts\SoarInterface;
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\PDO;
 use Guanguans\SoarPHP\Traits\HasExecAble;
+use Guanguans\SoarPHP\Contracts\SoarInterface;
+use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 
 class SoarService implements SoarInterface
 {
@@ -101,15 +101,11 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @return \Guanguans\SoarPHP\PDO
+     * @return \PDO
      */
-    public function getPdo(): PDO
+    public function getPdo(): \PDO
     {
-        if (null !== $this->pdo) {
-            return $this->pdo;
-        }
-
-        return $this->pdo = new PDO(
+        return PDO::getInstance(
             'mysql:host='.$this->pdoConfig['host'].';port='.$this->pdoConfig['port'].';dbname='.$this->pdoConfig['dbname'],
             $this->pdoConfig['username'],
             $this->pdoConfig['password']

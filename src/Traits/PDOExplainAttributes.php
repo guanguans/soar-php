@@ -12,8 +12,9 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Traits;
 
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use PDO;
 use PDOException;
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 
 trait PDOExplainAttributes
 {
@@ -85,7 +86,7 @@ EOF';
         if (null !== $type && !\in_array(\strtolower($type), ['partitions', 'extended'])) {
             throw new InvalidArgumentException('Invalid type value(partitions/extended): '.$type);
         }
-        if (false === ($explain = $this->conn->query('EXPLAIN '.$type.' '.$sql, self::FETCH_ASSOC))) {
+        if (false === ($explain = static::$conn->query('EXPLAIN '.$type.' '.$sql, PDO::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 

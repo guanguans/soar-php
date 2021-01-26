@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of the guanguans/soar-php.
@@ -12,39 +12,42 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-use Guanguans\SoarPHP\Traits\PDOExplainAttributes;
 use PDO as BasePDO;
-use PDOException;
+use Guanguans\SoarPHP\Traits\PDOExplainAttributes;
 
-class PDO extends BasePDO
+class PDO
 {
     use PDOExplainAttributes;
 
     /**
      * @var \PDO
      */
-    private $conn;
+    private static $conn;
 
     /**
      * PDO constructor.
-     *
-     * @param $dsn
-     * @param null  $username
-     * @param null  $password
-     * @param array $options
      */
-    public function __construct(
+    private function __construct()
+    {
+    }
+
+    /**
+     * @param $dsn
+     * @param  null  $username
+     * @param  null  $password
+     * @param  array|string[]  $options
+     */
+    public static function getInstance(
         $dsn,
         $username = null,
         $password = null,
-        array $options = [self::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-    ) {
-        try {
-            parent::__construct($dsn, $username, $password, $options);
-        } catch (PDOException $e) {
-            throw new PDOException($e->getMessage());
+        array $options = [BasePDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+    ): BasePDO{
+        if (null === static::$conn) {
+            static::$conn = new BasePDO($dsn, $username, $password, $options);
         }
-        $this->conn = new BasePDO($dsn, $username, $password, $options);
+
+        return static::$conn;
     }
 
     /**
@@ -53,5 +56,9 @@ class PDO extends BasePDO
     public function closeConnection()
     {
         $this->conn = null;
+    }
+
+    private function __clone()
+    {
     }
 }
