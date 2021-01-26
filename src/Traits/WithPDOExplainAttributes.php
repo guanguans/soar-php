@@ -30,10 +30,6 @@ trait WithPDOExplainAttributes
 EOF';
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getStrExplain(string $sql): string
@@ -58,10 +54,6 @@ EOF';
     }
 
     /**
-     * @param string $sql
-     *
-     * @return array
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getAllExplain(string $sql): array
@@ -74,11 +66,6 @@ EOF';
     }
 
     /**
-     * @param string      $sql
-     * @param string|null $type
-     *
-     * @return array
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getExplain(string $sql, string $type = null): array
@@ -90,20 +77,16 @@ EOF';
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
-        foreach ($explain as $row) return $row;
+        foreach ($explain as $row) {
+            return $row;
+        }
     }
 
-    /**
-     * @return string
-     */
     public function getExplainSkeleton(): string
     {
         return $this->explainSkeleton;
     }
 
-    /**
-     * @param string $explainSkeleton
-     */
     public function setExplainSkeleton(string $explainSkeleton)
     {
         $this->explainSkeleton = $explainSkeleton;
