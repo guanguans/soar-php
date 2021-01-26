@@ -13,11 +13,11 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP;
 
 use PDO as BasePDO;
-use Guanguans\SoarPHP\Traits\PDOExplainAttributes;
+use Guanguans\SoarPHP\Traits\WithPDOExplainAttributes;
 
-class PDO
+class PDOConnector
 {
-    use PDOExplainAttributes;
+    use WithPDOExplainAttributes;
 
     /**
      * @var \PDO
@@ -25,7 +25,7 @@ class PDO
     private static $conn;
 
     /**
-     * PDO constructor.
+     * PDOConnector constructor.
      */
     private function __construct()
     {
@@ -51,7 +51,7 @@ class PDO
     }
 
     /**
-     * close PDO.
+     * close PDOConnector.
      */
     public function closeConnection()
     {

@@ -12,7 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Services;
 
-use Guanguans\SoarPHP\PDO;
+use PDO;
+use Guanguans\SoarPHP\PDOConnector;
 use Guanguans\SoarPHP\Traits\HasExecAble;
 use Guanguans\SoarPHP\Contracts\SoarInterface;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
@@ -86,9 +87,9 @@ class SoarService implements SoarInterface
         $this->pdoConfig = $pdoConfig;
     }
 
-    public function getPdo(): \PDO
+    public function getPdo(): PDO
     {
-        return PDO::getInstance(
+        return PDOConnector::getInstance(
             'mysql:host='.$this->pdoConfig['host'].';port='.$this->pdoConfig['port'].';dbname='.$this->pdoConfig['dbname'],
             $this->pdoConfig['username'],
             $this->pdoConfig['password']

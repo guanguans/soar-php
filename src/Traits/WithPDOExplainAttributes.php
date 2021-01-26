@@ -16,7 +16,7 @@ use PDO;
 use PDOException;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 
-trait PDOExplainAttributes
+trait WithPDOExplainAttributes
 {
     /**
      * @var string
