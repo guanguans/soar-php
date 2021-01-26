@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-use PDO as BasePDO;
 use Guanguans\SoarPHP\Traits\WithPDOExplainAttributes;
+use PDO;
 
 class PDOConnector
 {
     use WithPDOExplainAttributes;
 
     /**
-     * @var \PDO
+     * @var PDO
      */
     private static $conn;
 
@@ -41,10 +41,10 @@ class PDOConnector
         $dsn,
         $username = null,
         $password = null,
-        array $options = [BasePDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-    ): BasePDO {
+        array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+    ): PDO {
         if (null === static::$conn) {
-            static::$conn = new BasePDO($dsn, $username, $password, $options);
+            static::$conn = new PDO($dsn, $username, $password, $options);
         }
 
         return static::$conn;
