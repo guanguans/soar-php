@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of the guanguans/soar-php.
@@ -33,16 +33,16 @@ class PDO
 
     /**
      * @param $dsn
-     * @param  null  $username
-     * @param  null  $password
-     * @param  array|string[]  $options
+     * @param null           $username
+     * @param null           $password
+     * @param array|string[] $options
      */
     public static function getInstance(
         $dsn,
         $username = null,
         $password = null,
         array $options = [BasePDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-    ): BasePDO{
+    ): BasePDO {
         if (null === static::$conn) {
             static::$conn = new BasePDO($dsn, $username, $password, $options);
         }

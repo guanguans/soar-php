@@ -45,8 +45,6 @@ class SoarService implements SoarInterface
     /**
      * Soar constructor.
      *
-     * @param array $config
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
     public function __construct(array $config = [])
@@ -68,41 +66,26 @@ class SoarService implements SoarInterface
         $this->setSoarPath($config['-soar-path']);
     }
 
-    /**
-     * @return string
-     */
     public function getSoarPath(): string
     {
         return $this->soarPath;
     }
 
-    /**
-     * @param string $soarPath
-     */
     public function setSoarPath(string $soarPath)
     {
         $this->soarPath = $soarPath;
     }
 
-    /**
-     * @return array
-     */
     public function getPdoConfig(): array
     {
         return $this->pdoConfig;
     }
 
-    /**
-     * @param array $pdoConfig
-     */
     public function setPdoConfig(array $pdoConfig)
     {
         $this->pdoConfig = $pdoConfig;
     }
 
-    /**
-     * @return \PDO
-     */
     public function getPdo(): \PDO
     {
         return PDO::getInstance(
@@ -112,25 +95,17 @@ class SoarService implements SoarInterface
         );
     }
 
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return $this->config;
     }
 
-    /**
-     * @param array $config
-     */
     public function setConfig(array $config)
     {
         $this->config = $config;
     }
 
     /**
-     * @param array $configs
-     *
      * @return string
      */
     public function getFormatConfig(array $configs)
@@ -154,10 +129,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function score(string $sql): string
@@ -166,11 +137,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     * @param string $format
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function explain(string $sql, string $format): string
@@ -188,10 +154,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
@@ -201,10 +163,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
@@ -214,10 +172,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function syntaxCheck(string $sql): string
@@ -226,10 +180,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function fingerPrint(string $sql): string
@@ -238,10 +188,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function pretty(string $sql): string
@@ -250,10 +196,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @param string $markdown
-     *
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function md2html(string $markdown): string
@@ -262,8 +204,6 @@ class SoarService implements SoarInterface
     }
 
     /**
-     * @return string
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function help(): string
