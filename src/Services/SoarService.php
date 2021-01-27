@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Services;
 
-use PDO;
+use Guanguans\SoarPHP\Contracts\SoarInterface;
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\PDOConnector;
 use Guanguans\SoarPHP\Traits\HasExecAble;
-use Guanguans\SoarPHP\Contracts\SoarInterface;
-use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use PDO;
 
 class SoarService implements SoarInterface
 {
@@ -146,12 +146,20 @@ class SoarService implements SoarInterface
             throw new InvalidArgumentException('Invalid type value(md/html): '.$format);
         }
 
-        $output = $this->exec("$this->soarPath ".$this->getFormatConfig($this->config).' -report-type explain-digest << '.$this->getPdo()->getStrExplain($sql));
+        $output = $this->exec("$this->soarPath ".$this->getFormatConfig($this->config).' -report-type explain-digest << '.$this->getExplainService($this->getPdo())->getStrExplain($sql));
         if ('html' === \strtolower($format)) {
             return $this->md2html($output);
         }
 
         return $output;
+    }
+
+    /**
+     * @return \Guanguans\SoarPHP\Services\ExplainService
+     */
+    public function getExplainService(PDO $pdo): ExplainService
+    {
+        return new ExplainService($pdo);
     }
 
     /**

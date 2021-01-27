@@ -10,7 +10,7 @@ filter:
         - 'src/Support/*'
         - 'src/Traits/*'
         - 'src/Config.php'
-        - 'src/Helpers.php'
+        - 'src/helpers.php'
         - 'src/PDOConnector.php'
 build:
     tests:

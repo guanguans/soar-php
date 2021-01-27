@@ -26,7 +26,7 @@ if (!function_exists('soar_config')) {
                      __DIR__.'/../../../../.soar.dist',
                      __DIR__.'/../.soar.dist',
                  ] as $file) {
-            if (file_exists($file)) {
+            if (file_exists($file) && is_file($file)) {
                 $config = require $file;
 
                 break;
@@ -34,7 +34,6 @@ if (!function_exists('soar_config')) {
         }
 
         $config = new Config(isset($config) ? $config : []);
-
         if (null === $key) {
             return $config;
         }

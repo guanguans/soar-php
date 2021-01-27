@@ -10,14 +10,19 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\SoarPHP\Traits;
+namespace Guanguans\SoarPHP\Services;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use PDO;
 use PDOException;
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 
-trait WithPDOExplainAttributes
+class ExplainService
 {
+    /**
+     * @var PDO
+     */
+    private $pdo;
+
     /**
      * @var string
      */
@@ -30,10 +35,14 @@ trait WithPDOExplainAttributes
 EOF';
 
     /**
-     * @param string $sql
-     *
-     * @return string
-     *
+     * ExplainService constructor.
+     */
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getStrExplain(string $sql): string
@@ -58,10 +67,6 @@ EOF';
     }
 
     /**
-     * @param string $sql
-     *
-     * @return array
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getAllExplain(string $sql): array
@@ -74,11 +79,6 @@ EOF';
     }
 
     /**
-     * @param string      $sql
-     * @param string|null $type
-     *
-     * @return array
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getExplain(string $sql, string $type = null): array
@@ -86,26 +86,32 @@ EOF';
         if (null !== $type && !\in_array(\strtolower($type), ['partitions', 'extended'])) {
             throw new InvalidArgumentException('Invalid type value(partitions/extended): '.$type);
         }
-        if (false === ($explain = static::$conn->query('EXPLAIN '.$type.' '.$sql, PDO::FETCH_ASSOC))) {
+        if (false === ($explain = $this->pdo->query('EXPLAIN '.$type.' '.$sql, PDO::FETCH_ASSOC))) {
             throw new PDOException(sprintf('Sql statement error: %s', $sql));
         }
 
-        foreach ($explain as $row) return $row;
+        foreach ($explain as $row) {
+            return $row;
+        }
     }
 
-    /**
-     * @return string
-     */
     public function getExplainSkeleton(): string
     {
         return $this->explainSkeleton;
     }
 
-    /**
-     * @param string $explainSkeleton
-     */
     public function setExplainSkeleton(string $explainSkeleton)
     {
         $this->explainSkeleton = $explainSkeleton;
+    }
+
+    public function getPdo(): PDO
+    {
+        return $this->pdo;
+    }
+
+    public function setPdo(PDO $pdo): void
+    {
+        $this->pdo = $pdo;
     }
 }

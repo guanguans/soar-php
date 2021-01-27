@@ -31,7 +31,7 @@ return PhpCsFixer\Config::create()
         PhpCsFixer\Finder::create()
             ->exclude('vendor')
             ->exclude('config')
-            ->notPath('src/Traits/WithPDOExplainAttributes.php')
+            // ->notPath('src/Traits/WithPDOExplainAttributes.php')
             ->in(__DIR__)
     )
 ;

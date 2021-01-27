@@ -35,7 +35,7 @@
             "Guanguans\\SoarPHP\\": "src"
         },
         "files": [
-            "src/Helpers.php"
+            "src/helpers.php"
         ]
     },
     "autoload-dev": {

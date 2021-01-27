@@ -12,13 +12,10 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-use Guanguans\SoarPHP\Traits\WithPDOExplainAttributes;
 use PDO;
 
 class PDOConnector
 {
-    use WithPDOExplainAttributes;
-
     /**
      * @var PDO
      */
