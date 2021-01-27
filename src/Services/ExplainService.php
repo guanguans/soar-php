@@ -35,6 +35,7 @@ class ExplainService
 EOF';
 
     /**
+<<<<<<< HEAD:src/Services/ExplainService.php
      * ExplainService constructor.
      */
     public function __construct(PDO $pdo)
@@ -43,6 +44,8 @@ EOF';
     }
 
     /**
+=======
+>>>>>>> 143914d986255ac37045a616d2d14062733dab09:src/Traits/WithPDOExplainAttributes.php
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
     public function getStrExplain(string $sql): string
