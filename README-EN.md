@@ -65,7 +65,7 @@ use Guanguans\SoarPHP\Soar;
 
 $config = [
     // The package comes with a soar path OR a custom soar path
-    '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
     // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // Test environment configuration
     '-test-dsn' => [
@@ -91,7 +91,7 @@ Create file `.soar.dist` or `.soar` in the `vendor` same directory , content ref
 <?php
 return [
     // The package comes with a soar path OR a custom soar path
-     '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+     '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
     // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // Test environment configuration
     '-test-dsn' => [

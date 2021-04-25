@@ -66,7 +66,7 @@ use Guanguans\SoarPHP\Soar;
 
 $config = [
     // 包自带soar 路径或者自定义的 soar 路径
-    '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
     // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // 测试环境配置
     '-test-dsn' => [
@@ -92,7 +92,7 @@ $soar = new Soar($config);
 <?php
 return [
     // 包自带soar 路径或者自定义的 soar 路径
-    '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
     // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // 测试环境配置
     '-test-dsn' => [
