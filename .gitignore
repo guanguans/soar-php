@@ -12,3 +12,7 @@ tests.php
 .soar
 .soar.dist
 bin/soar.log
+cghooks.lock
+.phpunit.result.cache
+clover.xml
+
