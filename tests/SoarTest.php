@@ -13,17 +13,18 @@ declare(strict_types=1);
 namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OsHelper;
 
 class SoarTest extends TestCase
 {
     protected $soar;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->soar = new Soar([
-            '-soar-path' => './soar.linux-amd64',
+            '-soar-path' => OsHelper::isMacOS() ? __DIR__.'/../bin/soar.darwin-amd64' : __DIR__.'/../bin/soar.linux-amd64',
             '-test-dsn' => [
                 'host' => '127.0.0.1',
                 'port' => '3306',
