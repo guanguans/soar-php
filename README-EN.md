@@ -40,7 +40,7 @@ $ composer require guanguans/soar-php --dev
 
 ## Usage
 
-### Download [XiaoMi](https://github.com/XiaoMi/) open source SQL optimizer [soar](https://github.com/XiaoMi/soar/releases), please refer to [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md) for more detailed installation
+### Download [XiaoMi](https://github.com/XiaoMi/) open source SQL optimizer [soar](https://github.com/XiaoMi/soar/releases), please refer to [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md) for more detailed installation(*If you do not use a custom ear path, ignore this step*)
 
 ``` bash
 # macOS
@@ -59,13 +59,14 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd6
 ``` php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
 $config = [
-    // The runtime initialization configuration.
-    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
+    // The package comes with a soar path OR a custom soar path
+    '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // Test environment configuration
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -89,8 +90,9 @@ Create file `.soar.dist` or `.soar` in the `vendor` same directory , content ref
 ``` php
 <?php
 return [
-    // The runtime initialization configuration.
-    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
+    // The package comes with a soar path OR a custom soar path
+     '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // Test environment configuration
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -111,7 +113,7 @@ Then initialize
 ``` php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 

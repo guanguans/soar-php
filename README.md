@@ -40,7 +40,7 @@ $ composer require guanguans/soar-php --dev
 
 ## 使用
 
-### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)，更多详细安装请参考 [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md)
+### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)，更多详细安装请参考 [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md)(*如果不使用自定义的 soar 路径，这一步请忽略*)
 
 ``` bash
 # macOS
@@ -60,13 +60,14 @@ $ chmod +x soar.* # 添加可执行权限
 ``` php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
 $config = [
-    // 下载的 soar 的路径
-    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
+    // 包自带soar 路径或者自定义的 soar 路径
+    '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // 测试环境配置
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -90,8 +91,9 @@ $soar = new Soar($config);
 ``` php
 <?php
 return [
-    // 下载的 soar 的路径
-    '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
+    // 包自带soar 路径或者自定义的 soar 路径
+    '-soar-path' => 'vendor/bin/soar.darwin-amd64',
+    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
     // 测试环境配置
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -112,7 +114,7 @@ return [
 ``` php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
