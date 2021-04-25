@@ -11,5 +11,4 @@ soar
 tests.php
 .soar
 .soar.dist
-soar.linux-amd64
-soar.darwin-amd64
+bin/soar.log
