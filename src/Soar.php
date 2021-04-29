@@ -48,12 +48,8 @@ class Soar implements SoarInterface
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config)
     {
-        if (empty($config = soar_config()->merge($config)->all())) {
-            throw new InvalidConfigException('Config is empty or .soar|.soar.dist config file not exist');
-        }
-
         if (!file_exists($config['-soar-path']) || !is_executable($config['-soar-path'])) {
             throw new InvalidConfigException(sprintf("File does not exist, or the file is unexecuteable: '%s'", $config['-soar-path']));
         }
