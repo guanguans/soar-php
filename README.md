@@ -55,8 +55,6 @@ $ chmod +x soar.* # 添加可执行权限
 
 ### 初始化配置，更多详细配置请参考 [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
 
-#### 方法一、运行时初始化配置
-
 ``` php
 <?php
 
@@ -83,45 +81,6 @@ $config = [
 ];
 $soar = new Soar($config);
 ```
-
-#### 方法二、配置文件初始化配置
-
-`vendor` 同级目录下新建 `.soar.dist` 或者 `.soar`，内容参考 [.soar.example](.soar.example)，例如：
-
-``` php
-<?php
-return [
-    // 包自带soar 路径或者自定义的 soar 路径
-    '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
-    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
-    // 测试环境配置
-    '-test-dsn' => [
-        'host' => '127.0.0.1',
-        'port' => '3306',
-        'dbname' => 'database',
-        'username' => 'root',
-        'password' => '123456',
-    ],
-    // 日志输出文件
-    '-log-output' => './soar.log',
-    // 报告输出格式: 默认  markdown [markdown, html, json]
-    '-report-type' => 'html',
-];
-```
-
-然后初始化
-
-``` php
-<?php
-
-require __DIR__.'/vendor/autoload.php';
-
-use Guanguans\SoarPHP\Soar;
-
-$soar = new Soar();
-```
-
-#### 配置优先级：运行时初始化配置 > .soar > .soar.dist
 
 ### SQL 评分
 

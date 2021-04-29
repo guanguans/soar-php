@@ -54,8 +54,6 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd6
 
 ### Initial configuration, please refer to [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md) for more detailed configuration
 
-#### 一、The runtime initialization configuration
-
 ``` php
 <?php
 
@@ -82,45 +80,6 @@ $config = [
 ];
 $soar = new Soar($config);
 ```
-
-#### 二、Configuration file initial config
-
-Create file `.soar.dist` or `.soar` in the `vendor` same directory , content reference [.soar.example](.soar.example), for example:
-
-``` php
-<?php
-return [
-    // The package comes with a soar path OR a custom soar path
-     '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
-    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
-    // Test environment configuration
-    '-test-dsn' => [
-        'host' => '127.0.0.1',
-        'port' => '3306',
-        'dbname' => 'database',
-        'username' => 'root',
-        'password' => '123456',
-    ],
-    // log output file
-    '-log-output' => './soar.log',
-    // Report output format: default markdown [markdown, html, json]
-    '-report-type' => 'html',
-];
-```
-
-Then initialize
-
-``` php
-<?php
-
-require __DIR__.'/vendor/autoload.php';
-
-use Guanguans\SoarPHP\Soar;
-
-$soar = new Soar();
-```
-
-#### Configure priority: `runtime initiali config` > `.soar` > `.soar.dist`
 
 ### SQL score
 
