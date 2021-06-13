@@ -26,13 +26,20 @@ class ExplainService
     /**
      * @var string
      */
-    private $explainSkeleton = 'EOF
+    private $explainHeader = '
 +----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
 | id | select_type | table   | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
 +----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+';
+
+    /**
+     * @var string
+     */
+    private $explainContentSkeleton = '
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
 | %s |      %s     |    %s   |     %s     |  %s  |       %s      |  %s  |   %s    |  %s  |  %s  |     %s   |   %s  |
 +----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
-EOF';
+';
 
     /**
      * ExplainService constructor.
@@ -47,23 +54,29 @@ EOF';
      */
     public function getStrExplain(string $sql): string
     {
-        $explain = $this->getAllExplain($sql);
+        $explains = $this->getAllExplain($sql);
 
-        return sprintf(
-            $this->getExplainSkeleton(),
-            $explain['id'],
-            $explain['select_type'],
-            $explain['table'],
-            $explain['partitions'],
-            $explain['type'],
-            $explain['possible_keys'],
-            $explain['key'],
-            $explain['key_len'],
-            $explain['ref'],
-            $explain['rows'],
-            $explain['filtered'],
-            $explain['Extra']
-        );
+        $explainSkeleton = array_reduce($explains, function ($carry, $explain) {
+            $explainContentSkeleton = sprintf(
+                $this->explainContentSkeleton,
+                $explain['id'],
+                $explain['select_type'],
+                $explain['table'],
+                $explain['partitions'],
+                $explain['type'],
+                $explain['possible_keys'],
+                $explain['key'],
+                $explain['key_len'],
+                $explain['ref'],
+                $explain['rows'],
+                $explain['filtered'],
+                $explain['Extra']
+            );
+
+            return $carry.$explainContentSkeleton;
+        }, $this->explainHeader);
+
+        return $this->normalizeExplainSkeleton($explainSkeleton);
     }
 
     /**
@@ -75,7 +88,13 @@ EOF';
             throw new PDOException('Sql statement cannot be empty.');
         }
 
-        return array_merge($this->getExplain($sql, 'partitions'), $this->getExplain($sql, 'extended'));
+        $partitionsExplains = $this->getExplain($sql, 'partitions');
+
+        $extendedExplains = $this->getExplain($sql, 'extended');
+
+        return array_map(function ($partitionsExplain, $extendedExplain) {
+            return array_merge($partitionsExplain, $extendedExplain);
+        }, $partitionsExplains, $extendedExplains);
     }
 
     /**
@@ -86,23 +105,51 @@ EOF';
         if (null !== $type && !\in_array(\strtolower($type), ['partitions', 'extended'])) {
             throw new InvalidArgumentException('Invalid type value(partitions/extended): '.$type);
         }
-        if (false === ($explain = $this->pdo->query('EXPLAIN '.$type.' '.$sql, PDO::FETCH_ASSOC))) {
-            throw new PDOException(sprintf('Sql statement error: %s', $sql));
+
+        $explain = $this->pdo->query('EXPLAIN '.$type.' '.$sql, PDO::FETCH_ASSOC);
+        if ($explain) {
+            return $explain->fetchAll();
         }
 
-        foreach ($explain as $row) {
-            return $row;
+        $explain = $this->pdo->query('EXPLAIN '.$sql, PDO::FETCH_ASSOC);
+        if ($explain) {
+            return $explain->fetchAll();
         }
+
+        throw new PDOException(sprintf('Sql statement error: %s', $sql));
     }
 
-    public function getExplainSkeleton(): string
+    public function getExplainHeader(): string
     {
-        return $this->explainSkeleton;
+        return $this->explainHeader;
     }
 
-    public function setExplainSkeleton(string $explainSkeleton)
+    protected function normalizeExplainSkeleton(string $explainSkeleton): string
     {
-        $this->explainSkeleton = $explainSkeleton;
+        return <<<"skeleton"
+EOF
+$explainSkeleton
+EOF
+skeleton;
+    }
+
+    public function setExplainHeader(string $explainHeader): self
+    {
+        $this->explainHeader = $explainHeader;
+
+        return $this;
+    }
+
+    public function getExplainContentSkeleton(): string
+    {
+        return $this->explainContentSkeleton;
+    }
+
+    public function setExplainContentSkeleton(string $explainContentSkeleton): self
+    {
+        $this->explainContentSkeleton = $explainContentSkeleton;
+
+        return $this;
     }
 
     public function getPdo(): PDO
@@ -110,8 +157,10 @@ EOF';
         return $this->pdo;
     }
 
-    public function setPdo(PDO $pdo): void
+    public function setPdo(PDO $pdo): self
     {
         $this->pdo = $pdo;
+
+        return $this;
     }
 }
