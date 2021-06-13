@@ -40,11 +40,11 @@ class PDOConnector
         $password = null,
         array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
     ): PDO {
-        if (null === static::$conn) {
-            static::$conn = new PDO($dsn, $username, $password, $options);
+        if (!self::$conn instanceof PDO) {
+            self::$conn = new PDO($dsn, $username, $password, $options);
         }
 
-        return static::$conn;
+        return self::$conn;
     }
 
     /**
