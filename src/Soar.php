@@ -110,13 +110,15 @@ class Soar implements SoarInterface
      */
     public function setConfig($key, $value = null): self
     {
-        is_array($key) && $this->config = $key;
+        is_array($key) && $this->config = array_merge($this->config, $key);
 
         if (is_string($key) && null !== $value) {
             $this->config[$key] = $value;
             '-test-dsn' === $key && $this->setPdoConfig($value);
             '-soar-path' === $key && $this->setSoarPath($value);
         }
+
+        $this->formatConfig = $this->formatConfig($this->config);
 
         return $this;
     }
