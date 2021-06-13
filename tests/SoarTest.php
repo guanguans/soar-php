@@ -12,8 +12,14 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
+use Guanguans\SoarPHP\Services\ExplainService;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OsHelper;
+use Mockery;
+use PDO;
+use PDOException;
 
 class SoarTest extends TestCase
 {
@@ -25,6 +31,51 @@ class SoarTest extends TestCase
 
         $this->soar = new Soar([
             '-soar-path' => OsHelper::isMacOS() ? __DIR__.'/../bin/soar.darwin-amd64' : __DIR__.'/../bin/soar.linux-amd64',
+            '-test-dsn' => [
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'dbname' => 'dbname',
+                'username' => 'username',
+                'password' => 'password',
+            ],
+            '-log-output' => './soar.log',
+        ]);
+    }
+
+    public function testConstruct()
+    {
+        $soar = new Soar([
+            '-soar-path' => OsHelper::isMacOS() ? __DIR__.'/../bin/soar.darwin-amd64' : __DIR__.'/../bin/soar.linux-amd64',
+            '-test-dsn' => [
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'dbname' => 'dbname',
+                'username' => 'username',
+                'password' => 'password',
+            ],
+            '-log-output' => './soar.log',
+        ]);
+
+        $this->assertIsArray($soar->getConfig());
+        $this->assertIsArray($soar->getConfig());
+        $this->assertIsString($soar->getSoarPath());
+    }
+
+    public function testConstructInvalidConfigException()
+    {
+        $this->expectException(InvalidConfigException::class);
+
+        new Soar([
+            '-soar-path' => OsHelper::isMacOS() ? __DIR__.'/../bin/soar.darwin-amd64' : __DIR__.'/../bin/soar.linux-amd64',
+        ]);
+    }
+
+    public function testConstructException()
+    {
+        $this->expectException(InvalidConfigException::class);
+
+        new Soar([
+            '-soar-path' => './soar.linux-amd64',
             '-test-dsn' => [
                 'host' => '127.0.0.1',
                 'port' => '3306',
@@ -64,6 +115,9 @@ class SoarTest extends TestCase
     {
         $this->soar->setConfig(['key' => 'value']);
         $this->assertArrayHasKey('key', $this->soar->getConfig());
+
+        $this->soar->setConfig('key', 'value');
+        $this->assertArrayHasKey('key', $this->soar->getConfig());
     }
 
     public function testGetConfig()
@@ -72,7 +126,7 @@ class SoarTest extends TestCase
         $this->assertArrayHasKey('key2', $this->soar->getConfig());
     }
 
-    public function testGetFormatConfig()
+    public function testFormatConfig()
     {
         $this->assertStringStartsWith(' -', $this->soar->formatConfig(['-log-output' => 'soar.log']));
         $this->assertSame(' -log-output=soar.log ', $this->soar->formatConfig(['-log-output' => 'soar.log']));
@@ -184,5 +238,24 @@ class SoarTest extends TestCase
     public function testHelp()
     {
         $this->assertStringMatchesFormat('%A', $this->soar->help('## 这是一个测试'));
+    }
+
+    public function testGetPDOException()
+    {
+        $this->expectException(PDOException::class);
+        $this->assertInstanceOf(PDO::class, $this->soar->getPdo());
+    }
+
+    public function testGetExplainService()
+    {
+        $pdo = Mockery::mock(PDO::class);
+        $this->assertInstanceOf(ExplainService::class, $this->soar->getExplainService($pdo));
+    }
+
+    public function testExplainInvalidArgumentException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->soar->explain('select * from users', 'json');
     }
 }
