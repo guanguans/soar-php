@@ -14,11 +14,6 @@ namespace Guanguans\SoarPHP\Contracts;
 
 interface SoarInterface
 {
-    /**
-     * SoarInterface constructor.
-     */
-    public function __construct(array $config);
-
     public function exec(string $command): string;
 
     public function score(string $sql): string;
