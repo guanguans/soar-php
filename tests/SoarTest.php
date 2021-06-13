@@ -74,21 +74,21 @@ class SoarTest extends TestCase
 
     public function testGetFormatConfig()
     {
-        $this->assertStringStartsWith(' -', $this->soar->getFormatConfig(['-log-output' => 'soar.log']));
-        $this->assertSame(' -log-output=soar.log ', $this->soar->getFormatConfig(['-log-output' => 'soar.log']));
-        $this->assertStringContainsString('{"', $this->soar->getFormatConfig([
+        $this->assertStringStartsWith(' -', $this->soar->formatConfig(['-log-output' => 'soar.log']));
+        $this->assertSame(' -log-output=soar.log ', $this->soar->formatConfig(['-log-output' => 'soar.log']));
+        $this->assertStringContainsString('{"', $this->soar->formatConfig([
             '-test' => [
                 'key1' => 'val1',
                 'key2' => 'val2',
             ],
         ]));
-        $this->assertStringContainsString('"}', $this->soar->getFormatConfig([
+        $this->assertStringContainsString('"}', $this->soar->formatConfig([
             '-test' => [
                 'key1' => 'val1',
                 'key2' => 'val2',
             ],
         ]));
-        $this->assertStringContainsString(':', $this->soar->getFormatConfig(
+        $this->assertStringContainsString(':', $this->soar->formatConfig(
             [
                 ' -test-dsn ' => [
                     'host' => '127.0.0.1',
@@ -100,7 +100,7 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertStringContainsString('@', $this->soar->getFormatConfig(
+        $this->assertStringContainsString('@', $this->soar->formatConfig(
             [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
@@ -112,7 +112,7 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertStringContainsString('/', $this->soar->getFormatConfig(
+        $this->assertStringContainsString('/', $this->soar->formatConfig(
             [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
@@ -124,7 +124,7 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertEmpty($this->soar->getFormatConfig(
+        $this->assertEmpty($this->soar->formatConfig(
             [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',

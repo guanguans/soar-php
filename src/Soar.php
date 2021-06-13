@@ -31,12 +31,12 @@ class Soar implements SoarInterface
     /**
      * @var string
      */
-    protected $soarPath;
+    protected $formatConfig;
 
     /**
-     * @var
+     * @var string
      */
-    protected $pdo;
+    protected $soarPath;
 
     /**
      * @var array
@@ -58,9 +58,10 @@ class Soar implements SoarInterface
             throw new InvalidConfigException(sprintf("Config not exist, or config disable: '%s'", '-test-dsn'));
         }
 
-        $this->setConfig($config);
-        $this->setPdoConfig($config['-test-dsn']);
-        $this->setSoarPath($config['-soar-path']);
+        $this->config = $config;
+        $this->formatConfig = $this->formatConfig($config);
+        $this->pdoConfig = $config['-test-dsn'];
+        $this->soarPath = $config['-soar-path'];
     }
 
     public function getSoarPath(): string
@@ -90,7 +91,7 @@ class Soar implements SoarInterface
     public function getPdo(): PDO
     {
         return PDOConnector::getInstance(
-            'mysql:host='.$this->pdoConfig['host'].';port='.$this->pdoConfig['port'].';dbname='.$this->pdoConfig['dbname'],
+            sprintf('mysql:host=%s;port=%s;dbname=%s', $this->pdoConfig['host'], $this->pdoConfig['port'], $this->pdoConfig['dbname']),
             $this->pdoConfig['username'],
             $this->pdoConfig['password']
         );
@@ -123,25 +124,25 @@ class Soar implements SoarInterface
     /**
      * @return string
      */
-    public function getFormatConfig(array $configs)
+    public function formatConfig(array $config)
     {
-        unset($configs['-soar-path']);
+        unset($config['-soar-path']);
 
-        $configStr = '';
-        foreach ($configs as $key => $config) {
-            if (!is_array($config)) {
-                $configStr .= " $key=$config ";
+        $formatString = '';
+        foreach ($config as $key => $conf) {
+            if (!is_array($conf)) {
+                $formatString .= sprintf(' %s=%s ', $key, $conf);
             }
-            if (is_array($config) && ('-test-dsn' !== $key && '-online-dsn' !== $key)) {
-                $configStr .= " $key=".json_encode($config).' ';
+            if (is_array($conf) && ('-test-dsn' !== $key && '-online-dsn' !== $key)) {
+                $formatString .= sprintf(' %s=%s ', $key, json_encode($conf));
             }
-            if (('-test-dsn' === $key || '-online-dsn' === $key) && isset($config['disable']) && true !== $config['disable']) {
-                $formatStr = "{$config['username']}:{$config['password']}@{$config['host']}:{$config['port']}/{$config['dbname']}";
-                $configStr .= " $key=$formatStr ";
+            if (('-test-dsn' === $key || '-online-dsn' === $key) && isset($conf['disable']) && true !== $conf['disable']) {
+                $dsn = sprintf('%s:%s@%s:%s/%s', $conf['username'], $conf['password'], $conf['host'], $conf['port'], $conf['dbname']);
+                $formatString .= sprintf(' %s=%s ', $key, $dsn);
             }
         }
 
-        return $configStr;
+        return $formatString;
     }
 
     /**
@@ -149,7 +150,7 @@ class Soar implements SoarInterface
      */
     public function score(string $sql): string
     {
-        return $this->exec("echo \" $sql \" | $this->soarPath ".$this->getFormatConfig($this->config));
+        return $this->exec(sprintf('echo "%s" | %s %s', $this->normalizeSql($sql), $this->soarPath, $this->formatConfig));
     }
 
     /**
@@ -161,7 +162,9 @@ class Soar implements SoarInterface
             throw new InvalidArgumentException('Invalid type value(md/html): '.$format);
         }
 
-        $output = $this->exec("$this->soarPath ".$this->getFormatConfig($this->config).' -report-type explain-digest << '.$this->getExplainService($this->getPdo())->getStrExplain($sql));
+        $explainService = $this->getExplainService($this->getPdo());
+
+        $output = $this->exec(sprintf('%s %s -report-type explain-digest << %s', $this->soarPath, $this->formatConfig, $explainService->getStrExplain($sql)));
         if ('html' === \strtolower($format)) {
             return $this->md2html($output);
         }
@@ -195,9 +198,9 @@ class Soar implements SoarInterface
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function syntaxCheck(string $sql): string
+    public function syntaxCheck(string $sql): ?string
     {
-        return $this->exec("echo \" $sql \" | $this->soarPath -only-syntax-check");
+        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check', $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
@@ -205,7 +208,7 @@ class Soar implements SoarInterface
      */
     public function fingerPrint(string $sql): string
     {
-        return $this->exec("echo \" $sql \" | $this->soarPath -report-type=fingerprint");
+        return $this->exec(sprintf('echo "%s" | %s -report-type=fingerprint', $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
@@ -213,7 +216,7 @@ class Soar implements SoarInterface
      */
     public function pretty(string $sql): string
     {
-        return $this->exec("echo \" $sql \" | $this->soarPath -report-type=pretty");
+        return $this->exec(sprintf('echo "%s" | %s -report-type=pretty', $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
@@ -221,7 +224,7 @@ class Soar implements SoarInterface
      */
     public function md2html(string $markdown): string
     {
-        return $this->exec("echo '$markdown' | $this->soarPath -report-type md2html");
+        return $this->exec(sprintf('echo "%s" | %s -report-type=md2html', $markdown, $this->soarPath));
     }
 
     /**
@@ -229,6 +232,11 @@ class Soar implements SoarInterface
      */
     public function help(): string
     {
-        return $this->exec("$this->soarPath --help");
+        return $this->exec(sprintf('%s --help', $this->soarPath));
+    }
+
+    protected function normalizeSql(string $sql): string
+    {
+        return str_replace('`', '', $sql);
     }
 }

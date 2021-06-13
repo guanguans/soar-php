@@ -23,7 +23,7 @@ trait HasExecAble
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
-    public function exec(string $command): string
+    public function exec(string $command): ?string
     {
         if (false === strpos(strtolower($command), 'soar')) {
             throw new InvalidArgumentException(sprintf("Command error: '%s'", $command));
