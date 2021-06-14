@@ -166,7 +166,7 @@ class Soar implements SoarInterface
 
         $explainService = $this->getExplainService($this->getPdo());
 
-        $output = $this->exec(sprintf('%s %s -report-type explain-digest << %s', $this->soarPath, $this->formatConfig, $explainService->getStrExplain($sql)));
+        $output = $this->exec(sprintf('%s %s -report-type=explain-digest << %s', $this->soarPath, $this->formatConfig, $explainService->getStrExplain($sql)));
         if ('html' === \strtolower($format)) {
             return $this->md2html($output);
         }
@@ -202,7 +202,7 @@ class Soar implements SoarInterface
      */
     public function syntaxCheck(string $sql): ?string
     {
-        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check=true', $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
