@@ -25,7 +25,7 @@
 
 ## 框架中使用
 
-- [x] Laravel - [laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+- [x] Laravel - [laravel-soar](https://github.com/guanguans/laravel-soar), [laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
 - [x] ThinkPHP - [think-soar](https://github.com/guanguans/think-soar)
 - [x] Hyperf - [hyperf-soar](https://github.com/wilbur-oo/hyperf-soar)
 - [ ] Yii2
