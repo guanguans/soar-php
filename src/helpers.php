@@ -41,3 +41,19 @@ if (!function_exists('soar_config')) {
         return $config->get($key);
     }
 }
+
+if (!function_exists('array_with_key_reduce')) {
+    /**
+     * @param null $carry
+     *
+     * @return mixed|null
+     */
+    function array_with_key_reduce(array $array, callable $callback, $carry = null)
+    {
+        foreach ($array as $key => $value) {
+            $carry = call_user_func($callback, $carry, $value, $key);
+        }
+
+        return $carry;
+    }
+}
