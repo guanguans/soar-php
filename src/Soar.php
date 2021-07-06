@@ -58,10 +58,11 @@ class Soar implements SoarInterface
             throw new InvalidConfigException(sprintf("Config not exist, or config disable: '%s'", '-test-dsn'));
         }
 
+        $this->soarPath = $config['-soar-path'];
+        unset($config['-soar-path']);
         $this->config = $config;
         $this->formatConfig = $this->formatConfig($config);
         $this->pdoConfig = $config['-test-dsn'];
-        $this->soarPath = $config['-soar-path'];
     }
 
     public function getSoarPath(): string
@@ -128,23 +129,20 @@ class Soar implements SoarInterface
      */
     public function formatConfig(array $config)
     {
-        unset($config['-soar-path']);
-
-        $formatString = '';
-        foreach ($config as $key => $conf) {
+        return array_with_key_reduce($config, function ($carry, $conf, $key) {
             if (!is_array($conf)) {
-                $formatString .= sprintf(' %s=%s ', $key, $conf);
+                $carry .= sprintf(' %s=%s ', $key, $conf);
             }
             if (is_array($conf) && ('-test-dsn' !== $key && '-online-dsn' !== $key)) {
-                $formatString .= sprintf(' %s=%s ', $key, json_encode($conf));
+                $carry .= sprintf(' %s=%s ', $key, json_encode($conf));
             }
             if (('-test-dsn' === $key || '-online-dsn' === $key) && isset($conf['disable']) && true !== $conf['disable']) {
                 $dsn = sprintf('%s:%s@%s:%s/%s', $conf['username'], $conf['password'], $conf['host'], $conf['port'], $conf['dbname']);
-                $formatString .= sprintf(' %s=%s ', $key, $dsn);
+                $carry .= sprintf(' %s=%s ', $key, $dsn);
             }
-        }
 
-        return $formatString;
+            return $carry;
+        }, '');
     }
 
     /**
