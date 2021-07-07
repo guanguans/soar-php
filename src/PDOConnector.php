@@ -34,12 +34,8 @@ class PDOConnector
      * @param null           $password
      * @param array|string[] $options
      */
-    public static function getInstance(
-        $dsn,
-        $username = null,
-        $password = null,
-        array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-    ): PDO {
+    public static function getInstance($dsn, $username = null, $password = null, array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']): PDO
+    {
         if (!self::$conn instanceof PDO) {
             self::$conn = new PDO($dsn, $username, $password, $options);
         }
