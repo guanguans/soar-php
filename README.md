@@ -53,7 +53,7 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd6
 $ chmod +x soar.* # 添加可执行权限
 ```
 
-### 初始化配置，更多详细配置请参考 [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
+### 初始化配置，更多详细配置请参考 [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
 
 ``` php
 <?php
@@ -64,8 +64,8 @@ use Guanguans\SoarPHP\Soar;
 
 $config = [
     // 包自带soar 路径或者自定义的 soar 路径
-    '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
-    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
+    '-soar-path' => OsHelper::isWindows() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
+    // '-soar-path' => __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64',
     // 测试环境配置
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -73,10 +73,11 @@ $config = [
         'dbname' => 'database',
         'username' => 'root',
         'password' => '123456',
+        'disable' => false,
     ],
     // 日志输出文件
-    '-log-output' => './soar.log',
-    // 报告输出格式: 默认  markdown [markdown, html, json]
+    '-log-output' => __DIR__.'/logs/soar.log',
+    // 报告输出格式: [markdown, html, json, ...]
     '-report-type' => 'html',
 ];
 $soar = new Soar($config);

@@ -52,7 +52,7 @@ $ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd6
 # Download with other commands or downloader
 ```
 
-### Initial configuration, please refer to [soar config](https://github.com/XiaoMi/soar/blob/master/doc/config.md) for more detailed configuration
+### Initial configuration, please refer to [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md) for more detailed configuration
 
 ``` php
 <?php
@@ -63,8 +63,8 @@ use Guanguans\SoarPHP\Soar;
 
 $config = [
     // The package comes with a soar path OR a custom soar path
-    '-soar-path' => OsHelper::isWindows() ? 'vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? 'vendor/guanguans/soar-php/bin/soar.darwin-amd64' : 'vendor/guanguans/soar-php/bin/soar.linux-amd64'),
-    // '-soar-path' => '/Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64',
+    '-soar-path' => OsHelper::isWindows() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
+    // '-soar-path' => __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64',
     // Test environment configuration
     '-test-dsn' => [
         'host' => '127.0.0.1',
@@ -74,8 +74,8 @@ $config = [
         'password' => '123456',
     ],
     // log output file
-    '-log-output' => './soar.log',
-    // Report output format: default markdown [markdown, html, json]
+    '-log-output' => __DIR__.'/logs/soar.log',
+    // Report output format: [markdown, html, json, ...]
     '-report-type' => 'html',
 ];
 $soar = new Soar($config);
