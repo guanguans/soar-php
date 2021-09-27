@@ -31,7 +31,6 @@ trait HasExecAble
 
         if (true === OsHelper::isWindows()) {
             $command = 'powershell '.$command;
-            $command = str_replace('"', "'", $command);
         }
 
         return shell_exec($command);

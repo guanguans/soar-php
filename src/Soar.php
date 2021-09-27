@@ -150,7 +150,7 @@ class Soar implements SoarInterface
      */
     public function score(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s %s', $this->normalizeSql($sql), $this->soarPath, $this->formatConfig));
+        return $this->exec(sprintf("echo '%s' | %s %s", $this->normalizeSql($sql), $this->soarPath, $this->formatConfig));
     }
 
     /**
@@ -200,7 +200,7 @@ class Soar implements SoarInterface
      */
     public function syntaxCheck(string $sql): ?string
     {
-        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check=true', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf("echo '%s' | %s -only-syntax-check=true", $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
@@ -208,7 +208,7 @@ class Soar implements SoarInterface
      */
     public function fingerPrint(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=fingerprint', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf("echo '%s' | %s -report-type=fingerprint", $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
@@ -216,7 +216,7 @@ class Soar implements SoarInterface
      */
     public function pretty(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=pretty', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf("echo '%s' | %s -report-type=pretty", $this->normalizeSql($sql), $this->soarPath));
     }
 
     /**
@@ -224,7 +224,7 @@ class Soar implements SoarInterface
      */
     public function md2html(string $markdown): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=md2html', $markdown, $this->soarPath));
+        return $this->exec(sprintf("echo '%s' | %s -report-type=md2html", $markdown, $this->soarPath));
     }
 
     /**
