@@ -32,11 +32,21 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "zhonghaibin",
+      "name": "海彬",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22255693?v=4",
+      "profile": "https://github.com/zhonghaibin",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "soar-php",
   "projectOwner": "guanguans",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
