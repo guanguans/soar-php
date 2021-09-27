@@ -55,7 +55,7 @@ $ chmod +x soar.* # 添加可执行权限
 
 ### 初始化配置，更多详细配置请参考 [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
 
-``` php
+```php
 <?php
 
 require __DIR__.'/vendor/autoload.php';
@@ -87,7 +87,7 @@ $soar = new Soar($config);
 
 **方法调用：**
 
-``` php
+```php
 $sql ="SELECT * FROM `fa_user` `user` LEFT JOIN `fa_user_group` `group` ON `user`.`group_id`=`group`.`id`;";
 echo $soar->score($sql);
 ```
@@ -100,7 +100,7 @@ echo $soar->score($sql);
 
 **方法调用：**
 
-``` php
+```php
 $sql = "SELECT * FROM `fa_auth_group_access` `aga` LEFT JOIN `fa_auth_group` `ag` ON `aga`.`group_id`=`ag`.`id`;";
 // 输出 html 格式
 echo $soar->htmlExplain($sql);
@@ -121,14 +121,14 @@ echo $soar->explain($sql, 'md');
 
 **方法调用：**
 
-``` php
+```php
 $sql = 'selec * from fa_user';
 echo $soar->syntaxCheck($sql);
 ```
 
 **输出结果：**
 
-``` sql
+```sql
 At SQL 1 : line 1 column 5 near "selec * from fa_user" (total length 20)
 ```
 
@@ -136,14 +136,14 @@ At SQL 1 : line 1 column 5 near "selec * from fa_user" (total length 20)
 
 **方法调用：**
 
-``` php
+```php
 $sql = 'select * from fa_user where id=1';
 echo $soar->fingerPrint($sql);
 ```
 
 **输出结果：**
 
-``` sql
+```sql
 select * from fa_user where id = ?
 ```
 
@@ -151,14 +151,14 @@ select * from fa_user where id = ?
 
 **方法调用：**
 
-``` php
+```php
 $sql = 'select * from fa_user where id=1';
 var_dump($soar->pretty($sql));
 ```
 
 **输出结果：**
 
-``` sql
+```sql
 SELECT  
   * 
 FROM  
@@ -171,13 +171,13 @@ WHERE
 
 **方法调用：**
 
-``` php
+```php
 echo $soar->md2html("## 这是一个测试");
 ```
 
 **输出结果：**
 
-``` html
+```html
 ...
 <h2>这是一个测试</h2>
 ...
@@ -187,13 +187,13 @@ echo $soar->md2html("## 这是一个测试");
 
 **方法调用：**
 
-``` php
+```php
 var_dump($soar->help());
 ```
 
 **输出结果：**
 
-``` yaml
+```yaml
 ···
 'Usage of /Users/yaozm/Documents/wwwroot/soar-php/soar:
   -allow-charsets string
@@ -215,14 +215,14 @@ var_dump($soar->help());
 
 **方法调用：**
 
-``` php
+```php
 $command = "echo '## 这是另一个测试' | /Users/yaozm/Documents/wwwroot/soar-php/soar.darwin-amd64 -report-type md2html";
 echo $soar->exec($command);
 ```
 
 **输出结果：**
 
-``` html
+```html
 ...
 <h2>这是另一个测试</h2>
 ...
