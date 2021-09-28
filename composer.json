@@ -68,6 +68,11 @@
             "url": "https://www.guanguans.cn/images/wechat.jpeg"
         }
     ],
+    "bin": [
+        "bin/soar.darwin-amd64",
+        "bin/soar.linux-amd64",
+        "bin/soar.windows-amd64"
+    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
