@@ -129,7 +129,7 @@ class Soar implements SoarInterface
      */
     public function formatConfig(array $config)
     {
-        return array_with_key_reduce($config, function ($carry, $conf, $key) {
+        return array_reduces($config, function ($carry, $conf, $key) {
             if (!is_array($conf)) {
                 $carry .= sprintf(' %s=%s ', $key, $conf);
             }
