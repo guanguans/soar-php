@@ -21,7 +21,7 @@ return [
      * soar 路径
      */
     '-soar-path' => OsHelper::isWindows()
-        ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.windows-amd64'
+        ? __DIR__.'\vendor\guanguans\soar-php\bin\soar.windows-amd64'
         : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
 
     /*

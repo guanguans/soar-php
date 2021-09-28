@@ -35,7 +35,7 @@
 ## Installation
 
 ``` shell
-$ composer require guanguans/soar-php --dev
+$ composer require guanguans/soar-php -vvv
 ```
 
 ## Usage
@@ -63,7 +63,7 @@ use Guanguans\SoarPHP\Soar;
 
 $config = [
     // The package comes with a soar path OR a custom soar path
-    '-soar-path' => OsHelper::isWindows() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
+    '-soar-path' => OsHelper::isWindows() ? __DIR__.'\vendor\guanguans\soar-php\bin\soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
     // '-soar-path' => __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64',
     // Test environment configuration
     '-test-dsn' => [
