@@ -7,7 +7,7 @@
 
 <p align="center">SQL statement optimizer and rewriter</p>
 
-> **[soar-php](https://github.com/guanguans/soar-php)** is a PHP extension package based on Xiaomi's open source [soar](https://github.com/XiaoMi/soar) development. It is a SQL statement tuning development tool for PHP engineers.
+> **[soar-php](https://github.com/guanguans/soar-php)** is a SQL optimizer and rewriter(Auxiliary SQL optimization in application) developed based on Xiaomi's open source [soar](https://github.com/XiaoMi/soar).
 
 [![Build Status](https://travis-ci.org/guanguans/soar-php.svg?branch=master)](https://travis-ci.org/guanguans/soar-php)
 [![Build Status](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/build-status/master)
