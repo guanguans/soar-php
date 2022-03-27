@@ -5,7 +5,7 @@
     <a href="README-EN.md">ENGLISH</a>
 </p>
 
-<p align="center">SQL 语句优化器和重写器</p>
+<p align="center">SQL 优化器、重写器</p>
 
 > **[soar-php](https://github.com/guanguans/soar-php)** 是一个基于小米公司开源的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
 
