@@ -19,12 +19,12 @@ class PDOConnector
     /**
      * @var PDO
      */
-    private static $conn;
+    protected static $conn;
 
     /**
      * PDOConnector constructor.
      */
-    private function __construct()
+    protected function __construct()
     {
     }
 
@@ -34,8 +34,12 @@ class PDOConnector
      * @param null           $password
      * @param array|string[] $options
      */
-    public static function getInstance($dsn, $username = null, $password = null, array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']): PDO
-    {
+    public static function create(
+        $dsn,
+        $username = null,
+        $password = null,
+        array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+    ): PDO {
         if (!self::$conn instanceof PDO) {
             self::$conn = new PDO($dsn, $username, $password, $options);
         }
@@ -46,12 +50,12 @@ class PDOConnector
     /**
      * close PDOConnector.
      */
-    public function closeConnection()
+    public static function close()
     {
-        $this->conn = null;
+        self::$conn = null;
     }
 
-    private function __clone()
+    protected function __clone()
     {
     }
 }
