@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the guanguans/soar-php.
  *
- * (c) 琯琯 <yzmguanguan@gmail.com>
+ * (c) guanguans <ityaozm@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
@@ -97,12 +97,12 @@ class Explainer
 
     public function getExplain(string $sql, string $type = null): array
     {
-        if (!in_array($type = strtolower((string) $type), ['partitions', 'extended', ''])) {
+        if (! in_array($type = strtolower((string) $type), ['partitions', 'extended', ''])) {
             throw new InvalidArgumentException("Invalid type value(partitions/extended): $type");
         }
 
         $explain = $this->pdo->query("EXPLAIN $type $sql", PDO::FETCH_ASSOC);
-        if (!$explain) {
+        if (! $explain) {
             return [];
         }
 
