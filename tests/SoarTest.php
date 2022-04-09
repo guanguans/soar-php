@@ -14,8 +14,8 @@ namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
-use Guanguans\SoarPHP\Services\ExplainService;
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\Explainer;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Mockery;
 use PDO;
@@ -56,8 +56,8 @@ class SoarTest extends TestCase
             '-log-output' => './soar.log',
         ]);
 
-        $this->assertIsArray($soar->getConfig());
-        $this->assertIsArray($soar->getConfig());
+        $this->assertIsArray($soar->getOptions());
+        $this->assertIsArray($soar->getOptions());
         $this->assertIsString($soar->getSoarPath());
     }
 
@@ -101,48 +101,48 @@ class SoarTest extends TestCase
 
     public function testSetPdoConfig()
     {
-        $this->soar->setPdoConfig(['key' => 'value']);
-        $this->assertArrayHasKey('key', $this->soar->getPdoConfig());
+        $this->soar->setPdoConf(['key' => 'value']);
+        $this->assertArrayHasKey('key', $this->soar->getPdoConf());
     }
 
     public function testGetPdoConfig()
     {
-        $this->soar->setPdoConfig(['key2' => 'value2']);
-        $this->assertArrayHasKey('key2', $this->soar->getPdoConfig());
+        $this->soar->setPdoConf(['key2' => 'value2']);
+        $this->assertArrayHasKey('key2', $this->soar->getPdoConf());
     }
 
     public function testSetConfig()
     {
-        $this->soar->setConfig(['key' => 'value']);
-        $this->assertArrayHasKey('key', $this->soar->getConfig());
+        $this->soar->setOptions(['key' => 'value']);
+        $this->assertArrayHasKey('key', $this->soar->getOptions());
 
-        $this->soar->setConfig('key', 'value');
-        $this->assertArrayHasKey('key', $this->soar->getConfig());
+        $this->soar->setOptions('key', 'value');
+        $this->assertArrayHasKey('key', $this->soar->getOptions());
     }
 
     public function testGetConfig()
     {
-        $this->soar->setConfig(['key2' => 'value2']);
-        $this->assertArrayHasKey('key2', $this->soar->getConfig());
+        $this->soar->setOptions(['key2' => 'value2']);
+        $this->assertArrayHasKey('key2', $this->soar->getOptions());
     }
 
     public function testFormatConfig()
     {
-        $this->assertStringStartsWith(' -', $this->soar->formatConfig(['-log-output' => 'soar.log']));
-        $this->assertSame(' -log-output=soar.log ', $this->soar->formatConfig(['-log-output' => 'soar.log']));
-        $this->assertStringContainsString('{"', $this->soar->formatConfig([
+        $this->assertStringStartsWith(' -', $this->soar->normalizeOptions(['-log-output' => 'soar.log']));
+        $this->assertSame(' -log-output=soar.log ', $this->soar->normalizeOptions(['-log-output' => 'soar.log']));
+        $this->assertStringContainsString('{"', $this->soar->normalizeOptions([
             '-test' => [
                 'key1' => 'val1',
                 'key2' => 'val2',
             ],
         ]));
-        $this->assertStringContainsString('"}', $this->soar->formatConfig([
+        $this->assertStringContainsString('"}', $this->soar->normalizeOptions([
             '-test' => [
                 'key1' => 'val1',
                 'key2' => 'val2',
             ],
         ]));
-        $this->assertStringContainsString(':', $this->soar->formatConfig(
+        $this->assertStringContainsString(':', $this->soar->normalizeOptions(
             [
                 ' -test-dsn ' => [
                     'host' => '127.0.0.1',
@@ -154,7 +154,7 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertStringContainsString('@', $this->soar->formatConfig(
+        $this->assertStringContainsString('@', $this->soar->normalizeOptions(
             [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
@@ -166,7 +166,7 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertStringContainsString('/', $this->soar->formatConfig(
+        $this->assertStringContainsString('/', $this->soar->normalizeOptions(
             [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
@@ -178,7 +178,7 @@ class SoarTest extends TestCase
                 ],
             ]
         ));
-        $this->assertEmpty($this->soar->formatConfig(
+        $this->assertEmpty($this->soar->normalizeOptions(
             [
                 '-test-dsn' => [
                     'host' => '127.0.0.1',
@@ -243,13 +243,13 @@ class SoarTest extends TestCase
     public function testGetPDOException()
     {
         $this->expectException(PDOException::class);
-        $this->assertInstanceOf(PDO::class, $this->soar->getPdo());
+        $this->assertInstanceOf(PDO::class, $this->soar->createPdo());
     }
 
     public function testGetExplainService()
     {
         $pdo = Mockery::mock(PDO::class);
-        $this->assertInstanceOf(ExplainService::class, $this->soar->getExplainService($pdo));
+        $this->assertInstanceOf(Explainer::class, $this->soar->createExplainer($pdo));
     }
 
     public function testExplainInvalidArgumentException()

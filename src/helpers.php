@@ -25,3 +25,19 @@ if (!function_exists('array_reduces')) {
         return $carry;
     }
 }
+
+if (!function_exists('array_reduces')) {
+    /**
+     * @param null $carry
+     *
+     * @return mixed|null
+     */
+    function array_reduces(array $array, callable $callback, $carry = null)
+    {
+        foreach ($array as $key => $value) {
+            $carry = call_user_func($callback, $carry, $value, $key);
+        }
+
+        return $carry;
+    }
+}
