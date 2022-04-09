@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-/**
+/*
  * This file is part of the guanguans/soar-php.
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * (c) 琯琯 <yzmguanguan@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
@@ -31,7 +31,7 @@ class PDOConnector
         string $password = null,
         array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
     ): PDO {
-        if (! self::$connection instanceof PDO) {
+        if (!self::$connection instanceof PDO) {
             self::$connection = new PDO($dsn, $username, $password, $options);
         }
 
