@@ -19,39 +19,36 @@ class PDOConnector
     /**
      * @var PDO
      */
-    private static $conn;
+    protected static $connection;
 
-    /**
-     * PDOConnector constructor.
-     */
-    private function __construct()
+    protected function __construct()
     {
     }
 
-    /**
-     * @param $dsn
-     * @param null           $username
-     * @param null           $password
-     * @param array|string[] $options
-     */
-    public static function getInstance($dsn, $username = null, $password = null, array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']): PDO
-    {
-        if (!self::$conn instanceof PDO) {
-            self::$conn = new PDO($dsn, $username, $password, $options);
+    public static function connect(
+        string $dsn,
+        string $username = null,
+        string $password = null,
+        array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+    ): PDO {
+        if (!self::$connection instanceof PDO) {
+            self::$connection = new PDO($dsn, $username, $password, $options);
         }
 
-        return self::$conn;
+        return self::$connection;
     }
 
-    /**
-     * close PDOConnector.
-     */
-    public function closeConnection()
+    public static function close()
     {
-        $this->conn = null;
+        self::$connection = null;
     }
 
-    private function __clone()
+    protected function __clone()
     {
+    }
+
+    public function __destruct()
+    {
+        self::close();
     }
 }
