@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-/**
+/*
  * This file is part of the guanguans/soar-php.
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * (c) 琯琯 <yzmguanguan@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
@@ -35,7 +35,7 @@ trait Factory
 
     public function createExplainer(PDO $pdo): Explainer
     {
-        if (! self::$explainer instanceof Explainer) {
+        if (!self::$explainer instanceof Explainer) {
             self::$explainer = new Explainer($pdo);
         }
 
