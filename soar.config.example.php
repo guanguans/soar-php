@@ -10,19 +10,10 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-use Guanguans\SoarPHP\Support\OsHelper;
-
 return [
     //+----------------------------------------------------------------------+//
     //|              请参考 @see https://github.com/XiaoMi/soar               |//
     //+----------------------------------------------------------------------+//
-
-    /*
-     * soar 路径
-     */
-    '-soar-path' => OsHelper::isWindows()
-        ? __DIR__.'\vendor\guanguans\soar-php\bin\soar.windows-amd64'
-        : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
 
     /*
      * 测试环境配置
@@ -33,6 +24,7 @@ return [
         'dbname' => 'you_dbname',
         'username' => 'you_username',
         'password' => 'you_password',
+        'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
         'disable' => false,
     ],
 
@@ -45,6 +37,7 @@ return [
         'dbname' => 'you_dbname',
         'username' => 'you_username',
         'password' => 'you_password',
+        'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
         'disable' => true,
     ],
 

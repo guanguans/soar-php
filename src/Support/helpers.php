@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the guanguans/soar-php.
  *
- * (c) 琯琯 <yzmguanguan@gmail.com>
+ * (c) guanguans <ityaozm@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
 
-if (!function_exists('array_reduces')) {
+if (! function_exists('array_reduces')) {
     /**
-     * @param null $carry
+     * @param $carry
      *
      * @return mixed|null
      */

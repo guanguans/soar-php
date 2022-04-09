@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the guanguans/soar-php.
  *
- * (c) 琯琯 <yzmguanguan@gmail.com>
+ * (c) guanguans <ityaozm@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
@@ -17,12 +17,12 @@ class OsHelper
     /**
      * @var string
      */
-    private static $kernelName;
+    protected static $kernelName;
 
     /**
      * @var string
      */
-    private static $kernelVersion;
+    protected static $kernelVersion;
 
     public static function isUnix(): bool
     {

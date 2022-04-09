@@ -15,4 +15,5 @@ bin/soar.log
 cghooks.lock
 .phpunit.result.cache
 clover.xml
+/build
 
