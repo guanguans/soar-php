@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the guanguans/soar-php.
  *
- * (c) 琯琯 <yzmguanguan@gmail.com>
+ * (c) guanguans <ityaozm@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
@@ -58,7 +58,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function setSoarPath(string $soarPath): self
     {
-        if (!file_exists($soarPath) || !is_executable($soarPath)) {
+        if (! file_exists($soarPath) || ! is_executable($soarPath)) {
             throw new InvalidConfigException("File does not exist, or the file is un executable: '$soarPath'");
         }
 
@@ -126,7 +126,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
             } elseif (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
                 $dsn = sprintf('%s:%s@%s:%s/%s', $option['username'], $option['password'], $option['host'], $option['port'], $option['dbname']);
                 $normalizedOptions .= $normalizedOptions .= " $key=$dsn ";
-            } elseif (!in_array($key, ['-test-dsn', '-online-dsn'])) {
+            } elseif (! in_array($key, ['-test-dsn', '-online-dsn'])) {
                 $normalizedOptions .= sprintf(' %s=%s ', $key, json_encode($option));
             }
 
@@ -146,7 +146,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function explain(string $sql, string $format): string
     {
-        if (!in_array($format = strtolower($format), ['md', 'html'])) {
+        if (! in_array($format = strtolower($format), ['md', 'html'])) {
             throw new InvalidArgumentException("Invalid type value(md/html): $format");
         }
 
