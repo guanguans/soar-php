@@ -20,10 +20,6 @@
                 <directory>src/Contracts</directory>
                 <directory>src/Exceptions</directory>
                 <directory>src/Support</directory>
-                <directory>src/Traits</directory>
-                <directory>src/Services</directory>
-                <file>src/Config.php</file>
-                <file>src/helpers.php</file>
                 <file>src/PDOConnector.php</file>
             </exclude>
         </whitelist>
