@@ -1,6 +1,6 @@
 {
     "name": "guanguans/soar-php",
-    "description": "SQL optimizer and rewriter",
+    "description": "SQL optimizer and rewriter.",
     "license": "MIT",
     "type": "library",
     "keywords": [

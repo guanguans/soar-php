@@ -1,8 +1,8 @@
 .idea
 *.DS_Store
-/vendor
-/coverage
-sftp-config.json
+.DS_Store
+vendor/
+coverage/
 composer.lock
 .subsplit
 .php_cs.cache
@@ -15,5 +15,9 @@ bin/soar.log
 cghooks.lock
 .phpunit.result.cache
 clover.xml
-/build
-
+.phplint-cache
+.php-cs-fixer.cache
+build/
+phpunit.xml
+psalm.xml
+.history/
