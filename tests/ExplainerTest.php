@@ -22,7 +22,7 @@ class ExplainerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        $this->markTestSkipped(__CLASS__.' is skipped.');
         $this->explainer = new Explainer(new PDO('sqlite::memory:'));
     }
 

@@ -21,6 +21,7 @@ class FactoryTest extends TestCase
 
     public function testCreateExplainer()
     {
+        $this->markTestSkipped(__METHOD__.' is skipped.');
         $this->assertInstanceOf(Explainer::class, $this->createExplainer(new PDO('sqlite::memory:')));
     }
 }
