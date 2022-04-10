@@ -57,6 +57,9 @@ class Explainer
         return $this;
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
     public function getNormalizedExplain(string $sql): string
     {
         $normalizedExplain = array_reduce($this->getFinalExplain($sql), function ($normalizedExplain, $explain) {
