@@ -80,6 +80,9 @@ class Explainer
         return "EOF{$normalizedExplain}EOF";
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
     public function getFinalExplain(string $sql): array
     {
         $explains = $this->getExplain($sql);
@@ -95,6 +98,9 @@ class Explainer
         return $this->getExplain($sql, 'partitions');
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
     public function getExplain(string $sql, ?string $type = null): array
     {
         if (! in_array($type = strtolower((string) $type), ['partitions', 'extended', ''])) {

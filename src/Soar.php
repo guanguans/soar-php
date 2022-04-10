@@ -56,6 +56,9 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->soarPath;
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
     public function setSoarPath(string $soarPath): self
     {
         if (! file_exists($soarPath) || ! is_executable($soarPath)) {
@@ -78,6 +81,9 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
             );
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
     protected function getPdoConfig(): array
     {
         if (isset($this->options['-test-dsn']) && isset($this->options['-test-dsn']['disable']) && true !== $this->options['-test-dsn']['disable']) {
@@ -137,6 +143,10 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->exec(sprintf('echo "%s" | %s %s', $this->normalizeSql($sql), $this->soarPath, $this->normalizedOptions));
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
     public function explain(string $sql, string $format): string
     {
         if (! in_array($format = strtolower($format), ['md', 'html'])) {
