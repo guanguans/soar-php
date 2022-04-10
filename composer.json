@@ -1,39 +1,48 @@
 {
     "name": "guanguans/soar-php",
+    "description": "SQL optimizer and rewriter",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "soar",
         "sql",
         "mysql",
-        "debug",
-        "php"
+        "sql optimizer",
+        "sql rewriter",
+        "optimizer",
+        "rewriter",
+        "debug"
     ],
-    "description": "SQL optimizer and rewriter php extension package.",
+    "authors": [
+        {
+            "name": "guanguans",
+            "email": "ityaozm@gmail.com"
+        }
+    ],
     "support": {
         "issues": "https://github.com/guanguans/soar-php/issues",
         "source": "https://github.com/guanguans/soar-php"
     },
-    "type": "library",
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "authors": [
+    "funding": [
         {
-            "name": "琯琯",
-            "email": "yzmguanguan@gmail.com"
+            "type": "wechat",
+            "url": "https://www.guanguans.cn/images/wechat.jpeg"
         }
     ],
     "require": {
         "php": ">=7.1",
-        "ext-pdo": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "vimeo/psalm": "^4.0",
-        "mockery/mockery": "^1.3",
         "brainmaestro/composer-git-hooks": "^2.8",
-        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "mockery/mockery": "^1.3",
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+        "vimeo/psalm": "^4.0"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Guanguans\\SoarPHP\\": "src"
@@ -47,6 +56,11 @@
             "Guanguans\\Tests\\": "tests"
         }
     },
+    "bin": [
+        "bin/soar.darwin-amd64",
+        "bin/soar.linux-amd64",
+        "bin/soar.windows-amd64"
+    ],
     "config": {
         "sort-packages": true
     },
@@ -62,30 +76,19 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
-    "bin": [
-        "bin/soar.darwin-amd64",
-        "bin/soar.linux-amd64",
-        "bin/soar.windows-amd64"
-    ],
     "scripts": {
-        "post-update-cmd": [
-            "cghooks update"
-        ],
-        "post-merge": "composer install",
         "post-install-cmd": [
             "cghooks add --ignore-lock",
             "cghooks update"
         ],
+        "post-update-cmd": [
+            "cghooks update"
+        ],
         "cghooks": "./vendor/bin/cghooks",
+        "post-merge": "composer install",
         "psalm": "./vendor/bin/psalm",
-        "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
+        "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --cache-result-file=./build/.phpunit.result.cache --verbose",
         "test-c": "./vendor/bin/phpunit --coverage-html=./build/coverage/ --coverage-clover=./build/clover.xml --color=always --cache-result-file=./build/.phpunit.result.cache --verbose"
     }

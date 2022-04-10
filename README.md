@@ -9,11 +9,9 @@
 
 > **[soar-php](https://github.com/guanguans/soar-php)** 是一个基于小米公司开源的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
 
-[![Build Status](https://travis-ci.org/guanguans/soar-php.svg?branch=master)](https://travis-ci.org/guanguans/soar-php)
-[![Build Status](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/?branch=master)
+[![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
+[![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
 [![codecov](https://codecov.io/gh/guanguans/soar-php/branch/master/graph/badge.svg)](https://codecov.io/gh/guanguans/soar-php)
-[![StyleCI](https://github.styleci.io/repos/178793017/shield?branch=master)](https://github.styleci.io/repos/178793017)
 [![Total Downloads](https://poser.pugx.org/guanguans/soar-php/downloads)](https://packagist.org/packages/guanguans/soar-php)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v/stable)](https://packagist.org/packages/guanguans/soar-php)
 [![License](https://poser.pugx.org/guanguans/soar-php/license)](https://packagist.org/packages/guanguans/soar-php)
@@ -21,6 +19,8 @@
 ## 环境要求
 
 * PHP >= 7.1
+* ext-json
+* ext-mbstring
 * ext-pdo
 
 ## 框架中使用
@@ -40,20 +40,7 @@ $ composer require guanguans/soar-php -vvv
 
 ## 使用
 
-### 下载 [XiaoMi](https://github.com/XiaoMi/) 开源的 SQL 优化器 [soar](https://github.com/XiaoMi/soar/releases)，更多详细安装请参考 [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md)(*如果不使用自定义的 soar 路径，这一步请忽略*)
-
-``` bash
-# macOS
-$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.darwin-amd64
-# linux
-$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
-# windows
-$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd64
-# 用其他命令或下载器下载均可以
-$ chmod +x soar.* # 添加可执行权限
-```
-
-### 初始化配置，更多详细配置请参考 [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md)
+### 创建 soar 实例(配置参考 [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md))
 
 ```php
 <?php
@@ -62,25 +49,23 @@ require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
-$config = [
-    // 包自带soar 路径或者自定义的 soar 路径
-    '-soar-path' => OsHelper::isWindows() ? __DIR__.'\vendor\guanguans\soar-php\bin\soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
-    // '-soar-path' => __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64',
-    // 测试环境配置
-    '-test-dsn' => [
-        'host' => '127.0.0.1',
-        'port' => '3306',
-        'dbname' => 'database',
-        'username' => 'root',
-        'password' => '123456',
-        'disable' => false,
-    ],
-    // 日志输出文件
-    '-log-output' => __DIR__.'/logs/soar.log',
-    // 报告输出格式: [markdown, html, json, ...]
-    '-report-type' => 'html',
-];
-$soar = new Soar($config);
+$soar = Soar::create();
+// $soar->setSoarPath('自定义的 soar 路径')
+//     ->setOptions([
+//         // 测试环境配置
+//         '-test-dsn'    => [
+//             'host'     => '127.0.0.1',
+//             'port'     => '3306',
+//             'dbname'   => 'database',
+//             'username' => 'root',
+//             'password' => '123456',
+//             'disable'  => false,
+//         ],
+//         // 日志输出文件
+//         '-log-output'  => __DIR__ . '/logs/soar.log',
+//         // 报告输出格式: [markdown, html, json, ...]
+//         '-report-type' => 'html',
+//     ]);
 ```
 
 ### SQL 评分
@@ -228,6 +213,24 @@ echo $soar->exec($command);
 ...
 ```
 
+## 测试
+
+```bash
+$ composer test
+```
+
+## 变更日志
+
+请参阅 [CHANGELOG](CHANGELOG.md) 获取最近有关更改的更多信息。
+
+## 贡献指南
+
+请参阅 [CONTRIBUTING](.github/CONTRIBUTING.md) 有关详细信息。
+
+## 安全漏洞
+
+请查看[我们的安全政策](../../security/policy)了解如何报告安全漏洞。
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -252,10 +255,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-## 参考链接
+## 协议
 
-* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)，[XiaoMi](https://github.com/XiaoMi)
-
-## License
-
-[MIT](LICENSE)
+MIT 许可证（MIT）。有关更多信息，请参见[协议文件](LICENSE)。

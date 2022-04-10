@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the guanguans/soar-php.
  *
- * (c) 琯琯 <yzmguanguan@gmail.com>
+ * (c) guanguans <ityaozm@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled.
  */
 
+//+----------------------------------------------------------------------+//
+//|              请参考 @see https://github.com/XiaoMi/soar               |//
+//+----------------------------------------------------------------------+//
 return [
-    //+----------------------------------------------------------------------+//
-    //|              请参考 @see https://github.com/XiaoMi/soar               |//
-    //+----------------------------------------------------------------------+//
-
     /*
      * 测试环境配置
      */

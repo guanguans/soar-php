@@ -9,11 +9,9 @@
 
 > **[soar-php](https://github.com/guanguans/soar-php)** is a SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's open source [soar](https://github.com/XiaoMi/soar).
 
-[![Build Status](https://travis-ci.org/guanguans/soar-php.svg?branch=master)](https://travis-ci.org/guanguans/soar-php)
-[![Build Status](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/guanguans/soar-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/guanguans/soar-php/?branch=master)
+[![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
+[![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
 [![codecov](https://codecov.io/gh/guanguans/soar-php/branch/master/graph/badge.svg)](https://codecov.io/gh/guanguans/soar-php)
-[![StyleCI](https://github.styleci.io/repos/178793017/shield?branch=master)](https://github.styleci.io/repos/178793017)
 [![Total Downloads](https://poser.pugx.org/guanguans/soar-php/downloads)](https://packagist.org/packages/guanguans/soar-php)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v/stable)](https://packagist.org/packages/guanguans/soar-php)
 [![License](https://poser.pugx.org/guanguans/soar-php/license)](https://packagist.org/packages/guanguans/soar-php)
@@ -21,6 +19,8 @@
 ## Requirements
 
 * PHP >= 7.1
+* ext-json
+* ext-mbstring
 * ext-pdo
 
 ## Used in the framework
@@ -34,25 +34,13 @@
 
 ## Installation
 
-``` shell
+```shell
 $ composer require guanguans/soar-php -vvv
 ```
 
 ## Usage
 
-### Download [XiaoMi](https://github.com/XiaoMi/) open source SQL optimizer [soar](https://github.com/XiaoMi/soar/releases), please refer to [soar install](https://github.com/XiaoMi/soar/blob/master/doc/install.md) for more detailed installation(*If you do not use a custom ear path, ignore this step*)
-
-``` bash
-# macOS
-$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.darwin-amd64
-# linux
-$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.linux-amd64
-# windows
-$ wget https://github.com/XiaoMi/soar/releases/download/0.11.0/soar.windows-amd64
-# Download with other commands or downloader
-```
-
-### Initial configuration, please refer to [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md) for more detailed configuration
+### Create the soar instance(please refer to the configuration [soar.config.example](./soar.config.example.php)、[soar.config](https://github.com/XiaoMi/soar/blob/master/doc/config.md))
 
 ```php
 <?php
@@ -61,24 +49,23 @@ require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
-$config = [
-    // The package comes with a soar path OR a custom soar path
-    '-soar-path' => OsHelper::isWindows() ? __DIR__.'\vendor\guanguans\soar-php\bin\soar.windows-amd64' : (OsHelper::isMacOS() ? __DIR__.'/vendor/guanguans/soar-php/bin/soar.darwin-amd64' : __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64'),
-    // '-soar-path' => __DIR__.'/vendor/guanguans/soar-php/bin/soar.linux-amd64',
-    // Test environment configuration
-    '-test-dsn' => [
-        'host' => '127.0.0.1',
-        'port' => '3306',
-        'dbname' => 'database',
-        'username' => 'root',
-        'password' => '123456',
-    ],
-    // log output file
-    '-log-output' => __DIR__.'/logs/soar.log',
-    // Report output format: [markdown, html, json, ...]
-    '-report-type' => 'html',
-];
-$soar = new Soar($config);
+$soar = Soar::create();
+// $soar->setSoarPath('custom soar path')
+//     ->setOptions([
+//         // Test environment configuration
+//         '-test-dsn'    => [
+//             'host'     => '127.0.0.1',
+//             'port'     => '3306',
+//             'dbname'   => 'database',
+//             'username' => 'root',
+//             'password' => '123456',
+//             'disable'  => false,
+//         ],
+//         // log output file
+//         '-log-output'  => __DIR__ . '/logs/soar.log',
+//         // Report output format: [markdown, html, json, ...]
+//         '-report-type' => 'html',
+//     ]);
 ```
 
 ### SQL score
@@ -225,6 +212,24 @@ echo $soar->exec($command);
 ...
 ```
 
+## Testing
+
+```bash
+$ composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -249,10 +254,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-## Reference link
-
-* [https://github.com/XiaoMi/soar](https://github.com/XiaoMi/soar)，[XiaoMi](https://github.com/XiaoMi)
-
 ## License
 
-[MIT](LICENSE)
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
