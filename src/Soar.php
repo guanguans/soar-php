@@ -198,6 +198,6 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function help(): string
     {
-        return $this->exec(sprintf('%s --help', $this->soarPath));
+        return $this->exec("$this->soarPath --help");
     }
 }
