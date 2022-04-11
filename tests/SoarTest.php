@@ -143,13 +143,14 @@ class SoarTest extends TestCase
 
     public function testMd2html()
     {
-        $this->assertStringContainsString('<style', $this->soar->md2html('## 这是一个测试'));
+        OsHelper::isWindows() and $this->markTestSkipped('md2html is not supported on windows');
+        $this->assertStringContainsString('<ul>', $html = $this->soar->md2html('* 这是一个测试'));
+        $this->assertStringContainsString('<li>', $html);
     }
 
     public function testHelp()
     {
-        OsHelper::isWindows()
-        ? $this->assertNull($this->soar->help())
-        : $this->assertStringContainsString('-version', $this->soar->help());
+        OsHelper::isWindows() and $this->markTestSkipped('help is not supported on windows');
+        $this->assertStringContainsString('-version', $this->soar->help());
     }
 }

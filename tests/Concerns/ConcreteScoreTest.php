@@ -11,6 +11,7 @@
 namespace Guanguans\Tests\Concerns;
 
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Guanguans\Tests\TestCase;
 
 class ConcreteScoreTest extends TestCase
@@ -26,21 +27,35 @@ class ConcreteScoreTest extends TestCase
 
     public function testJsonScore()
     {
-        $this->assertJson($this->soar->jsonScore('select * from foo;'));
+        $this->assertJson($jsonScore = $this->soar->jsonScore($sql = 'select * from foo'));
+
+        OsHelper::isWindows() and $this->markTestSkipped('Skip on Windows');
+        $this->assertStringContainsString('Score', $jsonScore);
+        $this->assertStringContainsString($sql, strtolower($jsonScore));
     }
 
     public function testArrayScore()
     {
-        $this->assertIsArray($this->soar->arrayScore('select * from foo;'));
+        $this->assertIsArray($arrayScore = $this->soar->arrayScore($sql = 'select * from foo'));
+
+        OsHelper::isWindows() and $this->markTestSkipped('Skip on Windows');
+        $this->assertArrayHasKey('Score', $arrayScore[0]);
+        $this->assertEqualsIgnoringCase($sql, $arrayScore[0]['Sample']);
     }
 
     public function testHtmlScore()
     {
-        $this->assertStringContainsString('<p>', $this->soar->htmlScore('select * from foo;'));
+        $this->assertStringContainsString('<p>', $htmlScore = $this->soar->htmlScore($sql = 'select * from foo'));
+        $this->assertStringContainsString('分', $htmlScore);
+
+        OsHelper::isWindows() and $this->markTestSkipped('Skip on Windows');
+        $this->assertStringContainsString($sql, strtolower($htmlScore));
     }
 
     public function testMdScore()
     {
-        $this->assertStringContainsString('##', $this->soar->mdScore('select * from foo;'));
+        $this->assertStringContainsString('##', $mdScore = $this->soar->mdScore('select * from foo'));
+        $this->assertStringContainsString('分', $mdScore);
+        $this->assertStringContainsString('foo', $mdScore);
     }
 }
