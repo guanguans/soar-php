@@ -18,7 +18,7 @@ interface Soar
 
     public function score(string $sql): string;
 
-    public function explain(string $sql, string $format): string;
+    public function explain(string $sql): string;
 
     public function syntaxCheck(string $sql): ?string;
 

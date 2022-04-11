@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
 use Nyholm\NSA;
@@ -119,16 +118,10 @@ class SoarTest extends TestCase
         $this->assertIsString($this->soar->score('select * from users'));
     }
 
-    public function testExplainInvalidArgumentException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->soar->explain('select * from users', 'json');
-    }
-
     public function testExplainInvalidConfigException()
     {
         $this->expectException(InvalidConfigException::class);
-        $this->soar->explain('select * from users', 'md');
+        $this->soar->explain('select * from users');
     }
 
     public function testSyntaxCheck()

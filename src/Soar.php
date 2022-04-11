@@ -15,7 +15,6 @@ namespace Guanguans\SoarPHP;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\Executable;
 use Guanguans\SoarPHP\Concerns\Factory;
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Support\OsHelper;
 
@@ -147,34 +146,34 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
-    public function explain(string $sql, string $format): string
+    public function explain(string $sql): string
     {
-        if (! in_array($format = strtolower($format), ['md', 'html'])) {
-            throw new InvalidArgumentException("Invalid type value(md/html): $format");
-        }
-
         $explainer = $this->createExplainer($this->createPdo($this->getPdoConfig()));
 
-        $explain = $this->exec(sprintf(
+        return $this->exec(sprintf(
             '%s %s -report-type=explain-digest << %s',
             $this->soarPath,
             $this->normalizedOptions,
             $explainer->getNormalizedExplain($sql)
         ));
-
-        'html' === $format and $explain = $this->md2html($explain);
-
-        return $explain;
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
     public function mdExplain(string $sql): string
     {
-        return $this->explain($sql, 'md');
+        return $this->explain($sql);
     }
 
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     */
     public function htmlExplain(string $sql): string
     {
-        return $this->explain($sql, 'html');
+        return $this->md2html($this->explain($sql));
     }
 
     public function syntaxCheck(string $sql): ?string
