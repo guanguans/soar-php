@@ -45,6 +45,12 @@ class SoarTest extends TestCase
     {
         $this->assertFileExists($soarPath = $this->soar->setSoarPath(NSA::invokeMethod($this->soar, 'getDefaultSoarPath'))->getSoarPath());
         $this->assertTrue(is_executable($soarPath));
+
+        $this->expectOutputString('soar path');
+        echo $this->soar->getSoarPath();
+
+        $this->expectOutputString('soar score');
+        echo $this->soar->score('select * from users');
     }
 
     public function testGetPdoConfig()
