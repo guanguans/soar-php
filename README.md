@@ -5,7 +5,7 @@
     <a href="README-EN.md">ENGLISH</a>
 </p>
 
-<p align="center">SQL 优化器、重写器</p>
+<p align="center">SQL 优化器、重写器。</p>
 
 > **[soar-php](https://github.com/guanguans/soar-php)** 是一个基于小米公司开源的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
 
@@ -81,6 +81,9 @@ echo $soar->score($sql);
 
 $sql = 'SELECT * FROM users LEFT JOIN post ON users.id=post.user_id; SELECT * FROM post;';
 echo $soar->jsonScore($sql);
+echo $soar->arrayScore($sql);
+echo $soar->htmlScore($sql);
+echo $soar->mdScore($sql);
 ```
 
 ![](docs/score.png)
@@ -174,14 +177,9 @@ echo $soar->jsonScore($sql);
 
 ```php
 $sql = "SELECT * FROM `fa_auth_group_access` `aga` LEFT JOIN `fa_auth_group` `ag` ON `aga`.`group_id`=`ag`.`id`;";
-// 输出 html 格式
 echo $soar->htmlExplain($sql);
-// 输出 md 格式
 echo $soar->mdExplain($sql);
-// 输出 html 格式
-echo $soar->explain($sql, 'html');
-// 输出 md 格式
-echo $soar->explain($sql, 'md');
+echo $soar->explain($sql);
 
 ```
 

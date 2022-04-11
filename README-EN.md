@@ -5,7 +5,7 @@
     <a>ENGLISH</a>
 </p>
 
-<p align="center">SQL optimizer and rewriter</p>
+<p align="center">SQL optimizer and rewriter.</p>
 
 > **[soar-php](https://github.com/guanguans/soar-php)** is a SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's open source [soar](https://github.com/XiaoMi/soar).
 
@@ -81,6 +81,9 @@ echo $soar->score($sql);
 
 $sql = 'SELECT * FROM users LEFT JOIN post ON users.id=post.user_id; SELECT * FROM post;';
 echo $soar->jsonScore($sql);
+echo $soar->arrayScore($sql);
+echo $soar->htmlScore($sql);
+echo $soar->mdScore($sql);
 ```
 
 ![](docs/score.png)
@@ -174,14 +177,9 @@ echo $soar->jsonScore($sql);
 
 ```php
 $sql = "SELECT * FROM `fa_auth_group_access` `aga` LEFT JOIN `fa_auth_group` `ag` ON `aga`.`group_id`=`ag`.`id`;";
-// Output html format
 echo $soar->htmlExplain($sql);
-// Output markdown format
 echo $soar->mdExplain($sql);
-// Output html format
-echo $soar->explain($sql, 'html');
-// Output markdown format
-echo $soar->explain($sql, 'md');
+echo $soar->explain($sql);
 ```
 
 ![](docs/explain.png)
