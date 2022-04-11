@@ -196,7 +196,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->exec(sprintf('echo "%s" | %s -report-type=md2html', $markdown, $this->soarPath));
     }
 
-    public function help(): string
+    public function help(): ?string
     {
         return $this->exec(sprintf('%s --help', $this->soarPath));
     }

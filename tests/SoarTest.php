@@ -14,6 +14,7 @@ namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Nyholm\NSA;
 
 class SoarTest extends TestCase
@@ -142,11 +143,13 @@ class SoarTest extends TestCase
 
     public function testMd2html()
     {
-        $this->assertStringContainsString('<h2>', $this->soar->md2html('## 这是一个测试'));
+        $this->assertStringContainsString('<style', $this->soar->md2html('## 这是一个测试'));
     }
 
     public function testHelp()
     {
-        $this->assertStringContainsString('-version', $this->soar->help());
+        OsHelper::isWindows()
+        ? $this->assertNull($this->soar->help())
+        : $this->assertStringContainsString('-version', $this->soar->help());
     }
 }
