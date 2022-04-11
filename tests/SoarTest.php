@@ -43,7 +43,8 @@ class SoarTest extends TestCase
 
     public function testSetSoarPath()
     {
-        $this->assertFileExists($this->soar->setSoarPath(__DIR__.'/../bin/soar.linux-amd64')->getSoarPath());
+        $this->assertFileExists($soarPath = $this->soar->setSoarPath(NSA::invokeMethod($this->soar, 'getDefaultSoarPath'))->getSoarPath());
+        $this->assertTrue(is_executable($soarPath));
     }
 
     public function testGetPdoConfig()
