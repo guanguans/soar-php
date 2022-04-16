@@ -132,14 +132,9 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         }, '');
     }
 
-    protected function normalizeSql(string $sql): string
-    {
-        return str_replace(['`', '"'], ['', "'"], $sql);
-    }
-
     public function score(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s %s', $this->normalizeSql($sql), $this->soarPath, $this->normalizedOptions));
+        return $this->exec(sprintf('echo "%s" | %s %s', normalize_sql($sql), $this->soarPath, $this->normalizedOptions));
     }
 
     /**
@@ -178,17 +173,17 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function syntaxCheck(string $sql): ?string
     {
-        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check=true', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check=true', normalize_sql($sql), $this->soarPath));
     }
 
     public function fingerPrint(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=fingerprint', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf('echo "%s" | %s -report-type=fingerprint', normalize_sql($sql), $this->soarPath));
     }
 
     public function pretty(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=pretty', $this->normalizeSql($sql), $this->soarPath));
+        return $this->exec(sprintf('echo "%s" | %s -report-type=pretty', normalize_sql($sql), $this->soarPath));
     }
 
     public function md2html(string $markdown): string

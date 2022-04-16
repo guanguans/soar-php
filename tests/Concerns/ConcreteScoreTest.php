@@ -34,9 +34,8 @@ class ConcreteScoreTest extends TestCase
 
     public function testArrayScore()
     {
-        $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from foo; select * from bar where id=1;'));
-        // windows 暂不支持多条 sql 同时评分
-        OsHelper::isWindows() ? $this->assertCount(1, $arrayScore) : $this->assertCount(2, $arrayScore);
+        $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from `foo`; select * from `bar` where `name`="soar";'));
+        $this->assertCount(2, $arrayScore);
         var_export($arrayScore);
 
         $this->assertArrayHasKey('ID', $score = $arrayScore[0]);
@@ -49,11 +48,13 @@ class ConcreteScoreTest extends TestCase
         $this->assertArrayHasKey('Tables', $score);
 
         $this->assertIsInt($score['Score']);
-        $this->assertStringContainsString('foo', $score['Sample']);
+        $this->assertStringContainsString('select', $score['Sample']);
         $this->assertEmpty($score['Explain']);
         $this->assertEmpty($score['IndexRules']);
-        $this->assertIsArray($tables = $score['Tables']);
-        $this->assertNotEmpty($tables);
+        if (! OsHelper::isWindows()) {
+            $this->assertIsArray($tables = $score['Tables']);
+            $this->assertNotEmpty($tables);
+        }
 
         $this->assertIsArray($heuristicRules = $score['HeuristicRules']);
         $this->assertNotEmpty($heuristicRules);

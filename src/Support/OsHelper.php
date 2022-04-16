@@ -17,12 +17,12 @@ class OsHelper
     /**
      * @var string
      */
-    protected static $kernelName;
+    private static $kernelName;
 
     /**
      * @var string
      */
-    protected static $kernelVersion;
+    private static $kernelVersion;
 
     public static function isUnix(): bool
     {
