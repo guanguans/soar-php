@@ -33,9 +33,34 @@ class ConcreteScoreTest extends TestCase
 
     public function testArrayScore()
     {
-        $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from foo'));
-        $this->assertArrayHasKey('Score', $arrayScore[0]);
-        $this->assertStringContainsString('foo', $arrayScore[0]['Sample']);
+        $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from foo; select * from bar where id=1;'));
+        $this->assertCount(2, $arrayScore);
+
+        $this->assertArrayHasKey('ID', $score = $arrayScore[0]);
+        $this->assertArrayHasKey('Fingerprint', $score);
+        $this->assertArrayHasKey('Score', $score);
+        $this->assertArrayHasKey('Sample', $score);
+        $this->assertArrayHasKey('Explain', $score);
+        $this->assertArrayHasKey('HeuristicRules', $score);
+        $this->assertArrayHasKey('IndexRules', $score);
+        $this->assertArrayHasKey('Tables', $score);
+
+        $this->assertIsInt($score['Score']);
+        $this->assertStringContainsString('foo', $score['Sample']);
+        $this->assertEmpty($score['Explain']);
+        $this->assertEmpty($score['IndexRules']);
+        $this->assertIsArray($tables = $score['Tables']);
+        $this->assertNotEmpty($tables);
+
+        $this->assertIsArray($heuristicRules = $score['HeuristicRules']);
+        $this->assertNotEmpty($heuristicRules);
+        $this->assertIsArray($heuristicRule = $heuristicRules[0]);
+        $this->assertArrayHasKey('Item', $heuristicRule);
+        $this->assertArrayHasKey('Severity', $heuristicRule);
+        $this->assertArrayHasKey('Summary', $heuristicRule);
+        $this->assertArrayHasKey('Content', $heuristicRule);
+        $this->assertArrayHasKey('Case', $heuristicRule);
+        $this->assertArrayHasKey('Position', $heuristicRule);
     }
 
     public function testHtmlScore()
