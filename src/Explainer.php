@@ -86,6 +86,14 @@ class Explainer
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      */
+    public function getJsonExplain(string $sql): string
+    {
+        return json_encode($this->getFinalExplain($sql));
+    }
+
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     */
     public function getFinalExplain(string $sql): array
     {
         $explains = $this->getExplain($sql);
