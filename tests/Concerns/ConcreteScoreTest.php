@@ -37,6 +37,7 @@ class ConcreteScoreTest extends TestCase
         $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from foo; select * from bar where id=1;'));
         // windows 暂不支持多条 sql 同时评分
         OsHelper::isWindows() ? $this->assertCount(1, $arrayScore) : $this->assertCount(2, $arrayScore);
+        var_export($arrayScore);
 
         $this->assertArrayHasKey('ID', $score = $arrayScore[0]);
         $this->assertArrayHasKey('Fingerprint', $score);
