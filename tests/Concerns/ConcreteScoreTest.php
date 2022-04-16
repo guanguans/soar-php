@@ -11,6 +11,7 @@
 namespace Guanguans\Tests\Concerns;
 
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Guanguans\Tests\TestCase;
 
 class ConcreteScoreTest extends TestCase
@@ -34,7 +35,8 @@ class ConcreteScoreTest extends TestCase
     public function testArrayScore()
     {
         $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from foo; select * from bar where id=1;'));
-        $this->assertCount(2, $arrayScore);
+        // windows 暂不支持多条 sql 同时评分
+        OsHelper::isWindows() ? $this->assertCount(1, $arrayScore) : $this->assertCount(2, $arrayScore);
 
         $this->assertArrayHasKey('ID', $score = $arrayScore[0]);
         $this->assertArrayHasKey('Fingerprint', $score);
