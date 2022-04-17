@@ -11,7 +11,6 @@
 namespace Guanguans\Tests\Concerns;
 
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHP\Support\OsHelper;
 use Guanguans\Tests\TestCase;
 
 class ConcreteScoreTest extends TestCase
@@ -34,8 +33,12 @@ class ConcreteScoreTest extends TestCase
 
     public function testArrayScore()
     {
-        $this->assertIsArray($arrayScore = $this->soar->arrayScore('select * from `foo`; select * from `bar` where `name`="soar";'));
-        $this->assertCount(2, $arrayScore);
+        $sql = <<<sql
+select * from `post` where `id` = '1' order by `id` asc limit 1; select * from `post` where `id` = '2' limit 1; select * from `users`; select * from `post` where `post`.`user_id` = '1' and `post`.`user_id` is not null; select 1; select * from `users` inner join `post` on `users`.`id` = `post`.`user_id`
+sql;
+
+        $this->assertIsArray($arrayScore = $this->soar->arrayScore($sql));
+        $this->assertCount(6, $arrayScore);
         var_export($arrayScore);
 
         $this->assertArrayHasKey('ID', $score = $arrayScore[0]);
@@ -48,13 +51,13 @@ class ConcreteScoreTest extends TestCase
         $this->assertArrayHasKey('Tables', $score);
 
         $this->assertIsInt($score['Score']);
+        foreach ($arrayScore as $item) {
+            $this->assertGreaterThan(0, $item['Score']);
+        }
+
         $this->assertStringContainsString('select', $score['Sample']);
         $this->assertEmpty($score['Explain']);
         $this->assertEmpty($score['IndexRules']);
-        if (! OsHelper::isWindows()) {
-            $this->assertIsArray($tables = $score['Tables']);
-            $this->assertNotEmpty($tables);
-        }
 
         $this->assertIsArray($heuristicRules = $score['HeuristicRules']);
         $this->assertNotEmpty($heuristicRules);
