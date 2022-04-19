@@ -29,6 +29,6 @@ if (! function_exists('array_reduces')) {
 if (! function_exists('normalize_sql')) {
     function normalize_sql(string $sql): string
     {
-        return str_replace(['`', '"'], ['', ''], $sql);
+        return str_replace(['`', '"'], ['\`', ''], $sql);
     }
 }
