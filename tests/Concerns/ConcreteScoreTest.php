@@ -35,11 +35,12 @@ class ConcreteScoreTest extends TestCase
     public function testArrayScore()
     {
         $sql = <<<sql
-select * from `post` where `name` = 'so"ar'; select * from `post` where `id` = '1' order by `id` asc limit 1; select * from `post` where `id` = '2' limit 1; select * from `users`; select * from `post` where `post`.`user_id` = '1' and `post`.`user_id` is not null; select 1; select * from `users` inner join `post` on `users`.`id` = `post`.`user_id`
+select * from `post` where `name` = 'so"a`r'; select * from `post` where `id` = '1' order by `id` asc limit 1; select * from `post` where `id` = '2' limit 1; select * from `users`; select * from `post` where `post`.`user_id` = '1' and `post`.`user_id` is not null; select 1; select * from `users` inner join `post` on `users`.`id` = `post`.`user_id`
 sql;
         // windows 暂不支持多条 sql
-        OsHelper::isWindows() and $sql = "select * from `post` where `id` = '1' order by `id` asc limit 1;";
-
+        OsHelper::isWindows() and $sql = <<<sql
+select * from `post` where `name` = 'so"a`r';
+sql;
         $arrayScore = $this->soar->arrayScore($sql);
         var_export($arrayScore);
         $this->assertIsArray($arrayScore);
