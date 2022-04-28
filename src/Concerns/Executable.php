@@ -17,7 +17,7 @@ use Symfony\Component\Process\Process;
 
 trait Executable
 {
-    public function exec(string $command): ?string
+    public function exec(string $command): string
     {
         OsHelper::isWindows() and $command = "powershell $command";
 

@@ -14,13 +14,13 @@ namespace Guanguans\SoarPHP\Contracts;
 
 interface Soar
 {
-    public function exec(string $command): ?string;
+    public function exec(string $command): string;
 
     public function score(string $sql): string;
 
     public function explain(string $sql): string;
 
-    public function syntaxCheck(string $sql): ?string;
+    public function syntaxCheck(string $sql): string;
 
     public function fingerPrint(string $sql): string;
 

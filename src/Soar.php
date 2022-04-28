@@ -197,7 +197,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->md2html($this->explain($sql));
     }
 
-    public function syntaxCheck(string $sql): ?string
+    public function syntaxCheck(string $sql): string
     {
         $process = new Process([$this->soarPath, "-query=$sql", '-only-syntax-check=true']);
         $process->run();
