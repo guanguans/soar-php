@@ -13,13 +13,17 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Support\OsHelper;
+use Symfony\Component\Process\Process;
 
 trait Executable
 {
-    public function exec(string $command): ?string
+    public function exec(string $command): string
     {
         OsHelper::isWindows() and $command = "powershell $command";
 
-        return shell_exec($command);
+        $process = Process::fromShellCommandline($command);
+        $process->run();
+
+        return $process->getOutput();
     }
 }

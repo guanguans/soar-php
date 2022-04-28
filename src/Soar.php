@@ -17,6 +17,7 @@ use Guanguans\SoarPHP\Concerns\Executable;
 use Guanguans\SoarPHP\Concerns\Factory;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Support\OsHelper;
+use Symfony\Component\Process\Process;
 
 class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 {
@@ -37,7 +38,12 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
     /**
      * @var string
      */
-    protected $normalizedOptions;
+    protected $normalizedStrOptions;
+
+    /**
+     * @var array
+     */
+    protected $normalizedArrOptions = [];
 
     public function __construct(array $options = [], ?string $soarPath = null)
     {
@@ -104,7 +110,8 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
     public function setOptions(array $options): self
     {
         $this->options = array_merge($this->options, $options);
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
+        $this->normalizedStrOptions = $this->normalizeToStrOptions($this->options);
+        $this->normalizedArrOptions = $this->normalizeToArrOptions($this->options);
 
         return $this;
     }
@@ -116,7 +123,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this;
     }
 
-    protected function normalizeOptions(array $options): string
+    protected function normalizeToStrOptions(array $options): string
     {
         return array_reduces($options, function ($normalizedOptions, $option, $key) {
             if (is_scalar($option)) {
@@ -132,9 +139,28 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         }, '');
     }
 
+    protected function normalizeToArrOptions(array $options): array
+    {
+        return array_reduces($options, function ($normalizedOptions, $option, $key) {
+            if (is_scalar($option)) {
+                $normalizedOptions[] = "$key=$option";
+            } elseif (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
+                $dsn = sprintf('%s:%s@%s:%s/%s', $option['username'], $option['password'], $option['host'], $option['port'], $option['dbname']);
+                $normalizedOptions[] = "$key=$dsn";
+            } elseif (! in_array($key, ['-test-dsn', '-online-dsn'])) {
+                $normalizedOptions[] = sprintf('%s=%s', $key, implode(',', $option));
+            }
+
+            return $normalizedOptions;
+        }, []);
+    }
+
     public function score(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s %s', normalize_sql($sql), $this->soarPath, $this->normalizedOptions));
+        $process = new Process(array_merge([$this->soarPath], $this->normalizedArrOptions, ["-query=$sql"]));
+        $process->run();
+
+        return $process->getOutput();
     }
 
     /**
@@ -148,7 +174,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->exec(sprintf(
             '%s %s -report-type=explain-digest << %s',
             $this->soarPath,
-            $this->normalizedOptions,
+            $this->normalizedStrOptions,
             $explainer->getNormalizedExplain($sql)
         ));
     }
@@ -171,28 +197,43 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->md2html($this->explain($sql));
     }
 
-    public function syntaxCheck(string $sql): ?string
+    public function syntaxCheck(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -only-syntax-check=true', normalize_sql($sql), $this->soarPath));
+        $process = new Process([$this->soarPath, "-query=$sql", '-only-syntax-check=true']);
+        $process->run();
+
+        return $process->getOutput();
     }
 
     public function fingerPrint(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=fingerprint', normalize_sql($sql), $this->soarPath));
+        $process = new Process([$this->soarPath, "-query=$sql", '-report-type=fingerprint']);
+        $process->run();
+
+        return $process->getOutput();
     }
 
     public function pretty(string $sql): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=pretty', normalize_sql($sql), $this->soarPath));
+        $process = new Process([$this->soarPath, "-query=$sql", '-report-type=pretty']);
+        $process->run();
+
+        return $process->getOutput();
     }
 
     public function md2html(string $markdown): string
     {
-        return $this->exec(sprintf('echo "%s" | %s -report-type=md2html', $markdown, $this->soarPath));
+        $process = new Process([$this->soarPath, "-query=$markdown", '-report-type=md2html']);
+        $process->run();
+
+        return $process->getOutput();
     }
 
     public function help(): string
     {
-        return $this->exec("$this->soarPath --help");
+        $process = new Process([$this->soarPath, '--help']);
+        $process->run();
+
+        return $process->getOutput();
     }
 }

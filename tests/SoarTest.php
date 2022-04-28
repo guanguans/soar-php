@@ -96,9 +96,9 @@ class SoarTest extends TestCase
         $this->assertEquals('bar', $this->soar->setOption('foo', 'bar')->getOptions()['foo']);
     }
 
-    public function testNormalizeOptions()
+    public function testNormalizeToStrOptions()
     {
-        $this->assertStringContainsString('-online-dsn', NSA::invokeMethod($this->soar, 'normalizeOptions', [
+        $this->assertStringContainsString('-online-dsn', NSA::invokeMethod($this->soar, 'normalizeToStrOptions', [
             '-online-dsn' => [
                 'host' => '192.168.10.10',
                 'port' => '3306',
@@ -110,9 +110,31 @@ class SoarTest extends TestCase
             ],
         ]));
 
-        $this->assertStringContainsString('foo', NSA::invokeMethod($this->soar, 'normalizeOptions', [
+        $this->assertStringContainsString('foo', NSA::invokeMethod($this->soar, 'normalizeToStrOptions', [
             'foo' => ['bar'],
         ]));
+    }
+
+    public function testNormalizeToArrOptions()
+    {
+        $this->assertIsArray(NSA::invokeMethod($this->soar, 'normalizeToArrOptions', [
+            '-online-dsn' => [
+                'host' => '192.168.10.10',
+                'port' => '3306',
+                'dbname' => 'laravel',
+                'username' => 'homestead',
+                'password' => 'secret',
+                'disable' => false,
+                'options' => [],
+            ],
+        ]));
+
+        $this->assertIsArray($options = NSA::invokeMethod($this->soar, 'normalizeToArrOptions', [
+            '-foo' => 'bar',
+            '-bar' => ['a', 'b', 'c'],
+        ]));
+        $this->assertTrue(in_array('-foo=bar', $options));
+        $this->assertTrue(in_array('-bar=a,b,c', $options));
     }
 
     public function testScore()
@@ -128,7 +150,8 @@ class SoarTest extends TestCase
 
     public function testSyntaxCheck()
     {
-        $this->assertStringContainsString('At SQL 1 : line 1 column 5 near "selec', $this->soar->syntaxCheck('selec * from fa_userss;'));
+        $this->assertStringContainsString('At SQL 1 : line 1 column 5 near "selec', $this->soar->syntaxCheck('selec * from fa_users;'));
+        $this->assertEmpty($this->soar->syntaxCheck('select * from fa_users;'));
     }
 
     public function testFingerPrint()
@@ -143,7 +166,6 @@ class SoarTest extends TestCase
 
     public function testMd2html()
     {
-        OsHelper::isWindows() and $this->markTestSkipped('md2html is not supported on windows');
         $this->assertStringContainsString('<ul>', $html = $this->soar->md2html('* 这是一个测试'));
         $this->assertStringContainsString('<li>', $html);
     }
