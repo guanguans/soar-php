@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v2.5.8 - 2022-04-28
+
+## What's Changed
+
+- Bump codecov/codecov-action from 3.0.0 to 3.1.0 by @dependabot in https://github.com/guanguans/soar-php/pull/131
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v2.5.7...v2.5.8
+
 ## v2.5.7 - 2022-04-19
 
 **Full Changelog**: https://github.com/guanguans/soar-php/compare/v2.5.6...v2.5.7
