@@ -125,7 +125,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
                 $dsn = sprintf('%s:%s@%s:%s/%s', $option['username'], $option['password'], $option['host'], $option['port'], $option['dbname']);
                 $normalizedOptions .= $normalizedOptions .= " $key=$dsn ";
             } elseif (! in_array($key, ['-test-dsn', '-online-dsn'])) {
-                $normalizedOptions .= sprintf(' %s=%s ', $key, json_encode($option));
+                $normalizedOptions .= sprintf(' %s=%s ', $key, implode(',', $option));
             }
 
             return $normalizedOptions;
