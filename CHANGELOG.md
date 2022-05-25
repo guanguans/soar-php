@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v2.6.1 - 2022-05-25
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v2.6.0...v2.6.1
+
 ## v2.6.0 - 2022-04-28
 
 ## What's Changed
