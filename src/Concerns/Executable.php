@@ -21,7 +21,7 @@ trait Executable
     {
         OsHelper::isWindows() and $command = "powershell $command";
 
-        $process = Process::fromShellCommandline($command);
+        $process = Process::fromShellCommandline($command)->setTimeout(null);
         $process->run();
 
         return $process->getOutput();
