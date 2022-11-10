@@ -13,7 +13,6 @@ namespace Guanguans\Tests;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Explainer;
 use Nyholm\NSA;
-use PDO;
 
 class ExplainerTest extends TestCase
 {
@@ -23,17 +22,17 @@ class ExplainerTest extends TestCase
     {
         parent::setUp();
         $this->markTestSkipped(__CLASS__.' is skipped.');
-        $this->explainer = new Explainer(new PDO('sqlite::memory:'));
+        $this->explainer = new Explainer(new \PDO('sqlite::memory:'));
     }
 
     public function testGetPdo()
     {
-        $this->assertInstanceOf(PDO::class, $this->explainer->getPdo());
+        $this->assertInstanceOf(\PDO::class, $this->explainer->getPdo());
     }
 
     public function testSetPdo()
     {
-        $this->assertEquals($pdo = new PDO('sqlite::memory:'), $this->explainer->setPdo($pdo)->getPdo());
+        $this->assertEquals($pdo = new \PDO('sqlite::memory:'), $this->explainer->setPdo($pdo)->getPdo());
     }
 
     public function testGetNormalizedExplain()

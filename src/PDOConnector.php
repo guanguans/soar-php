@@ -12,12 +12,10 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-use PDO;
-
 class PDOConnector
 {
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected static $connection;
 
@@ -29,10 +27,10 @@ class PDOConnector
         string $dsn,
         ?string $username = null,
         ?string $password = null,
-        array $options = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-    ): PDO {
-        if (! self::$connection instanceof PDO) {
-            self::$connection = new PDO($dsn, $username, $password, $options);
+        array $options = [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
+    ): \PDO {
+        if (! self::$connection instanceof \PDO) {
+            self::$connection = new \PDO($dsn, $username, $password, $options);
         }
 
         return self::$connection;

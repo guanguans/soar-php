@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 if (! function_exists('array_reduces')) {
     /**
-     * @param $carry
-     *
      * @return mixed|null
      */
     function array_reduces(array $array, callable $callback, $carry = null)
