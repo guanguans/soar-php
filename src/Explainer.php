@@ -35,7 +35,7 @@ class Explainer
      */
     protected const EXPLAIN_TEMPLATE = '
 +----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
-| %s |      %s     |    %s   |     %s     |  %s  |       %s      |  %s  |   %s    |  %s  |  %s  |     %s   |   %s  |
+| %d |      %s     |    %s   |     %s     |  %s  |       %s      |  %s  |   %s    |  %s  |  %s  |     %s   |   %s  |
 +----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
 ';
 
@@ -61,25 +61,33 @@ class Explainer
      */
     public function getNormalizedExplain(string $sql): string
     {
-        $normalizedExplain = array_reduce($this->getFinalExplain($sql), function ($normalizedExplain, $explain) {
+        $transform = function ($var) {
+            if (null === $var) {
+                return 'NULL';
+            }
+
+            return $var;
+        };
+
+        $normalizedExplain = array_reduce($this->getFinalExplain($sql), function ($normalizedExplain, $explain) use ($transform) {
             return $normalizedExplain.sprintf(
                 self::EXPLAIN_TEMPLATE,
-                $explain['id'],
-                $explain['select_type'],
-                $explain['table'],
-                $explain['partitions'],
-                $explain['type'],
-                $explain['possible_keys'],
-                $explain['key'],
-                $explain['key_len'],
-                $explain['ref'],
-                $explain['rows'],
-                $explain['filtered'],
-                $explain['Extra']
+                $transform($explain['id']),
+                $transform($explain['select_type']),
+                $transform($explain['table']),
+                $transform($explain['partitions']),
+                $transform($explain['type']),
+                $transform($explain['possible_keys']),
+                $transform($explain['key']),
+                $transform($explain['key_len']),
+                $transform($explain['ref']),
+                $transform($explain['rows']),
+                $transform($explain['filtered']),
+                $transform($explain['Extra'])
             );
         }, self::EXPLAIN_HEADER);
 
-        return "EOF{$normalizedExplain}EOF";
+        return "'explain'{$normalizedExplain}explain";
     }
 
     /**
