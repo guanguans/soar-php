@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Class Guanguans\\\\PackageSkeleton\\\\PackageSkeleton is neither abstract nor final\\.$#"
+			count: 1
+			path: src/PackageSkeleton.php

@@ -9,7 +9,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
-        php: [7.1, 8.0]
+        php: [7.2, 8.0]
         dependency-version: [prefer-stable]
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
@@ -35,7 +35,7 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: composer test-c
+        run: composer test-coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3.1.1
