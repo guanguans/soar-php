@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Exceptions;
 
-class RuntimeException extends Exception
+use Guanguans\SoarPHP\Contracts\Throwable;
+
+class RuntimeException extends \RuntimeException implements Throwable
 {
 }

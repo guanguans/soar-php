@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Exceptions;
 
-class InvalidConfigException extends Exception
+use Guanguans\SoarPHP\Contracts\Throwable;
+
+class InvalidConfigException extends \Exception implements Throwable
 {
 }
