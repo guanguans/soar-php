@@ -15,7 +15,7 @@ namespace Guanguans\SoarPHP;
 class PDOConnector
 {
     /**
-     * @var \PDO
+     * @var \PDO|null
      */
     protected static $connection;
 

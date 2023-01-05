@@ -137,7 +137,7 @@
         "pest": "./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache",
         "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
         "phpstan": "./vendor/bin/phpstan analyse -vv",
-        "phpstan-baseline": "@phpstan --generate-baseline",
+        "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "post-merge": [
             "composer install"
         ],
