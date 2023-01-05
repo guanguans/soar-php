@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Support;
 
+/**
+ * This file was modified from https://github.com/jolicode/JoliNotif.
+ */
 class OsHelper
 {
     /**
