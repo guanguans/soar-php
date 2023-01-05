@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 if (! function_exists('array_reduce_with_keys')) {
     /**
-     * @param $carry
-     *
      * @return mixed|null
      */
     function array_reduce_with_keys(array $array, callable $callback, $carry = null)
