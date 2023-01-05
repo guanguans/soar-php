@@ -16,8 +16,10 @@ use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
 use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
+use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Enum\PreferenceSelfThis;
+use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
 use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
@@ -28,8 +30,10 @@ use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
+use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
+use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
@@ -51,6 +55,9 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__.'/src',
         __DIR__.'/tests',
+        __DIR__.'/.php-cs-fixer.php',
+        __DIR__.'/rector.php',
+        __DIR__.'/soar.config.example.php',
     ]);
 
     $rectorConfig->skip([
@@ -71,8 +78,12 @@ return static function (RectorConfig $rectorConfig): void {
         // AddDefaultValueForUndefinedVariableRector::class,
         // RemoveUnusedVariableAssignRector::class,
         // UnSpreadOperatorRector::class,
-        // ConsistentPregDelimiterRector::class,
+        ConsistentPregDelimiterRector::class,
         // StaticClosureRector::class,
+        ReturnBinaryAndToEarlyReturnRector::class,
+        AddArrayDefaultToArrayPropertyRector::class,
+        RemoveEmptyClassMethodRector::class,
+        ExplicitBoolCompareRector::class,
 
         // paths
         '**/Fixture*',
@@ -100,7 +111,7 @@ return static function (RectorConfig $rectorConfig): void {
         // SetList::TYPE_DECLARATION_STRICT,
         SetList::EARLY_RETURN,
 
-        PHPUnitLevelSetList::UP_TO_PHPUNIT_70,
+        PHPUnitLevelSetList::UP_TO_PHPUNIT_80,
         // PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::PHPUNIT_EXCEPTION,
