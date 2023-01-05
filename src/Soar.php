@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
+use Guanguans\SoarPHP\Concerns\ConcreteExplain;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\Executable;
 use Guanguans\SoarPHP\Concerns\Factory;
@@ -21,8 +22,9 @@ use Symfony\Component\Process\Process;
 
 class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 {
-    use Executable;
+    use ConcreteExplain;
     use ConcreteScore;
+    use Executable;
     use Factory;
 
     /**
@@ -77,6 +79,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     protected function getDefaultSoarPath(): string
     {
+        /** @noinspection NestedTernaryOperatorInspection */
         return OsHelper::isWindows()
             ? __DIR__.'/../bin/soar.windows-amd64'
             : (
@@ -177,24 +180,6 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
             $this->normalizedStrOptions,
             $explainer->getNormalizedExplain($sql)
         ));
-    }
-
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
-     */
-    public function mdExplain(string $sql): string
-    {
-        return $this->explain($sql);
-    }
-
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
-     */
-    public function htmlExplain(string $sql): string
-    {
-        return $this->md2html($this->explain($sql));
     }
 
     public function syntaxCheck(string $sql): string
