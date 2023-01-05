@@ -2,6 +2,17 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v2.6.2 - 2023-01-05
+
+### What's Changed
+
+- Bump codecov/codecov-action from 3.1.0 to 3.1.1 by @dependabot in https://github.com/guanguans/soar-php/pull/133
+- Bump actions/stale from 5 to 6 by @dependabot in https://github.com/guanguans/soar-php/pull/134
+- Update vimeo/psalm requirement from ^4.0 to ^4.0 || ^5.0 by @dependabot in https://github.com/guanguans/soar-php/pull/135
+- Bump actions/stale from 6 to 7 by @dependabot in https://github.com/guanguans/soar-php/pull/136
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v2.6.1...v2.6.2
+
 ## v2.6.1 - 2022-05-25
 
 **Full Changelog**: https://github.com/guanguans/soar-php/compare/v2.6.0...v2.6.1
