@@ -79,7 +79,6 @@
         "allow-plugins": {
             "phpstan/extension-installer": true
         },
-        "apcu-autoloader": true,
         "classmap-authoritative": true,
         "optimize-autoloader": true,
         "preferred-install": "dist",

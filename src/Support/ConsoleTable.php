@@ -12,10 +12,13 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Support;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\SoarPHP\Exceptions\RuntimeException;
+
 /**
  * This file was modified from https://github.com/deniskoronets/php-array-table.
  */
-class ArrayToTextTable
+class ConsoleTable
 {
     /**
      * @var array
@@ -26,11 +29,6 @@ class ArrayToTextTable
      * @var array
      */
     private $columnsList = [];
-
-    /**
-     * @var int
-     */
-    private $maxLineLength = 40;
 
     /**
      * @var array
@@ -60,16 +58,12 @@ class ArrayToTextTable
     /**
      * Set custom charset for columns values.
      *
-     * @param $charset
-     *
-     * @return \dekor\ArrayToTextTable
-     *
-     * @throws \Exception
+     * @return $this
      */
-    public function charset($charset)
+    public function charset(string $charset): self
     {
         if (! in_array($charset, mb_list_encodings())) {
-            throw new \Exception('This charset `'.$charset.'` is not supported by mbstring.'.'Please check it: http://php.net/manual/ru/function.mb-list-encodings.php');
+            throw new InvalidArgumentException(sprintf('This charset `%s` is not supported by mb-string. Please check it: http://php.net/manual/ru/function.mb-list-encodings.php', $charset));
         }
 
         $this->charset = $charset;
@@ -80,9 +74,9 @@ class ArrayToTextTable
     /**
      * Set mode to print no header in the table.
      *
-     * @return self
+     * @return $this
      */
-    public function noHeader()
+    public function noHeader(): self
     {
         $this->renderHeader = false;
 
@@ -90,32 +84,12 @@ class ArrayToTextTable
     }
 
     /**
-     * @param int $length
-     *
-     * @return self
-     *
-     * @throws \Exception
-     */
-    public function maxLineLength($length)
-    {
-        if ($length < 3) {
-            throw new \Exception('Minimum length for cropper is 3 sumbols');
-        }
-
-        $this->maxLineLength = $length;
-
-        return $this;
-    }
-
-    /**
      * Build your ascii table and return the result.
-     *
-     * @return string
      */
-    public function render()
+    public function render(): string
     {
         if (empty($this->data)) {
-            return 'Empty';
+            throw new RuntimeException('no data rendering');
         }
 
         $this->calcColumnsList();
@@ -137,27 +111,23 @@ class ArrayToTextTable
     /**
      * Calculates list of columns in data.
      */
-    protected function calcColumnsList()
+    protected function calcColumnsList(): void
     {
         $this->columnsList = array_keys(reset($this->data));
     }
 
     /**
      * Calculates length for string.
-     *
-     * @param $str
-     *
-     * @return int
      */
-    protected function length($str)
+    protected function length($str): int
     {
-        return mb_strlen($str, $this->charset);
+        return mb_strlen((string) $str, $this->charset);
     }
 
     /**
      * Calculate maximum string length for each column.
      */
-    private function calcColumnsLength()
+    private function calcColumnsLength(): void
     {
         foreach ($this->data as $row) {
             if ('---' === $row) {
@@ -178,7 +148,7 @@ class ArrayToTextTable
     /**
      * Append a line separator to result.
      */
-    private function lineSeparator()
+    private function lineSeparator(): void
     {
         $tmp = '';
 
@@ -189,23 +159,15 @@ class ArrayToTextTable
         $this->result[] = $tmp;
     }
 
-    /**
-     * @param $columnKey
-     * @param $value
-     *
-     * @return string
-     */
-    private function column($columnKey, $value)
+    private function column($columnKey, $value): string
     {
         return '| '.$value.' '.str_repeat(' ', $this->columnsLength[$columnKey] - $this->length($value)).'|';
     }
 
     /**
      * Render header part.
-     *
-     * @return void
      */
-    private function renderHeader()
+    private function renderHeader(): void
     {
         $this->lineSeparator();
 
@@ -226,10 +188,8 @@ class ArrayToTextTable
 
     /**
      * Render body section of table.
-     *
-     * @return void
      */
-    private function renderBody()
+    private function renderBody(): void
     {
         foreach ($this->data as $row) {
             if ('---' === $row) {
