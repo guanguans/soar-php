@@ -18,7 +18,7 @@
 
 ## 环境要求
 
-* PHP >= 7.1
+* PHP >= 7.2
 * ext-json
 * ext-mbstring
 * ext-pdo
