@@ -90,6 +90,8 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
     }
 
     /**
+     * @return array<string, mixed>
+     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
     protected function getPdoConfig(): array
@@ -126,6 +128,9 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this;
     }
 
+    /**
+     * @psalm-suppress NullableReturnStatement
+     */
     protected function normalizeToStrOptions(array $options): string
     {
         return array_reduce_with_keys($options, function ($normalizedOptions, $option, $key) {
@@ -133,7 +138,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
                 $normalizedOptions .= " $key=$option ";
             } elseif (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
                 $dsn = sprintf('%s:%s@%s:%s/%s', $option['username'], $option['password'], $option['host'], $option['port'], $option['dbname']);
-                $normalizedOptions .= $normalizedOptions .= " $key=$dsn ";
+                $normalizedOptions .= " $key=$dsn ";
             } elseif (! in_array($key, ['-test-dsn', '-online-dsn'])) {
                 $normalizedOptions .= sprintf(' %s=%s ', $key, implode(',', $option));
             }
@@ -142,6 +147,9 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         }, '');
     }
 
+    /**
+     * @psalm-suppress NullableReturnStatement
+     */
     protected function normalizeToArrOptions(array $options): array
     {
         return array_reduce_with_keys($options, function ($normalizedOptions, $option, $key) {

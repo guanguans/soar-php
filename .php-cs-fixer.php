@@ -39,6 +39,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__.'/rector-laravel.php',
         __DIR__.'/monorepo-builder.php',
         __DIR__.'/phparkitect.php',
+        __DIR__.'/soar.config.example.php',
     ])
     ->notPath([
         'bootstrap/*',

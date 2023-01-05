@@ -14,8 +14,8 @@ declare(strict_types=1);
 //|              请参考 @see https://github.com/XiaoMi/soar               |//
 //+----------------------------------------------------------------------+//
 return [
-    /*
-     * 测试环境配置
+    /**
+     * 测试环境配置.
      */
     '-test-dsn' => [
         'host' => 'you_host',
@@ -27,8 +27,8 @@ return [
         'disable' => false,
     ],
 
-    /*
-     * 线上环境配置(线上数据库用户只需 select 权限)
+    /**
+     * 线上环境配置(线上数据库用户只需 select 权限).
      */
     '-online-dsn' => [
         'host' => 'you_host',
@@ -40,12 +40,12 @@ return [
         'disable' => true,
     ],
 
-    /*
-     * 日志输出文件
+    /**
+     * 日志输出文件.
      */
     '-log-output' => __DIR__.'/logs/soar.log',
 
-    /*
+    /**
      * 日志级别
      * ```
      * [
@@ -58,11 +58,11 @@ return [
      *     6 => 'Informational',
      *     7 => 'Debug'
      * ]
-     * ```
+     * ```.
      */
     '-log-level' => 4,
 
-    /*
+    /**
      * 报告输出格式
      * ```
      * [
@@ -87,22 +87,22 @@ return [
      *     remove-comment,        // 去除 SQL 语句中的注释，支持单行多行注释的去除
      *     chardet                // 猜测输入的 SQL 使用的字符集
      * ]
-     * ```
+     * ```.
      */
     '-report-type' => 'html',
 
-    /*
-     * 是否允许测试环境与线上环境配置相同
+    /**
+     * 是否允许测试环境与线上环境配置相同.
      */
     '-allow-online-as-test' => true,
 
-    /*
-     * 是否清理测试时产生的临时文件
+    /**
+     * 是否清理测试时产生的临时文件.
      */
     '-drop-test-temporary' => true,
 
-    /*
-     * 启发式算法相关配置
+    /**
+     * 启发式算法相关配置.
      */
     '-max-join-table-count' => 5,
     '-max-group-by-cols-count' => 5,
@@ -112,8 +112,8 @@ return [
     '-spaghetti-query-length' => 2048,
     // '-allow-drop-index' => false,
 
-    /*
-     * EXPLAIN 相关配置
+    /**
+     * EXPLAIN 相关配置.
      */
     '-explain-sql-report-type' => 'pretty',
     '-explain-type' => 'extended',
@@ -127,37 +127,37 @@ return [
     '-explain-max-filtered' => 100,
     '-explain-warn-scalability' => [],
 
-    /*
-     * 忽略规则
+    /**
+     * 忽略规则.
      */
     '-ignore-rules' => [],
 
-    /*
+    /**
      * 黑名单中的 SQL 将不会给评审意见。一行一条 SQL，可以是正则也可以是指纹，填写指纹时注意问号需要加反斜线转义。
      */
     '-blacklist' => __DIR__.'/soar.blacklist',
 
-    // /*
-    //  * 语法检查小工具
+    // /**
+    //  * 语法检查小工具.
     //  */
     // '-only-syntax-check' => false,
     //
-    // /*
-    //  * 抽样统计目标
+    // /**
+    //  * 抽样统计目标.
     //  */
     // '-sampling-statistic-target' => 100,
     // '-sampling' => false,
     //
-    // /*
-    //  * query 相关配置
+    // /**
+    //  * query 相关配置.
     //  */
     // '-query' => '',
     // '-list-heuristic-rules' => false,
     // '-list-test-sqls' => false,
     // '-verbose' => true,
     //
-    // /*
-    //  * yaml 配置文件
+    // /**
+    //  * yaml 配置文件.
     //  */
     // '-config' => base_path('soar.yaml'),
 ];
