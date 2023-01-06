@@ -21,10 +21,6 @@ class PDOConnector
      */
     protected static $connection;
 
-    protected function __construct()
-    {
-    }
-
     public static function connect(
         string $dsn,
         ?string $username = null,
@@ -38,17 +34,25 @@ class PDOConnector
         return self::$connection;
     }
 
+    public function __destruct()
+    {
+        self::close();
+    }
+
     public static function close(): void
     {
         self::$connection = null;
+    }
+
+    protected function __construct()
+    {
     }
 
     protected function __clone()
     {
     }
 
-    public function __destruct()
+    protected function __wakeup()
     {
-        self::close();
     }
 }

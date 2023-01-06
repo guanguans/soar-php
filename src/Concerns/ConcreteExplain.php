@@ -17,19 +17,11 @@ namespace Guanguans\SoarPHP\Concerns;
  */
 trait ConcreteExplain
 {
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
-     */
     public function mdExplain(string $sql): string
     {
         return $this->explain($sql);
     }
 
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
-     */
     public function htmlExplain(string $sql): string
     {
         return $this->md2html($this->explain($sql));

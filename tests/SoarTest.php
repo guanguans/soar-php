@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OsHelper;
@@ -35,10 +36,10 @@ class SoarTest extends TestCase
 
     public function testSetSoarPathInvalidConfigException(): void
     {
-        $this->expectException(InvalidConfigException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->soar->setSoarPath('bar.soar');
 
-        $this->expectException(InvalidConfigException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->soar->setSoarPath(__FILE__);
     }
 
@@ -51,7 +52,7 @@ class SoarTest extends TestCase
     public function testGetPdoConfig(): void
     {
         $this->expectException(InvalidConfigException::class);
-        NSA::invokeMethod($this->soar, 'getPdoConfig');
+        NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions());
 
         $this->soar->setOption(
             '-online-dsn',
@@ -65,7 +66,7 @@ class SoarTest extends TestCase
                 'options' => [],
             ]
         );
-        $this->assertEquals($this->soar->getOptions()['-online-dsn'], NSA::invokeMethod($this->soar, 'getPdoConfig'));
+        $this->assertEquals($this->soar->getOptions()['-online-dsn'], NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions()));
 
         $this->soar->setOption(
             '-test-dsn',
@@ -78,7 +79,7 @@ class SoarTest extends TestCase
                 'disable' => false,
             ]
         );
-        $this->assertEquals($this->soar->getOptions()['-test-dsn'], NSA::invokeMethod($this->soar, 'getPdoConfig'));
+        $this->assertEquals($this->soar->getOptions()['-test-dsn'], NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions()));
     }
 
     public function testExec(): void
@@ -96,28 +97,9 @@ class SoarTest extends TestCase
         $this->assertSame('bar', $this->soar->setOption('foo', 'bar')->getOptions()['foo']);
     }
 
-    public function testNormalizeToStrOptions(): void
-    {
-        $this->assertStringContainsString('-online-dsn', NSA::invokeMethod($this->soar, 'normalizeToStrOptions', [
-            '-online-dsn' => [
-                'host' => '192.168.10.10',
-                'port' => '3306',
-                'dbname' => 'laravel',
-                'username' => 'homestead',
-                'password' => 'secret',
-                'disable' => false,
-                'options' => [],
-            ],
-        ]));
-
-        $this->assertStringContainsString('foo', NSA::invokeMethod($this->soar, 'normalizeToStrOptions', [
-            'foo' => ['bar'],
-        ]));
-    }
-
     public function testNormalizeToArrOptions(): void
     {
-        $this->assertIsArray(NSA::invokeMethod($this->soar, 'normalizeToArrOptions', [
+        $this->assertIsArray(NSA::invokeMethod($this->soar, 'normalizeOptions', [
             '-online-dsn' => [
                 'host' => '192.168.10.10',
                 'port' => '3306',
@@ -129,7 +111,7 @@ class SoarTest extends TestCase
             ],
         ]));
 
-        $this->assertIsArray($options = NSA::invokeMethod($this->soar, 'normalizeToArrOptions', [
+        $this->assertIsArray($options = NSA::invokeMethod($this->soar, 'normalizeOptions', [
             '-foo' => 'bar',
             '-bar' => ['a', 'b', 'c'],
         ]));

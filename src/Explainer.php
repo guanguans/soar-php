@@ -40,19 +40,13 @@ class Explainer
         return $this;
     }
 
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     */
     public function getNormalizedExplain(string $sql): string
     {
-        $normalizedExplain = (new ConsoleTable($this->getFinalExplain($sql)))->render();
+        $tableOfExplain = $this->createConsoleTable($this->getFinalExplain($sql))->render();
 
-        return "'explain'\n$normalizedExplain\nexplain";
+        return "'explain'\n$tableOfExplain\nexplain";
     }
 
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     */
     public function getFinalExplain(string $sql): array
     {
         $explains = $this->getExplain($sql);
@@ -68,9 +62,6 @@ class Explainer
         return $this->getExplain($sql, 'partitions');
     }
 
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     */
     public function getExplain(string $sql, ?string $type = null): array
     {
         if (! in_array($type = strtolower((string) $type), ['partitions', 'extended', ''])) {
@@ -83,5 +74,10 @@ class Explainer
         }
 
         return $explain->fetchAll();
+    }
+
+    public function createConsoleTable(array $rows): ConsoleTable
+    {
+        return new ConsoleTable($rows);
     }
 }

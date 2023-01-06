@@ -17,22 +17,22 @@ namespace Guanguans\SoarPHP\Concerns;
  */
 trait ConcreteScore
 {
-    public function jsonScore(string $sql)
+    public function jsonScore(string $sql): string
     {
         return $this->setOption('-report-type', 'json')->score($sql);
     }
 
-    public function arrayScore(string $sql)
+    public function arrayScore(string $sql, int $depth = 512, int $options = 0): array
     {
-        return json_decode($this->jsonScore($sql), true);
+        return json_decode($this->jsonScore($sql), true, $depth, $options | JSON_THROW_ON_ERROR);
     }
 
-    public function htmlScore(string $sql)
+    public function htmlScore(string $sql): string
     {
         return $this->setOption('-report-type', 'html')->score($sql);
     }
 
-    public function mdScore(string $sql)
+    public function mdScore(string $sql): string
     {
         return $this->setOption('-report-type', 'markdown')->score($sql);
     }
