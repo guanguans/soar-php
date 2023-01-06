@@ -10,6 +10,9 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
 $header = <<<EOF
 This file is part of the guanguans/soar-php.
 
@@ -19,7 +22,7 @@ This source file is subject to the MIT license that is bundled.
 EOF;
 
 /** @noinspection PhpParamsInspection */
-$finder = PhpCsFixer\Finder::create()
+$finder = Finder::create()
     ->in([
         __DIR__.'/src',
         __DIR__.'/tests',
@@ -55,7 +58,7 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setRules([
         '@DoctrineAnnotation' => true,
         // '@PHP80Migration:risky' => true,

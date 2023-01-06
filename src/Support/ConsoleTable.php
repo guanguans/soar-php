@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Support;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Exceptions\RuntimeException;
 
 /**
  * This file was modified from https://github.com/deniskoronets/php-array-table.
@@ -57,7 +56,11 @@ class ConsoleTable
 
     public function rows(array $rows): self
     {
-        $this->rows = array_map(static function ($row) {
+        if ([] === $rows) {
+            throw new InvalidArgumentException('The rows cannot be empty.');
+        }
+
+        $this->rows = array_map(static function ($row): array {
             return (array) $row;
         }, $rows);
 
@@ -84,10 +87,6 @@ class ConsoleTable
 
     public function render(): string
     {
-        if (empty($this->rows)) {
-            throw new RuntimeException('No rows rendering.');
-        }
-
         $this->extractColumns();
         $this->extractLengthOfColumns();
 
@@ -127,7 +126,7 @@ class ConsoleTable
             return;
         }
 
-        $this->lines[] = array_reduce($this->columns, function ($carry, $column) {
+        $this->lines[] = array_reduce($this->columns, function ($carry, $column): string {
             return $carry.$this->column($column, $column);
         }, '');
 
@@ -137,7 +136,7 @@ class ConsoleTable
     protected function renderBody(): void
     {
         foreach ($this->rows as $row) {
-            $this->lines[] = array_reduce($this->columns, function ($carry, $column) use ($row) {
+            $this->lines[] = array_reduce($this->columns, function ($carry, $column) use ($row): string {
                 return $carry.$this->column($column, $row[$column]);
             }, '');
         }
@@ -147,7 +146,7 @@ class ConsoleTable
 
     protected function addSeparatorOfRow(): void
     {
-        $this->lines[] = array_reduce($this->columns, function ($carry, $column) {
+        $this->lines[] = array_reduce($this->columns, function ($carry, $column): string {
             return $carry.'+'.str_repeat('-', $this->lengthOfColumns[$column] + 2).'+';
         }, '');
     }

@@ -133,7 +133,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
      */
     protected function normalizeToStrOptions(array $options): string
     {
-        return array_reduce_with_keys($options, function ($normalizedOptions, $option, $key) {
+        return array_reduce_with_keys($options, static function ($normalizedOptions, $option, $key) {
             if (is_scalar($option)) {
                 $normalizedOptions .= " $key=$option ";
             } elseif (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
@@ -152,7 +152,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
      */
     protected function normalizeToArrOptions(array $options): array
     {
-        return array_reduce_with_keys($options, function ($normalizedOptions, $option, $key) {
+        return array_reduce_with_keys($options, static function ($normalizedOptions, $option, $key) {
             if (is_scalar($option)) {
                 $normalizedOptions[] = "$key=$option";
             } elseif (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {

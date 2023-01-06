@@ -14,6 +14,7 @@ namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\ConsoleTable;
+use PDO;
 
 class Explainer
 {
@@ -22,17 +23,17 @@ class Explainer
      */
     protected $pdo;
 
-    public function __construct(\PDO $pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function getPdo(): \PDO
+    public function getPdo(): PDO
     {
         return $this->pdo;
     }
 
-    public function setPdo(\PDO $pdo): self
+    public function setPdo(PDO $pdo): self
     {
         $this->pdo = $pdo;
 
@@ -76,7 +77,7 @@ class Explainer
             throw new InvalidArgumentException("Invalid type value(partitions/extended): $type");
         }
 
-        $explain = $this->pdo->query("EXPLAIN $type $sql", \PDO::FETCH_ASSOC);
+        $explain = $this->pdo->query("EXPLAIN $type $sql", PDO::FETCH_ASSOC);
         if (! $explain) {
             return [];
         }

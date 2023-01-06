@@ -15,14 +15,18 @@ namespace Guanguans\Tests\Concerns;
 use Guanguans\SoarPHP\Concerns\Factory;
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\Tests\TestCase;
+use PDO;
 
 class FactoryTest extends TestCase
 {
     use Factory;
 
-    public function testCreateExplainer()
+    /**
+     * @return never
+     */
+    public function testCreateExplainer(): void
     {
         $this->markTestSkipped(__METHOD__.' is skipped.');
-        $this->assertInstanceOf(Explainer::class, $this->createExplainer(new \PDO('sqlite::memory:')));
+        $this->assertInstanceOf(Explainer::class, $this->createExplainer(new PDO('sqlite::memory:')));
     }
 }

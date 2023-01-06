@@ -14,6 +14,7 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\SoarPHP\PDOConnector;
+use PDO;
 
 trait Factory
 {
@@ -22,7 +23,7 @@ trait Factory
      */
     protected static $explainer;
 
-    public function createPdo(array $config): \PDO
+    public function createPdo(array $config): PDO
     {
         return PDOConnector::connect(
             sprintf('mysql:host=%s;port=%s;dbname=%s', $config['host'], $config['port'], $config['dbname']),
@@ -32,7 +33,7 @@ trait Factory
         );
     }
 
-    public function createExplainer(\PDO $pdo): Explainer
+    public function createExplainer(PDO $pdo): Explainer
     {
         if (! self::$explainer instanceof Explainer) {
             self::$explainer = new Explainer($pdo);

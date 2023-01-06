@@ -28,12 +28,12 @@ class SoarTest extends TestCase
         $this->soar = Soar::create();
     }
 
-    public function testGetSoarPath()
+    public function testGetSoarPath(): void
     {
         $this->assertFileExists($this->soar->getSoarPath());
     }
 
-    public function testSetSoarPathInvalidConfigException()
+    public function testSetSoarPathInvalidConfigException(): void
     {
         $this->expectException(InvalidConfigException::class);
         $this->soar->setSoarPath('bar.soar');
@@ -42,13 +42,13 @@ class SoarTest extends TestCase
         $this->soar->setSoarPath(__FILE__);
     }
 
-    public function testSetSoarPath()
+    public function testSetSoarPath(): void
     {
         $this->assertFileExists($soarPath = $this->soar->setSoarPath(NSA::invokeMethod($this->soar, 'getDefaultSoarPath'))->getSoarPath());
         $this->assertTrue(is_executable($soarPath));
     }
 
-    public function testGetPdoConfig()
+    public function testGetPdoConfig(): void
     {
         $this->expectException(InvalidConfigException::class);
         NSA::invokeMethod($this->soar, 'getPdoConfig');
@@ -81,22 +81,22 @@ class SoarTest extends TestCase
         $this->assertEquals($this->soar->getOptions()['-test-dsn'], NSA::invokeMethod($this->soar, 'getPdoConfig'));
     }
 
-    public function testExec()
+    public function testExec(): void
     {
         $this->assertStringContainsString('soar', $this->soar->exec('echo soar'));
     }
 
-    public function testGetOptions()
+    public function testGetOptions(): void
     {
         $this->assertIsArray($this->soar->getOptions());
     }
 
-    public function testSetOption()
+    public function testSetOption(): void
     {
-        $this->assertEquals('bar', $this->soar->setOption('foo', 'bar')->getOptions()['foo']);
+        $this->assertSame('bar', $this->soar->setOption('foo', 'bar')->getOptions()['foo']);
     }
 
-    public function testNormalizeToStrOptions()
+    public function testNormalizeToStrOptions(): void
     {
         $this->assertStringContainsString('-online-dsn', NSA::invokeMethod($this->soar, 'normalizeToStrOptions', [
             '-online-dsn' => [
@@ -115,7 +115,7 @@ class SoarTest extends TestCase
         ]));
     }
 
-    public function testNormalizeToArrOptions()
+    public function testNormalizeToArrOptions(): void
     {
         $this->assertIsArray(NSA::invokeMethod($this->soar, 'normalizeToArrOptions', [
             '-online-dsn' => [
@@ -133,44 +133,44 @@ class SoarTest extends TestCase
             '-foo' => 'bar',
             '-bar' => ['a', 'b', 'c'],
         ]));
-        $this->assertTrue(in_array('-foo=bar', $options));
-        $this->assertTrue(in_array('-bar=a,b,c', $options));
+        $this->assertContains('-foo=bar', $options);
+        $this->assertContains('-bar=a,b,c', $options);
     }
 
-    public function testScore()
+    public function testScore(): void
     {
         $this->assertIsString($this->soar->score('select * from users'));
     }
 
-    public function testExplainInvalidConfigException()
+    public function testExplainInvalidConfigException(): void
     {
         $this->expectException(InvalidConfigException::class);
         $this->soar->explain('select * from users');
     }
 
-    public function testSyntaxCheck()
+    public function testSyntaxCheck(): void
     {
         $this->assertStringContainsString('At SQL 1 : line 1 column 5 near "selec', $this->soar->syntaxCheck('selec * from fa_users;'));
         $this->assertEmpty($this->soar->syntaxCheck('select * from fa_users;'));
     }
 
-    public function testFingerPrint()
+    public function testFingerPrint(): void
     {
         $this->assertStringContainsString('?', $this->soar->fingerPrint('select * from users where id = 1;'));
     }
 
-    public function testPretty()
+    public function testPretty(): void
     {
         $this->assertStringContainsString("\n", $this->soar->pretty('select * from users where id = 1;'));
     }
 
-    public function testMd2html()
+    public function testMd2html(): void
     {
         $this->assertStringContainsString('<ul>', $html = $this->soar->md2html('* 这是一个测试'));
         $this->assertStringContainsString('<li>', $html);
     }
 
-    public function testHelp()
+    public function testHelp(): void
     {
         OsHelper::isWindows() and $this->markTestSkipped('help is not supported on windows');
         $this->assertStringContainsString('-version', $this->soar->help());

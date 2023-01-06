@@ -26,14 +26,14 @@ class ConcreteScoreTest extends TestCase
         $this->soar = Soar::create();
     }
 
-    public function testJsonScore()
+    public function testJsonScore(): void
     {
         $this->assertJson($jsonScore = $this->soar->jsonScore($sql = 'select * from foo'));
         $this->assertStringContainsString('Score', $jsonScore);
         $this->assertStringContainsString($sql, strtolower($jsonScore));
     }
 
-    public function testArrayScore()
+    public function testArrayScore(): void
     {
         $sql = <<<sql
 select * from `post` where `name` = 'so"a`r';
@@ -99,14 +99,14 @@ sql;
         $this->assertArrayHasKey('Position', $heuristicRule);
     }
 
-    public function testHtmlScore()
+    public function testHtmlScore(): void
     {
         $this->assertStringContainsString('<p>', $htmlScore = $this->soar->htmlScore('select * from foo'));
         $this->assertStringContainsString('分', $htmlScore);
         $this->assertStringContainsString('foo', $htmlScore);
     }
 
-    public function testMdScore()
+    public function testMdScore(): void
     {
         $this->assertStringContainsString('##', $mdScore = $this->soar->mdScore('select * from foo'));
         $this->assertStringContainsString('分', $mdScore);
