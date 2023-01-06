@@ -49,8 +49,4 @@ class PDOConnector
     protected function __clone()
     {
     }
-
-    protected function __wakeup()
-    {
-    }
 }

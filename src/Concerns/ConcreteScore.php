@@ -24,7 +24,7 @@ trait ConcreteScore
 
     public function arrayScore(string $sql, int $depth = 512, int $options = 0): array
     {
-        return json_decode($this->jsonScore($sql), true, $depth, $options | JSON_THROW_ON_ERROR);
+        return (array) json_decode($this->jsonScore($sql), true, $depth, $options);
     }
 
     public function htmlScore(string $sql): string
