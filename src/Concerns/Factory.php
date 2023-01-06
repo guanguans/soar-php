@@ -15,7 +15,6 @@ namespace Guanguans\SoarPHP\Concerns;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\SoarPHP\PDOConnector;
-use PDO;
 
 trait Factory
 {
@@ -24,17 +23,17 @@ trait Factory
         return $this->createExplainer($this->createPDOFromOptions($options));
     }
 
-    public function createExplainer(PDO $pdo): Explainer
+    public function createExplainer(\PDO $pdo): Explainer
     {
         return new Explainer($pdo);
     }
 
-    public function createPDOFromOptions(array $options): PDO
+    public function createPDOFromOptions(array $options): \PDO
     {
         return $this->createPDO($this->extractConfigOfPDO($options));
     }
 
-    public function createPDO(array $config): PDO
+    public function createPDO(array $config): \PDO
     {
         return PDOConnector::connect(
             sprintf('mysql:host=%s;port=%s;dbname=%s', $config['host'], $config['port'], $config['dbname']),
