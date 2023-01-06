@@ -21,49 +21,53 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
 class ConsoleTable
 {
     /**
-     * @var array
+     * @var array<array<array-key, scalar|\Stringable>>
      */
-    private $data;
-
-    /**
-     * @var array
-     */
-    private $columnsList = [];
-
-    /**
-     * @var array
-     */
-    private $columnsLength = [];
-
-    /**
-     * @var array
-     */
-    private $result = [];
+    protected $rows;
 
     /**
      * @var string
      */
-    private $charset = 'UTF-8';
+    protected $charset = 'UTF-8';
 
     /**
      * @var bool
      */
-    private $renderHeader = true;
-
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-    }
+    protected $isRenderHeader = true;
 
     /**
-     * Set custom charset for columns values.
-     *
-     * @return $this
+     * @var array<array-key>
      */
+    protected $columns = [];
+
+    /**
+     * @var array<array-key, int>
+     */
+    protected $lengthOfColumns = [];
+
+    /**
+     * @var array<string>
+     */
+    protected $lines = [];
+
+    public function __construct(array $rows)
+    {
+        $this->rows($rows);
+    }
+
+    public function rows(array $rows): self
+    {
+        $this->rows = array_map(static function ($row) {
+            return (array) $row;
+        }, $rows);
+
+        return $this;
+    }
+
     public function charset(string $charset): self
     {
         if (! in_array($charset, mb_list_encodings())) {
-            throw new InvalidArgumentException(sprintf('This charset `%s` is not supported by mb-string. Please check it: http://php.net/manual/ru/function.mb-list-encodings.php', $charset));
+            throw new InvalidArgumentException(sprintf('The charset(%s) is not supported by mb-string.', $charset));
         }
 
         $this->charset = $charset;
@@ -71,73 +75,43 @@ class ConsoleTable
         return $this;
     }
 
-    /**
-     * Set mode to print no header in the table.
-     *
-     * @return $this
-     */
-    public function noHeader(): self
+    public function isRenderHeader(bool $isRenderHeader = false): self
     {
-        $this->renderHeader = false;
+        $this->isRenderHeader = $isRenderHeader;
 
         return $this;
     }
 
-    /**
-     * Build your ascii table and return the result.
-     */
     public function render(): string
     {
-        if (empty($this->data)) {
-            throw new RuntimeException('no data rendering');
+        if (empty($this->rows)) {
+            throw new RuntimeException('No rows rendering.');
         }
 
-        $this->calcColumnsList();
-        $this->calcColumnsLength();
+        $this->extractColumns();
+        $this->extractLengthOfColumns();
 
-        /** render section */
         $this->renderHeader();
         $this->renderBody();
-        $this->lineSeparator();
-        /** end render section */
 
         return str_replace(
             ['++', '||'],
             ['+', '|'],
-            implode(PHP_EOL, $this->result)
+            implode(PHP_EOL, $this->lines)
         );
     }
 
-    /**
-     * Calculates list of columns in data.
-     */
-    protected function calcColumnsList(): void
+    protected function extractColumns(): void
     {
-        $this->columnsList = array_keys(reset($this->data));
+        $this->columns = array_keys((array) reset($this->rows));
     }
 
-    /**
-     * Calculates length for string.
-     */
-    protected function length($str): int
+    protected function extractLengthOfColumns(): void
     {
-        return mb_strlen((string) $str, $this->charset);
-    }
-
-    /**
-     * Calculate maximum string length for each column.
-     */
-    private function calcColumnsLength(): void
-    {
-        foreach ($this->data as $row) {
-            if ('---' === $row) {
-                continue;
-            }
-            foreach ($this->columnsList as $column) {
-                $this->columnsLength[$column] = max(
-                    isset($this->columnsLength[$column])
-                        ? $this->columnsLength[$column]
-                        : 0,
+        foreach ($this->rows as $row) {
+            foreach ($this->columns as $column) {
+                $this->lengthOfColumns[$column] = max(
+                    $this->lengthOfColumns[$column] ?? 0,
                     $this->length($row[$column]),
                     $this->length($column)
                 );
@@ -145,66 +119,46 @@ class ConsoleTable
         }
     }
 
-    /**
-     * Append a line separator to result.
-     */
-    private function lineSeparator(): void
+    protected function renderHeader(): void
     {
-        $tmp = '';
+        $this->addSeparatorOfRow();
 
-        foreach ($this->columnsList as $column) {
-            $tmp .= '+'.str_repeat('-', $this->columnsLength[$column] + 2).'+';
-        }
-
-        $this->result[] = $tmp;
-    }
-
-    private function column($columnKey, $value): string
-    {
-        return '| '.$value.' '.str_repeat(' ', $this->columnsLength[$columnKey] - $this->length($value)).'|';
-    }
-
-    /**
-     * Render header part.
-     */
-    private function renderHeader(): void
-    {
-        $this->lineSeparator();
-
-        if (! $this->renderHeader) {
+        if (! $this->isRenderHeader) {
             return;
         }
 
-        $tmp = '';
+        $this->lines[] = array_reduce($this->columns, function ($carry, $column) {
+            return $carry.$this->column($column, $column);
+        }, '');
 
-        foreach ($this->columnsList as $column) {
-            $tmp .= $this->column($column, $column);
-        }
-
-        $this->result[] = $tmp;
-
-        $this->lineSeparator();
+        $this->addSeparatorOfRow();
     }
 
-    /**
-     * Render body section of table.
-     */
-    private function renderBody(): void
+    protected function renderBody(): void
     {
-        foreach ($this->data as $row) {
-            if ('---' === $row) {
-                $this->lineSeparator();
-
-                continue;
-            }
-
-            $tmp = '';
-
-            foreach ($this->columnsList as $column) {
-                $tmp .= $this->column($column, $row[$column]);
-            }
-
-            $this->result[] = $tmp;
+        foreach ($this->rows as $row) {
+            $this->lines[] = array_reduce($this->columns, function ($carry, $column) use ($row) {
+                return $carry.$this->column($column, $row[$column]);
+            }, '');
         }
+
+        $this->addSeparatorOfRow();
+    }
+
+    protected function addSeparatorOfRow(): void
+    {
+        $this->lines[] = array_reduce($this->columns, function ($carry, $column) {
+            return $carry.'+'.str_repeat('-', $this->lengthOfColumns[$column] + 2).'+';
+        }, '');
+    }
+
+    protected function column($name, $column): string
+    {
+        return '| '.$column.' '.str_repeat(' ', $this->lengthOfColumns[$name] - $this->length($column)).'|';
+    }
+
+    protected function length($str): int
+    {
+        return mb_strlen((string) $str, $this->charset);
     }
 }
