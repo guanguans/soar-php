@@ -15,7 +15,7 @@ namespace Guanguans\SoarPHP\Concerns;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Symfony\Component\Process\Process;
 
-trait Executable
+trait WithExecutable
 {
     public function exec(string $command): string
     {

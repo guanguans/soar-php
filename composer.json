@@ -110,7 +110,7 @@
         "post-update-cmd": [
             "@cghooks update"
         ],
-        "cghooks": "./vendor/bin/cghooks",
+        "cghooks": "@php ./vendor/bin/cghooks",
         "checks": [
             "@mark-start",
             "@composer-validate",
@@ -136,20 +136,20 @@
         "mark-start": "printf '\\n!\\n!\\t\\033[0;36m%s\\033[0m\\n!\\n\\n' \"Started\"",
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
-        "pest": "./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache",
+        "pest": "@php ./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache",
         "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
-        "phpstan": "./vendor/bin/phpstan analyse -vv",
+        "phpstan": "@php ./vendor/bin/phpstan analyse -vv",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "post-merge": [
             "composer install"
         ],
-        "psalm": "./vendor/bin/psalm",
+        "psalm": "@php ./vendor/bin/psalm",
         "psalm-baseline": "@psalm --update-baseline",
-        "rector": "./vendor/bin/rector --clear-cache --ansi -v",
+        "rector": "@php ./vendor/bin/rector --clear-cache --ansi -v",
         "rector-dry-run": "@rector --dry-run",
-        "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
+        "style-fix": "@php ./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "style-lint": "@style-fix --diff --dry-run",
-        "test": "./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text",
+        "test": "@php ./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text",
         "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml"
     }
 }

@@ -14,8 +14,8 @@ namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Concerns\ConcreteExplain;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
-use Guanguans\SoarPHP\Concerns\Executable;
 use Guanguans\SoarPHP\Concerns\Factory;
+use Guanguans\SoarPHP\Concerns\WithExecutable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Symfony\Component\Process\Process;
@@ -24,7 +24,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 {
     use ConcreteExplain;
     use ConcreteScore;
-    use Executable;
+    use WithExecutable;
     use Factory;
 
     /**
