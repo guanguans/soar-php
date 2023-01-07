@@ -22,12 +22,8 @@
         <whitelist>
             <directory suffix=".php">src/</directory>
             <exclude>
-                <file>src/Concerns/Factory.php</file>
-                <directory>src/Contracts</directory>
-                <directory>src/Exceptions</directory>
                 <directory>src/Support</directory>
-                <file>src/Explainer.php</file>
-                <file>src/PDOConnector.php</file>
+                <file>src/PDOConnector-xxx.php</file>
             </exclude>
         </whitelist>
     </filter>

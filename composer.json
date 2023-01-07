@@ -149,7 +149,7 @@
         "rector-dry-run": "@rector --dry-run",
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "style-lint": "@style-fix --diff --dry-run",
-        "test": "./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache",
+        "test": "./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text",
         "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml"
     }
 }
