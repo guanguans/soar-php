@@ -10,30 +10,33 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\SoarPHP\Concerns;
+namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
-use Guanguans\SoarPHP\Explainer;
-use Guanguans\SoarPHP\PDOConnector;
 
-trait Factory
+class Factory
 {
-    public function createExplainerFromOptions(array $options): Explainer
+    public static function createConsoleTable(array $rows): ConsoleTable
     {
-        return $this->createExplainer($this->createPDOFromOptions($options));
+        return new ConsoleTable($rows);
     }
 
-    public function createExplainer(\PDO $pdo): Explainer
+    public static function createExplainerFromOptions(array $options): Explainer
+    {
+        return static::createExplainer(static::createPDOFromOptions($options));
+    }
+
+    public static function createExplainer(\PDO $pdo): Explainer
     {
         return new Explainer($pdo);
     }
 
-    public function createPDOFromOptions(array $options): \PDO
+    public static function createPDOFromOptions(array $options): \PDO
     {
-        return $this->createPDO($this->extractConfigOfPDO($options));
+        return static::createPDO(static::extractConfigOfPDO($options));
     }
 
-    public function createPDO(array $config): \PDO
+    public static function createPDO(array $config): \PDO
     {
         return PDOConnector::connect(
             sprintf('mysql:host=%s;port=%s;dbname=%s', $config['host'], $config['port'], $config['dbname']),
@@ -46,16 +49,16 @@ trait Factory
     /**
      * @return array<string, mixed>
      */
-    protected function extractConfigOfPDO(array $options): array
+    protected static function extractConfigOfPDO(array $options): array
     {
         $disable = $options['-test-dsn']['disable'] ?? false;
         if (isset($options['-test-dsn']) && true !== $disable) {
-            return $this->options['-test-dsn'];
+            return $options['-test-dsn'];
         }
 
         $disable = $options['-online-dsn']['disable'] ?? false;
         if (isset($options['-online-dsn']) && true !== $disable) {
-            return $this->options['-online-dsn'];
+            return $options['-online-dsn'];
         }
 
         throw new InvalidConfigException('The configuration of PDO no found.');

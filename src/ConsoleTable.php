@@ -10,7 +10,7 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\SoarPHP\Support;
+namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 

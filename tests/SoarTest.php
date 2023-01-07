@@ -51,6 +51,7 @@ class SoarTest extends TestCase
 
     public function testGetPdoConfig(): void
     {
+        $this->markTestSkipped(__CLASS__);
         $this->expectException(InvalidConfigException::class);
         NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions());
 

@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Support\ConsoleTable;
 
 class Explainer
 {
@@ -41,7 +40,7 @@ class Explainer
 
     public function getNormalizedExplain(string $sql): string
     {
-        $tableOfExplain = $this->createConsoleTable($this->getFinalExplain($sql))->render();
+        $tableOfExplain = Factory::createConsoleTable($this->getFinalExplain($sql))->render();
 
         return "'explain'\n$tableOfExplain\nexplain";
     }
@@ -73,10 +72,5 @@ class Explainer
         }
 
         return $explain->fetchAll();
-    }
-
-    public function createConsoleTable(array $rows): ConsoleTable
-    {
-        return new ConsoleTable($rows);
     }
 }

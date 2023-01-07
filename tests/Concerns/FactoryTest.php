@@ -12,14 +12,11 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests\Concerns;
 
-use Guanguans\SoarPHP\Concerns\Factory;
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\Tests\TestCase;
 
 class FactoryTest extends TestCase
 {
-    use Factory;
-
     /**
      * @return never
      */

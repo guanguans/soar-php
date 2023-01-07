@@ -14,7 +14,6 @@ namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Concerns\ConcreteExplain;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
-use Guanguans\SoarPHP\Concerns\Factory;
 use Guanguans\SoarPHP\Concerns\WithExecutable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
@@ -25,7 +24,6 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
     use ConcreteExplain;
     use ConcreteScore;
     use WithExecutable;
-    use Factory;
 
     /**
      * @var string
@@ -63,16 +61,12 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function explain(string $sql): string
     {
-        $explainer = $this->createExplainerFromOptions($this->options);
-
-        return $this->exec(
-            sprintf(
-                '%s %s -report-type=explain-digest << %s',
-                $this->soarPath,
-                implode(' ', $this->normalizedOptions),
-                $explainer->getNormalizedExplain($sql)
-            )
-        );
+        return $this->exec(sprintf(
+            '%s %s -report-type=explain-digest << %s',
+            $this->soarPath,
+            implode(' ', $this->normalizedOptions),
+            Factory::createExplainerFromOptions($this->options)->getNormalizedExplain($sql)
+        ));
     }
 
     public function syntaxCheck(string $sql): string
