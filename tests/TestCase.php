@@ -12,23 +12,58 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
-use PHPUnit\Framework\TestCase as BaseTestCase;
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+use phpmock\phpunit\PHPMock;
+use Spatie\Snapshots\MatchesSnapshots;
+use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
-class TestCase extends BaseTestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
+    use ArraySubsetAsserts;
+    use MatchesSnapshots;
+    use PHPMock;
+    use VarDumperTestTrait;
+
     /**
-     * Tear down the test case.
+     * This method is called before the first test of this test class is run.
      */
-    protected function tearDown(): void
+    public static function setUpBeforeClass(): void
+    {
+    }
+
+    /**
+     * This method is called after the last test of this test class is run.
+     */
+    public static function tearDownAfterClass(): void
+    {
+    }
+
+    /**
+     * This method is called before each test.
+     */
+    public function setUp(): void
+    {
+        // \DG\BypassFinals::enable();
+    }
+
+    /**
+     * This method is called after each test.
+     */
+    public function tearDown(): void
     {
         $this->finish();
-        parent::tearDown();
+
+        if ($container = \Mockery::getContainer()) {
+            $this->addToAssertionCount($container->mockery_getExpectationCount());
+        }
+
+        \Mockery::close();
     }
 
     /**
      * Run extra tear down code.
      */
-    protected function finish()
+    protected function finish(): void
     {
         // call more tear down methods
     }

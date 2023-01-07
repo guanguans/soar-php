@@ -17,25 +17,21 @@ use Guanguans\Tests\TestCase;
 
 class ConcreteScoreTest extends TestCase
 {
-    protected $soar;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->soar = Soar::create();
-    }
-
     public function testJsonScore(): void
     {
-        $this->assertJson($jsonScore = $this->soar->jsonScore($sql = 'select * from foo'));
+        $soar = Soar::create();
+        $sql = 'select * from foo';
+        $jsonScore = $soar->jsonScore($sql);
+
+        $this->assertJson($jsonScore);
         $this->assertStringContainsString('Score', $jsonScore);
         $this->assertStringContainsString($sql, strtolower($jsonScore));
     }
 
     public function testArrayScore(): void
     {
-        $sql = <<<sql
+        $soar = Soar::create();
+        $sql = <<<'sql'
 select * from `post` where `name` = 'so"a`r';
 select * from `post` where `id` = '1' order by `id` asc limit 1;
 select * from `post` where `id` = '2' limit 1;
@@ -64,9 +60,9 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 sql;
+        $arrayScore = $soar->arrayScore($sql);
+        dump($arrayScore);
 
-        $arrayScore = $this->soar->arrayScore($sql);
-        var_export($arrayScore);
         $this->assertIsArray($arrayScore);
         $this->assertGreaterThanOrEqual(1, $arrayScore);
 
@@ -101,14 +97,20 @@ sql;
 
     public function testHtmlScore(): void
     {
-        $this->assertStringContainsString('<p>', $htmlScore = $this->soar->htmlScore('select * from foo'));
+        $soar = Soar::create();
+        $htmlScore = $soar->htmlScore('select * from foo');
+
+        $this->assertStringContainsString('<p>', $htmlScore);
         $this->assertStringContainsString('分', $htmlScore);
         $this->assertStringContainsString('foo', $htmlScore);
     }
 
     public function testMdScore(): void
     {
-        $this->assertStringContainsString('##', $mdScore = $this->soar->mdScore('select * from foo'));
+        $soar = Soar::create();
+        $mdScore = $soar->mdScore('select * from foo');
+
+        $this->assertStringContainsString('##', $mdScore);
         $this->assertStringContainsString('分', $mdScore);
         $this->assertStringContainsString('foo', $mdScore);
     }

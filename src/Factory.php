@@ -14,6 +14,9 @@ namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 
+/**
+ * @internal
+ */
 class Factory
 {
     public static function createConsoleTable(array $rows): ConsoleTable

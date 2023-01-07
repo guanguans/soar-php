@@ -16,92 +16,110 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OsHelper;
-use Nyholm\NSA;
 
 class SoarTest extends TestCase
 {
-    protected $soar;
-
-    protected function setUp(): void
+    public function testScore(): void
     {
-        parent::setUp();
+        $soar = Soar::create();
+        $score = $soar->score('select * from users;');
 
-        $this->soar = Soar::create();
+        $this->assertIsString($score);
+    }
+
+    public function testInvalidConfigExceptionForExplain(): void
+    {
+        $soar = Soar::create();
+
+        $this->expectException(InvalidConfigException::class);
+        $soar->explain('select * from users;');
+    }
+
+    public function testSyntaxCheck(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertStringContainsString(
+            'At SQL 1 : line 1 column 5 near "selec',
+            $soar->syntaxCheck('selec * from fa_users;')
+        );
+        $this->assertEmpty($soar->syntaxCheck('select * from fa_users;'));
+    }
+
+    public function testFingerPrint(): void
+    {
+        $soar = Soar::create();
+        $fingerPrint = trim($soar->fingerPrint('select * from users where id = 1;'));
+
+        $this->assertEquals('select * from users where id = ?', $fingerPrint);
+    }
+
+    public function testPretty(): void
+    {
+        $soar = Soar::create();
+        $pretty = $soar->pretty('select * from users where id = 1;');
+
+        $this->assertStringContainsString("\n", $pretty);
+        $this->assertStringContainsString('  ', $pretty);
+    }
+
+    public function testMd2html(): void
+    {
+        $soar = Soar::create();
+        $html = $soar->md2html('* 这是一个测试');
+
+        $this->assertStringContainsString(
+            <<<'html'
+<ul>
+<li>这是一个测试</li>
+</ul>
+html
+            ,
+            $html
+        );
+    }
+
+    public function testHelp(): void
+    {
+        $soar = Soar::create();
+        OsHelper::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
+
+        $this->assertStringContainsString('-version', $soar->help());
     }
 
     public function testGetSoarPath(): void
     {
-        $this->assertFileExists($this->soar->getSoarPath());
+        $soar = Soar::create();
+
+        $this->assertFileExists($soar->getSoarPath());
     }
 
-    public function testSetSoarPathInvalidConfigException(): void
+    public function testInvalidConfigExceptionForSetSoarPath(): void
     {
+        $soar = Soar::create();
+
         $this->expectException(InvalidArgumentException::class);
-        $this->soar->setSoarPath('bar.soar');
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->soar->setSoarPath(__FILE__);
-    }
-
-    public function testSetSoarPath(): void
-    {
-        $this->assertFileExists($soarPath = $this->soar->setSoarPath(NSA::invokeMethod($this->soar, 'getDefaultSoarPath'))->getSoarPath());
-        $this->assertTrue(is_executable($soarPath));
-    }
-
-    public function testGetPdoConfig(): void
-    {
-        $this->markTestSkipped(__CLASS__);
-        $this->expectException(InvalidConfigException::class);
-        NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions());
-
-        $this->soar->setOption(
-            '-online-dsn',
-            $onlineDsn = [
-                'host' => '192.168.10.10',
-                'port' => '3306',
-                'dbname' => 'laravel',
-                'username' => 'homestead',
-                'password' => 'secret',
-                'disable' => false,
-                'options' => [],
-            ]
-        );
-        $this->assertEquals($this->soar->getOptions()['-online-dsn'], NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions()));
-
-        $this->soar->setOption(
-            '-test-dsn',
-            $testDsn = [
-                'host' => '192.168.10.10',
-                'port' => '3306',
-                'dbname' => 'laravel',
-                'username' => 'homestead',
-                'password' => 'secret',
-                'disable' => false,
-            ]
-        );
-        $this->assertEquals($this->soar->getOptions()['-test-dsn'], NSA::invokeMethod($this->soar, 'extractConfigOfPDO', $this->soar->getOptions()));
-    }
-
-    public function testExec(): void
-    {
-        $this->assertStringContainsString('soar', $this->soar->exec('echo soar'));
+        $soar->setSoarPath('foo.soar');
     }
 
     public function testGetOptions(): void
     {
-        $this->assertIsArray($this->soar->getOptions());
+        $soar = Soar::create();
+
+        $this->assertIsArray($soar->getOptions());
     }
 
     public function testSetOption(): void
     {
-        $this->assertSame('bar', $this->soar->setOption('foo', 'bar')->getOptions()['foo']);
-    }
+        $soar = Soar::create();
 
-    public function testNormalizeToArrOptions(): void
-    {
-        $this->assertIsArray(NSA::invokeMethod($this->soar, 'normalizeOptions', [
-            '-online-dsn' => [
+        $this->assertSame(
+            $str = 'bar',
+            $soar->setOption($key = 'foo', $str)->getOptions()[$key]
+        );
+
+        $this->assertSame(
+            $arr = [
                 'host' => '192.168.10.10',
                 'port' => '3306',
                 'dbname' => 'laravel',
@@ -110,52 +128,12 @@ class SoarTest extends TestCase
                 'disable' => false,
                 'options' => [],
             ],
-        ]));
+            $soar->setOption($key = '-online-dsn', $arr)->getOptions()[$key]
+        );
 
-        $this->assertIsArray($options = NSA::invokeMethod($this->soar, 'normalizeOptions', [
-            '-foo' => 'bar',
-            '-bar' => ['a', 'b', 'c'],
-        ]));
-        $this->assertContains('-foo=bar', $options);
-        $this->assertContains('-bar=a,b,c', $options);
-    }
-
-    public function testScore(): void
-    {
-        $this->assertIsString($this->soar->score('select * from users'));
-    }
-
-    public function testExplainInvalidConfigException(): void
-    {
-        $this->expectException(InvalidConfigException::class);
-        $this->soar->explain('select * from users');
-    }
-
-    public function testSyntaxCheck(): void
-    {
-        $this->assertStringContainsString('At SQL 1 : line 1 column 5 near "selec', $this->soar->syntaxCheck('selec * from fa_users;'));
-        $this->assertEmpty($this->soar->syntaxCheck('select * from fa_users;'));
-    }
-
-    public function testFingerPrint(): void
-    {
-        $this->assertStringContainsString('?', $this->soar->fingerPrint('select * from users where id = 1;'));
-    }
-
-    public function testPretty(): void
-    {
-        $this->assertStringContainsString("\n", $this->soar->pretty('select * from users where id = 1;'));
-    }
-
-    public function testMd2html(): void
-    {
-        $this->assertStringContainsString('<ul>', $html = $this->soar->md2html('* 这是一个测试'));
-        $this->assertStringContainsString('<li>', $html);
-    }
-
-    public function testHelp(): void
-    {
-        OsHelper::isWindows() and $this->markTestSkipped('help is not supported on windows');
-        $this->assertStringContainsString('-version', $this->soar->help());
+        $this->assertSame(
+            $arr = ['a', 'b', 'c'],
+            $soar->setOption($key = '-foo', $arr)->getOptions()[$key]
+        );
     }
 }
