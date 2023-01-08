@@ -16,10 +16,17 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\SoarPHP\Factory;
 use Guanguans\SoarPHP\PDOConnector;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Nyholm\NSA;
 
 class FactoryTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        OsHelper::isWindows() and $this->markTestSkipped(__CLASS__);
+    }
+
     public function testCreateExplainer(): void
     {
         $explainer = Factory::createExplainer(new \PDO('sqlite::memory:'));

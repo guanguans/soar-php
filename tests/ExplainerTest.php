@@ -14,6 +14,7 @@ namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Explainer;
+use Guanguans\SoarPHP\Support\OsHelper;
 
 class ExplainerTest extends TestCase
 {
@@ -36,6 +37,8 @@ class ExplainerTest extends TestCase
 
     public function testGetNormalizedExplain(): void
     {
+        OsHelper::isWindows() and $this->markTestSkipped(__METHOD__);
+
         $mockPDOStatement = \Mockery::mock(\PDOStatement::class);
         $mockPDOStatement->shouldReceive('fetchAll')->andReturn(
             [

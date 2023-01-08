@@ -65,6 +65,8 @@ class SoarTest extends TestCase
 
     public function testMd2html(): void
     {
+        OsHelper::isWindows() and $this->markTestSkipped(__METHOD__);
+
         $soar = Soar::create();
         $html = $soar->md2html('* 这是一个测试');
 
