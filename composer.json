@@ -124,6 +124,8 @@
             "@mark-separate",
             "@test",
             "@mark-separate",
+            "@phpstan",
+            "@mark-separate",
             "@psalm",
             "@mark-finish"
         ],
