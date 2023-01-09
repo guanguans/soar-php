@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Guanguans\Tests;
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
-use Mockery;
 use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
@@ -54,11 +53,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
     {
         $this->finish();
 
-        if ($container = Mockery::getContainer()) {
+        if ($container = \Mockery::getContainer()) {
             $this->addToAssertionCount($container->mockery_getExpectationCount());
         }
 
-        Mockery::close();
+        \Mockery::close();
     }
 
     /**
