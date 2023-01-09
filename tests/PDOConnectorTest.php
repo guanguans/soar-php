@@ -14,13 +14,14 @@ namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\PDOConnector;
 use Guanguans\SoarPHP\Support\OsHelper;
+use PDO;
 
 class PDOConnectorTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
-        OsHelper::isWindows() and $this->markTestSkipped(__CLASS__);
+        OsHelper::isWindows() and $this->markTestSkipped(self::class);
     }
 
     public function testConnect(): void
@@ -28,8 +29,8 @@ class PDOConnectorTest extends TestCase
         $connect1 = PDOConnector::connect('sqlite::memory:');
         $connect2 = PDOConnector::connect('sqlite::memory:');
 
-        $this->assertInstanceOf(\PDO::class, $connect1);
-        $this->assertInstanceOf(\PDO::class, $connect2);
+        $this->assertInstanceOf(PDO::class, $connect1);
+        $this->assertInstanceOf(PDO::class, $connect2);
         $this->assertEquals($connect1, $connect2);
     }
 
@@ -38,9 +39,12 @@ class PDOConnectorTest extends TestCase
         $connect = PDOConnector::connect('sqlite::memory:');
         PDOConnector::close();
 
-        $this->assertInstanceOf(\PDO::class, $connect);
+        $this->assertInstanceOf(PDO::class, $connect);
     }
 
+    /**
+     * @return never
+     */
     public function testConstruct(): void
     {
         $this->markTestSkipped(__METHOD__);

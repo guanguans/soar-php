@@ -54,7 +54,7 @@ class SoarTest extends TestCase
         $soar = Soar::create();
         $fingerPrint = trim($soar->fingerPrint('select * from users where id = 1;'));
 
-        $this->assertEquals('select * from users where id = ?', $fingerPrint);
+        $this->assertSame('select * from users where id = ?', $fingerPrint);
         $this->assertMatchesSnapshot($fingerPrint);
     }
 

@@ -18,21 +18,25 @@ use Guanguans\SoarPHP\Factory;
 use Guanguans\SoarPHP\PDOConnector;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Nyholm\NSA;
+use PDO;
 
 class FactoryTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
-        OsHelper::isWindows() and $this->markTestSkipped(__CLASS__);
+        OsHelper::isWindows() and $this->markTestSkipped(self::class);
     }
 
     public function testCreateExplainer(): void
     {
-        $explainer = Factory::createExplainer(new \PDO('sqlite::memory:'));
+        $explainer = Factory::createExplainer(new PDO('sqlite::memory:'));
         $this->assertInstanceOf(Explainer::class, $explainer);
     }
 
+    /**
+     * @return never
+     */
     public function testCreatePDO(): void
     {
         $this->markTestSkipped(__METHOD__);
@@ -44,7 +48,7 @@ class FactoryTest extends TestCase
             'dbname' => 'you_dbname',
             'username' => 'you_username',
             'password' => 'you_password',
-            'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+            'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
             'disable' => false,
         ]);
 
@@ -60,7 +64,7 @@ class FactoryTest extends TestCase
                 'dbname' => 'you_dbname',
                 'username' => 'you_username',
                 'password' => 'you_password',
-                'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+                'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
                 'disable' => true,
             ],
             '-online-dsn' => [
@@ -69,7 +73,7 @@ class FactoryTest extends TestCase
                 'dbname' => 'you_dbname',
                 'username' => 'you_username',
                 'password' => 'you_password',
-                'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+                'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
                 'disable' => true,
             ],
         ];
@@ -88,7 +92,7 @@ class FactoryTest extends TestCase
                 'dbname' => 'you_dbname',
                 'username' => 'you_username',
                 'password' => 'you_password',
-                'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+                'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
                 'disable' => false,
             ],
             '-online-dsn' => $onlineDsn = [
@@ -97,7 +101,7 @@ class FactoryTest extends TestCase
                 'dbname' => 'you_dbname',
                 'username' => 'you_username',
                 'password' => 'you_password',
-                'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+                'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
                 'disable' => true,
             ],
         ];
@@ -111,7 +115,7 @@ class FactoryTest extends TestCase
                 'dbname' => 'you_dbname',
                 'username' => 'you_username',
                 'password' => 'you_password',
-                'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+                'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
                 'disable' => true,
             ],
             '-online-dsn' => $onlineDsn = [
@@ -120,7 +124,7 @@ class FactoryTest extends TestCase
                 'dbname' => 'you_dbname',
                 'username' => 'you_username',
                 'password' => 'you_password',
-                'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
+                'options' => [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
                 'disable' => false,
             ],
         ];

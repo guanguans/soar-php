@@ -92,6 +92,8 @@ return static function (RectorConfig $rectorConfig): void {
         '**/Source/*',
         '**/Expected/*',
         '**/Expected*',
+        '**/__snapshots__/*',
+        '**/__snapshots__*',
         __DIR__.'/src/foundation/tests/AppTest.php',
     ]);
 

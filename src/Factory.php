@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
+use PDO;
 
 /**
  * @internal
@@ -29,17 +30,17 @@ class Factory
         return static::createExplainer(static::createPDOFromOptions($options));
     }
 
-    public static function createExplainer(\PDO $pdo): Explainer
+    public static function createExplainer(PDO $pdo): Explainer
     {
         return new Explainer($pdo);
     }
 
-    public static function createPDOFromOptions(array $options): \PDO
+    public static function createPDOFromOptions(array $options): PDO
     {
         return static::createPDO(static::extractConfigOfPDO($options));
     }
 
-    public static function createPDO(array $config): \PDO
+    public static function createPDO(array $config): PDO
     {
         return PDOConnector::connect(
             sprintf('mysql:host=%s;port=%s;dbname=%s', $config['host'], $config['port'], $config['dbname']),

@@ -65,7 +65,7 @@ class ConsoleTableTest extends TestCase
         $consoleTable = new ConsoleTable($rows);
 
         $render = (clone $consoleTable)->isRenderHeader(true)->render();
-        $this->assertEquals(
+        $this->assertSame(
             <<<str
 +----+-----------------+----------------+
 | id | name            | role           |
@@ -81,7 +81,7 @@ str
         $this->assertMatchesSnapshot($render);
 
         $render = (clone $consoleTable)->isRenderHeader(false)->render();
-        $this->assertEquals(
+        $this->assertSame(
             <<<str
 +----+-----------------+----------------+
 | 1  | Denis Koronets  | php developer  |

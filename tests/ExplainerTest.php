@@ -15,20 +15,23 @@ namespace Guanguans\Tests;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\SoarPHP\Support\OsHelper;
+use Mockery;
+use PDO;
+use PDOStatement;
 
 class ExplainerTest extends TestCase
 {
     public function testGetPdo(): void
     {
-        $mockPDO = \Mockery::mock(\PDO::class);
+        $mockPDO = Mockery::mock(PDO::class);
         $explainer = new Explainer($mockPDO);
 
-        $this->assertInstanceOf(\PDO::class, $explainer->getPdo());
+        $this->assertInstanceOf(PDO::class, $explainer->getPdo());
     }
 
     public function testSetPdo(): void
     {
-        $pdo = new \PDO('sqlite::memory:');
+        $pdo = new PDO('sqlite::memory:');
         $explainer = new Explainer($pdo);
         $explainer->setPdo($pdo);
 
@@ -39,7 +42,7 @@ class ExplainerTest extends TestCase
     {
         OsHelper::isWindows() and $this->markTestSkipped(__METHOD__);
 
-        $mockPDOStatement = \Mockery::mock(\PDOStatement::class);
+        $mockPDOStatement = Mockery::mock(PDOStatement::class);
         $mockPDOStatement->shouldReceive('fetchAll')->andReturn(
             [
                 [
@@ -73,12 +76,12 @@ class ExplainerTest extends TestCase
             ]
         );
 
-        $mockPDO = \Mockery::mock(\PDO::class);
+        $mockPDO = Mockery::mock(PDO::class);
         $mockPDO->shouldReceive('query')->andReturns($mockPDOStatement);
         $explainer = new Explainer($mockPDO);
 
         $normalizedExplain = $explainer->getNormalizedExplain('select * from user;');
-        $this->assertEquals(
+        $this->assertSame(
             <<<'str'
 'explain'
 +----+-------------+------------------+------------+------+-----------------------------------------+-----+---------+-----+------+----------+----------------------------------------------------+
@@ -98,7 +101,7 @@ str
     public function testGetFinalExplainExplain(): void
     {
         // 第一次
-        $mockPDOStatement = \Mockery::mock(\PDOStatement::class);
+        $mockPDOStatement = Mockery::mock(PDOStatement::class);
         $mockPDOStatement->shouldReceive('fetchAll')->times(2)->andReturns(
             [],
             [
@@ -119,7 +122,7 @@ str
             ]
         );
 
-        $mockPDO = \Mockery::mock(\PDO::class);
+        $mockPDO = Mockery::mock(PDO::class);
         $mockPDO->shouldReceive('query')->andReturns($mockPDOStatement);
         $explainer = new Explainer($mockPDO);
 
@@ -129,7 +132,7 @@ str
         OsHelper::isWindows() or $this->assertMatchesSnapshot($finalExplain);
 
         // 第二次
-        $mockPDOStatement = \Mockery::mock(\PDOStatement::class);
+        $mockPDOStatement = Mockery::mock(PDOStatement::class);
         $mockPDOStatement->shouldReceive('fetchAll')->times(3)->andReturns(
             [],
             [],
@@ -151,7 +154,7 @@ str
             ]
         );
 
-        $mockPDO = \Mockery::mock(\PDO::class);
+        $mockPDO = Mockery::mock(PDO::class);
         $mockPDO->shouldReceive('query')->andReturns($mockPDOStatement);
         $explainer = new Explainer($mockPDO);
 
@@ -163,7 +166,7 @@ str
 
     public function testInvalidArgumentExceptionForGetExplain(): void
     {
-        $pdo = new \PDO('sqlite::memory:');
+        $pdo = new PDO('sqlite::memory:');
         $explainer = new Explainer($pdo);
 
         $this->expectException(InvalidArgumentException::class);
@@ -174,11 +177,11 @@ str
 
     public function testGetExplain(): void
     {
-        $mockPDO = \Mockery::mock(\PDO::class);
+        $mockPDO = Mockery::mock(PDO::class);
         $mockPDO->shouldReceive('query')->andReturnFalse();
         $explainer = new Explainer($mockPDO);
 
         $explain = $explainer->getExplain('select * from user;');
-        $this->assertEquals([], $explain);
+        $this->assertSame([], $explain);
     }
 }
