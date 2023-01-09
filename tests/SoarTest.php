@@ -117,7 +117,7 @@ html
 
         $this->assertSame(
             $str = 'bar',
-            $soar->setOption($key = 'foo', $str)->getOptions()[$key]
+            $soar->setOption($key = 'foo', $str)->getOption($key)
         );
 
         $this->assertSame(
@@ -130,12 +130,12 @@ html
                 'disable' => false,
                 'options' => [],
             ],
-            $soar->setOption($key = '-online-dsn', $arr)->getOptions()[$key]
+            $soar->setOption($key = '-online-dsn', $arr)->getOption($key)
         );
 
         $this->assertSame(
             $arr = ['a', 'b', 'c'],
-            $soar->setOption($key = '-foo', $arr)->getOptions()[$key]
+            $soar->setOption($key = '-foo', $arr)->getOption($key)
         );
     }
 }

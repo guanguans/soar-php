@@ -127,7 +127,16 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function getOptions(): array
     {
-        return $this->options;
+        return $this->getOption();
+    }
+
+    public function getOption(?string $key = null, $value = null)
+    {
+        if (null === $key) {
+            return $this->options;
+        }
+
+        return $this->options[$key] ?? $value;
     }
 
     public function setOptions(array $options): self
