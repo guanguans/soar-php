@@ -1,13 +1,8 @@
-<h1 align="center">soar-php</h1>
+# soar-php
 
-<p align="center">
-    <a>简体中文</a> |
-    <a href="README-EN.md">ENGLISH</a>
-</p>
+> 基于小米的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
 
-<p align="center">SQL 优化器、重写器。</p>
-
-> **[soar-php](https://github.com/guanguans/soar-php)** 是一个基于小米公司开源的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
+[简体中文](README.md) | [ENGLISH](README-EN.md)
 
 [![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
 [![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)

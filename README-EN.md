@@ -1,13 +1,8 @@
-<h1 align="center">soar-php</h1>
+# soar-php
 
-<p align="center">
-    <a href="README.md">简体中文</a> |
-    <a>ENGLISH</a>
-</p>
+> SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's [soar](https://github.com/XiaoMi/soar).
 
-<p align="center">SQL optimizer and rewriter.</p>
-
-> **[soar-php](https://github.com/guanguans/soar-php)** is a SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's open source [soar](https://github.com/XiaoMi/soar).
+[简体中文](README.md) | [ENGLISH](README-EN.md)
 
 [![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
 [![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
