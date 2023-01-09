@@ -32,6 +32,7 @@ $finder = Finder::create()
         'doc/',
         'docs/',
         'vendor/',
+        '__snapshots__/',
     ])
     ->append([
         __DIR__.'/.php-cs-fixer.php',

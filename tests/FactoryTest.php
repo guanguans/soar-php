@@ -98,7 +98,7 @@ class FactoryTest extends TestCase
                 'username' => 'you_username',
                 'password' => 'you_password',
                 'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
-                'disable' => false,
+                'disable' => true,
             ],
         ];
         $configOfPDO = NSA::invokeMethod(Factory::class, 'extractConfigOfPDO', $options);

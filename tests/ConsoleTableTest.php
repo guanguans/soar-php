@@ -64,6 +64,7 @@ class ConsoleTableTest extends TestCase
     {
         $consoleTable = new ConsoleTable($rows);
 
+        $render = (clone $consoleTable)->isRenderHeader(true)->render();
         $this->assertEquals(
             <<<str
 +----+-----------------+----------------+
@@ -75,8 +76,11 @@ class ConsoleTableTest extends TestCase
 +----+-----------------+----------------+
 str
             ,
-            (clone $consoleTable)->isRenderHeader(true)->render()
+            $render
         );
+        $this->assertMatchesSnapshot($render);
+
+        $render = (clone $consoleTable)->isRenderHeader(false)->render();
         $this->assertEquals(
             <<<str
 +----+-----------------+----------------+
@@ -86,8 +90,9 @@ str
 +----+-----------------+----------------+
 str
             ,
-            (clone $consoleTable)->isRenderHeader(false)->render()
+            $render
         );
+        $this->assertMatchesSnapshot($render);
     }
 
     public function rowsProvider(): array

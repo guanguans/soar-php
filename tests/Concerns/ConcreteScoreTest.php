@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\Tests\Concerns;
 
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Guanguans\Tests\TestCase;
 
 class ConcreteScoreTest extends TestCase
@@ -26,6 +27,7 @@ class ConcreteScoreTest extends TestCase
         $this->assertJson($jsonScore);
         $this->assertStringContainsString('Score', $jsonScore);
         $this->assertStringContainsString($sql, strtolower($jsonScore));
+        $this->assertMatchesJsonSnapshot($jsonScore);
     }
 
     public function testArrayScore(): void
@@ -61,7 +63,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 sql;
         $arrayScore = $soar->arrayScore($sql);
-        dump($arrayScore);
 
         $this->assertIsArray($arrayScore);
         $this->assertGreaterThanOrEqual(1, $arrayScore);
@@ -93,6 +94,12 @@ sql;
         $this->assertArrayHasKey('Content', $heuristicRule);
         $this->assertArrayHasKey('Case', $heuristicRule);
         $this->assertArrayHasKey('Position', $heuristicRule);
+
+        OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($arrayScore);
+
+        /** @noinspection ForgottenDebugOutputInspection */
+        /** @noinspection DebugFunctionUsageInspection */
+        OsHelper::isWindows() and dump($arrayScore);
     }
 
     public function testHtmlScore(): void
@@ -103,6 +110,7 @@ sql;
         $this->assertStringContainsString('<p>', $htmlScore);
         $this->assertStringContainsString('分', $htmlScore);
         $this->assertStringContainsString('foo', $htmlScore);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($htmlScore);
     }
 
     public function testMdScore(): void
@@ -113,5 +121,6 @@ sql;
         $this->assertStringContainsString('##', $mdScore);
         $this->assertStringContainsString('分', $mdScore);
         $this->assertStringContainsString('foo', $mdScore);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($mdScore);
     }
 }

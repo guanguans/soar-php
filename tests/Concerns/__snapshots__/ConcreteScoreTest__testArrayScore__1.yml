@@ -1,0 +1,403 @@
+-
+    ID: 31C26EA63CCE34CC
+    Fingerprint: 'select * from `post` where `name` = ?'
+    Score: 95
+    Sample: 'select * from `post` where `name` = ''so"a`r'''
+    Explain: null
+    HeuristicRules:
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`post`'
+-
+    ID: 2268482EE474D417
+    Fingerprint: 'select * from `post` where `id` = ? order by `id` limit ?'
+    Score: 95
+    Sample: 'select * from `post` where `id` = ''1'' order by `id` asc limit 1'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`post`'
+-
+    ID: 594E8E366193147C
+    Fingerprint: 'select * from `post` where `id` = ? limit ?'
+    Score: 75
+    Sample: 'select * from `post` where `id` = ''2'' limit 1'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+        -
+            Item: RES.002
+            Severity: L4
+            Summary: '未使用 ORDER BY 的 LIMIT 查询'
+            Content: '没有 ORDER BY 的 LIMIT 会导致非确定性的结果，这取决于查询执行计划。'
+            Case: 'select col1,col2 from tbl where name=xx limit 10'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`post`'
+-
+    ID: D7A4C304F420360F
+    Fingerprint: 'select * from `users`'
+    Score: 75
+    Sample: 'select * from `users`'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: CLA.001
+            Severity: L4
+            Summary: '最外层 SELECT 未指定 WHERE 条件'
+            Content: 'SELECT 语句没有 WHERE 子句，可能检查比预期更多的行(全表扫描)。对于 SELECT COUNT(*) 类型的请求如果不要求精度，建议使用 SHOW TABLE STATUS 或 EXPLAIN 替代。'
+            Case: 'select id from tbl'
+            Position: 0
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`users`'
+-
+    ID: 6F8DAF79E50AD779
+    Fingerprint: 'select * from `post` where `post`.`user_id` = ? and `post`.`user_id` is not null'
+    Score: 90
+    Sample: 'select * from `post` where `post`.`user_id` = ''1'' and `post`.`user_id` is not null'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: ARG.006
+            Severity: L1
+            Summary: '应尽量避免在 WHERE 子句中对字段进行 NULL 值判断'
+            Content: '使用 IS NULL 或 IS NOT NULL 将可能导致引擎放弃使用索引而进行全表扫描，如：select id from t where num is null;可以在num上设置默认值0，确保表中 num 列没有 NULL 值，然后这样查询： select id from t where num=0;'
+            Case: 'select id from t where num is null'
+            Position: 0
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`post`'
+-
+    ID: 16219655761820A2
+    Fingerprint: 'select ?'
+    Score: 100
+    Sample: 'select 1'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: OK
+            Severity: L0
+            Summary: OK
+            Content: OK
+            Case: OK
+            Position: 0
+    IndexRules: null
+    Tables: null
+-
+    ID: 12F0FA25C870C560
+    Fingerprint: 'select * from `users` inner join `post` on `users`.`id` = `post`.`user_id`'
+    Score: 95
+    Sample: 'select * from `users` inner join `post` on `users`.`id` = `post`.`user_id`'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`post`'
+        - '`information_schema`.`users`'
+-
+    ID: 435E53AC9BA9229D
+    Fingerprint: 'select * from `personal_access_tokens` where `personal_access_tokens`.`id` = ? limit ?'
+    Score: 75
+    Sample: 'select * from `personal_access_tokens` where `personal_access_tokens`.`id` = "32" limit 1'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+        -
+            Item: RES.002
+            Severity: L4
+            Summary: '未使用 ORDER BY 的 LIMIT 查询'
+            Content: '没有 ORDER BY 的 LIMIT 会导致非确定性的结果，这取决于查询执行计划。'
+            Case: 'select col1,col2 from tbl where name=xx limit 10'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`personal_access_tokens`'
+-
+    ID: 2B953DCDFA8E2F78
+    Fingerprint: 'select * from `admin_users` where `admin_users`.`id` = ? limit ?'
+    Score: 75
+    Sample: 'select * from `admin_users` where `admin_users`.`id` = ''1'' limit 1'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+        -
+            Item: RES.002
+            Severity: L4
+            Summary: '未使用 ORDER BY 的 LIMIT 查询'
+            Content: '没有 ORDER BY 的 LIMIT 会导致非确定性的结果，这取决于查询执行计划。'
+            Case: 'select col1,col2 from tbl where name=xx limit 10'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`admin_users`'
+-
+    ID: A9B15B39E56F4176
+    Fingerprint: 'update `personal_access_tokens` set `last_used_at` = ?, `personal_access_tokens`.`updated_at` = ? where `id` = ?'
+    Score: 100
+    Sample: 'update `personal_access_tokens` set `last_used_at` = ''2022-04-28 22:04:48'', `personal_access_tokens`.`updated_at` = ''2022-04-28 22:04:48'' where `id` = ''32'''
+    Explain: null
+    HeuristicRules:
+        -
+            Item: OK
+            Severity: L0
+            Summary: OK
+            Content: OK
+            Case: OK
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`personal_access_tokens`'
+-
+    ID: DCB8F8D0BDA4931F
+    Fingerprint: 'select count(*) as aggregate from `goods` inner join `product` on `product`.`id` = `goods`.`product_id` where exists (select * from `product` where `goods`.`product_id` = `product`.`id` and not exists (select * from `product_dont_ship_address` where `product`.`id` = `product_dont_ship_address`.`product_id` and `province_id` = ? and `city_id` = ? and `product_dont_ship_address`.`deleted_at` is null) and `product`.`deleted_at` is null) and lower(`goods`.`name`) like ? and lower(`goods`.`encoding`) like ? and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`supplier_id`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`encoding`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`operator_id`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`province_id`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`city_id`) like ? and `product`.`deleted_at` is null) and `goods`.`deleted_at` is null'
+    Score: 10
+    Sample: 'select count(*) as aggregate from `goods` inner join `product` on `product`.`id` = `goods`.`product_id` where exists (select * from `product` where `goods`.`product_id` = `product`.`id` and not exists (select * from `product_dont_ship_address` where `product`.`id` = `product_dont_ship_address`.`product_id` and `province_id` = ''6'' and `city_id` = ''303'' and `product_dont_ship_address`.`deleted_at` is null) and `product`.`deleted_at` is null) and LOWER(`goods`.`name`) LIKE ''%商%'' and LOWER(`goods`.`encoding`) LIKE ''%654327%'' and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`supplier_id`) LIKE ''%15%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`encoding`) LIKE ''%654321%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`operator_id`) LIKE ''%1%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`province_id`) LIKE ''%1%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`city_id`) LIKE ''%5%'' and `product`.`deleted_at` is null) and `goods`.`deleted_at` is null'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: ARG.001
+            Severity: L4
+            Summary: 不建议使用前项通配符查找
+            Content: '例如 "％foo"，查询参数有一个前项通配符的情况无法使用已有索引。'
+            Case: 'select c1,c2,c3 from tbl where name like ''%foo'''
+            Position: 0
+        -
+            Item: ARG.006
+            Severity: L1
+            Summary: '应尽量避免在 WHERE 子句中对字段进行 NULL 值判断'
+            Content: '使用 IS NULL 或 IS NOT NULL 将可能导致引擎放弃使用索引而进行全表扫描，如：select id from t where num is null;可以在num上设置默认值0，确保表中 num 列没有 NULL 值，然后这样查询： select id from t where num=0;'
+            Case: 'select id from t where num is null'
+            Position: 0
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+        -
+            Item: FUN.001
+            Severity: L2
+            Summary: '避免在 WHERE 条件中使用函数或其他运算符'
+            Content: '虽然在 SQL 中使用函数可以简化很多复杂的查询，但使用了函数的查询无法利用表中已经建立的索引，该查询将会是全表扫描，性能较差。通常建议将列名写在比较运算符左侧，将查询过滤条件放在比较运算符右侧。也不建议在查询比较条件两侧书写多余的括号，这会对阅读产生比较大的困扰。'
+            Case: 'select id from t where substring(name,1,3)=''abc'''
+            Position: 0
+        -
+            Item: FUN.002
+            Severity: L1
+            Summary: '指定了 WHERE 条件或非 MyISAM 引擎时使用 COUNT(*) 操作性能不佳'
+            Content: 'COUNT(*) 的作用是统计表行数，COUNT(COL) 的作用是统计指定列非 NULL 的行数。MyISAM 表对于 COUNT(*) 统计全表行数进行了特殊的优化，通常情况下非常快。但对于非 MyISAM 表或指定了某些 WHERE 条件，COUNT(*) 操作需要扫描大量的行才能获取精确的结果，性能也因此不佳。有时候某些业务场景并不需要完全精确的 COUNT 值，此时可以用近似值来代替。EXPLAIN 出来的优化器估算的行数就是一个不错的近似值，执行 EXPLAIN 并不需要真正去执行查询，所以成本很低。'
+            Case: 'SELECT c3, COUNT(*) AS accounts FROM tab where c2 < 10000 GROUP BY c3 ORDER BY num'
+            Position: 0
+        -
+            Item: JOI.002
+            Severity: L4
+            Summary: 同一张表被连接两次
+            Content: '相同的表在 FROM 子句中至少出现两次，可以简化为对该表的单次访问。'
+            Case: 'select tb1.col from (tb1, tb2) join tb2 on tb1.id=tb.id where tb1.id=1'
+            Position: 0
+        -
+            Item: SUB.004
+            Severity: L3
+            Summary: 执行计划中嵌套连接深度过深
+            Content: 'MySQL对子查询的优化效果不佳,MySQL将外部查询中的每一行作为依赖子查询执行子查询。 这是导致严重性能问题的常见原因。'
+            Case: 'SELECT * from tb where id in (select id from (select id from tb))'
+            Position: 0
+        -
+            Item: SUB.006
+            Severity: L2
+            Summary: 不建议在子查询中使用函数
+            Content: 'MySQL将外部查询中的每一行作为依赖子查询执行子查询，如果在子查询中使用函数，即使是semi-join也很难进行高效的查询。可以将子查询重写为OUTER JOIN语句并用连接条件对数据进行过滤。'
+            Case: 'SELECT * FROM staff WHERE name IN (SELECT max(NAME) FROM customer)'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`goods`'
+        - '`information_schema`.`product_dont_ship_address`'
+        - '`information_schema`.`product`'
+-
+    ID: 1B8DAC2A51506A93
+    Fingerprint: 'select `goods`.* from `goods` inner join `product` on `product`.`id` = `goods`.`product_id` where exists (select * from `product` where `goods`.`product_id` = `product`.`id` and not exists (select * from `product_dont_ship_address` where `product`.`id` = `product_dont_ship_address`.`product_id` and `province_id` = ? and `city_id` = ? and `product_dont_ship_address`.`deleted_at` is null) and `product`.`deleted_at` is null) and lower(`goods`.`name`) like ? and lower(`goods`.`encoding`) like ? and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`supplier_id`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`encoding`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`operator_id`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`province_id`) like ? and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and lower(`product`.`city_id`) like ? and `product`.`deleted_at` is null) and `goods`.`deleted_at` is null order by `goods`.`id` desc limit ? offset ?'
+    Score: 15
+    Sample: 'select `goods`.* from `goods` inner join `product` on `product`.`id` = `goods`.`product_id` where exists (select * from `product` where `goods`.`product_id` = `product`.`id` and not exists (select * from `product_dont_ship_address` where `product`.`id` = `product_dont_ship_address`.`product_id` and `province_id` = ''6'' and `city_id` = ''303'' and `product_dont_ship_address`.`deleted_at` is null) and `product`.`deleted_at` is null) and LOWER(`goods`.`name`) LIKE ''%商%'' and LOWER(`goods`.`encoding`) LIKE ''%654327%'' and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`supplier_id`) LIKE ''%15%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`encoding`) LIKE ''%654321%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`operator_id`) LIKE ''%1%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`province_id`) LIKE ''%1%'' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`city_id`) LIKE ''%5%'' and `product`.`deleted_at` is null) and `goods`.`deleted_at` is null order by `goods`.`id` desc limit 15 offset 0'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: ARG.001
+            Severity: L4
+            Summary: 不建议使用前项通配符查找
+            Content: '例如 "％foo"，查询参数有一个前项通配符的情况无法使用已有索引。'
+            Case: 'select c1,c2,c3 from tbl where name like ''%foo'''
+            Position: 0
+        -
+            Item: ARG.006
+            Severity: L1
+            Summary: '应尽量避免在 WHERE 子句中对字段进行 NULL 值判断'
+            Content: '使用 IS NULL 或 IS NOT NULL 将可能导致引擎放弃使用索引而进行全表扫描，如：select id from t where num is null;可以在num上设置默认值0，确保表中 num 列没有 NULL 值，然后这样查询： select id from t where num=0;'
+            Case: 'select id from t where num is null'
+            Position: 0
+        -
+            Item: COL.001
+            Severity: L1
+            Summary: '不建议使用 SELECT * 类型查询'
+            Content: '当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。'
+            Case: 'select * from tbl where id=1'
+            Position: 0
+        -
+            Item: FUN.001
+            Severity: L2
+            Summary: '避免在 WHERE 条件中使用函数或其他运算符'
+            Content: '虽然在 SQL 中使用函数可以简化很多复杂的查询，但使用了函数的查询无法利用表中已经建立的索引，该查询将会是全表扫描，性能较差。通常建议将列名写在比较运算符左侧，将查询过滤条件放在比较运算符右侧。也不建议在查询比较条件两侧书写多余的括号，这会对阅读产生比较大的困扰。'
+            Case: 'select id from t where substring(name,1,3)=''abc'''
+            Position: 0
+        -
+            Item: JOI.002
+            Severity: L4
+            Summary: 同一张表被连接两次
+            Content: '相同的表在 FROM 子句中至少出现两次，可以简化为对该表的单次访问。'
+            Case: 'select tb1.col from (tb1, tb2) join tb2 on tb1.id=tb.id where tb1.id=1'
+            Position: 0
+        -
+            Item: SUB.004
+            Severity: L3
+            Summary: 执行计划中嵌套连接深度过深
+            Content: 'MySQL对子查询的优化效果不佳,MySQL将外部查询中的每一行作为依赖子查询执行子查询。 这是导致严重性能问题的常见原因。'
+            Case: 'SELECT * from tb where id in (select id from (select id from tb))'
+            Position: 0
+        -
+            Item: SUB.006
+            Severity: L2
+            Summary: 不建议在子查询中使用函数
+            Content: 'MySQL将外部查询中的每一行作为依赖子查询执行子查询，如果在子查询中使用函数，即使是semi-join也很难进行高效的查询。可以将子查询重写为OUTER JOIN语句并用连接条件对数据进行过滤。'
+            Case: 'SELECT * FROM staff WHERE name IN (SELECT max(NAME) FROM customer)'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`goods`'
+        - '`information_schema`.`product_dont_ship_address`'
+        - '`information_schema`.`product`'
+-
+    ID: C77607894B4EFCC6
+    Fingerprint: 'drop table `users`'
+    Score: 100
+    Sample: 'DROP table `users`'
+    Explain: null
+    HeuristicRules:
+        -
+            Item: SEC.003
+            Severity: L0
+            Summary: 使用DELETE/DROP/TRUNCATE等操作时注意备份
+            Content: 在执行高危操作之前对数据进行备份是十分有必要的。
+            Case: 'delete from table where col = ''condition'''
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`users`'
+-
+    ID: D0870E395F2CA834
+    Fingerprint: 'create table `users` ( `id` bigint unsigned not null auto_increment, `name` varchar(?) collate utf8mb4_unicode_ci not ?, `email` varchar(?) collate utf8mb4_unicode_ci not ?, `email_verified_at` timestamp ? default ?, `password` varchar(?) collate utf8mb4_unicode_ci not ?, `remember_token` varchar(?) collate utf8mb4_unicode_ci default ?, `created_at` timestamp ? default ?, `updated_at` timestamp ? default ?, primary key (`id`), unique key `users_email_unique` (`email`) ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci'
+    Score: 75
+    Sample: "CREATE TABLE `users` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email_verified_at` timestamp NULL DEFAULT NULL,\n  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_email_unique` (`email`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    Explain: null
+    HeuristicRules:
+        -
+            Item: CLA.011
+            Severity: L1
+            Summary: 建议为表添加注释
+            Content: 为表添加注释能够使得表的意义更明确，从而为日后的维护带来极大的便利。
+            Case: 'CREATE TABLE `test1` (`ID` bigint(20) NOT NULL AUTO_INCREMENT,`c1` varchar(128) DEFAULT NULL,PRIMARY KEY (`ID`)) ENGINE=InnoDB DEFAULT CHARSET=utf8'
+            Position: 0
+        -
+            Item: COL.004
+            Severity: L1
+            Summary: 请为列添加默认值
+            Content: '请为列添加默认值，如果是 ALTER 操作，请不要忘记将原字段的默认值写上。字段无默认值，当表较大时无法在线变更表结构。'
+            Case: 'CREATE TABLE tbl (col int) ENGINE=InnoDB;'
+            Position: 0
+        -
+            Item: COL.005
+            Severity: L1
+            Summary: 列未添加注释
+            Content: 建议对表中每个列添加注释，来明确每个列在表中的含义及作用。
+            Case: 'CREATE TABLE tbl (col int) ENGINE=InnoDB;'
+            Position: 0
+        -
+            Item: KWR.003
+            Severity: L1
+            Summary: 不建议使用复数做列名或表名
+            Content: '表名应该仅仅表示表里面的实体内容，不应该表示实体数量，对应于 DO 类名也是单数形式，符合表达习惯。'
+            Case: 'CREATE TABLE tbl ( `books` int )'
+            Position: 0
+        -
+            Item: SEC.002
+            Severity: L0
+            Summary: 不使用明文存储密码
+            Content: 使用明文存储密码或者使用明文在网络上传递密码都是不安全的。如果攻击者能够截获您用来插入密码的SQL语句，他们就能直接读到密码。另外，将用户输入的字符串以明文的形式插入到纯SQL语句中，也会让攻击者发现它。如果您能够读取密码，黑客也可以。解决方案是使用单向哈希函数对原始密码进行加密编码。哈希是指将输入字符串转化成另一个新的、不可识别的字符串的函数。对密码加密表达式加点随机串来防御“字典攻击”。不要将明文密码输入到SQL查询语句中。在应用程序代码中计算哈希串，只在SQL查询中使用哈希串。
+            Case: 'create table test(id int,name varchar(20) not null,password varchar(200)not null)'
+            Position: 0
+        -
+            Item: STA.003
+            Severity: L1
+            Summary: 索引起名不规范
+            Content: 建议普通二级索引以idx_为前缀，唯一索引以uk_为前缀。
+            Case: 'select col from now where type!=0'
+            Position: 0
+    IndexRules: null
+    Tables:
+        - '`information_schema`.`users`'

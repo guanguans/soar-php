@@ -92,6 +92,7 @@ str
             ,
             $normalizedExplain
         );
+        $this->assertMatchesSnapshot($normalizedExplain);
     }
 
     public function testGetFinalExplainExplain(): void
@@ -125,6 +126,7 @@ str
         $finalExplain = $explainer->getFinalExplain('select * from user;');
         $this->assertIsArray($finalExplain);
         $this->assertNotEmpty($finalExplain);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($finalExplain);
 
         // 第二次
         $mockPDOStatement = \Mockery::mock(\PDOStatement::class);
@@ -156,6 +158,7 @@ str
         $finalExplain = $explainer->getFinalExplain('select * from user;');
         $this->assertIsArray($finalExplain);
         $this->assertNotEmpty($finalExplain);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($finalExplain);
     }
 
     public function testInvalidArgumentExceptionForGetExplain(): void

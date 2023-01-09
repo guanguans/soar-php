@@ -39,10 +39,13 @@ class SoarTest extends TestCase
     {
         $soar = Soar::create();
 
+        $syntaxCheck = $soar->syntaxCheck('selec * from fa_users;');
         $this->assertStringContainsString(
             'At SQL 1 : line 1 column 5 near "selec',
-            $soar->syntaxCheck('selec * from fa_users;')
+            $syntaxCheck
         );
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($syntaxCheck);
+
         $this->assertEmpty($soar->syntaxCheck('select * from fa_users;'));
     }
 
@@ -52,6 +55,7 @@ class SoarTest extends TestCase
         $fingerPrint = trim($soar->fingerPrint('select * from users where id = 1;'));
 
         $this->assertEquals('select * from users where id = ?', $fingerPrint);
+        $this->assertMatchesSnapshot($fingerPrint);
     }
 
     public function testPretty(): void
@@ -61,6 +65,7 @@ class SoarTest extends TestCase
 
         $this->assertStringContainsString("\n", $pretty);
         $this->assertStringContainsString('  ', $pretty);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($pretty);
     }
 
     public function testMd2html(): void
@@ -79,6 +84,7 @@ html
             ,
             $html
         );
+        $this->assertMatchesSnapshot($html);
     }
 
     public function testHelp(): void
@@ -86,7 +92,8 @@ html
         $soar = Soar::create();
         OsHelper::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
 
-        $this->assertStringContainsString('-version', $soar->help());
+        $help = $soar->help();
+        $this->assertStringContainsString('-version', $help);
     }
 
     public function testGetSoarPath(): void
