@@ -19,7 +19,7 @@ trait WithExecutable
 {
     public function exec(string $command): string
     {
-        OsHelper::isWindows() and $command = "powershell $command";
+        // OsHelper::isWindows() and $command = "powershell $command";
 
         $process = Process::fromShellCommandline($command)->setTimeout(null);
         $process->run();
