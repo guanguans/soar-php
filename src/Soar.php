@@ -96,6 +96,11 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->mustRun([$this->soarPath, '--help']);
     }
 
+    public function version(): string
+    {
+        return $this->mustRun([$this->soarPath, '-version']);
+    }
+
     public function getSoarPath(): string
     {
         return $this->soarPath;

@@ -27,4 +27,8 @@ interface Soar
     public function pretty(string $sql): string;
 
     public function md2html(string $markdown): string;
+
+    public function help(): string;
+
+    public function version(): string;
 }
