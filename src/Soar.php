@@ -34,12 +34,12 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
     protected $soarPath;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $options = [];
 
     /**
-     * @var array
+     * @var array<int, string>
      */
     protected $normalizedOptions = [];
 
@@ -165,13 +165,21 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this;
     }
 
+    /**
+     * @psalm-suppress InvalidNullableReturnType
+     * @psalm-suppress InvalidReturnType
+     * @psalm-suppress NullableReturnStatement
+     * @psalm-suppress InvalidReturnStatement
+     *
+     * @return array<int, string>
+     */
     public function getNormalizedOptions(): array
     {
-        return $this->getOption();
+        return $this->getNormalizedOption();
     }
 
     /**
-     * @return string|array|null
+     * @return string|array<int, string>|null
      */
     public function getNormalizedOption(?string $key = null, $value = null)
     {

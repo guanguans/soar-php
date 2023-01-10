@@ -88,6 +88,15 @@ html
         $this->assertMatchesSnapshot($html);
     }
 
+    public function testListTestSqls(): void
+    {
+        $soar = Soar::create();
+        $listTestSqls = $soar->listTestSqls();
+
+        $this->assertIsString($listTestSqls);
+        $this->assertNotEmpty($listTestSqls);
+    }
+
     public function testHelp(): void
     {
         $soar = Soar::create();
@@ -156,6 +165,13 @@ html
             $arr = ['a', 'b', 'c'],
             $soar->setOption($key = '-foo', $arr)->getOption($key)
         );
+    }
+
+    public function testGetNormalizedOptions(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertIsArray($soar->getNormalizedOptions());
     }
 
     public function testSetExplainer(): void
