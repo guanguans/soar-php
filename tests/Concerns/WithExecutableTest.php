@@ -23,5 +23,6 @@ class WithExecutableTest extends TestCase
         $exec = $soar->exec('ls');
 
         $this->assertIsString($exec);
+        $this->assertNotEmpty($exec);
     }
 }

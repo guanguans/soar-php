@@ -42,7 +42,7 @@ class Factory
     public static function createPDO(array $config): \PDO
     {
         return PDOConnector::connect(
-            sprintf('mysql:host=%s;port=%s;dbname=%s', $config['host'], $config['port'], $config['dbname']),
+            sprintf('mysql:host=%s;port=%s;dbname=%s;charset=UTF8', $config['host'], $config['port'], $config['dbname']),
             $config['username'],
             $config['password'],
             $config['options'] ?? []

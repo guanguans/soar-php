@@ -13,16 +13,9 @@ declare(strict_types=1);
 namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\PDOConnector;
-use Guanguans\SoarPHP\Support\OsHelper;
 
 class PDOConnectorTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        OsHelper::isWindows() and $this->markTestSkipped(self::class);
-    }
-
     public function testConnect(): void
     {
         $connect1 = PDOConnector::connect('sqlite::memory:');
@@ -41,18 +34,15 @@ class PDOConnectorTest extends TestCase
         $this->assertInstanceOf(\PDO::class, $connect);
     }
 
-    /**
-     * @return never
-     */
-    public function testConstruct(): void
+    public function testClone(): void
     {
         $this->markTestSkipped(__METHOD__);
 
-        /** @noinspection PhpUnreachableStatementInspection */
         $this->expectError();
         $this->expectErrorMessage(
-            "Call to protected Guanguans\SoarPHP\PDOConnector::__construct() from"
+            'Trying to clone an uncloneable object of class Guanguans\SoarPHP\PDOConnector'
         );
-        // new PDOConnector();
+
+        // clone PDOConnector::connect('sqlite::memory:');
     }
 }

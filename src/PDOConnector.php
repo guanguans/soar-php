@@ -12,24 +12,33 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-class PDOConnector
+class PDOConnector extends \PDO
 {
     /**
-     * @var \PDO|null
+     * @var self|null
      */
     protected static $connection;
 
     public static function connect(
         string $dsn,
         ?string $username = null,
-        ?string $password = null,
-        array $options = [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-    ): \PDO {
-        if (! self::$connection instanceof \PDO) {
-            self::$connection = new \PDO($dsn, $username, $password, $options);
+        ?string $passwd = null,
+        ?array $options = null
+    ): self {
+        if (! self::$connection instanceof self) {
+            self::$connection = new self($dsn, $username, $passwd, $options);
         }
 
         return self::$connection;
+    }
+
+    protected function __construct(
+        string $dsn,
+        ?string $username = null,
+        ?string $passwd = null,
+        ?array $options = null
+    ) {
+        parent::__construct($dsn, $username, $passwd, $options);
     }
 
     public function __destruct()
@@ -40,10 +49,6 @@ class PDOConnector
     public static function close(): void
     {
         self::$connection = null;
-    }
-
-    protected function __construct()
-    {
     }
 
     protected function __clone()

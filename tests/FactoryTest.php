@@ -15,7 +15,6 @@ namespace Guanguans\Tests;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Explainer;
 use Guanguans\SoarPHP\Factory;
-use Guanguans\SoarPHP\PDOConnector;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Nyholm\NSA;
 
@@ -33,25 +32,20 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(Explainer::class, $explainer);
     }
 
-    /**
-     * @return never
-     */
-    public function testCreatePDO(): void
+    public function testErroForCreatePDO(): void
     {
-        $this->markTestSkipped(__METHOD__);
+        $this->expectError();
+        $this->expectErrorMessage('password');
 
-        /** @noinspection PhpUnreachableStatementInspection */
-        $pdo = Factory::createPDO([
+        Factory::createPDO([
             'host' => 'you_host',
             'port' => 'you_port',
             'dbname' => 'you_dbname',
             'username' => 'you_username',
-            'password' => 'you_password',
+            // 'password' => 'you_password',
             'options' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'],
             'disable' => false,
         ]);
-
-        $this->assertInstanceOf(PDOConnector::class, $pdo);
     }
 
     public function testInvalidConfigExceptionForExtractConfigOfPDO(): void
