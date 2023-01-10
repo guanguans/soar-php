@@ -17,7 +17,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 /**
  * This file was modified from https://github.com/deniskoronets/php-array-table.
  */
-class ConsoleTable
+class ConsoleTable implements Contracts\ConsoleTable
 {
     /**
      * @var array<array<array-key, scalar|\Stringable>>
@@ -87,7 +87,7 @@ class ConsoleTable
 
     public function render(): string
     {
-        $this->lines = [];
+        $this->clear();
 
         $this->extractColumns();
         $this->extractLengthOfColumns();
@@ -100,6 +100,13 @@ class ConsoleTable
             ['+', '|'],
             implode(PHP_EOL, $this->lines)
         );
+    }
+
+    protected function clear(): void
+    {
+        $this->columns = [];
+        $this->lengthOfColumns = [];
+        $this->lines = [];
     }
 
     protected function extractColumns(): void

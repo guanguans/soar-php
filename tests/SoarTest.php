@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
+use Guanguans\SoarPHP\Contracts\Explainer;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
@@ -144,5 +145,12 @@ html
             $arr = ['a', 'b', 'c'],
             $soar->setOption($key = '-foo', $arr)->getOption($key)
         );
+    }
+
+    public function testSetExplainer(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertInstanceOf(Soar::class, $soar->setExplainer($this->createMock(Explainer::class)));
     }
 }
