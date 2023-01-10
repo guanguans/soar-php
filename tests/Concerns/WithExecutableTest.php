@@ -12,11 +12,21 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests\Concerns;
 
+use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
 class WithExecutableTest extends TestCase
 {
+    public function testProcessFailedExceptionForExec(): void
+    {
+        $commandOfError = 'xxx';
+
+        $this->expectException(ProcessFailedException::class);
+        $this->expectExceptionMessage($commandOfError);
+        Soar::create()->exec($commandOfError);
+    }
+
     public function testExec(): void
     {
         $soar = Soar::create();

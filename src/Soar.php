@@ -17,7 +17,6 @@ use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\WithExecutable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
-use Symfony\Component\Process\Process;
 
 class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 {
@@ -52,17 +51,14 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         $this->explainer = $explainer;
     }
 
-    public static function create(array $options = [], ?string $soarPath = null): self
+    public static function create(array $options = [], ?string $soarPath = null, ?Contracts\Explainer $explainer = null): self
     {
-        return new self($options, $soarPath);
+        return new self($options, $soarPath, $explainer);
     }
 
     public function score(string $sql): string
     {
-        $process = new Process(array_merge([$this->soarPath], $this->normalizedOptions, ["-query=$sql"]));
-        $process->run();
-
-        return $process->getOutput();
+        return $this->mustRun(array_merge([$this->soarPath], $this->normalizedOptions, ["-query=$sql"]));
     }
 
     public function explain(string $sql): string
@@ -77,42 +73,27 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function syntaxCheck(string $sql): string
     {
-        $process = new Process([$this->soarPath, "-query=$sql", '-only-syntax-check=true']);
-        $process->run();
-
-        return $process->getOutput();
+        return $this->run([$this->soarPath, "-query=$sql", '-only-syntax-check=true']);
     }
 
     public function fingerPrint(string $sql): string
     {
-        $process = new Process([$this->soarPath, "-query=$sql", '-report-type=fingerprint']);
-        $process->run();
-
-        return $process->getOutput();
+        return $this->mustRun([$this->soarPath, "-query=$sql", '-report-type=fingerprint']);
     }
 
     public function pretty(string $sql): string
     {
-        $process = new Process([$this->soarPath, "-query=$sql", '-report-type=pretty']);
-        $process->run();
-
-        return $process->getOutput();
+        return $this->mustRun([$this->soarPath, "-query=$sql", '-report-type=pretty']);
     }
 
     public function md2html(string $markdown): string
     {
-        $process = new Process([$this->soarPath, "-query=$markdown", '-report-type=md2html']);
-        $process->run();
-
-        return $process->getOutput();
+        return $this->mustRun([$this->soarPath, "-query=$markdown", '-report-type=md2html']);
     }
 
     public function help(): string
     {
-        $process = new Process([$this->soarPath, '--help']);
-        $process->run();
-
-        return $process->getOutput();
+        return $this->mustRun([$this->soarPath, '--help']);
     }
 
     public function getSoarPath(): string
