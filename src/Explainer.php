@@ -14,7 +14,7 @@ namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 
-class Explainer
+class Explainer implements \Guanguans\SoarPHP\Contracts\Explainer
 {
     /**
      * @var \PDO

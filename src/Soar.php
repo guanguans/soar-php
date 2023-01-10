@@ -40,10 +40,16 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
      */
     protected $normalizedOptions = [];
 
-    public function __construct(array $options = [], ?string $soarPath = null)
+    /**
+     * @var \Guanguans\SoarPHP\Contracts\Explainer|null
+     */
+    protected $explainer;
+
+    public function __construct(array $options = [], ?string $soarPath = null, ?Contracts\Explainer $explainer = null)
     {
         $this->setSoarPath($soarPath ?: $this->getDefaultSoarPath());
         $this->setOptions($options);
+        $this->explainer = $explainer;
     }
 
     public static function create(array $options = [], ?string $soarPath = null): self
@@ -65,7 +71,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
             '%s %s -report-type=explain-digest << %s',
             $this->soarPath,
             implode(' ', $this->normalizedOptions),
-            Factory::createExplainerFromOptions($this->options)->getNormalizedExplain($sql)
+            $this->getExplainer()->getNormalizedExplain($sql)
         ));
     }
 
@@ -164,6 +170,18 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
                 ? __DIR__.'/../bin/soar.darwin-amd64'
                 : __DIR__.'/../bin/soar.linux-amd64'
             );
+    }
+
+    public function getExplainer(): Contracts\Explainer
+    {
+        return $this->explainer ?? Factory::createExplainerFromOptions($this->options);
+    }
+
+    public function setExplainer(Contracts\Explainer $explainer): self
+    {
+        $this->explainer = $explainer;
+
+        return $this;
     }
 
     /**
