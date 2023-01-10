@@ -64,7 +64,7 @@ class ConsoleTableTest extends TestCase
     {
         $consoleTable = new ConsoleTable($rows);
 
-        $render = (clone $consoleTable)->isRenderHeader(true)->render();
+        $render = $consoleTable->isRenderHeader(true)->render();
         $this->assertSame(
             <<<str
 +----+-----------------+----------------+
@@ -80,7 +80,7 @@ str
         );
         $this->assertMatchesSnapshot($render);
 
-        $render = (clone $consoleTable)->isRenderHeader(false)->render();
+        $render = $consoleTable->isRenderHeader(false)->render();
         $this->assertSame(
             <<<str
 +----+-----------------+----------------+

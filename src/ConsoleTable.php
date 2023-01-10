@@ -87,6 +87,8 @@ class ConsoleTable
 
     public function render(): string
     {
+        $this->lines = [];
+
         $this->extractColumns();
         $this->extractLengthOfColumns();
 
