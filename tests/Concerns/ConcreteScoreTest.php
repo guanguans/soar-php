@@ -18,18 +18,6 @@ use Guanguans\Tests\TestCase;
 
 class ConcreteScoreTest extends TestCase
 {
-    public function testJsonScore(): void
-    {
-        $soar = Soar::create();
-        $sql = 'select * from foo';
-        $jsonScore = $soar->jsonScore($sql);
-
-        $this->assertJson($jsonScore);
-        $this->assertStringContainsString('Score', $jsonScore);
-        $this->assertStringContainsString($sql, strtolower($jsonScore));
-        $this->assertMatchesJsonSnapshot($jsonScore);
-    }
-
     public function testArrayScore(): void
     {
         $soar = Soar::create();
@@ -100,6 +88,18 @@ sql;
         /** @noinspection ForgottenDebugOutputInspection */
         /** @noinspection DebugFunctionUsageInspection */
         OsHelper::isWindows() and dump($arrayScore);
+    }
+
+    public function testJsonScore(): void
+    {
+        $soar = Soar::create();
+        $sql = 'select * from foo';
+        $jsonScore = $soar->jsonScore($sql);
+
+        $this->assertJson($jsonScore);
+        $this->assertStringContainsString('Score', $jsonScore);
+        $this->assertStringContainsString($sql, strtolower($jsonScore));
+        $this->assertMatchesJsonSnapshot($jsonScore);
     }
 
     public function testHtmlScore(): void

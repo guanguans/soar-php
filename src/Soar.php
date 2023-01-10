@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Concerns\ConcreteExplain;
+use Guanguans\SoarPHP\Concerns\ConcreteListHeuristicRules;
+use Guanguans\SoarPHP\Concerns\ConcreteListRewriteRules;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\WithExecutable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
@@ -22,6 +24,8 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 {
     use ConcreteExplain;
     use ConcreteScore;
+    use ConcreteListHeuristicRules;
+    use ConcreteListRewriteRules;
     use WithExecutable;
 
     /**
@@ -91,6 +95,21 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this->mustRun([$this->soarPath, "-query=$markdown", '-report-type=md2html']);
     }
 
+    public function listHeuristicRules(): string
+    {
+        return $this->mustRun([$this->soarPath, $this->getNormalizedOption('-report-type'), '-list-heuristic-rules']);
+    }
+
+    public function listRewriteRules(): string
+    {
+        return $this->mustRun([$this->soarPath, $this->getNormalizedOption('-report-type'), '-list-rewrite-rules']);
+    }
+
+    public function listTestSqls(): string
+    {
+        return $this->mustRun([$this->soarPath, '-list-test-sqls']);
+    }
+
     public function help(): string
     {
         return $this->mustRun([$this->soarPath, '--help']);
@@ -144,6 +163,27 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         $this->setOptions([$key => $value]);
 
         return $this;
+    }
+
+    public function getNormalizedOptions(): array
+    {
+        return $this->getOption();
+    }
+
+    /**
+     * @return string|array|null
+     */
+    public function getNormalizedOption(?string $key = null, $value = null)
+    {
+        if (null === $key) {
+            return $this->normalizedOptions;
+        }
+
+        $filteredNormalizedOptions = array_filter($this->normalizedOptions, static function (string $normalizedOption) use ($key): bool {
+            return str_starts_with($normalizedOption, $key);
+        });
+
+        return array_values($filteredNormalizedOptions)[0] ?? $value;
     }
 
     protected function getDefaultSoarPath(): string

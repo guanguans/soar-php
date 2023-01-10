@@ -28,6 +28,12 @@ interface Soar
 
     public function md2html(string $markdown): string;
 
+    public function listHeuristicRules(): string;
+
+    public function listRewriteRules(): string;
+
+    public function listTestSqls(): string;
+
     public function help(): string;
 
     public function version(): string;
