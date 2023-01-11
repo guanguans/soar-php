@@ -14,6 +14,7 @@ namespace Guanguans\SoarPHP\Concerns;
 
 /**
  * @internal
+ *
  * @mixin \Guanguans\SoarPHP\Soar
  */
 trait WithHelpConverter
