@@ -78,7 +78,7 @@ class ConsoleTable implements Contracts\ConsoleTable
         return $this;
     }
 
-    public function isRenderHeader(bool $isRenderHeader = false): self
+    public function isRenderHeader(bool $isRenderHeader): self
     {
         $this->isRenderHeader = $isRenderHeader;
 
@@ -87,7 +87,7 @@ class ConsoleTable implements Contracts\ConsoleTable
 
     public function render(): string
     {
-        $this->clear();
+        $this->resetRenderData();
 
         $this->extractColumns();
         $this->extractLengthOfColumns();
@@ -102,7 +102,12 @@ class ConsoleTable implements Contracts\ConsoleTable
         );
     }
 
-    protected function clear(): void
+    public function __clone()
+    {
+        $this->resetRenderData();
+    }
+
+    protected function resetRenderData(): void
     {
         $this->columns = [];
         $this->lengthOfColumns = [];

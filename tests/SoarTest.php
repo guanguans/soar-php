@@ -132,48 +132,6 @@ html
         $soar->setSoarPath('foo.soar');
     }
 
-    public function testGetOptions(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertIsArray($soar->getOptions());
-    }
-
-    public function testSetOption(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertSame(
-            $str = 'bar',
-            $soar->setOption($key = 'foo', $str)->getOption($key)
-        );
-
-        $this->assertSame(
-            $arr = [
-                'host' => '192.168.10.10',
-                'port' => '3306',
-                'dbname' => 'laravel',
-                'username' => 'homestead',
-                'password' => 'secret',
-                'disable' => false,
-                'options' => [],
-            ],
-            $soar->setOption($key = '-online-dsn', $arr)->getOption($key)
-        );
-
-        $this->assertSame(
-            $arr = ['a', 'b', 'c'],
-            $soar->setOption($key = '-foo', $arr)->getOption($key)
-        );
-    }
-
-    public function testGetNormalizedOptions(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertIsArray($soar->getNormalizedOptions());
-    }
-
     public function testSetExplainer(): void
     {
         $soar = Soar::create();

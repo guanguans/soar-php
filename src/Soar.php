@@ -16,12 +16,14 @@ use Guanguans\SoarPHP\Concerns\ConcreteExplain;
 use Guanguans\SoarPHP\Concerns\ConcreteListHeuristicRules;
 use Guanguans\SoarPHP\Concerns\ConcreteListRewriteRules;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
+use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\WithExecutable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
 
 class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 {
+    use HasOptions;
     use ConcreteExplain;
     use ConcreteScore;
     use ConcreteListHeuristicRules;
@@ -34,25 +36,15 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
     protected $soarPath;
 
     /**
-     * @var array<string, mixed>
-     */
-    protected $options = [];
-
-    /**
-     * @var array<int, string>
-     */
-    protected $normalizedOptions = [];
-
-    /**
      * @var \Guanguans\SoarPHP\Contracts\Explainer|null
      */
     protected $explainer;
 
     public function __construct(array $options = [], ?string $soarPath = null, ?Contracts\Explainer $explainer = null)
     {
-        $this->setSoarPath($soarPath ?: $this->getDefaultSoarPath());
         $this->setOptions($options);
-        $this->explainer = $explainer;
+        $this->setSoarPath($soarPath ?? $this->getDefaultSoarPath());
+        $this->setExplainer($explainer);
     }
 
     public static function create(array $options = [], ?string $soarPath = null, ?Contracts\Explainer $explainer = null): self
@@ -67,12 +59,7 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
 
     public function explain(string $sql): string
     {
-        return $this->exec(sprintf(
-            '%s %s -report-type=explain-digest << %s',
-            $this->soarPath,
-            implode(' ', $this->normalizedOptions),
-            $this->getExplainer()->getNormalizedExplain($sql)
-        ));
+        return $this->exec("{$this->soarPath} {$this->getNormalizedStrOptions()} -report-type=explain-digest << {$this->mustGetExplainer()->getNormalizedExplain($sql)}");
     }
 
     public function syntaxCheck(string $sql): string
@@ -136,62 +123,21 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
         return $this;
     }
 
-    public function getOptions(): array
+    public function mustGetExplainer(): Contracts\Explainer
     {
-        return $this->getOption();
+        return $this->getExplainer() ?? Factory::createExplainerFromOptions($this->options);
     }
 
-    public function getOption(?string $key = null, $value = null)
+    public function getExplainer(): ?Contracts\Explainer
     {
-        if (null === $key) {
-            return $this->options;
-        }
-
-        return $this->options[$key] ?? $value;
+        return $this->explainer;
     }
 
-    public function setOptions(array $options): self
+    public function setExplainer(?Contracts\Explainer $explainer): self
     {
-        $this->options = array_merge($this->options, $options);
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
+        $this->explainer = $explainer;
 
         return $this;
-    }
-
-    public function setOption(string $key, $value): self
-    {
-        $this->setOptions([$key => $value]);
-
-        return $this;
-    }
-
-    /**
-     * @psalm-suppress InvalidNullableReturnType
-     * @psalm-suppress InvalidReturnType
-     * @psalm-suppress NullableReturnStatement
-     * @psalm-suppress InvalidReturnStatement
-     *
-     * @return array<int, string>
-     */
-    public function getNormalizedOptions(): array
-    {
-        return $this->getNormalizedOption();
-    }
-
-    /**
-     * @return string|array<int, string>|null
-     */
-    public function getNormalizedOption(?string $key = null, $value = null)
-    {
-        if (null === $key) {
-            return $this->normalizedOptions;
-        }
-
-        $filteredNormalizedOptions = array_filter($this->normalizedOptions, static function (string $normalizedOption) use ($key): bool {
-            return str_starts_with($normalizedOption, $key);
-        });
-
-        return array_values($filteredNormalizedOptions)[0] ?? $value;
     }
 
     protected function getDefaultSoarPath(): string
@@ -204,43 +150,5 @@ class Soar implements \Guanguans\SoarPHP\Contracts\Soar
                 ? __DIR__.'/../bin/soar.darwin-amd64'
                 : __DIR__.'/../bin/soar.linux-amd64'
             );
-    }
-
-    public function getExplainer(): Contracts\Explainer
-    {
-        return $this->explainer ?? Factory::createExplainerFromOptions($this->options);
-    }
-
-    public function setExplainer(Contracts\Explainer $explainer): self
-    {
-        $this->explainer = $explainer;
-
-        return $this;
-    }
-
-    /**
-     * @psalm-suppress NullableReturnStatement
-     */
-    protected function normalizeOptions(array $options): array
-    {
-        return array_reduce_with_keys($options, static function ($normalizedOptions, $option, $key): array {
-            if (is_scalar($option)) {
-                $normalizedOptions[] = "$key=$option";
-            } elseif (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
-                $dsn = sprintf(
-                    '%s:%s@%s:%s/%s',
-                    $option['username'],
-                    $option['password'],
-                    $option['host'],
-                    $option['port'],
-                    $option['dbname']
-                );
-                $normalizedOptions[] = "$key=$dsn";
-            } elseif (! in_array($key, ['-test-dsn', '-online-dsn'])) {
-                $normalizedOptions[] = sprintf('%s=%s', $key, implode(',', $option));
-            }
-
-            return $normalizedOptions;
-        }, []);
     }
 }

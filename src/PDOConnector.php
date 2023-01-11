@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
+use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
+
 class PDOConnector extends \PDO
 {
     /**
@@ -51,7 +53,18 @@ class PDOConnector extends \PDO
         self::$connection = null;
     }
 
-    protected function __clone()
+    public function __serialize(): array
     {
+        throw new BadMethodCallException('Cannot serialize '.__CLASS__);
+    }
+
+    public function __unserialize(array $data): void
+    {
+        throw new BadMethodCallException('Cannot unserialize '.__CLASS__);
+    }
+
+    final public function __clone()
+    {
+        throw new BadMethodCallException('Cannot clone '.__CLASS__);
     }
 }

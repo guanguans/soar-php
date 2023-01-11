@@ -47,22 +47,22 @@ class Explainer implements \Guanguans\SoarPHP\Contracts\Explainer
 
     public function getFinalExplain(string $sql): array
     {
-        $explains = $this->getExplain($sql);
-        if ($explains) {
-            return $explains;
-        }
-
         $extendedExplains = $this->getExplain($sql, 'extended');
         if ($extendedExplains) {
             return $extendedExplains;
         }
 
-        return $this->getExplain($sql, 'partitions');
+        $partitionsExplains = $this->getExplain($sql, 'partitions');
+        if ($partitionsExplains) {
+            return $partitionsExplains;
+        }
+
+        return $this->getExplain($sql);
     }
 
     public function getExplain(string $sql, ?string $type = null): array
     {
-        if (! in_array($type = strtolower((string) $type), ['partitions', 'extended', ''])) {
+        if (! in_array($type = strtolower((string) $type), ['extended', 'partitions', ''])) {
             throw new InvalidArgumentException("Invalid type value(partitions/extended): $type");
         }
 

@@ -24,19 +24,19 @@ trait WithExecutable
         return $this->mustRunProcess(Process::fromShellCommandline($command));
     }
 
-    protected function mustRun(array $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60): string
+    protected function mustRun(array $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
-        return $this->mustRunProcess(new Process($command, $cwd, $env, $input, $timeout));
+        return $this->mustRunProcess(new Process($command, $cwd, $env, $input, $timeout), $output);
     }
 
-    protected function run(array $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60): string
+    protected function run(array $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
-        return $this->runProcess(new Process($command, $cwd, $env, $input, $timeout));
+        return $this->runProcess(new Process($command, $cwd, $env, $input, $timeout), $output);
     }
 
-    private function mustRunProcess(Process $process): string
+    private function mustRunProcess(Process $process, ?callable $output = null): string
     {
-        $process->run();
+        $process->run($output);
 
         if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
@@ -45,9 +45,9 @@ trait WithExecutable
         return $process->getOutput();
     }
 
-    private function runProcess(Process $process): string
+    private function runProcess(Process $process, ?callable $output = null): string
     {
-        $process->run();
+        $process->run($output);
 
         return $process->getOutput();
     }
