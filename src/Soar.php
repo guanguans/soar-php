@@ -18,17 +18,19 @@ use Guanguans\SoarPHP\Concerns\ConcreteListRewriteRules;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\WithExecutable;
+use Guanguans\SoarPHP\Concerns\WithHelpConverter;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
 
-class Soar implements \Guanguans\SoarPHP\Contracts\Soar
+class Soar implements Contracts\Soar
 {
-    use HasOptions;
     use ConcreteExplain;
-    use ConcreteScore;
     use ConcreteListHeuristicRules;
     use ConcreteListRewriteRules;
+    use ConcreteScore;
+    use HasOptions;
     use WithExecutable;
+    use WithHelpConverter;
 
     /**
      * @var string

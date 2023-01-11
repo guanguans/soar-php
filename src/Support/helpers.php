@@ -34,3 +34,21 @@ if (! function_exists('str_starts_with')) {
         return 0 === strncmp($haystack, $needle, strlen($needle));
     }
 }
+
+if (! function_exists('str_camel')) {
+    function str_camel(string $str): string
+    {
+        $str = ucwords(str_replace(['-', '_'], ' ', $str));
+
+        return lcfirst(str_replace(' ', '', $str));
+    }
+}
+
+if (! function_exists('str_snake')) {
+    function str_snake(string $str, string $delimiter = '_'): string
+    {
+        $str = preg_replace('/\s+/u', '', ucwords($str));
+
+        return strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1'.$delimiter, $str));
+    }
+}
