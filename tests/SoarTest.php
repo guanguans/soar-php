@@ -24,14 +24,15 @@ class SoarTest extends TestCase
         $score = $soar->score('select * from users;');
 
         $this->assertIsString($score);
+        $this->assertNotEmpty($score);
     }
 
     public function testHelp(): void
     {
-        $soar = Soar::create();
         OsHelper::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
-
+        $soar = Soar::create();
         $help = $soar->help();
+
         $this->assertStringContainsString('-version', $help);
     }
 
@@ -58,6 +59,6 @@ class SoarTest extends TestCase
         $soar = Soar::create();
 
         $this->expectException(InvalidArgumentException::class);
-        $soar->setSoarPath('foo.soar');
+        $soar->setSoarPath('foo.soar.path');
     }
 }

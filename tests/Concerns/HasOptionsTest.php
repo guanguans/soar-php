@@ -12,18 +12,13 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests\Concerns;
 
+use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
+use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
 class HasOptionsTest extends TestCase
 {
-    public function testGetOptions(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertIsArray($soar->getOptions());
-    }
-
     public function testSetOption(): void
     {
         $soar = Soar::create();
@@ -52,10 +47,51 @@ class HasOptionsTest extends TestCase
         );
     }
 
+    public function testMergeOptions(): void
+    {
+        $soar = Soar::create();
+        $options = [$key = 'foo' => $val = 'bar'];
+        $option = $soar->mergeOptions($options)->getOption($key);
+
+        $this->assertSame($val, $option);
+    }
+
+    public function testGetOptions(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertIsArray($soar->getOptions());
+    }
+
     public function testGetNormalizedOptions(): void
     {
         $soar = Soar::create();
 
         $this->assertIsArray($soar->getNormalizedOptions());
+        $this->assertIsArray($soar->getNormalizedOptions(['foo']));
+    }
+
+    public function testGetNormalizedStrOptions(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertIsString($soar->getNormalizedStrOptions());
+    }
+
+    public function testBadMethodCallExceptionForCall(): void
+    {
+        $soar = Soar::create();
+        $method = 'foo';
+
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage($method);
+        $soar->{$method}();
+    }
+
+    public function testInvalidConfigExceptionForNormalizeOptions(): void
+    {
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessage('object');
+        Soar::create(['foo' => $this->createMock(\stdClass::class)]);
     }
 }

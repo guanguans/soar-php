@@ -12,27 +12,38 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests\Concerns;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
 class WithRunableTest extends TestCase
 {
+    public function testInvalidArgumentExceptionForExec(): void
+    {
+        $soar = Soar::create();
+        $optionsOfError = true;
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(gettype($optionsOfError));
+        $soar->exec($optionsOfError);
+    }
+
     public function testProcessFailedExceptionForExec(): void
     {
-        $commandOfError = 'xxx';
+        $soar = Soar::create();
+        $optionsOfError = 'optionsOfError';
 
         $this->expectException(ProcessFailedException::class);
-        $this->expectExceptionMessage($commandOfError);
-        Soar::create()->setOnlySyntaxCheck(true)->setQuery($commandOfError)->run();
+        $this->expectExceptionMessage($optionsOfError);
+        $soar->setOnlySyntaxCheck(true)->setQuery($optionsOfError)->exec();
     }
 
     public function testExec(): void
     {
         $soar = Soar::create();
-        $exec = $soar->run('-version');
+        $exec = $soar->exec('-version');
 
         $this->assertIsString($exec);
-        $this->assertNotEmpty($exec);
     }
 }
