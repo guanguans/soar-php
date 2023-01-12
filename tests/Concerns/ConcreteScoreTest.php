@@ -116,7 +116,7 @@ sql;
     public function testMdScore(): void
     {
         $soar = Soar::create();
-        $mdScore = $soar->mdScore('select * from foo');
+        $mdScore = $soar->markdownScore('select * from foo');
 
         $this->assertStringContainsString('##', $mdScore);
         $this->assertStringContainsString('分', $mdScore);

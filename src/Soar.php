@@ -12,24 +12,16 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-use Guanguans\SoarPHP\Concerns\ConcreteExplain;
-use Guanguans\SoarPHP\Concerns\ConcreteListHeuristicRules;
-use Guanguans\SoarPHP\Concerns\ConcreteListRewriteRules;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\HasOptions;
-use Guanguans\SoarPHP\Concerns\WithHelpConverter;
 use Guanguans\SoarPHP\Concerns\WithRunable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
 
 class Soar implements Contracts\Soar
 {
-    use ConcreteExplain;
-    use ConcreteListHeuristicRules;
-    use ConcreteListRewriteRules;
     use ConcreteScore;
     use HasOptions;
-    use WithHelpConverter;
     use WithRunable;
 
     /**
@@ -37,78 +29,30 @@ class Soar implements Contracts\Soar
      */
     protected $soarPath;
 
-    /**
-     * @var \Guanguans\SoarPHP\Contracts\Explainer|null
-     */
-    protected $explainer;
-
-    public function __construct(array $options = [], ?string $soarPath = null, ?Contracts\Explainer $explainer = null)
+    public function __construct(?string $soarPath = null, array $options = [])
     {
-        $this->setOptions($options);
         $this->setSoarPath($soarPath ?? $this->getDefaultSoarPath());
-        $this->setExplainer($explainer);
+        $this->setOptions($options);
     }
 
-    public static function create(array $options = [], ?string $soarPath = null, ?Contracts\Explainer $explainer = null): self
+    public static function create(?string $soarPath = null, array $options = []): self
     {
-        return new self($options, $soarPath, $explainer);
+        return new self($soarPath, $options);
     }
 
     public function score(string $sql): string
     {
-        return $this->setQuery($sql)->mustRun();
-    }
-
-    public function explain(string $sql): string
-    {
-        return $this
-            ->setReportType('explain-digest')
-            ->mustRun("{$this->getNormalizedStrOptions()} << {$this->mustGetExplainer()->getNormalizedExplain($sql)}");
-    }
-
-    public function syntaxCheck(string $sql): string
-    {
-        return $this->run(["-query=$sql", '-only-syntax-check=true']);
-    }
-
-    public function fingerPrint(string $sql): string
-    {
-        return $this->mustRun(["-query=$sql", '-report-type=fingerprint']);
-    }
-
-    public function pretty(string $sql): string
-    {
-        return $this->mustRun(["-query=$sql", '-report-type=pretty']);
-    }
-
-    public function md2html(string $markdown): string
-    {
-        return $this->mustRun(["-query=$markdown", '-report-type=md2html']);
-    }
-
-    public function listHeuristicRules(): string
-    {
-        return $this->mustRun([$this->getNormalizedOption('-report-type'), '-list-heuristic-rules']);
-    }
-
-    public function listRewriteRules(): string
-    {
-        return $this->mustRun([$this->getNormalizedOption('-report-type'), '-list-rewrite-rules']);
-    }
-
-    public function listTestSqls(): string
-    {
-        return $this->mustRun(['-list-test-sqls']);
+        return $this->setQuery($sql)->run();
     }
 
     public function help(): string
     {
-        return $this->mustRun(['--help']);
+        return $this->run(['--help']);
     }
 
     public function version(): string
     {
-        return $this->mustRun(['-version']);
+        return $this->run(['-version']);
     }
 
     public function getSoarPath(): string
@@ -127,24 +71,7 @@ class Soar implements Contracts\Soar
         return $this;
     }
 
-    public function mustGetExplainer(): Contracts\Explainer
-    {
-        return $this->getExplainer() ?? Factory::createExplainerFromOptions($this->options);
-    }
-
-    public function getExplainer(): ?Contracts\Explainer
-    {
-        return $this->explainer;
-    }
-
-    public function setExplainer(?Contracts\Explainer $explainer): self
-    {
-        $this->explainer = $explainer;
-
-        return $this;
-    }
-
-    protected function getDefaultSoarPath(): string
+    private function getDefaultSoarPath(): string
     {
         /** @noinspection NestedTernaryOperatorInspection */
         return OsHelper::isWindows()

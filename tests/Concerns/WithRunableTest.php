@@ -24,13 +24,13 @@ class WithRunableTest extends TestCase
 
         $this->expectException(ProcessFailedException::class);
         $this->expectExceptionMessage($commandOfError);
-        Soar::create()->setOnlySyntaxCheck(false)->setQuery($commandOfError)->mustRun();
+        Soar::create()->setOnlySyntaxCheck(true)->setQuery($commandOfError)->run();
     }
 
     public function testExec(): void
     {
         $soar = Soar::create();
-        $exec = $soar->mustRun('--help');
+        $exec = $soar->run('-version');
 
         $this->assertIsString($exec);
         $this->assertNotEmpty($exec);

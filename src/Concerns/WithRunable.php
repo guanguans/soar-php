@@ -14,51 +14,48 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
-use Guanguans\SoarPHP\Support\OsHelper;
 use Symfony\Component\Process\Process;
 
+/**
+ * @mixin \Guanguans\SoarPHP\Soar
+ */
 trait WithRunable
 {
     /**
-     * @param array|string|null $command
+     * @param array|string|null $options
      */
-    public function mustRun($command = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
+    public function run($options = null): string
     {
-        return $this->exec($command, $cwd, $env, $input, $timeout, true, $output);
+        return $this->exec($options);
     }
 
     /**
-     * @param array|string|null $command
+     * @param array|string|null $options
+     * @param mixed             $input   The input as stream resource, scalar or \Traversable, or null for no input
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
+     * @throws \Guanguans\SoarPHP\Exceptions\ProcessFailedException
      */
-    public function run($command = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
+    public function exec($options = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
-        return $this->exec($command, $cwd, $env, $input, $timeout, false, $output);
-    }
-
-    /**
-     * @param array|string|null $command
-     */
-    private function exec($command = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, bool $mustRun = true, ?callable $output = null): string
-    {
-        // OsHelper::isWindows() and $command = "powershell $command";
-        if (null !== $command && ! is_string($command) && ! is_array($command)) {
-            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($command)));
+        if (null !== $options && ! is_string($options) && ! is_array($options)) {
+            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($options)));
         }
 
-        if (null === $command) {
-            $process = new Process(array_merge([$this->soarPath], $this->normalizedOptions), $cwd, $env, $input, $timeout);
+        if (null === $options) {
+            $process = new Process(array_merge([$this->soarPath], $this->getNormalizedOptions()), $cwd, $env, $input, $timeout);
         }
 
-        if (is_string($command)) {
-            $process = Process::fromShellCommandline("$this->soarPath $command", $cwd, $env, $input, $timeout);
+        if (is_string($options)) {
+            $process = Process::fromShellCommandline("$this->soarPath $options", $cwd, $env, $input, $timeout);
         }
 
-        if (is_array($command)) {
-            $process = new Process(array_merge([$this->soarPath], $command), $cwd, $env, $input, $timeout);
+        if (is_array($options)) {
+            $process = new Process(array_merge([$this->soarPath], $options), $cwd, $env, $input, $timeout);
         }
 
         $process->run($output);
-        if ($mustRun && ! $process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 

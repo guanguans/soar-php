@@ -10,18 +10,15 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\SoarPHP\Concerns;
+namespace Guanguans\SoarPHP\Support;
 
-/**
- * @internal
- *
- * @mixin \Guanguans\SoarPHP\Soar
- */
-trait WithHelpConverter
+use Guanguans\SoarPHP\Soar;
+
+class ComposerScripts
 {
-    public function convertHelpToDocblockOfSetter(): string
+    public static function convertHelpToDocblockOfSetter(): string
     {
-        return '/**'.array_reduce($this->extractOptionsFromHelp(), static function (string $docblock, array $options): string {
+        return '/**'.array_reduce(self::extractOptionsFromHelp(), static function (string $docblock, array $options): string {
             'uint' === $options['type'] and $options['type'] = 'int';
 
             return $docblock.PHP_EOL.sprintf(
@@ -38,7 +35,7 @@ trait WithHelpConverter
      *
      * @return array<string, array<string, string|null>>
      */
-    public function extractOptionsFromHelp(): array
+    public static function extractOptionsFromHelp(): array
     {
         $arrayMap = array_map(static function (string $option): ?string {
             if (! str_starts_with($option, ' ')) {
@@ -46,7 +43,7 @@ trait WithHelpConverter
             }
 
             return ltrim($option);
-        }, explode(PHP_EOL, $this->help()));
+        }, explode(PHP_EOL, Soar::create()->help()));
 
         return array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
             $names = (array) explode(' ', $option[0]);

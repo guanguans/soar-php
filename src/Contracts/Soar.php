@@ -14,23 +14,12 @@ namespace Guanguans\SoarPHP\Contracts;
 
 interface Soar
 {
+    /**
+     * @param array|string|null $options
+     */
+    public function run($options = null): string;
+
     public function score(string $sql): string;
-
-    public function explain(string $sql): string;
-
-    public function syntaxCheck(string $sql): string;
-
-    public function fingerPrint(string $sql): string;
-
-    public function pretty(string $sql): string;
-
-    public function md2html(string $markdown): string;
-
-    public function listHeuristicRules(): string;
-
-    public function listRewriteRules(): string;
-
-    public function listTestSqls(): string;
 
     public function help(): string;
 

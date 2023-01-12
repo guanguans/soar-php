@@ -79,7 +79,7 @@ $sql = 'SELECT * FROM users LEFT JOIN post ON users.id=post.user_id; SELECT * FR
 echo $soar->jsonScore($sql);
 echo $soar->arrayScore($sql);
 echo $soar->htmlScore($sql);
-echo $soar->mdScore($sql);
+echo $soar->markdownScore($sql);
 ```
 
 ![](docs/score.png)

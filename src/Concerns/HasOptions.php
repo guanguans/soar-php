@@ -106,22 +106,26 @@ trait HasOptions
      */
     protected $normalizedOptions = [];
 
-    /**
-     * @psalm-suppress UndefinedClass
-     *
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return \Guanguans\SoarPHP\Soar
-     */
-    public function __call($name, $arguments)
+    public function setOptions(array $options): self
     {
-        if (! str_starts_with($name, 'set')) {
-            throw new BadMethodCallException("The method($name) does not exist.");
-        }
+        $this->options = $options;
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
-        $key = substr(str_snake($name, '-'), 3);
-        $this->setOption($key, ...$arguments);
+        return $this;
+    }
+
+    public function setOption(string $key, $value): self
+    {
+        $this->options[$key] = $value;
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function mergeOptions(array $options): self
+    {
+        $this->options = array_merge($this->options, $options);
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
@@ -140,17 +144,22 @@ trait HasOptions
         return $this->options[$key] ?? $value;
     }
 
-    public function setOptions(array $options): self
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return $this
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
+     */
+    public function __call($name, $arguments)
     {
-        $this->options = array_merge($this->options, $options);
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
+        if (! str_starts_with($name, 'set')) {
+            throw new BadMethodCallException("The method($name) does not exist.");
+        }
 
-        return $this;
-    }
-
-    public function setOption(string $key, $value): self
-    {
-        $this->setOptions([$key => $value]);
+        $key = substr(str_snake($name, '-'), 3);
+        $this->setOption($key, ...$arguments);
 
         return $this;
     }
@@ -161,11 +170,11 @@ trait HasOptions
     public function getNormalizedOptions(?array $keys = null): array
     {
         if (null === $keys) {
-            return $this->getNormalizedOption();
+            return array_values($this->getNormalizedOption());
         }
 
         return array_reduce($keys, function (array $normalizedOptions, string $key): array {
-            $normalizedOptions[$key] = $this->getNormalizedOption($key);
+            $normalizedOptions[] = $this->getNormalizedOption($key);
 
             return $normalizedOptions;
         }, []);
@@ -180,25 +189,35 @@ trait HasOptions
         return $this->normalizedOptions[$key] ?? $value;
     }
 
-    protected function getNormalizedStrOptions(): string
+    public function getNormalizedStrOptions(): string
     {
         return implode(' ', $this->normalizedOptions);
     }
 
     /**
-     * @psalm-suppress UnnecessaryVarAnnotation
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
     protected function normalizeOptions(array $options): array
     {
-        return array_reduce_with_keys($options, static function (array $normalizedOptions, $option, $key): array {
+        $filteredOptions = array_filter($options, static function ($option): bool {
             if (! is_scalar($option) && ! is_array($option)) {
                 throw new InvalidConfigException(sprintf('Invalid configuration type(%s).', gettype($option)));
             }
 
+            return null !== $option;
+        });
+
+        $converter = function ($filteredOption) {
+            true === $filteredOption and $filteredOption = 'true';
+            false === $filteredOption and $filteredOption = 'false';
+            0 === $filteredOption and $filteredOption = '0';
+
+            return $filteredOption;
+        };
+
+        return array_reduce_with_keys(array_map($converter, $filteredOptions), static function (array $normalizedOptions, $option, $key) use ($converter): array {
             if (is_scalar($option)) {
-                is_int($key) ? $normalizedOptions[(string) $option] = "$option" : $normalizedOptions[$key] = "$key=$option";
+                is_int($key) ? $normalizedOptions[(string) $option] = (string) $option : $normalizedOptions[$key] = "$key=$option";
 
                 return $normalizedOptions;
             }
@@ -212,7 +231,7 @@ trait HasOptions
                 return $normalizedOptions;
             }
 
-            $normalizedOptions[$key] = sprintf("$key=%s", implode(',', $option));
+            $normalizedOptions[$key] = sprintf("$key=%s", implode(',', array_map($converter, $option)));
 
             return $normalizedOptions;
         }, []);

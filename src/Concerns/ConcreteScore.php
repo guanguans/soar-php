@@ -32,7 +32,7 @@ trait ConcreteScore
         return $this->setReportType('html')->score($sql);
     }
 
-    public function mdScore(string $sql): string
+    public function markdownScore(string $sql): string
     {
         return $this->setReportType('markdown')->score($sql);
     }

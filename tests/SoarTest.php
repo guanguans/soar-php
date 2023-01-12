@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests;
 
-use Guanguans\SoarPHP\Contracts\Explainer;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OsHelper;
 
@@ -26,75 +24,6 @@ class SoarTest extends TestCase
         $score = $soar->score('select * from users;');
 
         $this->assertIsString($score);
-    }
-
-    public function testInvalidConfigExceptionForExplain(): void
-    {
-        $soar = Soar::create();
-
-        $this->expectException(InvalidConfigException::class);
-        $soar->explain('select * from users;');
-    }
-
-    public function testSyntaxCheck(): void
-    {
-        $soar = Soar::create();
-
-        $syntaxCheck = $soar->syntaxCheck('selec * from fa_users;');
-        $this->assertStringContainsString(
-            'At SQL 1 : line 1 column 5 near "selec',
-            $syntaxCheck
-        );
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($syntaxCheck);
-
-        $this->assertEmpty($soar->syntaxCheck('select * from fa_users;'));
-    }
-
-    public function testFingerPrint(): void
-    {
-        $soar = Soar::create();
-        $fingerPrint = trim($soar->fingerPrint('select * from users where id = 1;'));
-
-        $this->assertSame('select * from users where id = ?', $fingerPrint);
-        $this->assertMatchesSnapshot($fingerPrint);
-    }
-
-    public function testPretty(): void
-    {
-        $soar = Soar::create();
-        $pretty = $soar->pretty('select * from users where id = 1;');
-
-        $this->assertStringContainsString("\n", $pretty);
-        $this->assertStringContainsString('  ', $pretty);
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($pretty);
-    }
-
-    public function testMd2html(): void
-    {
-        OsHelper::isWindows() and $this->markTestSkipped(__METHOD__);
-
-        $soar = Soar::create();
-        $html = $soar->md2html('* 这是一个测试');
-
-        $this->assertStringContainsString(
-            <<<'html'
-<ul>
-<li>这是一个测试</li>
-</ul>
-html
-            ,
-            $html
-        );
-        $this->assertMatchesSnapshot($html);
-    }
-
-    public function testListTestSqls(): void
-    {
-        $soar = Soar::create();
-        $listTestSqls = $soar->listTestSqls();
-
-        $this->assertIsString($listTestSqls);
-        $this->assertNotEmpty($listTestSqls);
     }
 
     public function testHelp(): void
@@ -130,12 +59,5 @@ html
 
         $this->expectException(InvalidArgumentException::class);
         $soar->setSoarPath('foo.soar');
-    }
-
-    public function testSetExplainer(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertInstanceOf(Soar::class, $soar->setExplainer($this->createMock(Explainer::class)));
     }
 }
