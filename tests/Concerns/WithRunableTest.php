@@ -16,7 +16,7 @@ use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
-class WithExecutableTest extends TestCase
+class WithRunableTest extends TestCase
 {
     public function testProcessFailedExceptionForExec(): void
     {
@@ -24,13 +24,13 @@ class WithExecutableTest extends TestCase
 
         $this->expectException(ProcessFailedException::class);
         $this->expectExceptionMessage($commandOfError);
-        Soar::create()->exec($commandOfError);
+        Soar::create()->setOnlySyntaxCheck(false)->setQuery($commandOfError)->mustRun();
     }
 
     public function testExec(): void
     {
         $soar = Soar::create();
-        $exec = $soar->exec('ls');
+        $exec = $soar->mustRun('--help');
 
         $this->assertIsString($exec);
         $this->assertNotEmpty($exec);

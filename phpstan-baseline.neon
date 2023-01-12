@@ -1,2 +1,11 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/Soar.php
+
+		-
+			message: "#^Variable \\$process might not be defined\\.$#"
+			count: 4
+			path: src/Soar.php

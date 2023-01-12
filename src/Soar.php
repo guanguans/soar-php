@@ -17,8 +17,8 @@ use Guanguans\SoarPHP\Concerns\ConcreteListHeuristicRules;
 use Guanguans\SoarPHP\Concerns\ConcreteListRewriteRules;
 use Guanguans\SoarPHP\Concerns\ConcreteScore;
 use Guanguans\SoarPHP\Concerns\HasOptions;
-use Guanguans\SoarPHP\Concerns\WithExecutable;
 use Guanguans\SoarPHP\Concerns\WithHelpConverter;
+use Guanguans\SoarPHP\Concerns\WithRunable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OsHelper;
 
@@ -29,8 +29,8 @@ class Soar implements Contracts\Soar
     use ConcreteListRewriteRules;
     use ConcreteScore;
     use HasOptions;
-    use WithExecutable;
     use WithHelpConverter;
+    use WithRunable;
 
     /**
      * @var string
@@ -56,59 +56,59 @@ class Soar implements Contracts\Soar
 
     public function score(string $sql): string
     {
-        return $this->setQuery($sql)->mustRun(array_merge([$this->soarPath], $this->normalizedOptions));
+        return $this->setQuery($sql)->mustRun();
     }
 
     public function explain(string $sql): string
     {
         return $this
             ->setReportType('explain-digest')
-            ->exec("{$this->soarPath} {$this->getNormalizedStrOptions()} << {$this->mustGetExplainer()->getNormalizedExplain($sql)}");
+            ->mustRun("{$this->getNormalizedStrOptions()} << {$this->mustGetExplainer()->getNormalizedExplain($sql)}");
     }
 
     public function syntaxCheck(string $sql): string
     {
-        return $this->run([$this->soarPath, "-query=$sql", '-only-syntax-check=true']);
+        return $this->run(["-query=$sql", '-only-syntax-check=true']);
     }
 
     public function fingerPrint(string $sql): string
     {
-        return $this->mustRun([$this->soarPath, "-query=$sql", '-report-type=fingerprint']);
+        return $this->mustRun(["-query=$sql", '-report-type=fingerprint']);
     }
 
     public function pretty(string $sql): string
     {
-        return $this->mustRun([$this->soarPath, "-query=$sql", '-report-type=pretty']);
+        return $this->mustRun(["-query=$sql", '-report-type=pretty']);
     }
 
     public function md2html(string $markdown): string
     {
-        return $this->mustRun([$this->soarPath, "-query=$markdown", '-report-type=md2html']);
+        return $this->mustRun(["-query=$markdown", '-report-type=md2html']);
     }
 
     public function listHeuristicRules(): string
     {
-        return $this->mustRun([$this->soarPath, $this->getNormalizedOption('-report-type'), '-list-heuristic-rules']);
+        return $this->mustRun([$this->getNormalizedOption('-report-type'), '-list-heuristic-rules']);
     }
 
     public function listRewriteRules(): string
     {
-        return $this->mustRun([$this->soarPath, $this->getNormalizedOption('-report-type'), '-list-rewrite-rules']);
+        return $this->mustRun([$this->getNormalizedOption('-report-type'), '-list-rewrite-rules']);
     }
 
     public function listTestSqls(): string
     {
-        return $this->mustRun([$this->soarPath, '-list-test-sqls']);
+        return $this->mustRun(['-list-test-sqls']);
     }
 
     public function help(): string
     {
-        return $this->mustRun([$this->soarPath, '--help']);
+        return $this->mustRun(['--help']);
     }
 
     public function version(): string
     {
-        return $this->mustRun([$this->soarPath, '-version']);
+        return $this->mustRun(['-version']);
     }
 
     public function getSoarPath(): string
