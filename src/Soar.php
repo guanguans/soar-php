@@ -29,15 +29,15 @@ class Soar implements Contracts\Soar
      */
     protected $soarPath;
 
-    public function __construct(?string $soarPath = null, array $options = [])
+    public function __construct(array $options = [], ?string $soarPath = null)
     {
         $this->setSoarPath($soarPath ?? $this->getDefaultSoarPath());
         $this->setOptions($options);
     }
 
-    public static function create(?string $soarPath = null, array $options = []): self
+    public static function create(array $options = [], ?string $soarPath = null): self
     {
-        return new self($soarPath, $options);
+        return new self($options, $soarPath);
     }
 
     public function score(string $sql): string

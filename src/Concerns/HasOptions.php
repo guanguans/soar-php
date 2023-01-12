@@ -145,26 +145,6 @@ trait HasOptions
     }
 
     /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return $this
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
-     */
-    public function __call($name, $arguments)
-    {
-        if (! str_starts_with($name, 'set')) {
-            throw new BadMethodCallException("The method($name) does not exist.");
-        }
-
-        $key = substr(str_snake($name, '-'), 3);
-        $this->setOption($key, ...$arguments);
-
-        return $this;
-    }
-
-    /**
      * @param array<string>|null $keys
      */
     public function getNormalizedOptions(?array $keys = null): array
@@ -189,9 +169,32 @@ trait HasOptions
         return $this->normalizedOptions[$key] ?? $value;
     }
 
-    public function getNormalizedStrOptions(): string
+    /**
+     * @param array<string>|null $keys
+     */
+    public function getNormalizedStrOptions(?array $keys = null): string
     {
-        return implode(' ', $this->normalizedOptions);
+        return implode(' ', $this->getNormalizedOptions($keys));
+    }
+
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return $this
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
+     */
+    public function __call($name, $arguments)
+    {
+        if (! str_starts_with($name, 'set')) {
+            throw new BadMethodCallException("The method($name) does not exist.");
+        }
+
+        $key = substr(str_snake($name, '-'), 3);
+        $this->setOption($key, ...$arguments);
+
+        return $this;
     }
 
     /**
