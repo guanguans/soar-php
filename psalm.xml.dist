@@ -19,6 +19,12 @@
 
     <issueHandlers>
         <PropertyNotSetInConstructor errorLevel="info"/>
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <directory name="src/Concerns"/>
+                <file name="src/Soar.php"/>
+            </errorLevel>
+        </UndefinedDocblockClass>
     </issueHandlers>
     <plugins>
         <!--<pluginClass class="Psalm\LaravelPlugin\Plugin"/>-->

@@ -17,18 +17,18 @@ namespace Guanguans\SoarPHP\Concerns;
  */
 trait ConcreteListHeuristicRules
 {
-    public function jsonListHeuristicRules(): string
-    {
-        return $this->setOption('-report-type', 'json')->listHeuristicRules();
-    }
-
     public function arrayListHeuristicRules(int $depth = 512, int $options = 0): array
     {
         return (array) json_decode($this->jsonListHeuristicRules(), true, $depth, $options);
     }
 
+    public function jsonListHeuristicRules(): string
+    {
+        return $this->setReportType('json')->listHeuristicRules();
+    }
+
     public function mdListHeuristicRules(): string
     {
-        return $this->setOption('-report-type', 'markdown')->listHeuristicRules();
+        return $this->setReportType('markdown')->listHeuristicRules();
     }
 }

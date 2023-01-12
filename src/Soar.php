@@ -56,12 +56,14 @@ class Soar implements Contracts\Soar
 
     public function score(string $sql): string
     {
-        return $this->mustRun(array_merge([$this->soarPath], $this->normalizedOptions, ["-query=$sql"]));
+        return $this->setQuery($sql)->mustRun(array_merge([$this->soarPath], $this->normalizedOptions));
     }
 
     public function explain(string $sql): string
     {
-        return $this->exec("{$this->soarPath} {$this->getNormalizedStrOptions()} -report-type=explain-digest << {$this->mustGetExplainer()->getNormalizedExplain($sql)}");
+        return $this
+            ->setReportType('explain-digest')
+            ->exec("{$this->soarPath} {$this->getNormalizedStrOptions()} << {$this->mustGetExplainer()->getNormalizedExplain($sql)}");
     }
 
     public function syntaxCheck(string $sql): string

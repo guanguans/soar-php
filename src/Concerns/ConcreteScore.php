@@ -24,16 +24,16 @@ trait ConcreteScore
 
     public function jsonScore(string $sql): string
     {
-        return $this->setOption('-report-type', 'json')->score($sql);
+        return $this->setReportType('json')->score($sql);
     }
 
     public function htmlScore(string $sql): string
     {
-        return $this->setOption('-report-type', 'html')->score($sql);
+        return $this->setReportType('html')->score($sql);
     }
 
     public function mdScore(string $sql): string
     {
-        return $this->setOption('-report-type', 'markdown')->score($sql);
+        return $this->setReportType('markdown')->score($sql);
     }
 }

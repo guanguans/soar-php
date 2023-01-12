@@ -17,18 +17,18 @@ namespace Guanguans\SoarPHP\Concerns;
  */
 trait ConcreteListRewriteRules
 {
-    public function jsonListRewriteRules(): string
-    {
-        return $this->setOption('-report-type', 'json')->listRewriteRules();
-    }
-
     public function arrayListRewriteRules(int $depth = 512, int $options = 0): array
     {
         return (array) json_decode($this->jsonListRewriteRules(), true, $depth, $options);
     }
 
+    public function jsonListRewriteRules(): string
+    {
+        return $this->setReportType('json')->listRewriteRules();
+    }
+
     public function mdListRewriteRules(): string
     {
-        return $this->setOption('-report-type', 'markdown')->listRewriteRules();
+        return $this->setReportType('markdown')->listRewriteRules();
     }
 }
