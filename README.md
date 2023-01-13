@@ -16,7 +16,6 @@
 * PHP >= 7.2
 * ext-json
 * ext-mbstring
-* ext-pdo
 
 ## 框架中使用
 
@@ -378,6 +377,15 @@ array:8 [
 </details>
 
 <details>
+<summary><b>执行任意 soar 选项命令</b></summary>
+
+```php
+$soar->setVersion(true)->run();
+$soar->run('-version');
+```
+</details>
+
+<details>
 <summary><b>soar 帮助</b></summary>
 
 ```php
@@ -536,15 +544,6 @@ Usage of /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64:
     	Verbose
   -version
     	Print version info
-```
-</details>
-
-<details>
-<summary><b>执行任意 soar 选项命令</b></summary>
-
-```php
-$soar->setVersion(true)->run();
-$soar->run('-version');
 ```
 </details>
 
