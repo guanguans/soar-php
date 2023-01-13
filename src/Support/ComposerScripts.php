@@ -20,7 +20,7 @@ use Guanguans\SoarPHP\Soar;
  */
 class ComposerScripts
 {
-    public static function dumpSetterDocblock(Event $event)
+    public static function dumpOptionsToSetterDocblock(Event $event): int
     {
         require_once __DIR__.'/../../vendor/autoload.php';
 
@@ -51,6 +51,53 @@ docblock;
         }, '');
 
         $event->getIO()->write("<info>{$prefix}{$docblock}{$suffix}</info>");
+
+        return 0;
+    }
+
+    public static function dumpOptionsToPHPFile(Event $event): int
+    {
+        require_once __DIR__.'/../../vendor/autoload.php';
+
+        $prefix = <<<'PHP'
+<?php
+
+declare(strict_types=1);
+
+/**
+ * This file is part of the guanguans/soar-php.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
+// +----------------------------------------------------------------------+//
+// |              请参考 @see https://github.com/XiaoMi/soar               |//
+// +----------------------------------------------------------------------+//
+
+return [
+PHP;
+
+        $suffix = '];'.PHP_EOL;
+
+        $code = array_reduce(self::extractOptionsFromHelp(), static function (string $code, array $options): string {
+            null === $options['default'] and $options['default'] = 'null';
+
+            $t = <<<PHP
+    /**
+     * {$options['description']}.
+     */
+    '{$options['name']}' => {$options['default']},
+PHP;
+
+            return $code.PHP_EOL.$t.PHP_EOL;
+        }, '');
+
+        file_put_contents(__DIR__.'/../../soar.full.config.sample.php', $prefix.$code.$suffix);
+        $event->getIO()->write('<info>操作成功</info>');
+
+        return 0;
     }
 
     /**
@@ -72,11 +119,16 @@ docblock;
             $names = (array) explode(' ', $option[0]);
             preg_match("/\(default .*\)/", $option[1], $defaults);
 
+            $default = $defaults[0] ?? null;
+            if (is_string($default) && str_starts_with($default, $pre = '(default ')) {
+                $default = rtrim(substr($default, strlen($pre)), ')');
+            }
+
             $options[$names[0]] = [
                 'name' => $names[0],
                 'description' => $option[1],
                 'type' => $names[1] ?? null,
-                'default' => $defaults[0] ?? null,
+                'default' => $default,
             ];
 
             return $options;

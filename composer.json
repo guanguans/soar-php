@@ -132,7 +132,8 @@
             "@mark-finish"
         ],
         "composer-validate": "@composer validate --check-lock --strict",
-        "dump-setter-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSetterDocblock",
+        "dump-options-to-php-file": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpOptionsToPHPFile",
+        "dump-options-to-setter-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpOptionsToSetterDocblock",
         "lint": [
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
             "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
