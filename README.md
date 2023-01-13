@@ -73,15 +73,26 @@ $soar->setSoarPath('自定义的 soar 路径')
 <summary><b>SQL 评分、Explain 信息解读</b></summary>
 
 ```php
-$sqls = <<<sql
-SELECT*FROM admin_users JOIN admin_role_users ON admin_users.id=admin_role_users.user_id JOIN admin_roles ON admin_roles.id=admin_role_users.role_id;
-SELECT \ tDATE_FORMAT (t.last_update,'%Y-%m-%d'),\ tCOUNT (DISTINCT (t.city)) \ tFROM city t WHERE t.last_update> '2018-10-22 00:00:00' \ tAND t.city LIKE '%Chrome%' \ tAND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d'); 
-SELECT maxId,minId FROM (SELECT max(film_id) maxId,min(film_id) minId FROM film WHERE last_update> '2016-03-27 02:01:01') AS d; 
-DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL; 
-UPDATE city INNER JOIN country USING (country_id) SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10; 
+$sqls = <<<'sql'
+SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
+DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL;
+UPDATE city INNER JOIN country ON city.country_id=country.country_id INNER JOIN address ON city.city_id=address.city_id SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10;
+INSERT INTO city (country_id) SELECT country_id FROM country;
 REPLACE INTO city (country_id) SELECT country_id FROM country;
-ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`); 
-CREATE TABLE hello.t (id INT UNSIGNED);
+ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`);
+DROP TABLE `users`;
+CREATE TABLE `users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 sql;
 
 $soar->scores($sqls);
@@ -94,69 +105,12 @@ $soar->jsonScores($sqls);
 ```php
 array:8 [
   0 => array:8 [
-    "ID" => "369F669A622BA5D2"
-    "Fingerprint" => "select*from admin_users join admin_role_users on admin_users.id=admin_role_users.user_id join admin_roles on admin_roles.id=admin_role_users.role_id"
-    "Scores" => 90
-    "Sample" => "SELECT*FROM admin_users JOIN admin_role_users ON admin_users.id=admin_role_users.user_id JOIN admin_roles ON admin_roles.id=admin_role_users.role_id"
-    "Explain" => array:1 [
-      0 => array:6 [
-        "Item" => "EXP.000"
-        "Severity" => "L0"
-        "Summary" => "Explain信息"
-        "Content" => """
-          | id | select\_type | table | partitions | type | possible_keys | key | key\_len | ref | rows | filtered | scalability | Extra |\n
-          |---|---|---|---|---|---|---|---|---|---|---|---|---|\n
-          | 1  | SIMPLE | *admin\_users* | NULL | ALL | PRIMARY | NULL | NULL | NULL | 1 | ☠️ **100.00%** | ☠️ **O(n)** | NULL |\n
-          | 1  | SIMPLE | *admin\_role\_users* | NULL | ALL | admin\_role\_users\_role\_id\_user\_id\_unique | NULL | NULL | NULL | 1 | ☠️ **100.00%** | ☠️ **O(n)** | Using where; Using join buffer (Block Nested Loop) |\n
-          | 1  | SIMPLE | *admin\_roles* | NULL | eq\_ref | PRIMARY | PRIMARY | 8 | laravel.admin\_role\_users.role\_id | 1 | ☠️ **100.00%** | O(log n) | Using where |\n
-          \n
-          """
-        "Case" => """
-          ### Explain信息解读\n
-          \n
-          #### SelectType信息解读\n
-          \n
-          * **SIMPLE**: 简单SELECT(不使用UNION或子查询等).\n
-          \n
-          #### Type信息解读\n
-          \n
-          * **eq_ref**: 除const类型外最好的可能实现的连接类型. 它用在一个索引的所有部分被连接使用并且索引是UNIQUE或PRIMARY KEY, 对于每个索引键, 表中只有一条记录与之匹配. 例: 'SELECT * FROM RefTbl, tbl WHERE RefTbl.col=tbl.col;'.\n
-          \n
-          * ☠️ **ALL**: 最坏的情况, 从头到尾全表扫描.\n
-          \n
-          #### Extra信息解读\n
-          \n
-          * **Using join buffer**: 从已有连接中找被读入缓存的数据, 并且通过缓存来完成与当前表的连接.\n
-          \n
-          * **Using where**: WHERE条件用于筛选出与下一个表匹配的数据然后返回给客户端. 除非故意做的全表扫描, 否则连接类型是ALL或者是index, 且在Extra列的值中没有Using Where, 则该查询可能是有问题的.\n
-          """
-        "Position" => 0
-      ]
-    ]
-    "HeuristicRules" => null
-    "IndexRules" => array:1 [
-      0 => array:6 [
-        "Item" => "IDX.001"
-        "Severity" => "L2"
-        "Summary" => "为laravel库的admin_role_users表添加索引"
-        "Content" => "为列user_id添加索引; 由于未开启数据采样，各列在索引中的顺序需要自行调整。"
-        "Case" => "ALTER TABLE `laravel`.`admin_role_users` add index `idx_user_id` (`user_id`) ;\n"
-        "Position" => 0
-      ]
-    ]
-    "Tables" => array:3 [
-      0 => "`laravel`.`admin_role_users`"
-      1 => "`laravel`.`admin_roles`"
-      2 => "`laravel`.`admin_users`"
-    ]
-  ]
-  1 => array:8 [
-    "ID" => "0C5DCE6FC98AAD74"
-    "Fingerprint" => "select \ tdate_format (t.last_update,?),\ tcount (distinct (t.city)) \ tfrom city t where t.last_update> ? \ tand t.city like ? \ tand t.city=? group by date_format(t.last_update,?) order by date_format(t.last_update,?)"
-    "Scores" => 0
-    "Sample" => "SELECT \ tDATE_FORMAT (t.last_update,'%Y-%m-%d'),\ tCOUNT (DISTINCT (t.city)) \ tFROM city t WHERE t.last_update> '2018-10-22 00:00:00' \ tAND t.city LIKE '%Chrome%' \ tAND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')"
+    "ID" => "23D3498A40F9900D"
+    "Fingerprint" => "select date_format (t.last_update,?),count (distinct (t.city)) from city t where t.last_update> ? and t.city like ? and t.city=? group by date_format(t.last_update,?) order by date_format(t.last_update,?)"
+    "Score" => 0
+    "Sample" => "SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')"
     "Explain" => null
-    "HeuristicRules" => array:2 [
+    "HeuristicRules" => array:7 [
       0 => array:6 [
         "Item" => "ALI.001"
         "Severity" => "L0"
@@ -166,58 +120,61 @@ array:8 [
         "Position" => 0
       ]
       1 => array:6 [
+        "Item" => "ARG.001"
+        "Severity" => "L4"
+        "Summary" => "不建议使用前项通配符查找"
+        "Content" => "例如 "％foo"，查询参数有一个前项通配符的情况无法使用已有索引。"
+        "Case" => "select c1,c2,c3 from tbl where name like '%foo'"
+        "Position" => 0
+      ]
+      2 => array:6 [
+        "Item" => "CLA.009"
+        "Severity" => "L2"
+        "Summary" => "ORDER BY 的条件为表达式"
+        "Content" => "当 ORDER BY 条件为表达式或函数时会使用到临时表，如果在未指定 WHERE 或 WHERE 条件返回的结果集较大时性能会很差。"
+        "Case" => "select description from film where title ='ACADEMY DINOSAUR' order by length-language_id;"
+        "Position" => 0
+      ]
+      3 => array:6 [
+        "Item" => "CLA.010"
+        "Severity" => "L2"
+        "Summary" => "GROUP BY 的条件为表达式"
+        "Content" => "当 GROUP BY 条件为表达式或函数时会使用到临时表，如果在未指定 WHERE 或 WHERE 条件返回的结果集较大时性能会很差。"
+        "Case" => "select description from film where title ='ACADEMY DINOSAUR' GROUP BY length-language_id;"
+        "Position" => 0
+      ]
+      4 => array:6 [
         "Item" => "ERR.000"
         "Severity" => "L8"
-        "Summary" => "No available MySQL environment, build-in sql parse failed: line 1 column 8 near "\ tDATE_FORMAT (t.last_update,'%Y-%m-%d'),\ tCOUNT (DISTINCT (t.city)) \ tFROM city t WHERE t.last_update> '2018-10-22 00:00:00' \ tAND t.city LIKE '%Chrome%' \ tAND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')" "
-        "Content" => "line 1 column 8 near "\ tDATE_FORMAT (t.last_update,'%Y-%m-%d'),\ tCOUNT (DISTINCT (t.city)) \ tFROM city t WHERE t.last_update> '2018-10-22 00:00:00' \ tAND t.city LIKE '%Chrome%' \ tAND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')" "
+        "Summary" => "No available MySQL environment, build-in sql parse failed: line 1 column 61 near "DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')" "
+        "Content" => "line 1 column 61 near "DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')" "
         "Case" => ""
+        "Position" => 0
+      ]
+      5 => array:6 [
+        "Item" => "ERR.002"
+        "Severity" => "L8"
+        "Summary" => "MySQL execute failed"
+        "Content" => "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.' at line 1"
+        "Case" => ""
+        "Position" => 0
+      ]
+      6 => array:6 [
+        "Item" => "KEY.008"
+        "Severity" => "L4"
+        "Summary" => "ORDER BY 多个列但排序方向不同时可能无法使用索引"
+        "Content" => "在 MySQL 8.0 之前当 ORDER BY 多个列指定的排序方向不同时将无法使用已经建立的索引。"
+        "Case" => "SELECT * FROM tbl ORDER BY a DESC, b ASC;"
         "Position" => 0
       ]
     ]
     "IndexRules" => null
     "Tables" => null
   ]
-  2 => array:8 [
-    "ID" => "9E65CFF6D5AE1F36"
-    "Fingerprint" => "select maxid,minid from (select max(film_id) maxid,min(film_id) minid from film where last_update> ?) as d"
-    "Scores" => 50
-    "Sample" => "SELECT maxId,minId FROM (SELECT max(film_id) maxId,min(film_id) minId FROM film WHERE last_update> '2016-03-27 02:01:01') AS d"
-    "Explain" => null
-    "HeuristicRules" => array:3 [
-      0 => array:6 [
-        "Item" => "CLA.001"
-        "Severity" => "L4"
-        "Summary" => "最外层 SELECT 未指定 WHERE 条件"
-        "Content" => "SELECT 语句没有 WHERE 子句，可能检查比预期更多的行(全表扫描)。对于 SELECT COUNT(*) 类型的请求如果不要求精度，建议使用 SHOW TABLE STATUS 或 EXPLAIN 替代。"
-        "Case" => "select id from tbl"
-        "Position" => 0
-      ]
-      1 => array:6 [
-        "Item" => "SUB.001"
-        "Severity" => "L4"
-        "Summary" => "MySQL 对子查询的优化效果不佳"
-        "Content" => "MySQL 将外部查询中的每一行作为依赖子查询执行子查询。 这是导致严重性能问题的常见原因。这可能会在 MySQL 5.6 版本中得到改善, 但对于5.1及更早版本, 建议将该类查询分别重写为 JOIN 或 LEFT OUTER JOIN。"
-        "Case" => "select col1,col2,col3 from table1 where col2 in(select col from table2)"
-        "Position" => 0
-      ]
-      2 => array:6 [
-        "Item" => "SUB.006"
-        "Severity" => "L2"
-        "Summary" => "不建议在子查询中使用函数"
-        "Content" => "MySQL将外部查询中的每一行作为依赖子查询执行子查询，如果在子查询中使用函数，即使是semi-join也很难进行高效的查询。可以将子查询重写为OUTER JOIN语句并用连接条件对数据进行过滤。"
-        "Case" => "SELECT * FROM staff WHERE name IN (SELECT max(NAME) FROM customer)"
-        "Position" => 0
-      ]
-    ]
-    "IndexRules" => null
-    "Tables" => array:1 [
-      0 => "`laravel`.`film`"
-    ]
-  ]
-  3 => array:8 [
+  1 => array:8 [
     "ID" => "E759EFCE5B432198"
     "Fingerprint" => "delete city from city left join country on city.country_id=country.country_id where country.country is null"
-    "Scores" => 80
+    "Score" => 80
     "Sample" => "DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL"
     "Explain" => null
     "HeuristicRules" => array:2 [
@@ -244,11 +201,11 @@ array:8 [
       1 => "`laravel`.`country`"
     ]
   ]
-  4 => array:8 [
-    "ID" => "1E6CB161B39B3F38"
-    "Fingerprint" => "update city inner join country using (country_id) set city.city=?,city.last_update=?,country.country=? where city.city_id=?"
-    "Scores" => 80
-    "Sample" => "UPDATE city INNER JOIN country USING (country_id) SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10"
+  2 => array:8 [
+    "ID" => "67B0C3CE9FA26F37"
+    "Fingerprint" => "update city inner join country on city.country_id=country.country_id inner join address on city.city_id=address.city_id set city.city=?,city.last_update=?,country.country=? where city.city_id=?"
+    "Score" => 80
+    "Sample" => "UPDATE city INNER JOIN country ON city.country_id=country.country_id INNER JOIN address ON city.city_id=address.city_id SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10"
     "Explain" => null
     "HeuristicRules" => array:1 [
       0 => array:6 [
@@ -261,15 +218,46 @@ array:8 [
       ]
     ]
     "IndexRules" => null
+    "Tables" => array:3 [
+      0 => "`laravel`.`address`"
+      1 => "`laravel`.`city`"
+      2 => "`laravel`.`country`"
+    ]
+  ]
+  3 => array:8 [
+    "ID" => "3656B13CC4F888E2"
+    "Fingerprint" => "insert into city (country_id) select country_id from country"
+    "Score" => 65
+    "Sample" => "INSERT INTO city (country_id) SELECT country_id FROM country"
+    "Explain" => null
+    "HeuristicRules" => array:2 [
+      0 => array:6 [
+        "Item" => "CLA.001"
+        "Severity" => "L4"
+        "Summary" => "最外层 SELECT 未指定 WHERE 条件"
+        "Content" => "SELECT 语句没有 WHERE 子句，可能检查比预期更多的行(全表扫描)。对于 SELECT COUNT(*) 类型的请求如果不要求精度，建议使用 SHOW TABLE STATUS 或 EXPLAIN 替代。"
+        "Case" => "select id from tbl"
+        "Position" => 0
+      ]
+      1 => array:6 [
+        "Item" => "LCK.001"
+        "Severity" => "L3"
+        "Summary" => "INSERT INTO xx SELECT 加锁粒度较大请谨慎"
+        "Content" => "INSERT INTO xx SELECT 加锁粒度较大请谨慎"
+        "Case" => "INSERT INTO tbl SELECT * FROM tbl2;"
+        "Position" => 0
+      ]
+    ]
+    "IndexRules" => null
     "Tables" => array:2 [
       0 => "`laravel`.`city`"
       1 => "`laravel`.`country`"
     ]
   ]
-  5 => array:8 [
+  4 => array:8 [
     "ID" => "E3DDA1A929236E72"
     "Fingerprint" => "replace into city (country_id) select country_id from country"
-    "Scores" => 65
+    "Score" => 65
     "Sample" => "REPLACE INTO city (country_id) SELECT country_id FROM country"
     "Explain" => null
     "HeuristicRules" => array:2 [
@@ -296,10 +284,10 @@ array:8 [
       1 => "`laravel`.`country`"
     ]
   ]
-  6 => array:8 [
+  5 => array:8 [
     "ID" => "9BB74D074BA0727C"
     "Fingerprint" => "alter table inventory add index `idx_store_film` (`store_id`,`film_id`),add index `idx_store_film` (`store_id`,`film_id`),add index `idx_store_film` (`store_id`,`film_id`)"
-    "Scores" => 100
+    "Score" => 100
     "Sample" => "ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`)"
     "Explain" => null
     "HeuristicRules" => array:1 [
@@ -317,13 +305,47 @@ array:8 [
       0 => "`laravel`.`inventory`"
     ]
   ]
-  7 => array:8 [
-    "ID" => "C11ECE7AE5F80CE5"
-    "Fingerprint" => "create table hello.t (id int unsigned)"
-    "Scores" => 45
-    "Sample" => "CREATE TABLE hello.t (id INT UNSIGNED)"
+  6 => array:8 [
+    "ID" => "C77607894B4EFCC6"
+    "Fingerprint" => "drop table `users`"
+    "Score" => 100
+    "Sample" => "DROP TABLE `users`"
     "Explain" => null
-    "HeuristicRules" => array:5 [
+    "HeuristicRules" => array:1 [
+      0 => array:6 [
+        "Item" => "SEC.003"
+        "Severity" => "L0"
+        "Summary" => "使用DELETE/DROP/TRUNCATE等操作时注意备份"
+        "Content" => "在执行高危操作之前对数据进行备份是十分有必要的。"
+        "Case" => "delete from table where col = 'condition'"
+        "Position" => 0
+      ]
+    ]
+    "IndexRules" => null
+    "Tables" => array:1 [
+      0 => "`laravel`.`users`"
+    ]
+  ]
+  7 => array:8 [
+    "ID" => "D0870E395F2CA834"
+    "Fingerprint" => "create table `users` ( `id` bigint unsigned not null auto_increment, `name` varchar(?) collate utf8mb4_unicode_ci not ?, `email` varchar(?) collate utf8mb4_unicode_ci not ?, `email_verified_at` timestamp ? default ?, `password` varchar(?) collate utf8mb4_unicode_ci not ?, `remember_token` varchar(?) collate utf8mb4_unicode_ci default ?, `created_at` timestamp ? default ?, `updated_at` timestamp ? default ?, primary key (`id`), unique key `users_email_unique` (`email`) ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci"
+    "Score" => 75
+    "Sample" => """
+      CREATE TABLE `users` (\n
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n
+        `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n
+        `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n
+        `email_verified_at` timestamp NULL DEFAULT NULL,\n
+        `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n
+        `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n
+        `created_at` timestamp NULL DEFAULT NULL,\n
+        `updated_at` timestamp NULL DEFAULT NULL,\n
+        PRIMARY KEY (`id`),\n
+        UNIQUE KEY `users_email_unique` (`email`)\n
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+      """
+    "Explain" => null
+    "HeuristicRules" => array:7 [
       0 => array:6 [
         "Item" => "CLA.011"
         "Severity" => "L1"
@@ -349,25 +371,41 @@ array:8 [
         "Position" => 0
       ]
       3 => array:6 [
-        "Item" => "KEY.007"
-        "Severity" => "L4"
-        "Summary" => "未指定主键或主键非 int 或 bigint"
-        "Content" => "未指定主键或主键非 int 或 bigint，建议将主键设置为 int unsigned 或 bigint unsigned。"
-        "Case" => "CREATE TABLE tbl (a int);"
-        "Position" => 0
+        "Item" => "COL.011"
+        "Severity" => "L0"
+        "Summary" => "当需要唯一约束时才使用 NULL，仅当列不能有缺失值时才使用 NOT NULL"
+        "Content" => "NULL 和0是不同的，10乘以 NULL 还是 NULL。NULL 和空字符串是不一样的。将一个字符串和标准 SQL 中的 NULL 联合起来的结果还是 NULL。NULL 和 FALSE 也是不同的。AND、OR 和 NOT 这三个布尔操作如果涉及 NULL，其结果也让很多人感到困惑。当您将一列声明为 NOT NULL 时，也就是说这列中的每一个值都必须存在且是有意义的。使用 NULL 来表示任意类型不存在的空值。 当您将一列声明为 NOT NULL 时，也就是说这列中的每一个值都必须存在且是有意义的。"
+        "Case" => "select c1,c2,c3 from tbl where c4 is null or c4 <> 1"
+        "Position" => 49
       ]
       4 => array:6 [
-        "Item" => "TBL.002"
-        "Severity" => "L4"
-        "Summary" => "请为表选择合适的存储引擎"
-        "Content" => "建表或修改表的存储引擎时建议使用推荐的存储引擎，如：innodb"
-        "Case" => "create table test(`id` int(11) NOT NULL AUTO_INCREMENT)"
+        "Item" => "KWR.003"
+        "Severity" => "L1"
+        "Summary" => "不建议使用复数做列名或表名"
+        "Content" => "表名应该仅仅表示表里面的实体内容，不应该表示实体数量，对应于 DO 类名也是单数形式，符合表达习惯。"
+        "Case" => "CREATE TABLE tbl ( `books` int )"
+        "Position" => 0
+      ]
+      5 => array:6 [
+        "Item" => "SEC.002"
+        "Severity" => "L0"
+        "Summary" => "不使用明文存储密码"
+        "Content" => "使用明文存储密码或者使用明文在网络上传递密码都是不安全的。如果攻击者能够截获您用来插入密码的SQL语句，他们就能直接读到密码。另外，将用户输入的字符串以明文的形式插入到纯SQL语句中，也会让攻击者发现它。如果您能够读取密码，黑客也可以。解决方案是使用单向哈希函数对原始密码进行加密编码。哈希是指将输入字符串转化成另一个新的、不可识别的字符串的函数。对密码加密表达式加点随机串来防御“字典攻击”。不要将明文密码输入到SQL查询语句中。在应用程序代码中计算哈希串，只在SQL查询中使用哈希串。"
+        "Case" => "create table test(id int,name varchar(20) not null,password varchar(200)not null)"
+        "Position" => 0
+      ]
+      6 => array:6 [
+        "Item" => "STA.003"
+        "Severity" => "L1"
+        "Summary" => "索引起名不规范"
+        "Content" => "建议普通二级索引以idx_为前缀，唯一索引以uk_为前缀。"
+        "Case" => "select col from now where type!=0"
         "Position" => 0
       ]
     ]
     "IndexRules" => null
     "Tables" => array:1 [
-      0 => "`hello`.`t`"
+      0 => "`laravel`.`users`"
     ]
   ]
 ]
