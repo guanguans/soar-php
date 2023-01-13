@@ -19,7 +19,7 @@ interface Soar
      */
     public function run($options = null): string;
 
-    public function score(string $sql): string;
+    public function scores(string $sql): string;
 
     public function help(): string;
 

@@ -84,11 +84,11 @@ ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDE
 CREATE TABLE hello.t (id INT UNSIGNED);
 sql;
 
-$soar->score($sql);
-$soar->htmlScore($sql);
-$soar->markdownScore($sql);
-$soar->arrayScore($sql);
-$soar->jsonScore($sql);
+$soar->scores($sql);
+$soar->htmlScores($sql);
+$soar->markdownScores($sql);
+$soar->arrayScores($sql);
+$soar->jsonScores($sql);
 ```
 
 ```php
@@ -96,7 +96,7 @@ array:8 [
   0 => array:8 [
     "ID" => "369F669A622BA5D2"
     "Fingerprint" => "select*from admin_users join admin_role_users on admin_users.id=admin_role_users.user_id join admin_roles on admin_roles.id=admin_role_users.role_id"
-    "Score" => 90
+    "Scores" => 90
     "Sample" => "SELECT*FROM admin_users JOIN admin_role_users ON admin_users.id=admin_role_users.user_id JOIN admin_roles ON admin_roles.id=admin_role_users.role_id"
     "Explain" => array:1 [
       0 => array:6 [
@@ -153,7 +153,7 @@ array:8 [
   1 => array:8 [
     "ID" => "0C5DCE6FC98AAD74"
     "Fingerprint" => "select \ tdate_format (t.last_update,?),\ tcount (distinct (t.city)) \ tfrom city t where t.last_update> ? \ tand t.city like ? \ tand t.city=? group by date_format(t.last_update,?) order by date_format(t.last_update,?)"
-    "Score" => 0
+    "Scores" => 0
     "Sample" => "SELECT \ tDATE_FORMAT (t.last_update,'%Y-%m-%d'),\ tCOUNT (DISTINCT (t.city)) \ tFROM city t WHERE t.last_update> '2018-10-22 00:00:00' \ tAND t.city LIKE '%Chrome%' \ tAND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d')"
     "Explain" => null
     "HeuristicRules" => array:2 [
@@ -180,7 +180,7 @@ array:8 [
   2 => array:8 [
     "ID" => "9E65CFF6D5AE1F36"
     "Fingerprint" => "select maxid,minid from (select max(film_id) maxid,min(film_id) minid from film where last_update> ?) as d"
-    "Score" => 50
+    "Scores" => 50
     "Sample" => "SELECT maxId,minId FROM (SELECT max(film_id) maxId,min(film_id) minId FROM film WHERE last_update> '2016-03-27 02:01:01') AS d"
     "Explain" => null
     "HeuristicRules" => array:3 [
@@ -217,7 +217,7 @@ array:8 [
   3 => array:8 [
     "ID" => "E759EFCE5B432198"
     "Fingerprint" => "delete city from city left join country on city.country_id=country.country_id where country.country is null"
-    "Score" => 80
+    "Scores" => 80
     "Sample" => "DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL"
     "Explain" => null
     "HeuristicRules" => array:2 [
@@ -247,7 +247,7 @@ array:8 [
   4 => array:8 [
     "ID" => "1E6CB161B39B3F38"
     "Fingerprint" => "update city inner join country using (country_id) set city.city=?,city.last_update=?,country.country=? where city.city_id=?"
-    "Score" => 80
+    "Scores" => 80
     "Sample" => "UPDATE city INNER JOIN country USING (country_id) SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10"
     "Explain" => null
     "HeuristicRules" => array:1 [
@@ -269,7 +269,7 @@ array:8 [
   5 => array:8 [
     "ID" => "E3DDA1A929236E72"
     "Fingerprint" => "replace into city (country_id) select country_id from country"
-    "Score" => 65
+    "Scores" => 65
     "Sample" => "REPLACE INTO city (country_id) SELECT country_id FROM country"
     "Explain" => null
     "HeuristicRules" => array:2 [
@@ -299,7 +299,7 @@ array:8 [
   6 => array:8 [
     "ID" => "9BB74D074BA0727C"
     "Fingerprint" => "alter table inventory add index `idx_store_film` (`store_id`,`film_id`),add index `idx_store_film` (`store_id`,`film_id`),add index `idx_store_film` (`store_id`,`film_id`)"
-    "Score" => 100
+    "Scores" => 100
     "Sample" => "ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`)"
     "Explain" => null
     "HeuristicRules" => array:1 [
@@ -320,7 +320,7 @@ array:8 [
   7 => array:8 [
     "ID" => "C11ECE7AE5F80CE5"
     "Fingerprint" => "create table hello.t (id int unsigned)"
-    "Score" => 45
+    "Scores" => 45
     "Sample" => "CREATE TABLE hello.t (id INT UNSIGNED)"
     "Explain" => null
     "HeuristicRules" => array:5 [
@@ -373,7 +373,7 @@ array:8 [
 ]
 ```
 
-![](docs/score.png)
+![](docs/scores.png)
 </details>
 
 <details>

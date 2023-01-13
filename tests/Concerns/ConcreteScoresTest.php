@@ -16,13 +16,13 @@ use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Guanguans\Tests\TestCase;
 
-class ConcreteScoreTest extends TestCase
+class ConcreteScoresTest extends TestCase
 {
-    public function testArrayScore(): void
+    public function testArrayScores(): void
     {
         $soar = Soar::create();
         $sql = 'select * from foo';
-        $scores = $soar->arrayScore($sql);
+        $scores = $soar->arrayScores($sql);
 
         $this->assertIsArray($scores);
         $this->assertNotEmpty($scores);
@@ -33,7 +33,7 @@ class ConcreteScoreTest extends TestCase
         OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($scores);
     }
 
-    public function testJsonScore(): void
+    public function testJsonScores(): void
     {
         $soar = Soar::create();
         $sql = <<<sql
@@ -65,48 +65,48 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 sql;
-        $jsonScore = $soar->jsonScore($sql);
+        $jsonScores = $soar->jsonScores($sql);
 
-        $this->assertJson($jsonScore);
-        $this->assertNotEmpty($jsonScore);
+        $this->assertJson($jsonScores);
+        $this->assertNotEmpty($jsonScores);
 
-        $this->assertMatchesJsonSnapshot($jsonScore);
+        $this->assertMatchesJsonSnapshot($jsonScores);
     }
 
-    public function testHtmlScore(): void
+    public function testHtmlScores(): void
     {
         $soar = Soar::create();
-        $htmlScore = $soar->htmlScore('select * from foo');
+        $htmlScores = $soar->htmlScores('select * from foo');
 
-        $this->assertIsString($htmlScore);
-        $this->assertNotEmpty($htmlScore);
+        $this->assertIsString($htmlScores);
+        $this->assertNotEmpty($htmlScores);
 
-        $this->assertStringContainsString('foo', $htmlScore);
-        $this->assertStringContainsString('<h1>', $htmlScore);
-        $this->assertStringContainsString('<p>', $htmlScore);
-        $this->assertStringContainsString('<pre>', $htmlScore);
-        $this->assertStringContainsString('<h2>', $htmlScore);
-        $this->assertStringContainsString('<ul>', $htmlScore);
-        $this->assertStringContainsString('<li>', $htmlScore);
+        $this->assertStringContainsString('foo', $htmlScores);
+        $this->assertStringContainsString('<h1>', $htmlScores);
+        $this->assertStringContainsString('<p>', $htmlScores);
+        $this->assertStringContainsString('<pre>', $htmlScores);
+        $this->assertStringContainsString('<h2>', $htmlScores);
+        $this->assertStringContainsString('<ul>', $htmlScores);
+        $this->assertStringContainsString('<li>', $htmlScores);
 
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($htmlScore);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($htmlScores);
     }
 
-    public function testMarkdownScore(): void
+    public function testMarkdownScores(): void
     {
         $soar = Soar::create();
-        $markdownScore = $soar->markdownScore('select * from foo');
+        $markdownScores = $soar->markdownScores('select * from foo');
 
-        $this->assertIsString($markdownScore);
-        $this->assertNotEmpty($markdownScore);
+        $this->assertIsString($markdownScores);
+        $this->assertNotEmpty($markdownScores);
 
-        $this->assertStringContainsString('foo', $markdownScore);
-        $this->assertStringContainsString('#', $markdownScore);
-        $this->assertStringContainsString('```sql', $markdownScore);
-        $this->assertStringContainsString('##', $markdownScore);
-        $this->assertStringContainsString('*', $markdownScore);
-        $this->assertStringContainsString('分', $markdownScore);
+        $this->assertStringContainsString('foo', $markdownScores);
+        $this->assertStringContainsString('#', $markdownScores);
+        $this->assertStringContainsString('```sql', $markdownScores);
+        $this->assertStringContainsString('##', $markdownScores);
+        $this->assertStringContainsString('*', $markdownScores);
+        $this->assertStringContainsString('分', $markdownScores);
 
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($markdownScore);
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($markdownScores);
     }
 }

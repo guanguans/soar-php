@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP;
 
-use Guanguans\SoarPHP\Concerns\ConcreteScore;
+use Guanguans\SoarPHP\Concerns\ConcreteScores;
 use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\WithRunable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
@@ -20,7 +20,7 @@ use Guanguans\SoarPHP\Support\OsHelper;
 
 class Soar implements Contracts\Soar
 {
-    use ConcreteScore;
+    use ConcreteScores;
     use HasOptions;
     use WithRunable;
 
@@ -40,7 +40,7 @@ class Soar implements Contracts\Soar
         return new self($options, $soarPath);
     }
 
-    public function score(string $sql): string
+    public function scores(string $sql): string
     {
         return $this->setQuery($sql)->run();
     }

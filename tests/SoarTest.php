@@ -18,13 +18,13 @@ use Guanguans\SoarPHP\Support\OsHelper;
 
 class SoarTest extends TestCase
 {
-    public function testScore(): void
+    public function testScores(): void
     {
         $soar = Soar::create();
-        $score = $soar->score('select * from users;');
+        $scores = $soar->scores('select * from users;');
 
-        $this->assertIsString($score);
-        $this->assertNotEmpty($score);
+        $this->assertIsString($scores);
+        $this->assertNotEmpty($scores);
     }
 
     public function testHelp(): void
