@@ -98,6 +98,7 @@ return (new Config())
         'array_indentation' => true,
         'method_chaining_indentation' => true,
         // 'statement_indentation' => true,
+        // 'phpdoc_separation' => [['method', 'description']],
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);

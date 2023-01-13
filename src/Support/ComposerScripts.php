@@ -12,22 +12,45 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Support;
 
+use Composer\Script\Event;
 use Guanguans\SoarPHP\Soar;
 
+/**
+ * @internal
+ */
 class ComposerScripts
 {
-    public static function convertHelpToDocblockOfSetter(): string
+    public static function dumpSetterDocblock(Event $event)
     {
-        return '/**'.array_reduce(self::extractOptionsFromHelp(), static function (string $docblock, array $options): string {
+        require_once __DIR__.'/../../vendor/autoload.php';
+
+        $prefix = <<<'docblock'
+/**
+*
+docblock;
+
+        $suffix = <<<'docblock'
+
+* @mixin \Guanguans\SoarPHP\Soar
+*/
+docblock;
+
+        $docblock = array_reduce(self::extractOptionsFromHelp(), static function (string $docblock, array $options): string {
             'uint' === $options['type'] and $options['type'] = 'int';
 
-            return $docblock.PHP_EOL.sprintf(
-                '* @method self %s(%s$%s)',
+            $description = sprintf('* %s', $options['description']);
+
+            $method = sprintf(
+                '* @method \Guanguans\SoarPHP\Soar %s(%s$%s)',
                 'set'.ucfirst(str_camel($options['name'])),
                 $options['type'] ? $options['type'].' ' : '',
                 str_camel($options['name'])
             );
-        }, '').PHP_EOL.'*/';
+
+            return $docblock.PHP_EOL.$description.PHP_EOL.$method.PHP_EOL.'*';
+        }, '');
+
+        $event->getIO()->write("<info>{$prefix}{$docblock}{$suffix}</info>");
     }
 
     /**
@@ -45,18 +68,27 @@ class ComposerScripts
             return ltrim($option);
         }, explode(PHP_EOL, Soar::create()->help()));
 
-        return array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
+        $options = array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
             $names = (array) explode(' ', $option[0]);
             preg_match("/\(default .*\)/", $option[1], $defaults);
 
             $options[$names[0]] = [
                 'name' => $names[0],
-                'desc' => $option[1],
+                'description' => $option[1],
                 'type' => $names[1] ?? null,
                 'default' => $defaults[0] ?? null,
             ];
 
             return $options;
         }, []);
+
+        $options['help'] = [
+            'name' => 'help',
+            'description' => 'Help',
+            'type' => null,
+            'default' => null,
+        ];
+
+        return $options;
     }
 }

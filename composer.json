@@ -37,6 +37,7 @@
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
+        "composer/composer": "^2.2",
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "jetbrains/phpstorm-attributes": "^1.0",
@@ -131,6 +132,7 @@
             "@mark-finish"
         ],
         "composer-validate": "@composer validate --check-lock --strict",
+        "dump-setter-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSetterDocblock",
         "lint": [
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
             "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
