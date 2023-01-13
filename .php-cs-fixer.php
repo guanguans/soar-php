@@ -24,6 +24,7 @@ EOF;
 /** @noinspection PhpParamsInspection */
 $finder = Finder::create()
     ->in([
+        __DIR__.'/benchmarks',
         __DIR__.'/src',
         __DIR__.'/tests',
     ])
