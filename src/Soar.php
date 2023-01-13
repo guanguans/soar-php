@@ -45,9 +45,12 @@ class Soar implements Contracts\Soar
      */
     public function scores($sqls): string
     {
-        $delimiter = $this->getOption('-delimiter') ?? ';';
+        if (! is_string($sqls) && ! is_array($sqls)) {
+            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($sqls)));
+        }
 
-        is_array($sqls) and $sqls = implode($delimiter, $sqls);
+        $delimiter = $this->getOption('-delimiter', ';');
+        is_array($sqls) and $sqls = implode(str_repeat($delimiter, 2), $sqls);
 
         return $this->setQuery($sqls)->run();
     }

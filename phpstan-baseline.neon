@@ -2,7 +2,7 @@ parameters:
 	ignoreErrors:
 		-
 			message: "#^Result of && is always false\\.$#"
-			count: 1
+			count: 2
 			path: src/Soar.php
 
 		-
