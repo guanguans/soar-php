@@ -40,9 +40,16 @@ class Soar implements Contracts\Soar
         return new self($options, $soarPath);
     }
 
-    public function scores(string $sql): string
+    /**
+     * @param string|array<string> $sqls
+     */
+    public function scores($sqls): string
     {
-        return $this->setQuery($sql)->run();
+        $delimiter = $this->getOption('-delimiter') ?? ';';
+
+        is_array($sqls) and $sqls = implode($delimiter, $sqls);
+
+        return $this->setQuery($sqls)->run();
     }
 
     public function help(): string

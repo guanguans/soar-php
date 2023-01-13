@@ -21,8 +21,8 @@ class ConcreteScoresTest extends TestCase
     public function testArrayScores(): void
     {
         $soar = Soar::create();
-        $sql = 'select * from foo';
-        $scores = $soar->arrayScores($sql);
+        $sqls = 'select * from foo';
+        $scores = $soar->arrayScores($sqls);
 
         $this->assertIsArray($scores);
         $this->assertNotEmpty($scores);
@@ -36,7 +36,7 @@ class ConcreteScoresTest extends TestCase
     public function testJsonScores(): void
     {
         $soar = Soar::create();
-        $sql = <<<sql
+        $sqls = <<<sql
 SELECT * FROM `post` WHERE `name`='so"a`r';
 SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
 
@@ -65,7 +65,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 sql;
-        $jsonScores = $soar->jsonScores($sql);
+        $jsonScores = $soar->jsonScores($sqls);
 
         $this->assertJson($jsonScores);
         $this->assertNotEmpty($jsonScores);

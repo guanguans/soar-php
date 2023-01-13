@@ -73,7 +73,7 @@ $soar->setSoarPath('自定义的 soar 路径')
 <summary><b>SQL scoring, Explain information interpretation</b></summary>
 
 ```php
-$sql = <<<sql
+$sqls = <<<sql
 SELECT*FROM admin_users JOIN admin_role_users ON admin_users.id=admin_role_users.user_id JOIN admin_roles ON admin_roles.id=admin_role_users.role_id;
 SELECT \ tDATE_FORMAT (t.last_update,'%Y-%m-%d'),\ tCOUNT (DISTINCT (t.city)) \ tFROM city t WHERE t.last_update> '2018-10-22 00:00:00' \ tAND t.city LIKE '%Chrome%' \ tAND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d'); 
 SELECT maxId,minId FROM (SELECT max(film_id) maxId,min(film_id) minId FROM film WHERE last_update> '2016-03-27 02:01:01') AS d; 
@@ -84,11 +84,11 @@ ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDE
 CREATE TABLE hello.t (id INT UNSIGNED);
 sql;
 
-$soar->scores($sql);
-$soar->htmlScores($sql);
-$soar->markdownScores($sql);
-$soar->arrayScores($sql);
-$soar->jsonScores($sql);
+$soar->scores($sqls);
+$soar->htmlScores($sqls);
+$soar->markdownScores($sqls);
+$soar->arrayScores($sqls);
+$soar->jsonScores($sqls);
 ```
 
 ```php
