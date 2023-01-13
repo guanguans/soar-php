@@ -36,7 +36,7 @@ trait WithRunable
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\ProcessFailedException
      */
-    public function exec($options = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
+    protected function exec($options = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
         if (null !== $options && ! is_string($options) && ! is_array($options)) {
             throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($options)));

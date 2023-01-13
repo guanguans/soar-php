@@ -21,21 +21,36 @@ class ConcreteScoreTest extends TestCase
     public function testArrayScore(): void
     {
         $soar = Soar::create();
-        $sql = <<<'sql'
-select * from `post` where `name` = 'so"a`r';
-select * from `post` where `id` = '1' order by `id` asc limit 1;
-select * from `post` where `id` = '2' limit 1;
-select * from `users`;
-select * from `post` where `post`.`user_id` = '1' and `post`.`user_id` is not null; select 1;
-select * from `users` inner join `post` on `users`.`id` = `post`.`user_id`;
+        $sql = 'select * from foo';
+        $scores = $soar->arrayScore($sql);
 
-select * from `personal_access_tokens` where `personal_access_tokens`.`id` = "32" limit 1;
-select * from `admin_users` where `admin_users`.`id` = '1' limit 1;
-update `personal_access_tokens` set `last_used_at` = '2022-04-28 22:04:48', `personal_access_tokens`.`updated_at` = '2022-04-28 22:04:48' where `id` = '32';
-select count(*) as aggregate from `goods` inner join `product` on `product`.`id` = `goods`.`product_id` where exists (select * from `product` where `goods`.`product_id` = `product`.`id` and not exists (select * from `product_dont_ship_address` where `product`.`id` = `product_dont_ship_address`.`product_id` and `province_id` = '6' and `city_id` = '303' and `product_dont_ship_address`.`deleted_at` is null) and `product`.`deleted_at` is null) and LOWER(`goods`.`name`) LIKE '%商%' and LOWER(`goods`.`encoding`) LIKE '%654327%' and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`supplier_id`) LIKE '%15%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`encoding`) LIKE '%654321%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`operator_id`) LIKE '%1%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`province_id`) LIKE '%1%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`city_id`) LIKE '%5%' and `product`.`deleted_at` is null) and `goods`.`deleted_at` is null;
-select `goods`.* from `goods` inner join `product` on `product`.`id` = `goods`.`product_id` where exists (select * from `product` where `goods`.`product_id` = `product`.`id` and not exists (select * from `product_dont_ship_address` where `product`.`id` = `product_dont_ship_address`.`product_id` and `province_id` = '6' and `city_id` = '303' and `product_dont_ship_address`.`deleted_at` is null) and `product`.`deleted_at` is null) and LOWER(`goods`.`name`) LIKE '%商%' and LOWER(`goods`.`encoding`) LIKE '%654327%' and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`supplier_id`) LIKE '%15%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`encoding`) LIKE '%654321%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`operator_id`) LIKE '%1%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`province_id`) LIKE '%1%' and `product`.`deleted_at` is null) and exists (select * from `product` where `goods`.`product_id` = `product`.`id` and LOWER(`product`.`city_id`) LIKE '%5%' and `product`.`deleted_at` is null) and `goods`.`deleted_at` is null order by `goods`.`id` desc limit 15 offset 0;
+        $this->assertIsArray($scores);
+        $this->assertNotEmpty($scores);
 
-DROP table `users`;
+        /** @noinspection ForgottenDebugOutputInspection */
+        /** @noinspection DebugFunctionUsageInspection */
+        OsHelper::isWindows() and dump($scores);
+        OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($scores);
+    }
+
+    public function testJsonScore(): void
+    {
+        $soar = Soar::create();
+        $sql = <<<sql
+SELECT * FROM `post` WHERE `name`='so"a`r';
+SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
+
+DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL;
+
+UPDATE city INNER JOIN country ON city.country_id=country.country_id INNER JOIN address ON city.city_id=address.city_id SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10;
+
+INSERT INTO city (country_id) SELECT country_id FROM country;
+
+REPLACE INTO city (country_id) SELECT country_id FROM country;
+
+ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`);
+
+DROP TABLE `users`;
 
 CREATE TABLE `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
@@ -50,55 +65,11 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 sql;
-        $arrayScore = $soar->arrayScore($sql);
-
-        $this->assertIsArray($arrayScore);
-        $this->assertGreaterThanOrEqual(1, $arrayScore);
-
-        $this->assertArrayHasKey('ID', $score = $arrayScore[0]);
-        $this->assertArrayHasKey('Fingerprint', $score);
-        $this->assertArrayHasKey('Score', $score);
-        $this->assertArrayHasKey('Sample', $score);
-        $this->assertArrayHasKey('Explain', $score);
-        $this->assertArrayHasKey('HeuristicRules', $score);
-        $this->assertArrayHasKey('IndexRules', $score);
-        $this->assertArrayHasKey('Tables', $score);
-
-        $this->assertIsInt($score['Score']);
-        foreach ($arrayScore as $item) {
-            $this->assertGreaterThanOrEqual(0, $item['Score']);
-        }
-
-        $this->assertStringContainsString('select', $score['Sample']);
-        $this->assertEmpty($score['Explain']);
-        $this->assertEmpty($score['IndexRules']);
-
-        $this->assertIsArray($heuristicRules = $score['HeuristicRules']);
-        $this->assertNotEmpty($heuristicRules);
-        $this->assertIsArray($heuristicRule = $heuristicRules[0]);
-        $this->assertArrayHasKey('Item', $heuristicRule);
-        $this->assertArrayHasKey('Severity', $heuristicRule);
-        $this->assertArrayHasKey('Summary', $heuristicRule);
-        $this->assertArrayHasKey('Content', $heuristicRule);
-        $this->assertArrayHasKey('Case', $heuristicRule);
-        $this->assertArrayHasKey('Position', $heuristicRule);
-
-        OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($arrayScore);
-
-        /** @noinspection ForgottenDebugOutputInspection */
-        /** @noinspection DebugFunctionUsageInspection */
-        OsHelper::isWindows() and dump($arrayScore);
-    }
-
-    public function testJsonScore(): void
-    {
-        $soar = Soar::create();
-        $sql = 'select * from foo';
         $jsonScore = $soar->jsonScore($sql);
 
         $this->assertJson($jsonScore);
-        $this->assertStringContainsString('Score', $jsonScore);
-        $this->assertStringContainsString($sql, strtolower($jsonScore));
+        $this->assertNotEmpty($jsonScore);
+
         $this->assertMatchesJsonSnapshot($jsonScore);
     }
 
@@ -107,20 +78,35 @@ sql;
         $soar = Soar::create();
         $htmlScore = $soar->htmlScore('select * from foo');
 
-        $this->assertStringContainsString('<p>', $htmlScore);
-        $this->assertStringContainsString('分', $htmlScore);
+        $this->assertIsString($htmlScore);
+        $this->assertNotEmpty($htmlScore);
+
         $this->assertStringContainsString('foo', $htmlScore);
+        $this->assertStringContainsString('<h1>', $htmlScore);
+        $this->assertStringContainsString('<p>', $htmlScore);
+        $this->assertStringContainsString('<pre>', $htmlScore);
+        $this->assertStringContainsString('<h2>', $htmlScore);
+        $this->assertStringContainsString('<ul>', $htmlScore);
+        $this->assertStringContainsString('<li>', $htmlScore);
+
         OsHelper::isWindows() or $this->assertMatchesSnapshot($htmlScore);
     }
 
-    public function testMdScore(): void
+    public function testMarkdownScore(): void
     {
         $soar = Soar::create();
-        $mdScore = $soar->markdownScore('select * from foo');
+        $markdownScore = $soar->markdownScore('select * from foo');
 
-        $this->assertStringContainsString('##', $mdScore);
-        $this->assertStringContainsString('分', $mdScore);
-        $this->assertStringContainsString('foo', $mdScore);
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($mdScore);
+        $this->assertIsString($markdownScore);
+        $this->assertNotEmpty($markdownScore);
+
+        $this->assertStringContainsString('foo', $markdownScore);
+        $this->assertStringContainsString('#', $markdownScore);
+        $this->assertStringContainsString('```sql', $markdownScore);
+        $this->assertStringContainsString('##', $markdownScore);
+        $this->assertStringContainsString('*', $markdownScore);
+        $this->assertStringContainsString('分', $markdownScore);
+
+        OsHelper::isWindows() or $this->assertMatchesSnapshot($markdownScore);
     }
 }

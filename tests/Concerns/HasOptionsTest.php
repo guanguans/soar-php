@@ -56,6 +56,16 @@ class HasOptionsTest extends TestCase
         $this->assertSame($val, $option);
     }
 
+    public function testResetOptions(): void
+    {
+        $soar = Soar::create([
+            '-test-dsn' => 'bar',
+            'foo' => 'bar',
+        ]);
+
+        $this->assertInstanceOf(Soar::class, $soar->resetOptions());
+    }
+
     public function testGetOptions(): void
     {
         $soar = Soar::create();

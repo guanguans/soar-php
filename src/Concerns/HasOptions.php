@@ -91,6 +91,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setUniqueKeyPrefix(string $uniqueKeyPrefix)
  * @method \Guanguans\SoarPHP\Soar setVerbose($verbose)
  * @method \Guanguans\SoarPHP\Soar setVersion($version)
+ * @method \Guanguans\SoarPHP\Soar setHelp($help)
  *
  * @mixin \Guanguans\SoarPHP\Soar
  */
@@ -125,6 +126,21 @@ trait HasOptions
     public function mergeOptions(array $options): self
     {
         $this->options = array_merge($this->options, $options);
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function resetOptions(array $except = ['-test-dsn', '-online-dsn']): self
+    {
+        $this->options = array_reduce_with_keys($this->options, function (array $options, $option, $key) use ($except): array {
+            if (in_array($key, $except, true)) {
+                $options[$key] = $option;
+            }
+
+            return $options;
+        }, []);
+
         $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;

@@ -26,7 +26,7 @@ class WithRunableTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(gettype($optionsOfError));
-        $soar->exec($optionsOfError);
+        $soar->run($optionsOfError);
     }
 
     public function testProcessFailedExceptionForExec(): void
@@ -36,13 +36,13 @@ class WithRunableTest extends TestCase
 
         $this->expectException(ProcessFailedException::class);
         $this->expectExceptionMessage($optionsOfError);
-        $soar->setOnlySyntaxCheck(true)->setQuery($optionsOfError)->exec();
+        $soar->setOnlySyntaxCheck(true)->setQuery($optionsOfError)->run();
     }
 
     public function testExec(): void
     {
         $soar = Soar::create();
-        $exec = $soar->exec('-version');
+        $exec = $soar->run('-version');
 
         $this->assertIsString($exec);
     }
