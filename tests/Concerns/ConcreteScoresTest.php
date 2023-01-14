@@ -21,22 +21,7 @@ class ConcreteScoresTest extends TestCase
     public function testArrayScores(): void
     {
         $soar = Soar::create();
-        $sqls = 'select * from foo';
-        $scores = $soar->arrayScores($sqls);
-
-        $this->assertIsArray($scores);
-        $this->assertNotEmpty($scores);
-
-        /** @noinspection ForgottenDebugOutputInspection */
-        /** @noinspection DebugFunctionUsageInspection */
-        OsHelper::isWindows() and dump($scores);
-        OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($scores);
-    }
-
-    public function testJsonScores(): void
-    {
-        $soar = Soar::create();
-        $sqls = <<<sql
+        $sqls = <<<'sqls'
 SELECT * FROM `post` WHERE `name`='so"a`r';
 SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
 
@@ -64,7 +49,30 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-sql;
+sqls;
+        $arrayScores = $soar->arrayScores($sqls);
+
+        $this->assertIsArray($arrayScores);
+        $this->assertNotEmpty($arrayScores);
+
+        foreach ($arrayScores as $arrayScore) {
+            $this->assertIsArray($arrayScore);
+            $keys = ['ID', 'Fingerprint', 'Score', 'Sample', 'Explain', 'HeuristicRules', 'IndexRules', 'Tables'];
+            foreach ($keys as $key) {
+                $this->assertArrayHasKey($key, $arrayScore);
+            }
+        }
+
+        /** @noinspection ForgottenDebugOutputInspection */
+        /** @noinspection DebugFunctionUsageInspection */
+        OsHelper::isWindows() and dump($arrayScores);
+        OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($arrayScores);
+    }
+
+    public function testJsonScores(): void
+    {
+        $soar = Soar::create();
+        $sqls = 'select * from foo';
         $jsonScores = $soar->jsonScores($sqls);
 
         $this->assertJson($jsonScores);
