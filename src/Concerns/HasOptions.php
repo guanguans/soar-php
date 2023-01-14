@@ -261,18 +261,17 @@ trait HasOptions
      */
     private $normalizedOptions = [];
 
-    public function setOptions(array $options): self
+    public function addOptions(array $options): self
     {
-        $this->options = $options;
+        $this->options += $options;
         $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
 
-    public function setOption(string $key, $value): self
+    public function addOption(string $key, $value): self
     {
-        $this->options[$key] = $value;
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
+        $this->addOptions([$key => $value]);
 
         return $this;
     }
@@ -295,6 +294,44 @@ trait HasOptions
         return $this;
     }
 
+    public function onlyOptions(array $keys = ['-test-dsn', '-online-dsn']): self
+    {
+        $this->options = array_reduce_with_keys($this->options, function (array $options, $option, $key) use ($keys): array {
+            if (in_array($key, $keys, true)) {
+                $options[$key] = $option;
+            }
+
+            return $options;
+        }, []);
+
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function onlyOption(string $key): self
+    {
+        $this->onlyOptions([$key]);
+
+        return $this;
+    }
+
+    public function setOptions(array $options): self
+    {
+        $this->options = $options;
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function setOption(string $key, $value): self
+    {
+        $this->options[$key] = $value;
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
     public function mergeOptions(array $options): self
     {
         $this->options = array_merge($this->options, $options);
@@ -310,109 +347,56 @@ trait HasOptions
         return $this;
     }
 
-    public function addOptions(array $options): self
+    public function getNormalizedOptions(): array
     {
-        $this->options += $options;
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
-
-        return $this;
+        return $this->normalizedOptions;
     }
 
-    public function addOption(string $key, $value): self
+    public function getNormalizedOption(string $key = null, $value = null)
     {
-        if (! array_key_exists($key, $this->options)) {
-            $this->setOption($key, $value);
-        }
-
-        return $this;
+        return $this->normalizedOptions[$key] ?? $value;
     }
 
-    public function resetOptions(array $except = ['-test-dsn', '-online-dsn']): self
+    public function getSerializedNormalizedOptions(): string
     {
-        $this->options = array_reduce_with_keys($this->options, function (array $options, $option, $key) use ($except): array {
-            if (in_array($key, $except, true)) {
-                $options[$key] = $option;
-            }
-
-            return $options;
-        }, []);
-
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
-
-        return $this;
+        return implode(' ', $this->getNormalizedOptions());
     }
 
     public function getOptions(): array
     {
-        return $this->getOption();
+        return $this->options;
     }
 
-    public function getOption(?string $key = null, $value = null)
+    public function getOption(string $key, $value = null)
     {
-        if (null === $key) {
-            return $this->options;
-        }
-
         return $this->options[$key] ?? $value;
-    }
-
-    /**
-     * @param array<string>|null $keys
-     */
-    public function getNormalizedOptions(?array $keys = null): array
-    {
-        if (null === $keys) {
-            return array_values($this->getNormalizedOption());
-        }
-
-        return array_reduce($keys, function (array $normalizedOptions, string $key): array {
-            $normalizedOptions[] = $this->getNormalizedOption($key);
-
-            return $normalizedOptions;
-        }, []);
-    }
-
-    public function getNormalizedOption(?string $key = null, $value = null)
-    {
-        if (null === $key) {
-            return $this->normalizedOptions;
-        }
-
-        return $this->normalizedOptions[$key] ?? $value;
-    }
-
-    /**
-     * @param array<string>|null $keys
-     */
-    public function getNormalizedStrOptions(?array $keys = null): string
-    {
-        return implode(' ', $this->getNormalizedOptions($keys));
     }
 
     /**
      * @param string $name
      * @param array  $arguments
      *
-     * @return $this
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
      */
     public function __call($name, $arguments)
     {
-        if (! str_starts_with($name, 'set')) {
-            throw new BadMethodCallException("The method($name) does not exist.");
+        $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
+        foreach ($prefixes as $prefix) {
+            if (str_starts_with($name, $prefix)) {
+                $key = substr(str_snake($name, '-'), strlen($prefix));
+                $newName = $prefix.'Option';
+
+                return $this->{$newName}($key, ...$arguments);
+            }
         }
 
-        $key = substr(str_snake($name, '-'), 3);
-        $this->setOption($key, ...$arguments);
-
-        return $this;
+        throw new BadMethodCallException("The method($name) does not exist.");
     }
 
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
      */
-    protected function normalizeOptions(array $options): array
+    private function normalizeOptions(array $options): array
     {
         $filteredOptions = array_filter($options, static function ($option): bool {
             if (! is_scalar($option) && ! is_array($option)) {

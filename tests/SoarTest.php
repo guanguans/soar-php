@@ -18,6 +18,17 @@ use Guanguans\SoarPHP\Support\OsHelper;
 
 class SoarTest extends TestCase
 {
+    public function testInvalidArgumentExceptionForScores(): void
+    {
+        $soar = Soar::create();
+        $sqls = true;
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(gettype($sqls));
+
+        $soar->scores($sqls);
+    }
+
     public function testScores(): void
     {
         $soar = Soar::create();

@@ -43,11 +43,11 @@ trait WithRunable
         }
 
         if (is_string($options)) {
-            $process = Process::fromShellCommandline("$this->soarPath {$this->getNormalizedStrOptions()} $options", $cwd, $env, $input, $timeout);
+            $process = Process::fromShellCommandline("$this->soarPath {$this->getSerializedNormalizedOptions()} $options", $cwd, $env, $input, $timeout);
         }
 
         if (is_array($options)) {
-            $process = new Process(array_merge([$this->soarPath], $this->getNormalizedOptions(), $options), $cwd, $env, $input, $timeout);
+            $process = new Process(array_merge([$this->soarPath], $this->mergeOptions($options)->getNormalizedOptions()), $cwd, $env, $input, $timeout);
         }
 
         $process->run($output);

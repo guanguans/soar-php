@@ -19,6 +19,39 @@ use Guanguans\Tests\TestCase;
 
 class HasOptionsTest extends TestCase
 {
+    public function testAddOption(): void
+    {
+        $options = [$key = 'foo' => $val = 'bar'];
+        $soar = Soar::create($options);
+        $option = $soar->addOption($key, $addVal = 'foo')->getOption($key);
+
+        $this->assertSame($option, $val);
+        $this->assertNotSame($option, $addVal);
+    }
+
+    public function testRemoveOption(): void
+    {
+        $options = [$key = 'foo' => $val = 'bar'];
+        $soar = Soar::create($options);
+        $option = $soar->removeOption($key)->getOption($key);
+
+        $this->assertNull($option);
+        $this->assertNotSame($val, $option);
+    }
+
+    public function testOnlyOption(): void
+    {
+        $soar = Soar::create([
+            $key1 = 'key1' => $val = 'val',
+            $key2 = 'key2' => $val,
+        ]);
+        $soar = $soar->onlyOption($key1);
+
+        $this->assertSame($soar->getOption($key1), $val);
+        $this->assertNotSame($soar->getOption($key2), $val);
+        $this->assertNull($soar->getOption($key2));
+    }
+
     public function testSetOption(): void
     {
         $soar = Soar::create();
@@ -47,30 +80,12 @@ class HasOptionsTest extends TestCase
         );
     }
 
-    public function testMergeOptions(): void
+    public function testMergeOption(): void
     {
         $soar = Soar::create();
-        $options = [$key = 'foo' => $val = 'bar'];
-        $option = $soar->mergeOptions($options)->getOption($key);
+        $option = $soar->mergeOption($key = 'foo', $val = 'bar')->getOption($key);
 
         $this->assertSame($val, $option);
-    }
-
-    public function testResetOptions(): void
-    {
-        $soar = Soar::create([
-            '-test-dsn' => 'bar',
-            'foo' => 'bar',
-        ]);
-
-        $this->assertInstanceOf(Soar::class, $soar->resetOptions());
-    }
-
-    public function testGetOptions(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertIsArray($soar->getOptions());
     }
 
     public function testGetNormalizedOptions(): void
@@ -78,14 +93,27 @@ class HasOptionsTest extends TestCase
         $soar = Soar::create();
 
         $this->assertIsArray($soar->getNormalizedOptions());
-        $this->assertIsArray($soar->getNormalizedOptions(['foo']));
     }
 
-    public function testGetNormalizedStrOptions(): void
+    public function testGetNormalizedOption(): void
     {
         $soar = Soar::create();
 
-        $this->assertIsString($soar->getNormalizedStrOptions());
+        $this->assertNull($soar->getNormalizedOption('foo'));
+    }
+
+    public function testGetSerializedNormalizedOptions(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertIsString($soar->getSerializedNormalizedOptions());
+    }
+
+    public function testGetOptions(): void
+    {
+        $soar = Soar::create();
+
+        $this->assertIsArray($soar->getOptions());
     }
 
     public function testBadMethodCallExceptionForCall(): void

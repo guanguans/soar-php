@@ -57,12 +57,12 @@ class Soar implements Contracts\Soar
 
     public function help(): string
     {
-        return $this->run(['--help']);
+        return $this->onlyOptions()->run('--help');
     }
 
     public function version(): string
     {
-        return $this->run(['-version']);
+        return $this->onlyOptions()->run('-version');
     }
 
     public function getSoarPath(): string
