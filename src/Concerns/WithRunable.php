@@ -22,36 +22,32 @@ use Symfony\Component\Process\Process;
 trait WithRunable
 {
     /**
-     * @param array|string|null $options
+     * @param array|string $options
      */
-    public function run($options = null): string
+    public function run($options = []): string
     {
         return $this->exec($options);
     }
 
     /**
-     * @param array|string|null $options
-     * @param mixed             $input   The input as stream resource, scalar or \Traversable, or null for no input
+     * @param array|string $options
+     * @param mixed        $input   The input as stream resource, scalar or \Traversable, or null for no input
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\ProcessFailedException
      */
-    protected function exec($options = null, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
+    protected function exec($options = [], string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
-        if (null !== $options && ! is_string($options) && ! is_array($options)) {
+        if (! is_string($options) && ! is_array($options)) {
             throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($options)));
         }
 
-        if (null === $options) {
-            $process = new Process(array_merge([$this->soarPath], $this->getNormalizedOptions()), $cwd, $env, $input, $timeout);
-        }
-
         if (is_string($options)) {
-            $process = Process::fromShellCommandline("$this->soarPath $options", $cwd, $env, $input, $timeout);
+            $process = Process::fromShellCommandline("$this->soarPath {$this->getNormalizedStrOptions()} $options", $cwd, $env, $input, $timeout);
         }
 
         if (is_array($options)) {
-            $process = new Process(array_merge([$this->soarPath], $options), $cwd, $env, $input, $timeout);
+            $process = new Process(array_merge([$this->soarPath], $this->getNormalizedOptions(), $options), $cwd, $env, $input, $timeout);
         }
 
         $process->run($output);

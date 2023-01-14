@@ -15,9 +15,9 @@ namespace Guanguans\SoarPHP\Contracts;
 interface Soar
 {
     /**
-     * @param array|string|null $options
+     * @param array|string $options
      */
-    public function run($options = null): string;
+    public function run($options = []): string;
 
     /**
      * @param string|array<string> $sqls

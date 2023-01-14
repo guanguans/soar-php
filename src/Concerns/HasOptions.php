@@ -259,7 +259,7 @@ trait HasOptions
     /**
      * @var array<string, string>
      */
-    protected $normalizedOptions = [];
+    private $normalizedOptions = [];
 
     public function setOptions(array $options): self
     {
