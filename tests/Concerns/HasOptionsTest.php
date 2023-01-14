@@ -126,6 +126,33 @@ class HasOptionsTest extends TestCase
         $soar->{$method}();
     }
 
+    public function testCall(): void
+    {
+        // $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
+
+        $val = 'version';
+        $version = Soar::create()->addVersion($val)->getVersion();
+        $this->assertSame($val, $version);
+
+        $version = Soar::create()->setVersion($val)->removeVersion()->getVersion();
+        $this->assertNull($version);
+
+        $version = Soar::create()->onlyVersion()->getVersion();
+        $this->assertNull($version);
+
+        $version = Soar::create()->setVersion($val)->getVersion();
+        $this->assertSame($val, $version);
+
+        $version = Soar::create()->mergeVersion($val)->getVersion();
+        $this->assertSame($val, $version);
+
+        // $version = Soar::create()->setVersion($val)->getNormalizedVersion();
+        // $this->assertSame("-version=$val", $version);
+
+        $version = Soar::create()->getNormalizedVersion();
+        $this->assertNull($version);
+    }
+
     public function testInvalidConfigExceptionForNormalizeOptions(): void
     {
         $this->expectException(InvalidConfigException::class);

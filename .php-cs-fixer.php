@@ -46,6 +46,7 @@ $finder = Finder::create()
         __DIR__.'/phparkitect.php',
         __DIR__.'/soar.config.example.php',
         __DIR__.'/soar.config.full.php',
+        __DIR__.'/soar.options.docblock.php',
     ])
     ->notPath([
         'bootstrap/*',

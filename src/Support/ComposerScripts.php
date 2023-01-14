@@ -20,42 +20,76 @@ use Guanguans\SoarPHP\Soar;
  */
 class ComposerScripts
 {
-    public static function dumpOptionsToSetterDocblock(Event $event): int
+    public static function dumpSoarDocblock(Event $event): int
     {
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
 
         $prefix = <<<'docblock'
+<?php
+
+declare(strict_types=1);
+
 /**
-*
+ * This file is part of the guanguans/soar-php.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+/**
+ *
 docblock;
 
         $suffix = <<<'docblock'
 
-* @mixin \Guanguans\SoarPHP\Soar
-*/
+ * @mixin \Guanguans\SoarPHP\Soar
+ */
+
 docblock;
 
-        $docblock = array_reduce(self::extractOptionsFromHelp(), static function (string $docblock, array $options): string {
-            'uint' === $options['type'] and $options['type'] = 'int';
+        $methodMapper = [
+            'add' => ' * @method \Guanguans\SoarPHP\Soar add{method}({type} ${name})',
+            'remove' => ' * @method \Guanguans\SoarPHP\Soar remove{method}()',
+            'only' => ' * @method \Guanguans\SoarPHP\Soar only{method}()',
+            'set' => ' * @method \Guanguans\SoarPHP\Soar set{method}({type} ${name})',
+            'merge' => ' * @method \Guanguans\SoarPHP\Soar merge{method}({type} ${name})',
+            'getNormalized' => ' * @method {type}|null getNormalized{method}($default = null)',
+            'get' => ' * @method {type}|null get{method}($default = null)',
+        ];
 
-            $description = "* {$options['description']}";
+        $options = self::extractOptionsFromHelp();
 
-            $method = sprintf(
-                '* @method \Guanguans\SoarPHP\Soar %s(%s$%s)',
-                'set'.ucfirst(str_camel($options['name'])),
-                $options['type'] ? $options['type'].' ' : '',
-                str_camel($options['name'])
-            );
+        $docblock = array_reduce_with_keys($methodMapper, function (string $docblock, string $t, string $typeOfMethod) use ($options): string {
+            return array_reduce($options, static function (string $docblock, array $option) use ($typeOfMethod, $t): string {
+                if ('uint' === $option['type']) {
+                    $option['type'] = 'int';
+                }
 
-            return $docblock.PHP_EOL.$description.PHP_EOL.$method.PHP_EOL.'*';
+                if (str_starts_with($typeOfMethod, 'get') && null === $option['type']) {
+                    $option['type'] = 'mixed';
+                }
+
+                $description = " * {$option['description']}".PHP_EOL;
+
+                $replacer = [
+                    '{method}' => ucfirst(str_camel($option['name'])),
+                    '{type}' => $option['type'],
+                    '{name}' => str_camel($option['name']),
+                ];
+
+                $method = str_replace(array_keys($replacer), array_values($replacer), $t);
+
+                return $docblock.PHP_EOL.$description.$method.PHP_EOL.' *';
+            }, $docblock);
         }, '');
 
-        $event->getIO()->write("<info>{$prefix}{$docblock}{$suffix}</info>");
+        file_put_contents(__DIR__.'/../../soar.options.docblock.php', $prefix.$docblock.$suffix);
+        $event->getIO()->write('<info>操作成功</info>');
 
         return 0;
     }
 
-    public static function dumpOptionsToPHPFile(Event $event): int
+    public static function dumpSoarConfig(Event $event): int
     {
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
 
