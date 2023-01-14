@@ -45,7 +45,7 @@ $finder = Finder::create()
         __DIR__.'/monorepo-builder.php',
         __DIR__.'/phparkitect.php',
         __DIR__.'/soar.config.example.php',
-        __DIR__.'/soar.full.config.sample.php',
+        __DIR__.'/soar.config.full.php',
     ])
     ->notPath([
         'bootstrap/*',
