@@ -22,7 +22,7 @@ class ComposerScripts
 {
     public static function dumpOptionsToSetterDocblock(Event $event): int
     {
-        require_once __DIR__.'/../../vendor/autoload.php';
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
 
         $prefix = <<<'docblock'
 /**
@@ -38,7 +38,7 @@ docblock;
         $docblock = array_reduce(self::extractOptionsFromHelp(), static function (string $docblock, array $options): string {
             'uint' === $options['type'] and $options['type'] = 'int';
 
-            $description = sprintf('* %s', $options['description']);
+            $description = "* {$options['description']}";
 
             $method = sprintf(
                 '* @method \Guanguans\SoarPHP\Soar %s(%s$%s)',
@@ -57,7 +57,7 @@ docblock;
 
     public static function dumpOptionsToPHPFile(Event $event): int
     {
-        require_once __DIR__.'/../../vendor/autoload.php';
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
 
         $prefix = <<<'PHP'
 <?php
@@ -84,17 +84,18 @@ PHP;
         $code = array_reduce(self::extractOptionsFromHelp(), static function (string $code, array $options): string {
             null === $options['default'] and $options['default'] = 'null';
 
-            $t = <<<PHP
+            $item = <<<PHP
     /**
      * {$options['description']}.
      */
     '{$options['name']}' => {$options['default']},
+
 PHP;
 
-            return $code.PHP_EOL.$t.PHP_EOL;
+            return $code.PHP_EOL.$item;
         }, '');
 
-        file_put_contents(__DIR__.'/../../soar.full.config.sample.php', $prefix.$code.$suffix);
+        file_put_contents(__DIR__.'/../../soar.config.full.php', $prefix.$code.$suffix);
         $event->getIO()->write('<info>操作成功</info>');
 
         return 0;

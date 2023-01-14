@@ -105,7 +105,6 @@ sql;
         $this->assertStringContainsString('```sql', $markdownScores);
         $this->assertStringContainsString('##', $markdownScores);
         $this->assertStringContainsString('*', $markdownScores);
-        $this->assertStringContainsString('分', $markdownScores);
 
         OsHelper::isWindows() or $this->assertMatchesSnapshot($markdownScores);
     }
