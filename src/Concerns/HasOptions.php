@@ -277,10 +277,52 @@ trait HasOptions
         return $this;
     }
 
+    public function removeOptions(array $keys): self
+    {
+        foreach ($keys as $key) {
+            unset($this->options[$key]);
+        }
+
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function removeOption(string $key): self
+    {
+        $this->removeOptions([$key]);
+
+        return $this;
+    }
+
     public function mergeOptions(array $options): self
     {
         $this->options = array_merge($this->options, $options);
         $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function mergeOption(string $key, $value): self
+    {
+        $this->mergeOptions([$key => $value]);
+
+        return $this;
+    }
+
+    public function addOptions(array $options): self
+    {
+        $this->options += $options;
+        $this->normalizedOptions = $this->normalizeOptions($this->options);
+
+        return $this;
+    }
+
+    public function addOption(string $key, $value): self
+    {
+        if (! array_key_exists($key, $this->options)) {
+            $this->setOption($key, $value);
+        }
 
         return $this;
     }
