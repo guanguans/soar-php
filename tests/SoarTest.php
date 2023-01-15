@@ -89,8 +89,8 @@ class SoarTest extends TestCase
 
         $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
 
-        // $functionMock = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'function_exists');
-        // $functionMock->expects($this->once())->willReturn(false);
-        // $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
+        $functionMock = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'class_exists');
+        $functionMock->expects($this->any())->willReturn(false);
+        $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
     }
 }

@@ -18,6 +18,7 @@ use Guanguans\SoarPHP\Concerns\WithRunable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\Args;
 use Guanguans\SoarPHP\Support\OsHelper;
+use Symfony\Component\VarDumper\VarDumper;
 
 class Soar implements Contracts\Soar
 {
@@ -106,11 +107,12 @@ class Soar implements Contracts\Soar
      */
     public function dump(...$args): self
     {
-        $args[] = $this->__toString();
         $args[] = $this;
 
-        if (function_exists('dump')) {
-            dump(...$args);
+        if (class_exists(VarDumper::class)) {
+            foreach ($args as $arg) {
+                VarDumper::dump($arg);
+            }
 
             return $this;
         }
@@ -122,11 +124,21 @@ class Soar implements Contracts\Soar
         return $this;
     }
 
+    public function __debugInfo()
+    {
+        return get_object_vars($this) + ['commandLine' => (string) $this];
+    }
+
+    public static function __set_state(array $properties)
+    {
+        return new static($properties['options'], $properties['soarPath']);
+    }
+
     public function __toString()
     {
         $escapeOptions = Args::escapeCommand($this->normalizedOptions);
 
-        return "{$this->soarPath} {$escapeOptions}";
+        return "$this->soarPath $escapeOptions";
     }
 
     private function getDefaultSoarPath(): string
