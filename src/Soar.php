@@ -100,6 +100,7 @@ class Soar implements Contracts\Soar
 
     /**
      * @psalm-suppress ForbiddenCode
+     *
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection DebugFunctionUsageInspection
      */
