@@ -16,6 +16,7 @@ use Guanguans\SoarPHP\Concerns\ConcreteScores;
 use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\WithRunable;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+use Guanguans\SoarPHP\Support\Args;
 use Guanguans\SoarPHP\Support\OsHelper;
 
 class Soar implements Contracts\Soar
@@ -49,20 +50,21 @@ class Soar implements Contracts\Soar
             throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($sqls)));
         }
 
-        $delimiter = $this->getOption('-delimiter', ';');
-        is_array($sqls) and $sqls = implode(str_repeat($delimiter, 2), $sqls);
+        if (is_array($sqls)) {
+            $sqls = implode($this->getOption('-delimiter', ';'), $sqls);
+        }
 
-        return $this->setQuery($sqls)->run();
+        return $this->clone()->setQuery($sqls)->run();
     }
 
     public function help(): string
     {
-        return $this->onlyOptions()->run('--help');
+        return $this->clone()->onlyOptions()->setHelp(true)->run();
     }
 
     public function version(): string
     {
-        return $this->onlyOptions()->run('-version');
+        return $this->clone()->onlyOptions()->setVersion(true)->run();
     }
 
     public function getSoarPath(): string
@@ -79,6 +81,51 @@ class Soar implements Contracts\Soar
         $this->soarPath = realpath($soarPath);
 
         return $this;
+    }
+
+    public function clone(): Soar
+    {
+        return clone $this;
+    }
+
+    /**
+     * @return never-return
+     */
+    public function dd(...$args)
+    {
+        $this->dump(...$args);
+
+        exit(1);
+    }
+
+    /**
+     * @psalm-suppress ForbiddenCode
+     * @noinspection ForgottenDebugOutputInspection
+     * @noinspection DebugFunctionUsageInspection
+     */
+    public function dump(...$args): self
+    {
+        $args[] = $this->__toString();
+        $args[] = $this;
+
+        if (function_exists('dump')) {
+            dump(...$args);
+
+            return $this;
+        }
+
+        foreach ($args as $arg) {
+            var_dump($arg);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        $escapeOptions = Args::escapeCommand($this->normalizedOptions);
+
+        return "{$this->soarPath} {$escapeOptions}";
     }
 
     private function getDefaultSoarPath(): string

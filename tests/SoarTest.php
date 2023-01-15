@@ -36,6 +36,10 @@ class SoarTest extends TestCase
         $this->assertIsString($scores);
         $this->assertNotEmpty($scores);
 
+        $scores = $soar->scores(['select * from a; select * from b', 'select * from c', 'select * from d']);
+        $this->assertIsString($scores);
+        $this->assertNotEmpty($scores);
+
         $soar = Soar::create(require __DIR__.'/../soar.options.full.php');
         $scores = $soar->scores('select * from users;');
         $this->assertIsString($scores);
@@ -75,5 +79,18 @@ class SoarTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $soar->setSoarPath('foo.soar.path');
+    }
+
+    public function testDump(): void
+    {
+        $soar = Soar::create([
+            'foo' => 'bar',
+        ]);
+
+        $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
+
+        // $functionMock = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'function_exists');
+        // $functionMock->expects($this->once())->willReturn(false);
+        // $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
     }
 }
