@@ -108,6 +108,8 @@ class Soar implements Contracts\Soar
     public function dump(...$args): self
     {
         $args[] = $this;
+        $args[] = $this->version();
+        $args[] = $this->help();
 
         if (class_exists(VarDumper::class)) {
             foreach ($args as $arg) {
@@ -122,6 +124,36 @@ class Soar implements Contracts\Soar
         }
 
         return $this;
+    }
+
+    public function __sleep()
+    {
+        return ['soarPath', 'options'];
+    }
+
+    public function __wakeup()
+    {
+        $this->setOptions($this->options);
+    }
+
+    /**
+     * @since PHP 7.4.0
+     */
+    public function __serialize(): array
+    {
+        return [
+            'soarPath' => $this->soarPath,
+            'options' => $this->options,
+        ];
+    }
+
+    /**
+     * @since PHP 7.4.0
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->setSoarPath($data['soarPath']);
+        $this->setOptions($data['options']);
     }
 
     public function __debugInfo()

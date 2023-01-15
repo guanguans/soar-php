@@ -93,4 +93,31 @@ class SoarTest extends TestCase
         $functionMock->expects($this->any())->willReturn(false);
         $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
     }
+
+    public function testSleep(): void
+    {
+        $soar = Soar::create(require __DIR__.'/../soar.options.full.php');
+        $serializedSoar = serialize($soar);
+        $unserializedSoar = unserialize($serializedSoar);
+
+        $this->assertInstanceOf(Soar::class, $unserializedSoar);
+        $this->assertNotEmpty($unserializedSoar->getSoarPath());
+        $this->assertNotEmpty($unserializedSoar->getOptions());
+        $this->assertNotEmpty($unserializedSoar->getNormalizedOptions());
+    }
+
+    /**
+     * @noinspection DebugFunctionUsageInspection
+     */
+    public function testSetState(): void
+    {
+        $soar = Soar::create(require __DIR__.'/../soar.options.full.php');
+        $exportedSoarStr = var_export($soar, true);
+        eval("\$exportedSoar = $exportedSoarStr;");
+
+        $this->assertInstanceOf(Soar::class, $exportedSoar);
+        $this->assertNotEmpty($exportedSoar->getSoarPath());
+        $this->assertNotEmpty($exportedSoar->getOptions());
+        $this->assertNotEmpty($exportedSoar->getNormalizedOptions());
+    }
 }
