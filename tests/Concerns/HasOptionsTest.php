@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\Tests\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
-use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
+use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
@@ -146,16 +146,16 @@ class HasOptionsTest extends TestCase
         $version = Soar::create()->mergeVersion($val)->getVersion();
         $this->assertSame($val, $version);
 
-        // $version = Soar::create()->setVersion($val)->getNormalizedVersion();
-        // $this->assertSame("-version=$val", $version);
+        $version = Soar::create()->setVersion($val)->getNormalizedVersion();
+        $this->assertSame("-version=$val", $version);
 
         $version = Soar::create()->getNormalizedVersion();
         $this->assertNull($version);
     }
 
-    public function testInvalidConfigExceptionForNormalizeOptions(): void
+    public function testInvalidOptionExceptionForNormalizeOptions(): void
     {
-        $this->expectException(InvalidConfigException::class);
+        $this->expectException(InvalidOptionException::class);
         $this->expectExceptionMessage('object');
         Soar::create(['foo' => $this->createMock(\stdClass::class)]);
     }

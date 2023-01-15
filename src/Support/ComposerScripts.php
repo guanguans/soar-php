@@ -129,7 +129,7 @@ PHP;
             return $code.PHP_EOL.$item;
         }, '');
 
-        file_put_contents(__DIR__.'/../../soar.config.full.php', $prefix.$code.$suffix);
+        file_put_contents(__DIR__.'/../../soar.options.full.php', $prefix.$code.$suffix);
         $event->getIO()->write('<info>操作成功</info>');
 
         return 0;

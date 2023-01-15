@@ -48,7 +48,7 @@ use Guanguans\SoarPHP\Soar;
 $soar = Soar::create();
 
 /**
- * 配置选项(可选)参考 @see soar.config.example.php
+ * 配置选项(可选)参考 @see soar.options.example.php
  */
 $soar->setSoarPath('自定义的 soar 路径')
     ->setOptions([

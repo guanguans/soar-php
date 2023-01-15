@@ -33,7 +33,11 @@ class SoarTest extends TestCase
     {
         $soar = Soar::create();
         $scores = $soar->scores('select * from users;');
+        $this->assertIsString($scores);
+        $this->assertNotEmpty($scores);
 
+        $soar = Soar::create(require __DIR__.'/../soar.options.full.php');
+        $scores = $soar->scores('select * from users;');
         $this->assertIsString($scores);
         $this->assertNotEmpty($scores);
     }

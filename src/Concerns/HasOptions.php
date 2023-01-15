@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
-use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
+use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 
 /**
  * AllowCharsets (default "utf8,utf8mb4").
@@ -24,22 +24,22 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar addAllowDropIndex( $allowDropIndex)
+ * @method \Guanguans\SoarPHP\Soar addAllowDropIndex($allowDropIndex)
  *
  * AllowEngines (default "innodb")
  * @method \Guanguans\SoarPHP\Soar addAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar addAllowOnlineAsTest( $allowOnlineAsTest)
+ * @method \Guanguans\SoarPHP\Soar addAllowOnlineAsTest($allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar addBlacklist(string $blacklist)
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar addCheckConfig( $checkConfig)
+ * @method \Guanguans\SoarPHP\Soar addCheckConfig($checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar addCleanupTestDatabase( $cleanupTestDatabase)
+ * @method \Guanguans\SoarPHP\Soar addCleanupTestDatabase($cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
  * @method \Guanguans\SoarPHP\Soar addColumnNotAllowType(string $columnNotAllowType)
@@ -51,13 +51,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar addDropTestTemporary( $dropTestTemporary)
+ * @method \Guanguans\SoarPHP\Soar addDropTestTemporary($dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar addDryRun( $dryRun)
+ * @method \Guanguans\SoarPHP\Soar addDryRun($dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar addExplain( $explain)
+ * @method \Guanguans\SoarPHP\Soar addExplain($explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
  * @method \Guanguans\SoarPHP\Soar addExplainFormat(string $explainFormat)
@@ -99,16 +99,16 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar addListHeuristicRules( $listHeuristicRules)
+ * @method \Guanguans\SoarPHP\Soar addListHeuristicRules($listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar addListReportTypes( $listReportTypes)
+ * @method \Guanguans\SoarPHP\Soar addListReportTypes($listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar addListRewriteRules( $listRewriteRules)
+ * @method \Guanguans\SoarPHP\Soar addListRewriteRules($listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar addListTestSqls( $listTestSqls)
+ * @method \Guanguans\SoarPHP\Soar addListTestSqls($listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
  * @method \Guanguans\SoarPHP\Soar addLogLevel(int $logLevel)
@@ -117,7 +117,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar addLogErrStacks( $logErrStacks)
+ * @method \Guanguans\SoarPHP\Soar addLogErrStacks($logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
  * @method \Guanguans\SoarPHP\Soar addLogRotateMaxSize(int $logRotateMaxSize)
@@ -184,13 +184,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar addOnlySyntaxCheck( $onlySyntaxCheck)
+ * @method \Guanguans\SoarPHP\Soar addOnlySyntaxCheck($onlySyntaxCheck)
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar addPrintConfig( $printConfig)
+ * @method \Guanguans\SoarPHP\Soar addPrintConfig($printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar addProfiling( $profiling)
+ * @method \Guanguans\SoarPHP\Soar addProfiling($profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
  * @method \Guanguans\SoarPHP\Soar addQuery(string $query)
@@ -211,7 +211,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar addSampling( $sampling)
+ * @method \Guanguans\SoarPHP\Soar addSampling($sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
  * @method \Guanguans\SoarPHP\Soar addSamplingCondition(string $samplingCondition)
@@ -220,10 +220,10 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar addShowLastQueryCost( $showLastQueryCost)
+ * @method \Guanguans\SoarPHP\Soar addShowLastQueryCost($showLastQueryCost)
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar addShowWarnings( $showWarnings)
+ * @method \Guanguans\SoarPHP\Soar addShowWarnings($showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar addSpaghettiQueryLength(int $spaghettiQueryLength)
@@ -233,19 +233,19 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar addTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar addTrace( $trace)
+ * @method \Guanguans\SoarPHP\Soar addTrace($trace)
  *
  * UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar addUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar addVerbose( $verbose)
+ * @method \Guanguans\SoarPHP\Soar addVerbose($verbose)
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar addVersion( $version)
+ * @method \Guanguans\SoarPHP\Soar addVersion($version)
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar addHelp( $help)
+ * @method \Guanguans\SoarPHP\Soar addHelp($help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
  * @method \Guanguans\SoarPHP\Soar removeAllowCharsets()
@@ -714,22 +714,22 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar setAllowDropIndex( $allowDropIndex)
+ * @method \Guanguans\SoarPHP\Soar setAllowDropIndex($allowDropIndex)
  *
  * AllowEngines (default "innodb")
  * @method \Guanguans\SoarPHP\Soar setAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar setAllowOnlineAsTest( $allowOnlineAsTest)
+ * @method \Guanguans\SoarPHP\Soar setAllowOnlineAsTest($allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar setBlacklist(string $blacklist)
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar setCheckConfig( $checkConfig)
+ * @method \Guanguans\SoarPHP\Soar setCheckConfig($checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar setCleanupTestDatabase( $cleanupTestDatabase)
+ * @method \Guanguans\SoarPHP\Soar setCleanupTestDatabase($cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
  * @method \Guanguans\SoarPHP\Soar setColumnNotAllowType(string $columnNotAllowType)
@@ -741,13 +741,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar setDropTestTemporary( $dropTestTemporary)
+ * @method \Guanguans\SoarPHP\Soar setDropTestTemporary($dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar setDryRun( $dryRun)
+ * @method \Guanguans\SoarPHP\Soar setDryRun($dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar setExplain( $explain)
+ * @method \Guanguans\SoarPHP\Soar setExplain($explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
  * @method \Guanguans\SoarPHP\Soar setExplainFormat(string $explainFormat)
@@ -789,16 +789,16 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar setListHeuristicRules( $listHeuristicRules)
+ * @method \Guanguans\SoarPHP\Soar setListHeuristicRules($listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar setListReportTypes( $listReportTypes)
+ * @method \Guanguans\SoarPHP\Soar setListReportTypes($listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar setListRewriteRules( $listRewriteRules)
+ * @method \Guanguans\SoarPHP\Soar setListRewriteRules($listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar setListTestSqls( $listTestSqls)
+ * @method \Guanguans\SoarPHP\Soar setListTestSqls($listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
  * @method \Guanguans\SoarPHP\Soar setLogLevel(int $logLevel)
@@ -807,7 +807,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar setLogErrStacks( $logErrStacks)
+ * @method \Guanguans\SoarPHP\Soar setLogErrStacks($logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
  * @method \Guanguans\SoarPHP\Soar setLogRotateMaxSize(int $logRotateMaxSize)
@@ -874,13 +874,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar setOnlySyntaxCheck( $onlySyntaxCheck)
+ * @method \Guanguans\SoarPHP\Soar setOnlySyntaxCheck($onlySyntaxCheck)
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar setPrintConfig( $printConfig)
+ * @method \Guanguans\SoarPHP\Soar setPrintConfig($printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar setProfiling( $profiling)
+ * @method \Guanguans\SoarPHP\Soar setProfiling($profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
  * @method \Guanguans\SoarPHP\Soar setQuery(string $query)
@@ -901,7 +901,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar setSampling( $sampling)
+ * @method \Guanguans\SoarPHP\Soar setSampling($sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
  * @method \Guanguans\SoarPHP\Soar setSamplingCondition(string $samplingCondition)
@@ -910,10 +910,10 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar setShowLastQueryCost( $showLastQueryCost)
+ * @method \Guanguans\SoarPHP\Soar setShowLastQueryCost($showLastQueryCost)
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar setShowWarnings( $showWarnings)
+ * @method \Guanguans\SoarPHP\Soar setShowWarnings($showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar setSpaghettiQueryLength(int $spaghettiQueryLength)
@@ -923,19 +923,19 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar setTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar setTrace( $trace)
+ * @method \Guanguans\SoarPHP\Soar setTrace($trace)
  *
  * UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar setUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar setVerbose( $verbose)
+ * @method \Guanguans\SoarPHP\Soar setVerbose($verbose)
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar setVersion( $version)
+ * @method \Guanguans\SoarPHP\Soar setVersion($version)
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar setHelp( $help)
+ * @method \Guanguans\SoarPHP\Soar setHelp($help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
  * @method \Guanguans\SoarPHP\Soar mergeAllowCharsets(string $allowCharsets)
@@ -944,22 +944,22 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar mergeAllowDropIndex( $allowDropIndex)
+ * @method \Guanguans\SoarPHP\Soar mergeAllowDropIndex($allowDropIndex)
  *
  * AllowEngines (default "innodb")
  * @method \Guanguans\SoarPHP\Soar mergeAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar mergeAllowOnlineAsTest( $allowOnlineAsTest)
+ * @method \Guanguans\SoarPHP\Soar mergeAllowOnlineAsTest($allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar mergeBlacklist(string $blacklist)
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar mergeCheckConfig( $checkConfig)
+ * @method \Guanguans\SoarPHP\Soar mergeCheckConfig($checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar mergeCleanupTestDatabase( $cleanupTestDatabase)
+ * @method \Guanguans\SoarPHP\Soar mergeCleanupTestDatabase($cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
  * @method \Guanguans\SoarPHP\Soar mergeColumnNotAllowType(string $columnNotAllowType)
@@ -971,13 +971,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar mergeDropTestTemporary( $dropTestTemporary)
+ * @method \Guanguans\SoarPHP\Soar mergeDropTestTemporary($dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar mergeDryRun( $dryRun)
+ * @method \Guanguans\SoarPHP\Soar mergeDryRun($dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar mergeExplain( $explain)
+ * @method \Guanguans\SoarPHP\Soar mergeExplain($explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
  * @method \Guanguans\SoarPHP\Soar mergeExplainFormat(string $explainFormat)
@@ -1019,16 +1019,16 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar mergeListHeuristicRules( $listHeuristicRules)
+ * @method \Guanguans\SoarPHP\Soar mergeListHeuristicRules($listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar mergeListReportTypes( $listReportTypes)
+ * @method \Guanguans\SoarPHP\Soar mergeListReportTypes($listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar mergeListRewriteRules( $listRewriteRules)
+ * @method \Guanguans\SoarPHP\Soar mergeListRewriteRules($listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar mergeListTestSqls( $listTestSqls)
+ * @method \Guanguans\SoarPHP\Soar mergeListTestSqls($listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
  * @method \Guanguans\SoarPHP\Soar mergeLogLevel(int $logLevel)
@@ -1037,7 +1037,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar mergeLogErrStacks( $logErrStacks)
+ * @method \Guanguans\SoarPHP\Soar mergeLogErrStacks($logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
  * @method \Guanguans\SoarPHP\Soar mergeLogRotateMaxSize(int $logRotateMaxSize)
@@ -1104,13 +1104,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar mergeOnlySyntaxCheck( $onlySyntaxCheck)
+ * @method \Guanguans\SoarPHP\Soar mergeOnlySyntaxCheck($onlySyntaxCheck)
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar mergePrintConfig( $printConfig)
+ * @method \Guanguans\SoarPHP\Soar mergePrintConfig($printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar mergeProfiling( $profiling)
+ * @method \Guanguans\SoarPHP\Soar mergeProfiling($profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
  * @method \Guanguans\SoarPHP\Soar mergeQuery(string $query)
@@ -1131,7 +1131,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar mergeSampling( $sampling)
+ * @method \Guanguans\SoarPHP\Soar mergeSampling($sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
  * @method \Guanguans\SoarPHP\Soar mergeSamplingCondition(string $samplingCondition)
@@ -1140,10 +1140,10 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar mergeShowLastQueryCost( $showLastQueryCost)
+ * @method \Guanguans\SoarPHP\Soar mergeShowLastQueryCost($showLastQueryCost)
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar mergeShowWarnings( $showWarnings)
+ * @method \Guanguans\SoarPHP\Soar mergeShowWarnings($showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar mergeSpaghettiQueryLength(int $spaghettiQueryLength)
@@ -1153,19 +1153,19 @@ use Guanguans\SoarPHP\Exceptions\InvalidConfigException;
  * @method \Guanguans\SoarPHP\Soar mergeTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar mergeTrace( $trace)
+ * @method \Guanguans\SoarPHP\Soar mergeTrace($trace)
  *
  * UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar mergeUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar mergeVerbose( $verbose)
+ * @method \Guanguans\SoarPHP\Soar mergeVerbose($verbose)
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar mergeVersion( $version)
+ * @method \Guanguans\SoarPHP\Soar mergeVersion($version)
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar mergeHelp( $help)
+ * @method \Guanguans\SoarPHP\Soar mergeHelp($help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
  * @method string|null getNormalizedAllowCharsets($default = null)
@@ -1764,7 +1764,7 @@ trait HasOptions
 
         foreach ($prefixes as $prefix) {
             if (str_starts_with($name, $prefix)) {
-                $key = substr(str_snake($name, '-'), strlen($prefix));
+                $key = substr(str_snake($name, '-'), strlen(str_snake($prefix)));
                 $newName = $prefix.'Option';
 
                 return $this->{$newName}($key, ...$arguments);
@@ -1775,16 +1775,20 @@ trait HasOptions
     }
 
     /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidConfigException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     private function normalizeOptions(array $options): array
     {
         $filteredOptions = array_filter($options, static function ($option): bool {
-            if (! is_scalar($option) && ! is_array($option)) {
-                throw new InvalidConfigException(sprintf('Invalid configuration type(%s).', gettype($option)));
+            if (null === $option) {
+                return false;
             }
 
-            return null !== $option;
+            if (! is_scalar($option) && ! is_array($option)) {
+                throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', gettype($option)));
+            }
+
+            return true;
         });
 
         $converter = function ($filteredOption) {
