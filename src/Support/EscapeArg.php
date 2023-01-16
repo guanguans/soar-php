@@ -26,7 +26,7 @@ namespace Guanguans\SoarPHP\Support;
  * @see https://github.com/johnstevenson/winbox-args
  * @see https://github.com/composer/composer/blob/main/src/Composer/Util/ProcessExecutor.php
  */
-class Args
+class EscapeArg
 {
     /**
      * Escapes a string to be used as a shell argument.

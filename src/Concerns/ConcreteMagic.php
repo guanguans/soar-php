@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Support\Args;
+use Guanguans\SoarPHP\Support\EscapeArg;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar
@@ -61,7 +61,7 @@ trait ConcreteMagic
 
     public function __toString()
     {
-        $escapeOptions = Args::escapeCommand($this->normalizedOptions);
+        $escapeOptions = EscapeArg::escapeCommand($this->normalizedOptions);
 
         return "$this->soarPath $escapeOptions";
     }

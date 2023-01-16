@@ -13,13 +13,13 @@ declare(strict_types=1);
 namespace Guanguans\Tests;
 
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHP\Support\OsHelper;
+use Guanguans\SoarPHP\Support\OS;
 
 class SoarTest extends TestCase
 {
     public function testHelp(): void
     {
-        OsHelper::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
+        OS::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
         $soar = Soar::create();
         $help = $soar->help();
 

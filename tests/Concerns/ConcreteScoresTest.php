@@ -14,7 +14,7 @@ namespace Guanguans\Tests\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHP\Support\OsHelper;
+use Guanguans\SoarPHP\Support\OS;
 use Guanguans\Tests\TestCase;
 
 class ConcreteScoresTest extends TestCase
@@ -66,8 +66,8 @@ sqls;
 
         /** @noinspection ForgottenDebugOutputInspection */
         /** @noinspection DebugFunctionUsageInspection */
-        OsHelper::isWindows() and dump($arrayScores);
-        OsHelper::isWindows() or $this->assertMatchesYamlSnapshot($arrayScores);
+        OS::isWindows() and dump($arrayScores);
+        OS::isWindows() or $this->assertMatchesYamlSnapshot($arrayScores);
     }
 
     public function testJsonScores(): void
@@ -98,7 +98,7 @@ sqls;
         $this->assertStringContainsString('<ul>', $htmlScores);
         $this->assertStringContainsString('<li>', $htmlScores);
 
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($htmlScores);
+        OS::isWindows() or $this->assertMatchesSnapshot($htmlScores);
     }
 
     public function testMarkdownScores(): void
@@ -115,7 +115,7 @@ sqls;
         $this->assertStringContainsString('##', $markdownScores);
         $this->assertStringContainsString('*', $markdownScores);
 
-        OsHelper::isWindows() or $this->assertMatchesSnapshot($markdownScores);
+        OS::isWindows() or $this->assertMatchesSnapshot($markdownScores);
     }
 
     public function testInvalidArgumentExceptionForScores(): void

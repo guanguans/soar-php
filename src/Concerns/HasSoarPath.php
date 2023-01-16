@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Support\OsHelper;
+use Guanguans\SoarPHP\Support\OS;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar
@@ -43,13 +43,18 @@ trait HasSoarPath
 
     private function getDefaultSoarPath(): string
     {
-        /** @noinspection NestedTernaryOperatorInspection */
-        return OsHelper::isWindows()
-            ? __DIR__.'/../../bin/soar.windows-amd64'
-            : (
-                OsHelper::isMacOS()
-                ? __DIR__.'/../../bin/soar.darwin-amd64'
-                : __DIR__.'/../../bin/soar.linux-amd64'
-            );
+        if (OS::isWindows()) {
+            return __DIR__.'/../../bin/soar.windows-amd64';
+        }
+
+        if (OS::isMacOS()) {
+            if (OS::isArm()) {
+                return __DIR__.'/../../bin/soar.darwin-arm64';
+            }
+
+            return __DIR__.'/../../bin/soar.darwin-amd64';
+        }
+
+        return __DIR__.'/../../bin/soar.linux-amd64';
     }
 }

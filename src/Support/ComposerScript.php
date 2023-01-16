@@ -18,7 +18,7 @@ use Guanguans\SoarPHP\Soar;
 /**
  * @internal
  */
-class ComposerScripts
+class ComposerScript
 {
     public static function dumpSoarDocblock(Event $event): int
     {
