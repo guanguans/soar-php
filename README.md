@@ -36,7 +36,7 @@ composer require guanguans/soar-php -vvv
 ## 使用
 
 <details>
-<summary><b>创建 soar 实例</b></summary>
+<summary><b>基本使用</b></summary>
 
 ```php
 <?php
@@ -45,13 +45,15 @@ require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
+// 快速创建 soar 实例
 $soar = Soar::create();
 
 /**
- * 配置选项(可选)参考 @see soar.options.example.php
+ * 创建自定义 soar 实例
+ * 选项 @see soar.options.example.php
  */
-$soar->setSoarPath('自定义的 soar 路径')
-    ->setOptions([
+$soar = Soar::create(
+    [
         // 测试环境配置
         '-test-dsn'    => [
             'host'     => '127.0.0.1',
@@ -64,13 +66,26 @@ $soar->setSoarPath('自定义的 soar 路径')
         // 日志输出文件
         '-log-output'  => __DIR__.'/logs/soar.log',
         // 报告输出格式: [markdown, html, json, ...]
-        '-report-type' => 'html',
-    ]);
+        '-report-type' => 'json',
+    ],
+    '自定义的 soar 路径'
+);
+
+// 最终运行: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
+$soar->clone() // 克隆 soar，避免操作原始 soar 的选项。
+    ->addVersion(true) // 添加 -version 选项的值为 `true`
+    ->addVerbose(true) // 添加 -verbose 选项的值为 `true`
+    ->removeVersion()  // 移除 -version 选项
+    ->setVersion(true) // 设置 -version 选项的值为 `true`
+    ->mergeVersion(true) // 合并 -version 选项的值为 `true`
+    ->onlyVersion() // 仅保留 -version 选项
+    ->dump() // 打印调试信息
+    ->run(); // 运行
 ```
 </details>
 
 <details>
-<summary><b>SQL 评分、Explain 信息解读</b></summary>
+<summary><b>SQL 评分(SQL 指纹、分数、Explain 解读、启发式规则建议、索引规则建议)</b></summary>
 
 ```php
 $sqls = <<<'sql'
@@ -412,15 +427,6 @@ array:8 [
 ```
 
 ![](docs/scores.png)
-</details>
-
-<details>
-<summary><b>执行任意 soar 选项命令</b></summary>
-
-```php
-$soar->setVersion(true)->run();
-$soar->run('-version');
-```
 </details>
 
 <details>

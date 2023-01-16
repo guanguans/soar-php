@@ -36,7 +36,7 @@ composer require guanguans/soar-php -vvv
 ## Usage
 
 <details>
-<summary><b>Create a soar instance</b></summary>
+<summary><b>Basic usage</b></summary>
 
 ```php
 <?php
@@ -45,13 +45,15 @@ require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
+// Quickly create a soar instance
 $soar = Soar::create();
 
 /**
- * 配置选项(可选)参考 @see soar.options.example.php
+ * Create a custom soar instance
+ * Options @see soar.options.example.php
  */
-$soar->setSoarPath('自定义的 soar 路径')
-    ->setOptions([
+$soar = Soar::create(
+    [
         // 测试环境配置
         '-test-dsn'    => [
             'host'     => '127.0.0.1',
@@ -64,13 +66,26 @@ $soar->setSoarPath('自定义的 soar 路径')
         // 日志输出文件
         '-log-output'  => __DIR__.'/logs/soar.log',
         // 报告输出格式: [markdown, html, json, ...]
-        '-report-type' => 'html',
-    ]);
+        '-report-type' => 'json',
+    ],
+    '自定义的 soar 路径'
+);
+
+// Final run: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
+$soar->clone() // Clone soar and avoid the option to manipulate the original soar.
+    ->addVersion(true) // Add -version value of the option is `true`
+    ->addVerbose(true) // Add -verbose value of the option is `true`
+    ->removeVersion()  // Remove -version option
+    ->setVersion(true) // Set -version value of the option is `true`
+    ->mergeVersion(true) // Merge -version value of the option is `true`
+    ->onlyVersion() // Only keep -version option
+    ->dump() // Dump debug information
+    ->run(); // Run
 ```
 </details>
 
 <details>
-<summary><b>SQL scoring, Explain information interpretation</b></summary>
+<summary><b>SQL Scores(SQL fingerprint、Score、Explain interpretation、Heuristic rule suggestions、Index rule suggestions)</b></summary>
 
 ```php
 $sqls = <<<'sql'
@@ -412,15 +427,6 @@ array:8 [
 ```
 
 ![](docs/scores.png)
-</details>
-
-<details>
-<summary><b>Execute any of the soar option commands</b></summary>
-
-```php
-$soar->setVersion(true)->run();
-$soar->run('-version');
-```
 </details>
 
 <details>
