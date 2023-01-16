@@ -22,32 +22,32 @@ use Symfony\Component\Process\Process;
 trait WithRunable
 {
     /**
-     * @param array|string $options
+     * @param array|string $withOptions
      */
-    public function run($options = []): string
+    public function run($withOptions = []): string
     {
-        return $this->exec($options);
+        return $this->exec($withOptions);
     }
 
     /**
-     * @param array|string $options
-     * @param mixed        $input   The input as stream resource, scalar or \Traversable, or null for no input
+     * @param array|string $withOptions
+     * @param mixed        $input       The input as stream resource, scalar or \Traversable, or null for no input
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
      * @throws \Guanguans\SoarPHP\Exceptions\ProcessFailedException
      */
-    protected function exec($options = [], string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
+    protected function exec($withOptions = [], string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
-        if (! is_string($options) && ! is_array($options)) {
-            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($options)));
+        if (! is_string($withOptions) && ! is_array($withOptions)) {
+            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($withOptions)));
         }
 
-        if (is_string($options)) {
-            $process = Process::fromShellCommandline("$this->soarPath {$this->getSerializedNormalizedOptions()} $options", $cwd, $env, $input, $timeout);
+        if (is_string($withOptions)) {
+            $process = Process::fromShellCommandline("$this->soarPath {$this->getSerializedNormalizedOptions()} $withOptions", $cwd, $env, $input, $timeout);
         }
 
-        if (is_array($options)) {
-            $process = new Process(array_merge([$this->soarPath], $this->mergeOptions($options)->getNormalizedOptions()), $cwd, $env, $input, $timeout);
+        if (is_array($withOptions)) {
+            $process = new Process(array_merge([$this->soarPath], $this->mergeOptions($withOptions)->getNormalizedOptions()), $cwd, $env, $input, $timeout);
         }
 
         $process->run($output);

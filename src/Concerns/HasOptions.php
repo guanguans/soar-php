@@ -179,8 +179,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method \Guanguans\SoarPHP\Soar addMinCardinality(float $minCardinality)
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar addOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -228,8 +227,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar addSpaghettiQueryLength(int $spaghettiQueryLength)
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar addTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -409,8 +407,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method \Guanguans\SoarPHP\Soar removeMinCardinality()
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar removeOnlineDsn()
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -458,8 +455,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar removeSpaghettiQueryLength()
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar removeTestDsn()
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -639,8 +635,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method \Guanguans\SoarPHP\Soar onlyMinCardinality()
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyOnlineDsn()
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -688,8 +683,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar onlySpaghettiQueryLength()
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyTestDsn()
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -869,8 +863,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method \Guanguans\SoarPHP\Soar setMinCardinality(float $minCardinality)
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar setOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -918,8 +911,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar setSpaghettiQueryLength(int $spaghettiQueryLength)
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar setTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -1099,8 +1091,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method \Guanguans\SoarPHP\Soar mergeMinCardinality(float $minCardinality)
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar mergeOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -1148,8 +1139,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method \Guanguans\SoarPHP\Soar mergeSpaghettiQueryLength(int $spaghettiQueryLength)
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar mergeTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -1329,8 +1319,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method float|null getNormalizedMinCardinality($default = null)
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method string|null getNormalizedOnlineDsn($default = null)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -1378,8 +1367,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method int|null getNormalizedSpaghettiQueryLength($default = null)
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method string|null getNormalizedTestDsn($default = null)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -1559,8 +1547,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
  * @method float|null getMinCardinality($default = null)
  *
- * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method string|null getOnlineDsn($default = null)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
@@ -1608,8 +1595,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
  * @method int|null getSpaghettiQueryLength($default = null)
  *
- * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- *
+ * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method string|null getTestDsn($default = null)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
@@ -1632,7 +1618,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 trait HasOptions
 {
     /**
-     * @var array<array-key, scalar|array>
+     * @var array
      */
     protected $options = [];
 
@@ -1676,9 +1662,9 @@ trait HasOptions
 
     public function onlyOptions(array $keys = ['-test-dsn', '-online-dsn']): self
     {
-        $this->options = array_reduce_with_keys($this->options, function (array $options, $option, $key) use ($keys): array {
-            if (in_array($key, $keys, true)) {
-                $options[$key] = $option;
+        $this->options = array_reduce($keys, function (array $options, $key): array {
+            if (isset($this->options[$key])) {
+                $options[$key] = $this->options[$key];
             }
 
             return $options;
@@ -1764,7 +1750,7 @@ trait HasOptions
 
         foreach ($prefixes as $prefix) {
             if (str_starts_with($name, $prefix)) {
-                $key = substr(str_snake($name, '-'), strlen(str_snake($prefix)));
+                $key = '-'.str_snake(substr($name, strlen($prefix)), '-');
                 $newName = $prefix.'Option';
 
                 return $this->{$newName}($key, ...$arguments);
@@ -1779,18 +1765,6 @@ trait HasOptions
      */
     private function normalizeOptions(array $options): array
     {
-        $filteredOptions = array_filter($options, static function ($option): bool {
-            if (null === $option) {
-                return false;
-            }
-
-            if (! is_scalar($option) && ! is_array($option)) {
-                throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', gettype($option)));
-            }
-
-            return true;
-        });
-
         $converter = function ($filteredOption) {
             true === $filteredOption and $filteredOption = 'true';
             false === $filteredOption and $filteredOption = 'false';
@@ -1799,25 +1773,47 @@ trait HasOptions
             return $filteredOption;
         };
 
-        return array_reduce_with_keys(array_map($converter, $filteredOptions), static function (array $normalizedOptions, $option, $key) use ($converter): array {
+        return array_reduce_with_keys($options, static function (array $normalizedOptions, $option, $key) use ($converter): array {
+            $option = $converter($option);
+
+            if (null === $option) {
+                return $normalizedOptions;
+            }
+
             if (is_scalar($option)) {
                 is_int($key) ? $normalizedOptions[(string) $option] = (string) $option : $normalizedOptions[$key] = "$key=$option";
 
                 return $normalizedOptions;
             }
 
-            /** @var array $option */
-            if (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
-                /** @var array $option */
-                $dsn = "{$option['username']}:{$option['password']}@{$option['host']}:{$option['port']}/{$option['dbname']}";
-                $normalizedOptions[$key] = "$key=$dsn";
+            if (is_array($option)) {
+                if (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
+                    $dsn = "{$option['username']}:{$option['password']}@{$option['host']}:{$option['port']}/{$option['dbname']}";
+                    $normalizedOptions[$key] = "$key=$dsn";
+
+                    return $normalizedOptions;
+                }
+
+                $normalizedOptions[$key] = sprintf("$key=%s", implode(',', array_map($converter, $option)));
 
                 return $normalizedOptions;
             }
 
-            $normalizedOptions[$key] = sprintf("$key=%s", implode(',', array_map($converter, $option)));
+            if (is_object($option)) {
+                if ($option instanceof \Closure) {
+                    $normalizedOptions[$key] = sprintf("$key=%s", $option($this));
 
-            return $normalizedOptions;
+                    return $normalizedOptions;
+                }
+
+                if (method_exists($option, '__toString')) {
+                    $normalizedOptions[$key] = "$key=$option";
+
+                    return $normalizedOptions;
+                }
+            }
+
+            throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', gettype($option)));
         }, []);
     }
 }

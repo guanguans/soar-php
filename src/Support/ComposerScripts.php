@@ -68,7 +68,7 @@ docblock;
                     $option['type'] = 'mixed';
                 }
 
-                $description = " * {$option['description']}".PHP_EOL;
+                $description = str_replace('@', '', " * {$option['description']}".PHP_EOL);
 
                 $replacer = [
                     '{method}' => ucfirst(str_camel($option['name'])),

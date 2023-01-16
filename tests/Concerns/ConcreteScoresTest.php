@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests\Concerns;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OsHelper;
 use Guanguans\Tests\TestCase;
@@ -115,5 +116,33 @@ sqls;
         $this->assertStringContainsString('*', $markdownScores);
 
         OsHelper::isWindows() or $this->assertMatchesSnapshot($markdownScores);
+    }
+
+    public function testInvalidArgumentExceptionForScores(): void
+    {
+        $soar = Soar::create();
+        $sqls = true;
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(gettype($sqls));
+
+        $soar->scores($sqls);
+    }
+
+    public function testScores(): void
+    {
+        $soar = Soar::create();
+        $scores = $soar->scores('select * from users;');
+        $this->assertIsString($scores);
+        $this->assertNotEmpty($scores);
+
+        $scores = $soar->scores(['select * from a; select * from b', 'select * from c', 'select * from d']);
+        $this->assertIsString($scores);
+        $this->assertNotEmpty($scores);
+
+        $soar = Soar::create(require __DIR__.'/../../soar.options.full.php');
+        $scores = $soar->scores('select * from users;');
+        $this->assertIsString($scores);
+        $this->assertNotEmpty($scores);
     }
 }

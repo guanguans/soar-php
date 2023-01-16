@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
+use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
+
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
@@ -47,5 +49,21 @@ trait ConcreteScores
     public function markdownScores($sqls): string
     {
         return $this->setReportType('markdown')->scores($sqls);
+    }
+
+    /**
+     * @param string|array<string> $sqls
+     */
+    public function scores($sqls): string
+    {
+        if (! is_string($sqls) && ! is_array($sqls)) {
+            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($sqls)));
+        }
+
+        if (is_array($sqls)) {
+            $sqls = implode($this->getOption('-delimiter', ';'), $sqls);
+        }
+
+        return $this->clone()->setQuery($sqls)->run();
     }
 }
