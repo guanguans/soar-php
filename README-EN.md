@@ -89,6 +89,7 @@ $soar->clone() // Clone soar and avoid the option to manipulate the original soa
 
 ```php
 $sqls = <<<'sql'
+SELECT * FROM users;
 SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
 DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL;
 UPDATE city INNER JOIN country ON city.country_id=country.country_id INNER JOIN address ON city.city_id=address.city_id SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10;
@@ -118,8 +119,53 @@ $soar->jsonScores($sqls);
 ```
 
 ```php
-array:8 [
+array:9 [
   0 => array:8 [
+    "ID" => "30AFCB1E1344BEBD"
+    "Fingerprint" => "select * from users"
+    "Score" => 80
+    "Sample" => "SELECT * FROM users"
+    "Explain" => array:1 [
+      0 => array:6 [
+        "Item" => "EXP.000"
+        "Severity" => "L0"
+        "Summary" => "Explain信息"
+        "Content" => """
+          | id | select\_type | table | partitions | type | possible_keys | key | key\_len | ref | rows | filtered | scalability | Extra |\n
+          |---|---|---|---|---|---|---|---|---|---|---|---|---|\n
+          | 1  | SIMPLE | *users* | NULL | ALL | NULL | NULL | NULL | NULL | 1 | ☠️ **100.00%** | ☠️ **O(n)** | NULL |\n
+          \n
+          """
+        "Case" => """
+          ### Explain信息解读\n
+          \n
+          #### SelectType信息解读\n
+          \n
+          * **SIMPLE**: 简单SELECT(不使用UNION或子查询等).\n
+          \n
+          #### Type信息解读\n
+          \n
+          * ☠️ **ALL**: 最坏的情况, 从头到尾全表扫描.\n
+          """
+        "Position" => 0
+      ]
+    ]
+    "HeuristicRules" => array:1 [
+      0 => array:6 [
+        "Item" => "CLA.001"
+        "Severity" => "L4"
+        "Summary" => "最外层 SELECT 未指定 WHERE 条件"
+        "Content" => "SELECT 语句没有 WHERE 子句，可能检查比预期更多的行(全表扫描)。对于 SELECT COUNT(*) 类型的请求如果不要求精度，建议使用 SHOW TABLE STATUS 或 EXPLAIN 替代。"
+        "Case" => "select id from tbl"
+        "Position" => 0
+      ]
+    ]
+    "IndexRules" => null
+    "Tables" => array:1 [
+      0 => "`laravel`.`users`"
+    ]
+  ]
+  1 => array:8 [
     "ID" => "23D3498A40F9900D"
     "Fingerprint" => "select date_format (t.last_update,?),count (distinct (t.city)) from city t where t.last_update> ? and t.city like ? and t.city=? group by date_format(t.last_update,?) order by date_format(t.last_update,?)"
     "Score" => 0
@@ -186,7 +232,7 @@ array:8 [
     "IndexRules" => null
     "Tables" => null
   ]
-  1 => array:8 [
+  2 => array:8 [
     "ID" => "E759EFCE5B432198"
     "Fingerprint" => "delete city from city left join country on city.country_id=country.country_id where country.country is null"
     "Score" => 80
@@ -216,7 +262,7 @@ array:8 [
       1 => "`laravel`.`country`"
     ]
   ]
-  2 => array:8 [
+  3 => array:8 [
     "ID" => "67B0C3CE9FA26F37"
     "Fingerprint" => "update city inner join country on city.country_id=country.country_id inner join address on city.city_id=address.city_id set city.city=?,city.last_update=?,country.country=? where city.city_id=?"
     "Score" => 80
@@ -239,7 +285,7 @@ array:8 [
       2 => "`laravel`.`country`"
     ]
   ]
-  3 => array:8 [
+  4 => array:8 [
     "ID" => "3656B13CC4F888E2"
     "Fingerprint" => "insert into city (country_id) select country_id from country"
     "Score" => 65
@@ -269,7 +315,7 @@ array:8 [
       1 => "`laravel`.`country`"
     ]
   ]
-  4 => array:8 [
+  5 => array:8 [
     "ID" => "E3DDA1A929236E72"
     "Fingerprint" => "replace into city (country_id) select country_id from country"
     "Score" => 65
@@ -299,7 +345,7 @@ array:8 [
       1 => "`laravel`.`country`"
     ]
   ]
-  5 => array:8 [
+  6 => array:8 [
     "ID" => "9BB74D074BA0727C"
     "Fingerprint" => "alter table inventory add index `idx_store_film` (`store_id`,`film_id`),add index `idx_store_film` (`store_id`,`film_id`),add index `idx_store_film` (`store_id`,`film_id`)"
     "Score" => 100
@@ -320,7 +366,7 @@ array:8 [
       0 => "`laravel`.`inventory`"
     ]
   ]
-  6 => array:8 [
+  7 => array:8 [
     "ID" => "C77607894B4EFCC6"
     "Fingerprint" => "drop table `users`"
     "Score" => 100
@@ -341,7 +387,7 @@ array:8 [
       0 => "`laravel`.`users`"
     ]
   ]
-  7 => array:8 [
+  8 => array:8 [
     "ID" => "D0870E395F2CA834"
     "Fingerprint" => "create table `users` ( `id` bigint unsigned not null auto_increment, `name` varchar(?) collate utf8mb4_unicode_ci not ?, `email` varchar(?) collate utf8mb4_unicode_ci not ?, `email_verified_at` timestamp ? default ?, `password` varchar(?) collate utf8mb4_unicode_ci not ?, `remember_token` varchar(?) collate utf8mb4_unicode_ci default ?, `created_at` timestamp ? default ?, `updated_at` timestamp ? default ?, primary key (`id`), unique key `users_email_unique` (`email`) ) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci"
     "Score" => 75
