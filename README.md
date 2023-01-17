@@ -36,7 +36,7 @@ composer require guanguans/soar-php -vvv
 ## 使用
 
 <details>
-<summary><b>基本使用</b></summary>
+<summary><b>快速开始</b></summary>
 
 ```php
 <?php
