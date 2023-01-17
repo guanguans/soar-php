@@ -1765,23 +1765,29 @@ trait HasOptions
      */
     private function normalizeOptions(array $options): array
     {
-        $converter = function ($filteredOption) {
-            true === $filteredOption and $filteredOption = 'true';
-            false === $filteredOption and $filteredOption = 'false';
-            0 === $filteredOption and $filteredOption = '0';
+        $converter = function ($option) {
+            $option instanceof \Closure and $option = $option($this);
+            true === $option and $option = 'true';
+            false === $option and $option = 'false';
+            0 === $option and $option = '0';
 
-            return $filteredOption;
+            return $option;
         };
 
-        return array_reduce_with_keys($options, static function (array $normalizedOptions, $option, $key) use ($converter): array {
+        return array_reduce_with_keys($options, function (array $normalizedOptions, $option, $key) use ($converter): array {
             $option = $converter($option);
-
             if (null === $option) {
                 return $normalizedOptions;
             }
 
             if (is_scalar($option)) {
-                is_int($key) ? $normalizedOptions[(string) $option] = (string) $option : $normalizedOptions[$key] = "$key=$option";
+                if (is_int($key)) {
+                    $normalizedOptions[(string) $option] = (string) $option;
+
+                    return $normalizedOptions;
+                }
+
+                $normalizedOptions[$key] = "$key=$option";
 
                 return $normalizedOptions;
             }
@@ -1794,23 +1800,15 @@ trait HasOptions
                     return $normalizedOptions;
                 }
 
-                $normalizedOptions[$key] = sprintf("$key=%s", implode(',', array_map($converter, $option)));
+                $normalizedOptions[$key] = "$key=".implode(',', array_map($converter, $option));
 
                 return $normalizedOptions;
             }
 
-            if (is_object($option)) {
-                if ($option instanceof \Closure) {
-                    $normalizedOptions[$key] = sprintf("$key=%s", $option($this));
+            if (is_object($option) && method_exists($option, '__toString')) {
+                $normalizedOptions[$key] = "$key=$option";
 
-                    return $normalizedOptions;
-                }
-
-                if (method_exists($option, '__toString')) {
-                    $normalizedOptions[$key] = "$key=$option";
-
-                    return $normalizedOptions;
-                }
+                return $normalizedOptions;
             }
 
             throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', gettype($option)));

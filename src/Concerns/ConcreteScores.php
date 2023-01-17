@@ -61,7 +61,7 @@ trait ConcreteScores
         }
 
         if (is_array($sqls)) {
-            $sqls = implode($this->getOption('-delimiter', ';'), $sqls);
+            $sqls = implode($this->getDelimiter(';'), $sqls);
         }
 
         return $this->clone()->setQuery($sqls)->run();

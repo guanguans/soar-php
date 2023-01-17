@@ -36,7 +36,7 @@ class Soar implements Contracts\Soar
 
     public static function create(array $options = [], ?string $soarPath = null): self
     {
-        return new self($options, $soarPath);
+        return new static($options, $soarPath);
     }
 
     public function help(): string
