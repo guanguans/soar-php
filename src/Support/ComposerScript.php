@@ -58,7 +58,7 @@ docblock;
 
         $options = self::extractOptionsFromHelp();
 
-        $docblock = array_reduce_with_keys($methodMapper, function (string $docblock, string $t, string $typeOfMethod) use ($options): string {
+        $docblock = array_reduce_with_keys($methodMapper, static function (string $docblock, string $t, string $typeOfMethod) use ($options): string {
             return array_reduce($options, static function (string $docblock, array $option) use ($typeOfMethod, $t): string {
                 if ('uint' === $option['type']) {
                     $option['type'] = 'int';

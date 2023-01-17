@@ -20,24 +20,54 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
  */
 class OS
 {
+    /**
+     * @var string
+     */
     public const X86 = 'x86';
 
+    /**
+     * @var string
+     */
     public const PPC = 'ppc';
 
+    /**
+     * @var string
+     */
     public const ARM = 'arm';
 
+    /**
+     * @var string
+     */
     private const RegExX86 = '/(x86*|i386|i686)/';
 
+    /**
+     * @var string
+     */
     private const RegExARM = '/(aarch*|arm*)/';
 
+    /**
+     * @var string
+     */
     private const RegExPPC = '/(ppc*)/';
 
+    /**
+     * @var string
+     */
     private static $OS;
 
+    /**
+     * @var string
+     */
     private static $OSVersion;
 
+    /**
+     * @var string
+     */
     private static $arch;
 
+    /**
+     * @var string
+     */
     private static $hostname;
 
     public static function isUnix(): bool

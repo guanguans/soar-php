@@ -165,9 +165,10 @@ class HasOptionsTest extends TestCase
     public function testNormalizeOptions(): void
     {
         $soar = Soar::create([
+            'foo' => 'bar',
             '-verbose',
-            'closure' => function () {
-                return 'closure';
+            'closure' => static function (Soar $soar): string {
+                return $soar->getOption('foo');
             },
             'stringable' => new StringableOption(),
             'invoke' => new InvokeOption(),

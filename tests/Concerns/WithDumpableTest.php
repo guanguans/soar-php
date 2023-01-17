@@ -25,8 +25,8 @@ class WithDumpableTest extends TestCase
 
         $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
 
-        $functionMock = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'class_exists');
-        $functionMock->expects($this->any())->willReturn(false);
+        $mockObject = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'class_exists');
+        $mockObject->expects($this->any())->willReturn(false);
         $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
     }
 }

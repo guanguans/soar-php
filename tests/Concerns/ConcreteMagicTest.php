@@ -36,6 +36,7 @@ class ConcreteMagicTest extends TestCase
     {
         $soar = Soar::create(require __DIR__.'/../../soar.options.full.php');
         $exportedSoarStr = var_export($soar, true);
+        $exportedSoar = null;
         eval("\$exportedSoar = $exportedSoarStr;");
 
         $this->assertInstanceOf(Soar::class, $exportedSoar);

@@ -41,9 +41,9 @@ class EscapeArg
      * MIT Licensed (c) John Stevenson <john-stevenson@blueyonder.co.uk>
      * See https://github.com/johnstevenson/winbox-args for more information.
      *
-     * @param string|scalar $arg    The argument to be escaped
-     * @param bool          $meta   Additionally escape cmd.exe meta characters
-     * @param bool          $module The argument is the module to invoke
+     * @param string|scalar|null $arg    The argument to be escaped
+     * @param bool               $meta   Additionally escape cmd.exe meta characters
+     * @param bool               $module The argument is the module to invoke
      *
      * @psalm-suppress InvalidArgument
      * @psalm-suppress InvalidScalarArgument

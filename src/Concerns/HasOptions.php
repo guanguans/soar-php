@@ -1774,7 +1774,7 @@ trait HasOptions
             return $option;
         };
 
-        return array_reduce_with_keys($options, function (array $normalizedOptions, $option, $key) use ($converter): array {
+        return array_reduce_with_keys($options, static function (array $normalizedOptions, $option, $key) use ($converter): array {
             $option = $converter($option);
             if (null === $option) {
                 return $normalizedOptions;

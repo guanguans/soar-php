@@ -57,7 +57,7 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__.'/tests',
         __DIR__.'/.php-cs-fixer.php',
         __DIR__.'/rector.php',
-        __DIR__.'/soar.config.example.php',
+        __DIR__.'/soar.options.example.php',
     ]);
 
     $rectorConfig->skip([
@@ -88,6 +88,12 @@ return static function (RectorConfig $rectorConfig): void {
         // paths
         '**/Fixture*',
         '**/Fixture/*',
+        '**/Fixtures*',
+        '**/Fixtures/*',
+        '**/Stub*',
+        '**/Stub/*',
+        '**/Stubs*',
+        '**/Stubs/*',
         '**/Source*',
         '**/Source/*',
         '**/Expected/*',
