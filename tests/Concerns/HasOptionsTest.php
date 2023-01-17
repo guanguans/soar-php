@@ -15,6 +15,8 @@ namespace Guanguans\Tests\Concerns;
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Soar;
+use Guanguans\Tests\Fixtures\InvokeOption;
+use Guanguans\Tests\Fixtures\StringableOption;
 use Guanguans\Tests\TestCase;
 
 class HasOptionsTest extends TestCase
@@ -158,5 +160,19 @@ class HasOptionsTest extends TestCase
         $this->expectException(InvalidOptionException::class);
         $this->expectExceptionMessage('object');
         Soar::create(['foo' => $this->createMock(\stdClass::class)]);
+    }
+
+    public function testNormalizeOptions(): void
+    {
+        $soar = Soar::create([
+            '-verbose',
+            'closure' => function () {
+                return 'closure';
+            },
+            'stringable' => new StringableOption(),
+            'invoke' => new InvokeOption(),
+        ]);
+
+        $this->assertInstanceOf(Soar::class, $soar);
     }
 }

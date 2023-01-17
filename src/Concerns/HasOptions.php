@@ -1766,7 +1766,7 @@ trait HasOptions
     private function normalizeOptions(array $options): array
     {
         $converter = function ($option) {
-            $option instanceof \Closure and $option = $option($this);
+            is_callable($option) and $option = $option($this);
             true === $option and $option = 'true';
             false === $option and $option = 'false';
             0 === $option and $option = '0';

@@ -29,25 +29,25 @@ trait ConcreteMagic
         $this->setOptions($this->options);
     }
 
-    /**
-     * @since PHP 7.4.0
-     */
-    public function __serialize(): array
-    {
-        return [
-            'soarPath' => $this->soarPath,
-            'options' => $this->options,
-        ];
-    }
-
-    /**
-     * @since PHP 7.4.0
-     */
-    public function __unserialize(array $data): void
-    {
-        $this->setSoarPath($data['soarPath']);
-        $this->setOptions($data['options']);
-    }
+    // /**
+    //  * @since PHP 7.4.0
+    //  */
+    // public function __serialize(): array
+    // {
+    //     return [
+    //         'soarPath' => $this->soarPath,
+    //         'options' => $this->options,
+    //     ];
+    // }
+    //
+    // /**
+    //  * @since PHP 7.4.0
+    //  */
+    // public function __unserialize(array $data): void
+    // {
+    //     $this->setSoarPath($data['soarPath']);
+    //     $this->setOptions($data['options']);
+    // }
 
     public function __debugInfo()
     {
