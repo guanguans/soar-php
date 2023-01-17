@@ -19,7 +19,7 @@ class ConcreteMagicTest extends TestCase
 {
     public function testSleep(): void
     {
-        $soar = Soar::create(require __DIR__.'/../../soar.options.full.php');
+        $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
         $serializedSoar = serialize($soar);
         $unserializedSoar = unserialize($serializedSoar);
 
@@ -34,7 +34,7 @@ class ConcreteMagicTest extends TestCase
      */
     public function testSetState(): void
     {
-        $soar = Soar::create(require __DIR__.'/../../soar.options.full.php');
+        $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
         $exportedSoarStr = var_export($soar, true);
         $exportedSoar = null;
         eval("\$exportedSoar = $exportedSoarStr;");

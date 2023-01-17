@@ -50,22 +50,22 @@ $soar = Soar::create();
 
 /**
  * Create a custom soar instance
- * Options @see soar.options.example.php
+ * Options @see examples/soar.options.example.php
  */
 $soar = Soar::create(
     [
-        // 测试环境配置
+        // 测试环境数据库配置.
         '-test-dsn'    => [
             'host'     => '127.0.0.1',
             'port'     => '3306',
-            'dbname'   => 'database',
+            'dbname'   => 'laravel',
             'username' => 'root',
-            'password' => '123456',
+            'password' => 'root',
             'disable'  => false,
         ],
-        // 日志输出文件
+        // 日志输出位置 (default "soar.log").
         '-log-output'  => __DIR__.'/logs/soar.log',
-        // 报告输出格式: [markdown, html, json, ...]
+        // 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown").
         '-report-type' => 'json',
     ],
     '自定义的 soar 路径'

@@ -82,7 +82,7 @@ docblock;
             }, $docblock);
         }, '');
 
-        file_put_contents(__DIR__.'/../../soar.options.docblock.php', $prefix.$docblock.$suffix);
+        file_put_contents(__DIR__.'/../../examples/soar.options.docblock.php', $prefix.$docblock.$suffix);
         $event->getIO()->write('<info>操作成功</info>');
 
         return 0;
@@ -128,7 +128,7 @@ PHP;
             return $code.PHP_EOL.$item;
         }, '');
 
-        file_put_contents(__DIR__.'/../../soar.options.full.php', $prefix.$code.$suffix);
+        file_put_contents(__DIR__.'/../../examples/soar.options.full.php', $prefix.$code.$suffix);
         $event->getIO()->write('<info>操作成功</info>');
 
         return 0;
