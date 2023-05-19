@@ -37,6 +37,6 @@ final class SoarBench
 
     public function benchScores(): void
     {
-        $this->soar->scores('select * from foo;');
+        $this->soar->scores('SELECT * FROM foo;');
     }
 }

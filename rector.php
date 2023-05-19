@@ -35,8 +35,10 @@ use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
+use Rector\EarlyReturn\Rector\StmtsAwareInterface\ReturnEarlyIfVariableRector;
 use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
+use Rector\PHPUnit\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\PSR4\Rector\FileWithoutNamespace\NormalizeNamespaceByPSR4ComposerAutoloadRector;
@@ -84,6 +86,15 @@ return static function (RectorConfig $rectorConfig): void {
         AddArrayDefaultToArrayPropertyRector::class,
         RemoveEmptyClassMethodRector::class,
         ExplicitBoolCompareRector::class,
+        ReturnEarlyIfVariableRector::class => [
+            __DIR__.'/src/Support/EscapeArg.php',
+        ],
+        UnSpreadOperatorRector::class => [
+            __DIR__.'/src/Concerns/WithDumpable.php',
+        ],
+        RemoveExpectAnyFromMockRector::class => [
+            __DIR__.'/tests/Concerns/WithDumpableTest.php',
+        ],
 
         // paths
         '**/Fixture*',
@@ -128,17 +139,24 @@ return static function (RectorConfig $rectorConfig): void {
         PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
     ]);
 
-    $rectorConfig->disableParallel();
     $rectorConfig->importNames(true, false);
-    $rectorConfig->nestedChainMethodCallLimit(3);
+    $rectorConfig->importShortClasses(false);
+    // $rectorConfig->disableParallel();
+    $rectorConfig->parallel(240);
     $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
+    $rectorConfig->phpVersion(PhpVersion::PHP_72);
+
     // $rectorConfig->cacheClass(FileCacheStorage::class);
     // $rectorConfig->cacheDirectory(__DIR__.'/build/rector');
+    // $rectorConfig->containerCacheDirectory(__DIR__.'/build/rector');
+    // $rectorConfig->disableParallel();
     // $rectorConfig->fileExtensions(['php']);
-    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
-    // $rectorConfig->phpVersion(PhpVersion::PHP_80);
-    // $rectorConfig->parallel();
     // $rectorConfig->indent(' ', 4);
+    // $rectorConfig->memoryLimit('2G');
+    // $rectorConfig->nestedChainMethodCallLimit(3);
+    // $rectorConfig->noDiffs();
+    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
+    // $rectorConfig->removeUnusedImports();
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,

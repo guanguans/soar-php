@@ -22,7 +22,7 @@ trait WithDumpable
     /**
      * @return never-return
      */
-    public function dd(...$args)
+    public function dd(...$args): void
     {
         $this->dump(...$args);
 
