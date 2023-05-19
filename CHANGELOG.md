@@ -2,6 +2,20 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v3.1.0 - 2023-05-19
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/guanguans/soar-php/pull/137
+- Bump codecov/codecov-action from 3.1.1 to 3.1.2 by @dependabot in https://github.com/guanguans/soar-php/pull/139
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/guanguans/soar-php/pull/140
+- Bump codecov/codecov-action from 3.1.2 to 3.1.3 by @dependabot in https://github.com/guanguans/soar-php/pull/141
+- Bump codecov/codecov-action from 3.1.3 to 3.1.4 by @dependabot in https://github.com/guanguans/soar-php/pull/143
+- Bump actions/stale from 7 to 8 by @dependabot in https://github.com/guanguans/soar-php/pull/138
+- Update rector/rector requirement from ^0.15.7 to ^0.15.7 || ^0.16.0 by @dependabot in https://github.com/guanguans/soar-php/pull/142
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.0.7...v3.1.0
+
 ## v3.0.7 - 2023-01-17
 
 **Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.0.6...v3.0.7
