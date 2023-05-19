@@ -16,8 +16,11 @@ use Guanguans\SoarPHP\Soar;
 
 /**
  * @beforeMethods({"setUp"})
+ *
  * @warmup(1)
+ *
  * @revs(10)
+ *
  * @iterations(5)
  */
 final class SoarBench
