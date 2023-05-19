@@ -38,11 +38,11 @@ trait WithRunable
      */
     protected function exec($withOptions = [], string $cwd = null, array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
     {
-        if (! is_string($withOptions) && ! is_array($withOptions)) {
-            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($withOptions)));
+        if (! \is_string($withOptions) && ! \is_array($withOptions)) {
+            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', \gettype($withOptions)));
         }
 
-        if (is_string($withOptions)) {
+        if (\is_string($withOptions)) {
             $process = Process::fromShellCommandline(
                 "$this->soarPath {$this->getSerializedNormalizedOptions()} $withOptions",
                 $cwd,
@@ -52,7 +52,7 @@ trait WithRunable
             );
         }
 
-        if (is_array($withOptions)) {
+        if (\is_array($withOptions)) {
             $process = new Process(
                 array_merge([$this->soarPath], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()),
                 $cwd,

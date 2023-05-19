@@ -49,7 +49,7 @@ class Soar implements Contracts\Soar
         return $this->clone()->onlyOptions()->setVersion(true)->run();
     }
 
-    public function clone(): Soar
+    public function clone(): self
     {
         return clone $this;
     }

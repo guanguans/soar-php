@@ -48,11 +48,7 @@ trait HasSoarPath
         }
 
         if (OS::isMacOS()) {
-            if (OS::isArm()) {
-                return __DIR__.'/../../bin/soar.darwin-arm64';
-            }
-
-            return __DIR__.'/../../bin/soar.darwin-amd64';
+            return OS::isArm() ? __DIR__.'/../../bin/soar.darwin-arm64' : __DIR__.'/../../bin/soar.darwin-amd64';
         }
 
         return __DIR__.'/../../bin/soar.linux-amd64';

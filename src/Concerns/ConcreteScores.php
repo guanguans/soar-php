@@ -56,11 +56,11 @@ trait ConcreteScores
      */
     public function scores($sqls): string
     {
-        if (! is_string($sqls) && ! is_array($sqls)) {
-            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', gettype($sqls)));
+        if (! \is_string($sqls) && ! \is_array($sqls)) {
+            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', \gettype($sqls)));
         }
 
-        if (is_array($sqls)) {
+        if (\is_array($sqls)) {
             $sqls = implode($this->getDelimiter(';'), $sqls);
         }
 

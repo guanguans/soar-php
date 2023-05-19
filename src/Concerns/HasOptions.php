@@ -1750,7 +1750,7 @@ trait HasOptions
 
         foreach ($prefixes as $prefix) {
             if (str_starts_with($name, $prefix)) {
-                $key = '-'.str_snake(substr($name, strlen($prefix)), '-');
+                $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
                 $newName = $prefix.'Option';
 
                 return $this->{$newName}($key, ...$arguments);
@@ -1766,7 +1766,7 @@ trait HasOptions
     private function normalizeOptions(array $options): array
     {
         $converter = function ($option) {
-            is_callable($option) and $option = $option($this);
+            \is_callable($option) and $option = $option($this);
             true === $option and $option = 'true';
             false === $option and $option = 'false';
             0 === $option and $option = '0';
@@ -1781,7 +1781,7 @@ trait HasOptions
             }
 
             if (is_scalar($option)) {
-                if (is_int($key)) {
+                if (\is_int($key)) {
                     $normalizedOptions[(string) $option] = (string) $option;
 
                     return $normalizedOptions;
@@ -1792,8 +1792,8 @@ trait HasOptions
                 return $normalizedOptions;
             }
 
-            if (is_array($option)) {
-                if (in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
+            if (\is_array($option)) {
+                if (\in_array($key, ['-test-dsn', '-online-dsn']) && isset($option['disable']) && true !== $option['disable']) {
                     $dsn = "{$option['username']}:{$option['password']}@{$option['host']}:{$option['port']}/{$option['dbname']}";
                     $normalizedOptions[$key] = "$key=$dsn";
 
@@ -1805,13 +1805,13 @@ trait HasOptions
                 return $normalizedOptions;
             }
 
-            if (is_object($option) && method_exists($option, '__toString')) {
+            if (\is_object($option) && method_exists($option, '__toString')) {
                 $normalizedOptions[$key] = "$key=$option";
 
                 return $normalizedOptions;
             }
 
-            throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', gettype($option)));
+            throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', \gettype($option)));
         }, []);
     }
 }
