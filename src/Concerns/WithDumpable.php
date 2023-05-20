@@ -41,16 +41,9 @@ trait WithDumpable
         $args[] = $this->version();
         $args[] = $this->help();
 
-        if (class_exists(VarDumper::class)) {
-            foreach ($args as $arg) {
-                VarDumper::dump($arg);
-            }
-
-            return $this;
-        }
-
+        $varDumperExists = class_exists(VarDumper::class);
         foreach ($args as $arg) {
-            var_dump($arg);
+            $varDumperExists ? VarDumper::dump($arg) : var_dump($arg);
         }
 
         return $this;
