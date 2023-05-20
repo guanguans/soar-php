@@ -1777,7 +1777,7 @@ trait HasOptions
                 return $normalizedOptions;
             }
 
-            if (is_scalar($option)) {
+            if (\is_scalar($option)) {
                 if (\is_int($key)) {
                     $normalizedOptions[(string) $option] = (string) $option;
 

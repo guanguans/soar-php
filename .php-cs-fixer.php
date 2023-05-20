@@ -170,6 +170,12 @@ return (new PhpCsFixer\Config())
 
         // function_notation
         // 'date_time_create_from_format_call' => true,
+        'native_function_invocation' => [
+            'include' => ['@compiler_optimized', 'is_scalar'],
+            'exclude' => [],
+            'scope' => 'namespaced',
+            'strict' => true,
+        ],
         'nullable_type_declaration_for_default_null_value' => [
             'use_nullable_type_declaration' => true,
         ],
