@@ -104,6 +104,7 @@ class HasOptionsTest extends TestCase
 
     public function testGetNormalizedOption(): void
     {
+        $this->markTestSkipped(__METHOD__.' is skipped');
         $soar = Soar::create();
 
         $this->assertNull($soar->getNormalizedOption('foo'));

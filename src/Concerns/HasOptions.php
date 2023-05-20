@@ -1719,6 +1719,11 @@ trait HasOptions
         return $this;
     }
 
+    public function getSerializedNormalizedOptions(): string
+    {
+        return implode(' ', $this->getNormalizedOptions());
+    }
+
     public function getNormalizedOptions(): array
     {
         return $this->normalizeOptions($this->options);
@@ -1737,11 +1742,6 @@ trait HasOptions
         return $this->normalizeOptions($filteredOptions)[$key] ?? $default;
     }
 
-    public function getSerializedNormalizedOptions(): string
-    {
-        return implode(' ', $this->getNormalizedOptions());
-    }
-
     public function getOptions(): array
     {
         return $this->options;
@@ -1757,53 +1757,55 @@ trait HasOptions
      */
     private function normalizeOptions(array $options): array
     {
-        $converter = function ($option) {
-            \is_callable($option) and $option = $option($this);
-            true === $option and $option = 'true';
-            false === $option and $option = 'false';
-            0 === $option and $option = '0';
+        return array_reduce_with_keys($options, function (array $normalizedOptions, $value, $key): array {
+            if ($normalizedOption = $this->normalizeOption($key, $value)) {
+                $normalizedOptions[\is_int($key) ? (string) $value : $key] = $normalizedOption;
+            }
 
-            return $option;
+            return $normalizedOptions;
+        }, []);
+    }
+
+    /**
+     * @param array-key $key
+     * @param mixed     $value
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    private function normalizeOption($key, $value): string
+    {
+        $converter = function ($value) {
+            \is_callable($value) and $value = $value($this);
+            true === $value and $value = 'true';
+            false === $value and $value = 'false';
+            0 === $value and $value = '0';
+
+            return $value;
         };
 
-        return array_reduce_with_keys($options, static function (array $normalizedOptions, $option, $key) use ($converter): array {
-            $option = $converter($option);
-            if (null === $option) {
-                return $normalizedOptions;
+        $value = $converter($value);
+        if (null === $value) {
+            return '';
+        }
+
+        if (\is_scalar($value) || (\is_object($value) && method_exists($value, '__toString'))) {
+            if (\is_int($key)) {
+                return (string) $value;
             }
 
-            if (\is_scalar($option)) {
-                if (\is_int($key)) {
-                    $normalizedOptions[(string) $option] = (string) $option;
+            return "$key=$value";
+        }
 
-                    return $normalizedOptions;
-                }
+        if (\is_array($value)) {
+            if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && ! ($value['disable'] ?? false)) {
+                $dsn = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
 
-                $normalizedOptions[$key] = "$key=$option";
-
-                return $normalizedOptions;
+                return "$key=$dsn";
             }
 
-            if (\is_array($option)) {
-                if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && ! ($option['disable'] ?? false)) {
-                    $dsn = "{$option['username']}:{$option['password']}@{$option['host']}:{$option['port']}/{$option['dbname']}";
-                    $normalizedOptions[$key] = "$key=$dsn";
+            return "$key=".implode(',', array_map($converter, $value));
+        }
 
-                    return $normalizedOptions;
-                }
-
-                $normalizedOptions[$key] = "$key=".implode(',', array_map($converter, $option));
-
-                return $normalizedOptions;
-            }
-
-            if (\is_object($option) && method_exists($option, '__toString')) {
-                $normalizedOptions[$key] = "$key=$option";
-
-                return $normalizedOptions;
-            }
-
-            throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', \gettype($option)));
-        }, []);
+        throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', \gettype($value)));
     }
 }
