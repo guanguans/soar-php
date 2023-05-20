@@ -129,7 +129,7 @@ sqls;
         $sqls = true;
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(gettype($sqls));
+        $this->expectExceptionMessage(\gettype($sqls));
 
         $soar->scores($sqls);
     }

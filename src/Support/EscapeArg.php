@@ -52,7 +52,7 @@ class EscapeArg
      */
     public static function escape($arg, bool $meta = true, bool $module = false): string
     {
-        if (! defined('PHP_WINDOWS_VERSION_BUILD')) {
+        if (! \defined('PHP_WINDOWS_VERSION_BUILD')) {
             // Escape single-quotes and enclose in single-quotes
             return "'".str_replace("'", "'\\''", $arg)."'";
         }

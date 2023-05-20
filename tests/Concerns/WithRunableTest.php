@@ -30,7 +30,7 @@ class WithRunableTest extends TestCase
         $optionsOfError = true;
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(gettype($optionsOfError));
+        $this->expectExceptionMessage(\gettype($optionsOfError));
         $soar->run($optionsOfError);
     }
 

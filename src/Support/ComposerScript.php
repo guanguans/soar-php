@@ -154,8 +154,8 @@ PHP;
             preg_match('/\\(default .*\\)/', $option[1], $defaults);
 
             $default = $defaults[0] ?? null;
-            if (is_string($default) && str_starts_with($default, $pre = '(default ')) {
-                $default = rtrim(substr($default, strlen($pre)), ')');
+            if (\is_string($default) && str_starts_with($default, $pre = '(default ')) {
+                $default = rtrim(substr($default, \strlen($pre)), ')');
             }
 
             $options[$names[0]] = [

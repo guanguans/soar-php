@@ -87,7 +87,7 @@ return (new PhpCsFixer\Config())
 
         // '@DoctrineAnnotation' => true,
         '@PhpCsFixer' => true,
-        // '@PhpCsFixer:risky' => true,
+        '@PhpCsFixer:risky' => true,
 
         // alias
         // 'mb_str_functions' => true,
@@ -200,6 +200,7 @@ return (new PhpCsFixer\Config())
         // naming
 
         // operator
+        'logical_operators' => false,
         // 'no_useless_concat_operator' => [
         //     'juggle_simple_strings' => true,
         // ],
