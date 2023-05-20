@@ -1790,7 +1790,7 @@ trait HasOptions
             }
 
             if (\is_array($option)) {
-                if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && isset($option['disable']) && true !== $option['disable']) {
+                if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && ! ($option['disable'] ?? false)) {
                     $dsn = "{$option['username']}:{$option['password']}@{$option['host']}:{$option['port']}/{$option['dbname']}";
                     $normalizedOptions[$key] = "$key=$dsn";
 
