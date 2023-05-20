@@ -61,7 +61,7 @@ trait ConcreteMagic
 
     public function __toString()
     {
-        $escapeOptions = EscapeArg::escapeCommand($this->normalizedOptions);
+        $escapeOptions = EscapeArg::escapeCommand($this->getNormalizedOptions());
 
         return "$this->soarPath $escapeOptions";
     }

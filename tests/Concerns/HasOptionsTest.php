@@ -164,7 +164,7 @@ class HasOptionsTest extends TestCase
     {
         $this->expectException(InvalidOptionException::class);
         $this->expectExceptionMessage('object');
-        Soar::create(['foo' => $this->createMock(\stdClass::class)]);
+        Soar::create(['foo' => $this->createMock(\stdClass::class)])->getNormalizedOptions();
     }
 
     public function testNormalizeOptions(): void

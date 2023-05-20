@@ -1623,11 +1623,6 @@ trait HasOptions
     protected $options = [];
 
     /**
-     * @var array<string, string>
-     */
-    private $normalizedOptions = [];
-
-    /**
      * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
      */
     public function __call(string $name, array $arguments)
@@ -1649,7 +1644,6 @@ trait HasOptions
     public function addOptions(array $options): self
     {
         $this->options += $options;
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
@@ -1666,8 +1660,6 @@ trait HasOptions
         foreach ($keys as $key) {
             unset($this->options[$key]);
         }
-
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
@@ -1689,8 +1681,6 @@ trait HasOptions
             return $options;
         }, []);
 
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
-
         return $this;
     }
 
@@ -1704,7 +1694,6 @@ trait HasOptions
     public function setOptions(array $options): self
     {
         $this->options = $options;
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
@@ -1712,7 +1701,6 @@ trait HasOptions
     public function setOption(string $key, $value): self
     {
         $this->options[$key] = $value;
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
@@ -1720,7 +1708,6 @@ trait HasOptions
     public function mergeOptions(array $options): self
     {
         $this->options = array_merge($this->options, $options);
-        $this->normalizedOptions = $this->normalizeOptions($this->options);
 
         return $this;
     }
@@ -1734,12 +1721,20 @@ trait HasOptions
 
     public function getNormalizedOptions(): array
     {
-        return $this->normalizedOptions;
+        return $this->normalizeOptions($this->options);
     }
 
     public function getNormalizedOption(?string $key = null, $default = null)
     {
-        return $this->normalizedOptions[$key] ?? $default;
+        $filteredOptions = array_filter(
+            $this->options,
+            static function ($name) use ($key): bool {
+                return $name === $key;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+
+        return $this->normalizeOptions($filteredOptions)[$key] ?? $default;
     }
 
     public function getSerializedNormalizedOptions(): string
