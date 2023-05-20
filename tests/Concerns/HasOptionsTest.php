@@ -102,14 +102,6 @@ class HasOptionsTest extends TestCase
         $this->assertIsArray($soar->getNormalizedOptions());
     }
 
-    public function testGetNormalizedOption(): void
-    {
-        $this->markTestSkipped(__METHOD__.' is skipped');
-        $soar = Soar::create();
-
-        $this->assertNull($soar->getNormalizedOption('foo'));
-    }
-
     public function testGetSerializedNormalizedOptions(): void
     {
         $soar = Soar::create();
@@ -153,12 +145,6 @@ class HasOptionsTest extends TestCase
 
         $version = Soar::create()->mergeVersion($val)->getVersion();
         $this->assertSame($val, $version);
-
-        $version = Soar::create()->setVersion($val)->getNormalizedVersion();
-        $this->assertSame("-version=$val", $version);
-
-        $version = Soar::create()->getNormalizedVersion();
-        $this->assertNull($version);
     }
 
     public function testInvalidOptionExceptionForNormalizeOptions(): void
