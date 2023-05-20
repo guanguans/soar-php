@@ -15,6 +15,11 @@ namespace Guanguans\Tests;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class SoarTest extends TestCase
 {
     public function testHelp(): void

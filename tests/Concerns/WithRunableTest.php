@@ -17,6 +17,11 @@ use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class WithRunableTest extends TestCase
 {
     public function testInvalidArgumentExceptionForExec(): void

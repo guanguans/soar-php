@@ -17,6 +17,11 @@ use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     use ArraySubsetAsserts;

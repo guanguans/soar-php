@@ -16,6 +16,11 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class HasSoarPathTest extends TestCase
 {
     public function testGetSoarPath(): void

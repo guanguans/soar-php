@@ -20,7 +20,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 trait ConcreteScores
 {
     /**
-     * @param string|array<string> $sqls
+     * @param array<string>|string $sqls
      */
     public function arrayScores($sqls, int $depth = 512, int $options = 0): array
     {
@@ -28,7 +28,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param string|array<string> $sqls
+     * @param array<string>|string $sqls
      */
     public function jsonScores($sqls): string
     {
@@ -36,7 +36,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param string|array<string> $sqls
+     * @param array<string>|string $sqls
      */
     public function htmlScores($sqls): string
     {
@@ -44,7 +44,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param string|array<string> $sqls
+     * @param array<string>|string $sqls
      */
     public function markdownScores($sqls): string
     {
@@ -52,7 +52,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param string|array<string> $sqls
+     * @param array<string>|string $sqls
      */
     public function scores($sqls): string
     {

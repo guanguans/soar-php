@@ -1158,460 +1158,460 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  * @method \Guanguans\SoarPHP\Soar mergeHelp($help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method string|null getNormalizedAllowCharsets($default = null)
+ * @method null|string getNormalizedAllowCharsets($default = null)
  *
  * AllowCollates
- * @method string|null getNormalizedAllowCollates($default = null)
+ * @method null|string getNormalizedAllowCollates($default = null)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method mixed|null getNormalizedAllowDropIndex($default = null)
+ * @method null|mixed getNormalizedAllowDropIndex($default = null)
  *
  * AllowEngines (default "innodb")
- * @method string|null getNormalizedAllowEngines($default = null)
+ * @method null|string getNormalizedAllowEngines($default = null)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method mixed|null getNormalizedAllowOnlineAsTest($default = null)
+ * @method null|mixed getNormalizedAllowOnlineAsTest($default = null)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method string|null getNormalizedBlacklist($default = null)
+ * @method null|string getNormalizedBlacklist($default = null)
  *
  * Check configs
- * @method mixed|null getNormalizedCheckConfig($default = null)
+ * @method null|mixed getNormalizedCheckConfig($default = null)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method mixed|null getNormalizedCleanupTestDatabase($default = null)
+ * @method null|mixed getNormalizedCleanupTestDatabase($default = null)
  *
  * ColumnNotAllowType (default "boolean")
- * @method string|null getNormalizedColumnNotAllowType($default = null)
+ * @method null|string getNormalizedColumnNotAllowType($default = null)
  *
  * Config file path
- * @method string|null getNormalizedConfig($default = null)
+ * @method null|string getNormalizedConfig($default = null)
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method string|null getNormalizedDelimiter($default = null)
+ * @method null|string getNormalizedDelimiter($default = null)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method mixed|null getNormalizedDropTestTemporary($default = null)
+ * @method null|mixed getNormalizedDropTestTemporary($default = null)
  *
  * 是否在预演环境执行 (default true)
- * @method mixed|null getNormalizedDryRun($default = null)
+ * @method null|mixed getNormalizedDryRun($default = null)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method mixed|null getNormalizedExplain($default = null)
+ * @method null|mixed getNormalizedExplain($default = null)
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method string|null getNormalizedExplainFormat($default = null)
+ * @method null|string getNormalizedExplainFormat($default = null)
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method float|null getNormalizedExplainMaxFiltered($default = null)
+ * @method null|float getNormalizedExplainMaxFiltered($default = null)
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method int|null getNormalizedExplainMaxKeys($default = null)
+ * @method null|int getNormalizedExplainMaxKeys($default = null)
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method int|null getNormalizedExplainMaxRows($default = null)
+ * @method null|int getNormalizedExplainMaxRows($default = null)
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method int|null getNormalizedExplainMinKeys($default = null)
+ * @method null|int getNormalizedExplainMinKeys($default = null)
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method string|null getNormalizedExplainSqlReportType($default = null)
+ * @method null|string getNormalizedExplainSqlReportType($default = null)
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method string|null getNormalizedExplainType($default = null)
+ * @method null|string getNormalizedExplainType($default = null)
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method string|null getNormalizedExplainWarnAccessType($default = null)
+ * @method null|string getNormalizedExplainWarnAccessType($default = null)
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method string|null getNormalizedExplainWarnExtra($default = null)
+ * @method null|string getNormalizedExplainWarnExtra($default = null)
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method string|null getNormalizedExplainWarnScalability($default = null)
+ * @method null|string getNormalizedExplainWarnScalability($default = null)
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method string|null getNormalizedExplainWarnSelectType($default = null)
+ * @method null|string getNormalizedExplainWarnSelectType($default = null)
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method string|null getNormalizedIgnoreRules($default = null)
+ * @method null|string getNormalizedIgnoreRules($default = null)
  *
  * IdxPrefix (default "idx_")
- * @method string|null getNormalizedIndexPrefix($default = null)
+ * @method null|string getNormalizedIndexPrefix($default = null)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method mixed|null getNormalizedListHeuristicRules($default = null)
+ * @method null|mixed getNormalizedListHeuristicRules($default = null)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method mixed|null getNormalizedListReportTypes($default = null)
+ * @method null|mixed getNormalizedListReportTypes($default = null)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method mixed|null getNormalizedListRewriteRules($default = null)
+ * @method null|mixed getNormalizedListRewriteRules($default = null)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method mixed|null getNormalizedListTestSqls($default = null)
+ * @method null|mixed getNormalizedListTestSqls($default = null)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method int|null getNormalizedLogLevel($default = null)
+ * @method null|int getNormalizedLogLevel($default = null)
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method string|null getNormalizedLogOutput($default = null)
+ * @method null|string getNormalizedLogOutput($default = null)
  *
  * log stack traces for errors
- * @method mixed|null getNormalizedLogErrStacks($default = null)
+ * @method null|mixed getNormalizedLogErrStacks($default = null)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method int|null getNormalizedLogRotateMaxSize($default = null)
+ * @method null|int getNormalizedLogRotateMaxSize($default = null)
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method int|null getNormalizedMarkdownExtensions($default = null)
+ * @method null|int getNormalizedMarkdownExtensions($default = null)
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method int|null getNormalizedMarkdownHtmlFlags($default = null)
+ * @method null|int getNormalizedMarkdownHtmlFlags($default = null)
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method int|null getNormalizedMaxColumnCount($default = null)
+ * @method null|int getNormalizedMaxColumnCount($default = null)
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method int|null getNormalizedMaxDistinctCount($default = null)
+ * @method null|int getNormalizedMaxDistinctCount($default = null)
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method int|null getNormalizedMaxGroupByColsCount($default = null)
+ * @method null|int getNormalizedMaxGroupByColsCount($default = null)
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method int|null getNormalizedMaxInCount($default = null)
+ * @method null|int getNormalizedMaxInCount($default = null)
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method int|null getNormalizedMaxIndexBytes($default = null)
+ * @method null|int getNormalizedMaxIndexBytes($default = null)
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method int|null getNormalizedMaxIndexBytesPercolumn($default = null)
+ * @method null|int getNormalizedMaxIndexBytesPercolumn($default = null)
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method int|null getNormalizedMaxIndexColsCount($default = null)
+ * @method null|int getNormalizedMaxIndexColsCount($default = null)
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method int|null getNormalizedMaxIndexCount($default = null)
+ * @method null|int getNormalizedMaxIndexCount($default = null)
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method int|null getNormalizedMaxJoinTableCount($default = null)
+ * @method null|int getNormalizedMaxJoinTableCount($default = null)
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method int|null getNormalizedMaxPrettySqlLength($default = null)
+ * @method null|int getNormalizedMaxPrettySqlLength($default = null)
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method int|null getNormalizedMaxQueryCost($default = null)
+ * @method null|int getNormalizedMaxQueryCost($default = null)
  *
  * MaxSubqueryDepth (default 5)
- * @method int|null getNormalizedMaxSubqueryDepth($default = null)
+ * @method null|int getNormalizedMaxSubqueryDepth($default = null)
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method int|null getNormalizedMaxTextColsCount($default = null)
+ * @method null|int getNormalizedMaxTextColsCount($default = null)
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method int|null getNormalizedMaxTotalRows($default = null)
+ * @method null|int getNormalizedMaxTotalRows($default = null)
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method int|null getNormalizedMaxValueCount($default = null)
+ * @method null|int getNormalizedMaxValueCount($default = null)
  *
  * MaxVarcharLength (default 1024)
- * @method int|null getNormalizedMaxVarcharLength($default = null)
+ * @method null|int getNormalizedMaxVarcharLength($default = null)
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method float|null getNormalizedMinCardinality($default = null)
+ * @method null|float getNormalizedMinCardinality($default = null)
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method string|null getNormalizedOnlineDsn($default = null)
+ * @method null|string getNormalizedOnlineDsn($default = null)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method mixed|null getNormalizedOnlySyntaxCheck($default = null)
+ * @method null|mixed getNormalizedOnlySyntaxCheck($default = null)
  *
  * Print configs
- * @method mixed|null getNormalizedPrintConfig($default = null)
+ * @method null|mixed getNormalizedPrintConfig($default = null)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method mixed|null getNormalizedProfiling($default = null)
+ * @method null|mixed getNormalizedProfiling($default = null)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method string|null getNormalizedQuery($default = null)
+ * @method null|string getNormalizedQuery($default = null)
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method string|null getNormalizedReportCss($default = null)
+ * @method null|string getNormalizedReportCss($default = null)
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method string|null getNormalizedReportJavascript($default = null)
+ * @method null|string getNormalizedReportJavascript($default = null)
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method string|null getNormalizedReportTitle($default = null)
+ * @method null|string getNormalizedReportTitle($default = null)
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method string|null getNormalizedReportType($default = null)
+ * @method null|string getNormalizedReportType($default = null)
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method string|null getNormalizedRewriteRules($default = null)
+ * @method null|string getNormalizedRewriteRules($default = null)
  *
  * Sampling, 数据采样开关
- * @method mixed|null getNormalizedSampling($default = null)
+ * @method null|mixed getNormalizedSampling($default = null)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method string|null getNormalizedSamplingCondition($default = null)
+ * @method null|string getNormalizedSamplingCondition($default = null)
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method int|null getNormalizedSamplingStatisticTarget($default = null)
+ * @method null|int getNormalizedSamplingStatisticTarget($default = null)
  *
  * ShowLastQueryCost
- * @method mixed|null getNormalizedShowLastQueryCost($default = null)
+ * @method null|mixed getNormalizedShowLastQueryCost($default = null)
  *
  * ShowWarnings
- * @method mixed|null getNormalizedShowWarnings($default = null)
+ * @method null|mixed getNormalizedShowWarnings($default = null)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method int|null getNormalizedSpaghettiQueryLength($default = null)
+ * @method null|int getNormalizedSpaghettiQueryLength($default = null)
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method string|null getNormalizedTestDsn($default = null)
+ * @method null|string getNormalizedTestDsn($default = null)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method mixed|null getNormalizedTrace($default = null)
+ * @method null|mixed getNormalizedTrace($default = null)
  *
  * UkPrefix (default "uk_")
- * @method string|null getNormalizedUniqueKeyPrefix($default = null)
+ * @method null|string getNormalizedUniqueKeyPrefix($default = null)
  *
  * Verbose
- * @method mixed|null getNormalizedVerbose($default = null)
+ * @method null|mixed getNormalizedVerbose($default = null)
  *
  * Print version info
- * @method mixed|null getNormalizedVersion($default = null)
+ * @method null|mixed getNormalizedVersion($default = null)
  *
  * Help
- * @method mixed|null getNormalizedHelp($default = null)
+ * @method null|mixed getNormalizedHelp($default = null)
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method string|null getAllowCharsets($default = null)
+ * @method null|string getAllowCharsets($default = null)
  *
  * AllowCollates
- * @method string|null getAllowCollates($default = null)
+ * @method null|string getAllowCollates($default = null)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method mixed|null getAllowDropIndex($default = null)
+ * @method null|mixed getAllowDropIndex($default = null)
  *
  * AllowEngines (default "innodb")
- * @method string|null getAllowEngines($default = null)
+ * @method null|string getAllowEngines($default = null)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method mixed|null getAllowOnlineAsTest($default = null)
+ * @method null|mixed getAllowOnlineAsTest($default = null)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method string|null getBlacklist($default = null)
+ * @method null|string getBlacklist($default = null)
  *
  * Check configs
- * @method mixed|null getCheckConfig($default = null)
+ * @method null|mixed getCheckConfig($default = null)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method mixed|null getCleanupTestDatabase($default = null)
+ * @method null|mixed getCleanupTestDatabase($default = null)
  *
  * ColumnNotAllowType (default "boolean")
- * @method string|null getColumnNotAllowType($default = null)
+ * @method null|string getColumnNotAllowType($default = null)
  *
  * Config file path
- * @method string|null getConfig($default = null)
+ * @method null|string getConfig($default = null)
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method string|null getDelimiter($default = null)
+ * @method null|string getDelimiter($default = null)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method mixed|null getDropTestTemporary($default = null)
+ * @method null|mixed getDropTestTemporary($default = null)
  *
  * 是否在预演环境执行 (default true)
- * @method mixed|null getDryRun($default = null)
+ * @method null|mixed getDryRun($default = null)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method mixed|null getExplain($default = null)
+ * @method null|mixed getExplain($default = null)
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method string|null getExplainFormat($default = null)
+ * @method null|string getExplainFormat($default = null)
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method float|null getExplainMaxFiltered($default = null)
+ * @method null|float getExplainMaxFiltered($default = null)
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method int|null getExplainMaxKeys($default = null)
+ * @method null|int getExplainMaxKeys($default = null)
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method int|null getExplainMaxRows($default = null)
+ * @method null|int getExplainMaxRows($default = null)
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method int|null getExplainMinKeys($default = null)
+ * @method null|int getExplainMinKeys($default = null)
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method string|null getExplainSqlReportType($default = null)
+ * @method null|string getExplainSqlReportType($default = null)
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method string|null getExplainType($default = null)
+ * @method null|string getExplainType($default = null)
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method string|null getExplainWarnAccessType($default = null)
+ * @method null|string getExplainWarnAccessType($default = null)
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method string|null getExplainWarnExtra($default = null)
+ * @method null|string getExplainWarnExtra($default = null)
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method string|null getExplainWarnScalability($default = null)
+ * @method null|string getExplainWarnScalability($default = null)
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method string|null getExplainWarnSelectType($default = null)
+ * @method null|string getExplainWarnSelectType($default = null)
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method string|null getIgnoreRules($default = null)
+ * @method null|string getIgnoreRules($default = null)
  *
  * IdxPrefix (default "idx_")
- * @method string|null getIndexPrefix($default = null)
+ * @method null|string getIndexPrefix($default = null)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method mixed|null getListHeuristicRules($default = null)
+ * @method null|mixed getListHeuristicRules($default = null)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method mixed|null getListReportTypes($default = null)
+ * @method null|mixed getListReportTypes($default = null)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method mixed|null getListRewriteRules($default = null)
+ * @method null|mixed getListRewriteRules($default = null)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method mixed|null getListTestSqls($default = null)
+ * @method null|mixed getListTestSqls($default = null)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method int|null getLogLevel($default = null)
+ * @method null|int getLogLevel($default = null)
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method string|null getLogOutput($default = null)
+ * @method null|string getLogOutput($default = null)
  *
  * log stack traces for errors
- * @method mixed|null getLogErrStacks($default = null)
+ * @method null|mixed getLogErrStacks($default = null)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method int|null getLogRotateMaxSize($default = null)
+ * @method null|int getLogRotateMaxSize($default = null)
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method int|null getMarkdownExtensions($default = null)
+ * @method null|int getMarkdownExtensions($default = null)
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method int|null getMarkdownHtmlFlags($default = null)
+ * @method null|int getMarkdownHtmlFlags($default = null)
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method int|null getMaxColumnCount($default = null)
+ * @method null|int getMaxColumnCount($default = null)
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method int|null getMaxDistinctCount($default = null)
+ * @method null|int getMaxDistinctCount($default = null)
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method int|null getMaxGroupByColsCount($default = null)
+ * @method null|int getMaxGroupByColsCount($default = null)
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method int|null getMaxInCount($default = null)
+ * @method null|int getMaxInCount($default = null)
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method int|null getMaxIndexBytes($default = null)
+ * @method null|int getMaxIndexBytes($default = null)
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method int|null getMaxIndexBytesPercolumn($default = null)
+ * @method null|int getMaxIndexBytesPercolumn($default = null)
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method int|null getMaxIndexColsCount($default = null)
+ * @method null|int getMaxIndexColsCount($default = null)
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method int|null getMaxIndexCount($default = null)
+ * @method null|int getMaxIndexCount($default = null)
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method int|null getMaxJoinTableCount($default = null)
+ * @method null|int getMaxJoinTableCount($default = null)
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method int|null getMaxPrettySqlLength($default = null)
+ * @method null|int getMaxPrettySqlLength($default = null)
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method int|null getMaxQueryCost($default = null)
+ * @method null|int getMaxQueryCost($default = null)
  *
  * MaxSubqueryDepth (default 5)
- * @method int|null getMaxSubqueryDepth($default = null)
+ * @method null|int getMaxSubqueryDepth($default = null)
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method int|null getMaxTextColsCount($default = null)
+ * @method null|int getMaxTextColsCount($default = null)
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method int|null getMaxTotalRows($default = null)
+ * @method null|int getMaxTotalRows($default = null)
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method int|null getMaxValueCount($default = null)
+ * @method null|int getMaxValueCount($default = null)
  *
  * MaxVarcharLength (default 1024)
- * @method int|null getMaxVarcharLength($default = null)
+ * @method null|int getMaxVarcharLength($default = null)
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method float|null getMinCardinality($default = null)
+ * @method null|float getMinCardinality($default = null)
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method string|null getOnlineDsn($default = null)
+ * @method null|string getOnlineDsn($default = null)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method mixed|null getOnlySyntaxCheck($default = null)
+ * @method null|mixed getOnlySyntaxCheck($default = null)
  *
  * Print configs
- * @method mixed|null getPrintConfig($default = null)
+ * @method null|mixed getPrintConfig($default = null)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method mixed|null getProfiling($default = null)
+ * @method null|mixed getProfiling($default = null)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method string|null getQuery($default = null)
+ * @method null|string getQuery($default = null)
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method string|null getReportCss($default = null)
+ * @method null|string getReportCss($default = null)
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method string|null getReportJavascript($default = null)
+ * @method null|string getReportJavascript($default = null)
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method string|null getReportTitle($default = null)
+ * @method null|string getReportTitle($default = null)
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method string|null getReportType($default = null)
+ * @method null|string getReportType($default = null)
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method string|null getRewriteRules($default = null)
+ * @method null|string getRewriteRules($default = null)
  *
  * Sampling, 数据采样开关
- * @method mixed|null getSampling($default = null)
+ * @method null|mixed getSampling($default = null)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method string|null getSamplingCondition($default = null)
+ * @method null|string getSamplingCondition($default = null)
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method int|null getSamplingStatisticTarget($default = null)
+ * @method null|int getSamplingStatisticTarget($default = null)
  *
  * ShowLastQueryCost
- * @method mixed|null getShowLastQueryCost($default = null)
+ * @method null|mixed getShowLastQueryCost($default = null)
  *
  * ShowWarnings
- * @method mixed|null getShowWarnings($default = null)
+ * @method null|mixed getShowWarnings($default = null)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method int|null getSpaghettiQueryLength($default = null)
+ * @method null|int getSpaghettiQueryLength($default = null)
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method string|null getTestDsn($default = null)
+ * @method null|string getTestDsn($default = null)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method mixed|null getTrace($default = null)
+ * @method null|mixed getTrace($default = null)
  *
  * UkPrefix (default "uk_")
- * @method string|null getUniqueKeyPrefix($default = null)
+ * @method null|string getUniqueKeyPrefix($default = null)
  *
  * Verbose
- * @method mixed|null getVerbose($default = null)
+ * @method null|mixed getVerbose($default = null)
  *
  * Print version info
- * @method mixed|null getVersion($default = null)
+ * @method null|mixed getVersion($default = null)
  *
  * Help
- * @method mixed|null getHelp($default = null)
+ * @method null|mixed getHelp($default = null)
  *
  * @mixin \Guanguans\SoarPHP\Soar
  */
@@ -1626,6 +1626,25 @@ trait HasOptions
      * @var array<string, string>
      */
     private $normalizedOptions = [];
+
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
+     */
+    public function __call(string $name, array $arguments)
+    {
+        $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
+
+        foreach ($prefixes as $prefix) {
+            if (str_starts_with($name, $prefix)) {
+                $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
+                $newName = $prefix.'Option';
+
+                return $this->{$newName}($key, ...$arguments);
+            }
+        }
+
+        throw new BadMethodCallException("The method($name) does not exist.");
+    }
 
     public function addOptions(array $options): self
     {
@@ -1718,7 +1737,7 @@ trait HasOptions
         return $this->normalizedOptions;
     }
 
-    public function getNormalizedOption(string $key = null, $default = null)
+    public function getNormalizedOption(?string $key = null, $default = null)
     {
         return $this->normalizedOptions[$key] ?? $default;
     }
@@ -1736,28 +1755,6 @@ trait HasOptions
     public function getOption(string $key, $default = null)
     {
         return $this->options[$key] ?? $default;
-    }
-
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
-     */
-    public function __call($name, $arguments)
-    {
-        $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
-
-        foreach ($prefixes as $prefix) {
-            if (str_starts_with($name, $prefix)) {
-                $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
-                $newName = $prefix.'Option';
-
-                return $this->{$newName}($key, ...$arguments);
-            }
-        }
-
-        throw new BadMethodCallException("The method($name) does not exist.");
     }
 
     /**

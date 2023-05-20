@@ -20,7 +20,7 @@ interface Soar
     public function run($withOptions = []): string;
 
     /**
-     * @param string|array<string> $sqls
+     * @param array<string>|string $sqls
      */
     public function scores($sqls): string;
 

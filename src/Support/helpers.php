@@ -14,7 +14,7 @@ if (! function_exists('array_reduce_with_keys')) {
     function array_reduce_with_keys(array $array, callable $callback, $carry = null)
     {
         foreach ($array as $key => $value) {
-            $carry = call_user_func($callback, $carry, $value, $key);
+            $carry = $callback($carry, $value, $key);
         }
 
         return $carry;

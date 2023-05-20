@@ -41,7 +41,7 @@ class EscapeArg
      * MIT Licensed (c) John Stevenson <john-stevenson@blueyonder.co.uk>
      * See https://github.com/johnstevenson/winbox-args for more information.
      *
-     * @param string|scalar|null $arg    The argument to be escaped
+     * @param null|scalar|string $arg    The argument to be escaped
      * @param bool               $meta   Additionally escape cmd.exe meta characters
      * @param bool               $module The argument is the module to invoke
      *
@@ -95,7 +95,7 @@ class EscapeArg
      *
      * The first argument must be the module (executable) to be invoked.
      *
-     * @param array<string|scalar> $args A list of arguments, with the module name first
+     * @param array<scalar|string> $args A list of arguments, with the module name first
      * @param bool                 $meta Additionally escape cmd.exe meta characters
      *
      * @return string The escaped command line

@@ -15,6 +15,11 @@ namespace Guanguans\Tests\Concerns;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class WithDumpableTest extends TestCase
 {
     public function testDump(): void

@@ -17,6 +17,11 @@ use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 use Guanguans\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class ConcreteScoresTest extends TestCase
 {
     public function testArrayScores(): void

@@ -24,7 +24,7 @@ trait ConcreteMagic
         return ['soarPath', 'options'];
     }
 
-    public function __wakeup()
+    public function __wakeup(): void
     {
         $this->setOptions($this->options);
     }

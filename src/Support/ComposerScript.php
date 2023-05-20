@@ -137,7 +137,7 @@ PHP;
     /**
      * @psalm-suppress RedundantCast
      *
-     * @return array<string, array<string, string|null>>
+     * @return array<string, array<string, null|string>>
      */
     public static function extractOptionsFromHelp(): array
     {
@@ -151,7 +151,7 @@ PHP;
 
         $options = array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
             $names = (array) explode(' ', $option[0]);
-            preg_match("/\(default .*\)/", $option[1], $defaults);
+            preg_match('/\\(default .*\\)/', $option[1], $defaults);
 
             $default = $defaults[0] ?? null;
             if (is_string($default) && str_starts_with($default, $pre = '(default ')) {

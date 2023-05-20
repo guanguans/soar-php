@@ -19,6 +19,11 @@ use Guanguans\Tests\Fixtures\InvokeOption;
 use Guanguans\Tests\Fixtures\StringableOption;
 use Guanguans\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @small
+ */
 class HasOptionsTest extends TestCase
 {
     public function testAddOption(): void
