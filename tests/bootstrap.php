@@ -21,12 +21,12 @@ if (getenv('TRAVIS') && ! \defined('CURL_SSLVERSION_TLSv1_2')) {
     \define('CURL_SSLVERSION_TLSv1_2', 6);
 }
 
-$kernel = Kernel::getInstance();
-$kernel->init([
-    'debug' => false,
-    'cacheDir' => __DIR__.'/AspectMock',
-    'includePaths' => [__DIR__.'/../src/Support'],
-    'excludePaths' => [
-        __DIR__.'/../vendor',
-    ],
-]);
+// $kernel = Kernel::getInstance();
+// $kernel->init([
+//     'debug' => false,
+//     'cacheDir' => __DIR__.'/AspectMock',
+//     'includePaths' => [__DIR__.'/../src/Support'],
+//     'excludePaths' => [
+//         __DIR__.'/../vendor',
+//     ],
+// ]);

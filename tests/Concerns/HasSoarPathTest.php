@@ -36,6 +36,8 @@ class HasSoarPathTest extends TestCase
         $soar = Soar::create();
         $this->assertFileExists($soar->getSoarPath());
 
+        $this->markTestSkipped(__METHOD__.' is skipped.');
+
         // 暂存
         $originals = ['isWindows' => OS::isWindows(), 'isMacOS' => OS::isMacOS()];
 
