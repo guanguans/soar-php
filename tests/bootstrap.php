@@ -10,19 +10,21 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
+namespace Guanguans\Tests;
+
+use AspectMock\Kernel;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 // Fix broken OpenSSL lib on Travis CI
-if (getenv('TRAVIS')) {
-    if (! defined('CURL_SSLVERSION_TLSv1_2')) {
-        define('CURL_SSLVERSION_TLSv1_2', 6);
-    }
+if (getenv('TRAVIS') && ! \defined('CURL_SSLVERSION_TLSv1_2')) {
+    \define('CURL_SSLVERSION_TLSv1_2', 6);
 }
 
-$kernel = \AspectMock\Kernel::getInstance();
+$kernel = Kernel::getInstance();
 $kernel->init([
-    'debug' => true,
-    'cacheDir' => __DIR__.'/aspect-mock-cache',
+    'debug' => false,
+    'cacheDir' => __DIR__.'/AspectMock',
     'includePaths' => [__DIR__.'/../src/Support'],
     'excludePaths' => [
         __DIR__.'/../vendor',

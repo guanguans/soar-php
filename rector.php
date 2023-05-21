@@ -115,9 +115,12 @@ return static function (RectorConfig $rectorConfig): void {
         UnSpreadOperatorRector::class => [
             __DIR__.'/src/Concerns/WithDumpable.php',
         ],
+        StaticClosureRector::class => [
+            __DIR__.'/tests/Concerns/WithRunableTest.php',
+        ],
 
         // paths
-        __DIR__.'/src/xxx.php',
+        __DIR__.'/tests/AspectMock',
         '**/Fixture*',
         '**/Fixture/*',
         '**/Fixtures*',
