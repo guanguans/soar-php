@@ -72,7 +72,7 @@ sqls;
         /** @noinspection ForgottenDebugOutputInspection */
         /** @noinspection DebugFunctionUsageInspection */
         OS::isWindows() and dump($arrayScores);
-        OS::isWindows() or version_compare(PHP_VERSION, '8.1', '>=') or $this->assertMatchesYamlSnapshot($arrayScores);
+        OS::isWindows() or \PHP_VERSION_ID >= 80100 or $this->assertMatchesYamlSnapshot($arrayScores);
     }
 
     public function testJsonScores(): void

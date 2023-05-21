@@ -46,6 +46,24 @@ use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->importNames(true, false);
+    $rectorConfig->importShortClasses(false);
+    // $rectorConfig->disableParallel();
+    $rectorConfig->parallel(240);
+    $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
+    $rectorConfig->phpVersion(PhpVersion::PHP_72);
+    // $rectorConfig->cacheClass(FileCacheStorage::class);
+    // $rectorConfig->cacheDirectory(__DIR__.'/build/rector');
+    // $rectorConfig->containerCacheDirectory(__DIR__.'/build/rector');
+    // $rectorConfig->disableParallel();
+    // $rectorConfig->fileExtensions(['php']);
+    // $rectorConfig->indent(' ', 4);
+    // $rectorConfig->memoryLimit('2G');
+    // $rectorConfig->nestedChainMethodCallLimit(3);
+    // $rectorConfig->noDiffs();
+    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
+    // $rectorConfig->removeUnusedImports();
+
     $rectorConfig->bootstrapFiles([
         // __DIR__.'/vendor/autoload.php',
     ]);
@@ -64,39 +82,42 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->skip([
         // rules
-        CallableThisArrayToAnonymousFunctionRector::class,
+        // AddArrayDefaultToArrayPropertyRector::class,
+        // AddDefaultValueForUndefinedVariableRector::class,
+        // AddSeeTestAnnotationRector::class,
+        // CallableThisArrayToAnonymousFunctionRector::class,
+        // ChangeAndIfToEarlyReturnRector::class,
+        // ExplicitBoolCompareRector::class,
+        // RemoveEmptyClassMethodRector::class,
+        // RemoveEmptyMethodCallRector::class,
+        // RemoveUnusedVariableAssignRector::class,
+        // ReturnBinaryOrToEarlyReturnRector::class,
+        // SimplifyBoolIdenticalTrueRector::class,
+        // StaticClosureRector::class,
+        // UnSpreadOperatorRector::class,
+
+        ConsistentPregDelimiterRector::class,
+        EncapsedStringsToSprintfRector::class,
         InlineIfToExplicitIfRector::class,
         LogicalToBooleanRector::class,
-        SimplifyBoolIdenticalTrueRector::class,
-        RemoveEmptyMethodCallRector::class,
-        AddSeeTestAnnotationRector::class,
-        NormalizeNamespaceByPSR4ComposerAutoloadRector::class,
-        ChangeAndIfToEarlyReturnRector::class,
-        ReturnBinaryOrToEarlyReturnRector::class,
-        EncapsedStringsToSprintfRector::class,
+        ReturnBinaryAndToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
 
-        // optional rules
-        // AddDefaultValueForUndefinedVariableRector::class,
-        // RemoveUnusedVariableAssignRector::class,
-        // UnSpreadOperatorRector::class,
-        ConsistentPregDelimiterRector::class,
-        // StaticClosureRector::class,
-        ReturnBinaryAndToEarlyReturnRector::class,
-        AddArrayDefaultToArrayPropertyRector::class,
-        RemoveEmptyClassMethodRector::class,
-        ExplicitBoolCompareRector::class,
+        NormalizeNamespaceByPSR4ComposerAutoloadRector::class => [
+            __DIR__.'/src/Support/helpers.php',
+        ],
+        RemoveExpectAnyFromMockRector::class => [
+            __DIR__.'/tests/Concerns/WithDumpableTest.php',
+        ],
         ReturnEarlyIfVariableRector::class => [
             __DIR__.'/src/Support/EscapeArg.php',
         ],
         UnSpreadOperatorRector::class => [
             __DIR__.'/src/Concerns/WithDumpable.php',
         ],
-        RemoveExpectAnyFromMockRector::class => [
-            __DIR__.'/tests/Concerns/WithDumpableTest.php',
-        ],
 
         // paths
+        __DIR__.'/src/xxx.php',
         '**/Fixture*',
         '**/Fixture/*',
         '**/Fixtures*',
@@ -111,7 +132,6 @@ return static function (RectorConfig $rectorConfig): void {
         '**/Expected*',
         '**/__snapshots__/*',
         '**/__snapshots__*',
-        __DIR__.'/src/foundation/tests/AppTest.php',
     ]);
 
     $rectorConfig->sets([
@@ -121,42 +141,23 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
         // SetList::GMAGICK_TO_IMAGICK,
-        // SetList::MONOLOG_20,
         // SetList::MYSQL_TO_MYSQLI,
         SetList::NAMING,
         // SetList::PRIVATIZATION,
         SetList::PSR_4,
         SetList::TYPE_DECLARATION,
-        // SetList::TYPE_DECLARATION_STRICT,
         SetList::EARLY_RETURN,
+        SetList::INSTANCEOF,
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_80,
-        // PHPUnitSetList::PHPUNIT80_DMS,
+        PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::PHPUNIT_EXCEPTION,
         PHPUnitSetList::REMOVE_MOCKS,
         PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
         PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
+        PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ]);
-
-    $rectorConfig->importNames(true, false);
-    $rectorConfig->importShortClasses(false);
-    // $rectorConfig->disableParallel();
-    $rectorConfig->parallel(240);
-    $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
-    $rectorConfig->phpVersion(PhpVersion::PHP_72);
-
-    // $rectorConfig->cacheClass(FileCacheStorage::class);
-    // $rectorConfig->cacheDirectory(__DIR__.'/build/rector');
-    // $rectorConfig->containerCacheDirectory(__DIR__.'/build/rector');
-    // $rectorConfig->disableParallel();
-    // $rectorConfig->fileExtensions(['php']);
-    // $rectorConfig->indent(' ', 4);
-    // $rectorConfig->memoryLimit('2G');
-    // $rectorConfig->nestedChainMethodCallLimit(3);
-    // $rectorConfig->noDiffs();
-    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
-    // $rectorConfig->removeUnusedImports();
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,

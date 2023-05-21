@@ -10,6 +10,7 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
+use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $header = <<<'EOF'
@@ -61,7 +62,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
