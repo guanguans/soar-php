@@ -159,6 +159,23 @@ class HasOptionsTest extends TestCase
         $soar = Soar::create([
             'foo' => 'bar',
             '-verbose',
+            '-test-dsn' => [
+                'host' => 'you_host',
+                'port' => 'you_port',
+                'dbname' => 'you_dbname',
+                'username' => 'you_username',
+                'password' => 'you_password',
+                'disable' => false,
+            ],
+            '-online-dsn' => [
+                'host' => 'you_host',
+                'port' => 'you_port',
+                'dbname' => 'you_dbname',
+                'username' => 'you_username',
+                'password' => 'you_password',
+                'disable' => true,
+            ],
+            'arr' => ['foo', 'bar', 'baz'],
             'closure' => static function (Soar $soar): string {
                 return $soar->getOption('foo');
             },
@@ -166,6 +183,6 @@ class HasOptionsTest extends TestCase
             'invoke' => new InvokeOption(),
         ]);
 
-        $this->assertInstanceOf(Soar::class, $soar);
+        $this->assertIsArray($soar->getNormalizedOptions());
     }
 }
