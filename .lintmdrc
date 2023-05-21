@@ -23,7 +23,7 @@
         "no-long-code": [
             1,
             {
-                "length": 600,
+                "length": 1000,
                 "exclude": [
                     "dot"
                 ]
