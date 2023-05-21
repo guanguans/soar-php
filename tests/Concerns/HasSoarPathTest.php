@@ -12,8 +12,10 @@ declare(strict_types=1);
 
 namespace Guanguans\Tests\Concerns;
 
+use AspectMock\Test as test;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OS;
 use Guanguans\Tests\TestCase;
 
 /**
@@ -25,9 +27,29 @@ class HasSoarPathTest extends TestCase
 {
     public function testGetSoarPath(): void
     {
-        $soar = Soar::create();
+        // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
+        // $mock->allows('isWindows')->andReturnTrue();
+        // $soar = Soar::create();
+        // $this->assertFileExists($soar->getSoarPath());
+        // $this->assertStringContainsString('windows', $soar->getSoarPath());
 
+        $soar = Soar::create();
         $this->assertFileExists($soar->getSoarPath());
+
+        test::double(OS::class, ['isWindows' => true, 'isMacOS' => false]);
+        $soar = Soar::create();
+        $this->assertFileExists($soar->getSoarPath());
+        $this->assertStringContainsString('windows', $soar->getSoarPath());
+
+        test::double(OS::class, ['isWindows' => false, 'isMacOS' => false]);
+        $soar = Soar::create();
+        $this->assertFileExists($soar->getSoarPath());
+        $this->assertStringContainsString('linux', $soar->getSoarPath());
+
+        test::double(OS::class, ['isWindows' => false, 'isMacOS' => true]);
+        $soar = Soar::create();
+        $this->assertFileExists($soar->getSoarPath());
+        $this->assertStringContainsString('darwin', $soar->getSoarPath());
     }
 
     public function testInvalidArgumentExceptionForSetSoarPath(): void

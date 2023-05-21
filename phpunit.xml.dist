@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   backupGlobals="false"
   backupStaticAttributes="false"
-  bootstrap="vendor/autoload.php"
+  bootstrap="tests/bootstrap.php"
   colors="true"
   convertErrorsToExceptions="true"
   convertNoticesToExceptions="true"
