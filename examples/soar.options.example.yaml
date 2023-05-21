@@ -1,6 +1,6 @@
 online-dsn:
   user: ""
-  password: \'********\'
+  password: ""
   net: tcp
   addr: 127.0.0.1:3306
   schema: information_schema
@@ -20,7 +20,7 @@ online-dsn:
   disable: false
 test-dsn:
   user: ""
-  password: \'********\'
+  password: ""
   net: tcp
   addr: 127.0.0.1:3306
   schema: information_schema
@@ -85,7 +85,7 @@ max-index-bytes: 3072
 allow-charsets:
   - utf8
   - utf8mb4
-allow-collates: []
+allow-collates: [ ]
 allow-engines:
   - innodb
 max-index-count: 10
@@ -121,6 +121,6 @@ list-heuristic-rules: false
 list-rewrite-rules: false
 list-test-sqls: false
 list-report-types: false
-verbose: false
+verbose: true
 dry-run: true
 max-pretty-sql-length: 1024
