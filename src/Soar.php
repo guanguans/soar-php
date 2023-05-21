@@ -28,10 +28,13 @@ class Soar implements Contracts\Soar
     use WithDumpable;
     use WithRunable;
 
+    /**
+     * @noinspection MissingParentCallInspection
+     */
     public function __construct(array $options = [], ?string $soarPath = null)
     {
-        $this->setSoarPath($soarPath ?? $this->getDefaultSoarPath());
         $this->setOptions($options);
+        $this->setSoarPath($soarPath ?? $this->getDefaultSoarPath());
     }
 
     public static function create(array $options = [], ?string $soarPath = null): self

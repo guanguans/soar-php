@@ -1445,13 +1445,13 @@ trait HasOptions
 
     public function onlyOptions(array $keys = ['-test-dsn', '-online-dsn']): self
     {
-        $this->options = array_reduce($keys, function (array $options, $key): array {
-            if (isset($this->options[$key])) {
-                $options[$key] = $this->options[$key];
-            }
-
-            return $options;
-        }, []);
+        $this->options = array_filter(
+            $this->options,
+            static function ($key) use ($keys): bool {
+                return \in_array($key, $keys, true);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
 
         return $this;
     }
@@ -1491,16 +1491,6 @@ trait HasOptions
         return $this;
     }
 
-    public function getSerializedNormalizedOptions(): string
-    {
-        return implode(' ', $this->getNormalizedOptions());
-    }
-
-    public function getNormalizedOptions(): array
-    {
-        return $this->normalizeOptions($this->options);
-    }
-
     public function getOptions(): array
     {
         return $this->options;
@@ -1509,6 +1499,16 @@ trait HasOptions
     public function getOption(string $key, $default = null)
     {
         return $this->options[$key] ?? $default;
+    }
+
+    public function getSerializedNormalizedOptions(): string
+    {
+        return implode(' ', $this->getNormalizedOptions());
+    }
+
+    public function getNormalizedOptions(): array
+    {
+        return $this->normalizeOptions($this->options);
     }
 
     /**

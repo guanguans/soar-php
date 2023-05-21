@@ -17,7 +17,7 @@ interface Soar
     /**
      * @param array|string $withOptions
      */
-    public function run($withOptions = []): string;
+    public function run($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string;
 
     /**
      * @param array<string>|string $sqls

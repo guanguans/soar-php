@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Support\EscapeArg;
-
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
@@ -21,12 +19,12 @@ trait ConcreteMagic
 {
     public function __sleep()
     {
-        return ['soarPath', 'options'];
+        return ['options', 'soarPath'];
     }
 
     public function __wakeup(): void
     {
-        $this->setOptions($this->options);
+        // $this->setOptions($this->options);
     }
 
     // /**
@@ -35,8 +33,8 @@ trait ConcreteMagic
     // public function __serialize(): array
     // {
     //     return [
-    //         'soarPath' => $this->soarPath,
     //         'options' => $this->options,
+    //         'soarPath' => $this->soarPath,
     //     ];
     // }
     //
@@ -45,8 +43,8 @@ trait ConcreteMagic
     //  */
     // public function __unserialize(array $data): void
     // {
-    //     $this->setSoarPath($data['soarPath']);
     //     $this->setOptions($data['options']);
+    //     $this->setSoarPath($data['soarPath']);
     // }
 
     public function __debugInfo()
@@ -59,10 +57,11 @@ trait ConcreteMagic
         return new static($properties['options'], $properties['soarPath']);
     }
 
+    /**
+     * @noinspection MagicMethodsValidityInspection
+     */
     public function __toString()
     {
-        $escapeOptions = EscapeArg::escapeCommand($this->getNormalizedOptions());
-
-        return "$this->soarPath $escapeOptions";
+        return $this->createProcess()->getCommandLine();
     }
 }

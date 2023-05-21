@@ -24,49 +24,44 @@ trait WithRunable
     /**
      * @param array|string $withOptions
      */
-    public function run($withOptions = []): string
-    {
-        return $this->exec($withOptions);
-    }
-
-    /**
-     * @param array|string $withOptions
-     * @param mixed        $input       The input as stream resource, scalar or \Traversable, or null for no input
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidArgumentException
-     * @throws \Guanguans\SoarPHP\Exceptions\ProcessFailedException
-     */
-    protected function exec($withOptions = [], ?string $cwd = null, ?array $env = null, $input = null, ?float $timeout = 60, ?callable $output = null): string
+    public function run($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
     {
         if (! \is_string($withOptions) && ! \is_array($withOptions)) {
             throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', \gettype($withOptions)));
         }
 
-        if (\is_string($withOptions)) {
-            $process = Process::fromShellCommandline(
-                "$this->soarPath {$this->getSerializedNormalizedOptions()} $withOptions",
-                $cwd,
-                $env,
-                $input,
-                $timeout
-            );
-        }
-
-        if (\is_array($withOptions)) {
-            $process = new Process(
-                array_merge([$this->soarPath], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()),
-                $cwd,
-                $env,
-                $input,
-                $timeout
-            );
-        }
-
-        $process->run($output);
+        $process = $this->createProcess($withOptions, $processTapper);
+        $process->run($callback);
         if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
         return $process->getOutput();
+    }
+
+    /**
+     * @param array|string $withOptions
+     */
+    protected function exec($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
+    {
+        return $this->run($withOptions, $processTapper, $callback);
+    }
+
+    /**
+     * @param array|string $withOptions
+     */
+    private function createProcess($withOptions = [], ?callable $processTapper = null): Process
+    {
+        $process = \is_string($withOptions)
+            ? Process::fromShellCommandline("$this->soarPath {$this->getSerializedNormalizedOptions()} $withOptions")
+            : new Process(array_merge([$this->soarPath], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
+
+        return (static function (Process $process) use ($processTapper): Process {
+            if (\is_callable($processTapper)) {
+                $processTapper($process);
+            }
+
+            return $process;
+        })($process);
     }
 }
