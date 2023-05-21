@@ -41,6 +41,9 @@ trait WithRunable
 
     /**
      * @param array|string $withOptions
+     *
+     * @deprecated The method is deprecated and will be removed in version 4.0.0.
+     *             Please use the {@see run} instead.
      */
     protected function exec($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
     {
