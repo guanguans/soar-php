@@ -47,13 +47,13 @@ docblock;
 docblock;
 
         $methodMapper = [
-            'add' => ' * @method \Guanguans\SoarPHP\Soar add{method}({type} ${name})',
-            'remove' => ' * @method \Guanguans\SoarPHP\Soar remove{method}()',
-            'only' => ' * @method \Guanguans\SoarPHP\Soar only{method}()',
-            'set' => ' * @method \Guanguans\SoarPHP\Soar set{method}({type} ${name})',
-            'merge' => ' * @method \Guanguans\SoarPHP\Soar merge{method}({type} ${name})',
-            // 'getNormalized' => ' * @method {type}|null getNormalized{method}($default = null)',
-            'get' => ' * @method {type}|null get{method}($default = null)',
+            'add' => ' * @method self add{method}({type} ${name})',
+            'remove' => ' * @method self remove{method}()',
+            'only' => ' * @method self only{method}()',
+            'set' => ' * @method self set{method}({type} ${name})',
+            'merge' => ' * @method self merge{method}({type} ${name})',
+            // 'getNormalized' => ' * @method null|{type} getNormalized{method}($default = null)',
+            'get' => ' * @method null|{type} get{method}($default = null)',
         ];
 
         $options = self::extractOptionsFromHelp();

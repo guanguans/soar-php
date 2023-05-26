@@ -16,1146 +16,1146 @@ use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 
 /**
- * AllowCharsets (default "utf8,utf8mb4").
+ * AllowCharsets (default "utf8,utf8mb4")
  *
- * @method \Guanguans\SoarPHP\Soar addAllowCharsets(string $allowCharsets)
+ * @method self addAllowCharsets(string $allowCharsets)
  *
  * AllowCollates
- * @method \Guanguans\SoarPHP\Soar addAllowCollates(string $allowCollates)
+ * @method self addAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar addAllowDropIndex($allowDropIndex)
+ * @method self addAllowDropIndex( $allowDropIndex)
  *
  * AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar addAllowEngines(string $allowEngines)
+ * @method self addAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar addAllowOnlineAsTest($allowOnlineAsTest)
+ * @method self addAllowOnlineAsTest( $allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar addBlacklist(string $blacklist)
+ * @method self addBlacklist(string $blacklist)
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar addCheckConfig($checkConfig)
+ * @method self addCheckConfig( $checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar addCleanupTestDatabase($cleanupTestDatabase)
+ * @method self addCleanupTestDatabase( $cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
- * @method \Guanguans\SoarPHP\Soar addColumnNotAllowType(string $columnNotAllowType)
+ * @method self addColumnNotAllowType(string $columnNotAllowType)
  *
  * Config file path
- * @method \Guanguans\SoarPHP\Soar addConfig(string $config)
+ * @method self addConfig(string $config)
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method \Guanguans\SoarPHP\Soar addDelimiter(string $delimiter)
+ * @method self addDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar addDropTestTemporary($dropTestTemporary)
+ * @method self addDropTestTemporary( $dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar addDryRun($dryRun)
+ * @method self addDryRun( $dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar addExplain($explain)
+ * @method self addExplain( $explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method \Guanguans\SoarPHP\Soar addExplainFormat(string $explainFormat)
+ * @method self addExplainFormat(string $explainFormat)
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method \Guanguans\SoarPHP\Soar addExplainMaxFiltered(float $explainMaxFiltered)
+ * @method self addExplainMaxFiltered(float $explainMaxFiltered)
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method \Guanguans\SoarPHP\Soar addExplainMaxKeys(int $explainMaxKeys)
+ * @method self addExplainMaxKeys(int $explainMaxKeys)
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method \Guanguans\SoarPHP\Soar addExplainMaxRows(int $explainMaxRows)
+ * @method self addExplainMaxRows(int $explainMaxRows)
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method \Guanguans\SoarPHP\Soar addExplainMinKeys(int $explainMinKeys)
+ * @method self addExplainMinKeys(int $explainMinKeys)
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method \Guanguans\SoarPHP\Soar addExplainSqlReportType(string $explainSqlReportType)
+ * @method self addExplainSqlReportType(string $explainSqlReportType)
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method \Guanguans\SoarPHP\Soar addExplainType(string $explainType)
+ * @method self addExplainType(string $explainType)
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method \Guanguans\SoarPHP\Soar addExplainWarnAccessType(string $explainWarnAccessType)
+ * @method self addExplainWarnAccessType(string $explainWarnAccessType)
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method \Guanguans\SoarPHP\Soar addExplainWarnExtra(string $explainWarnExtra)
+ * @method self addExplainWarnExtra(string $explainWarnExtra)
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method \Guanguans\SoarPHP\Soar addExplainWarnScalability(string $explainWarnScalability)
+ * @method self addExplainWarnScalability(string $explainWarnScalability)
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method \Guanguans\SoarPHP\Soar addExplainWarnSelectType(string $explainWarnSelectType)
+ * @method self addExplainWarnSelectType(string $explainWarnSelectType)
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method \Guanguans\SoarPHP\Soar addIgnoreRules(string $ignoreRules)
+ * @method self addIgnoreRules(string $ignoreRules)
  *
  * IdxPrefix (default "idx_")
- * @method \Guanguans\SoarPHP\Soar addIndexPrefix(string $indexPrefix)
+ * @method self addIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar addListHeuristicRules($listHeuristicRules)
+ * @method self addListHeuristicRules( $listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar addListReportTypes($listReportTypes)
+ * @method self addListReportTypes( $listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar addListRewriteRules($listRewriteRules)
+ * @method self addListRewriteRules( $listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar addListTestSqls($listTestSqls)
+ * @method self addListTestSqls( $listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method \Guanguans\SoarPHP\Soar addLogLevel(int $logLevel)
+ * @method self addLogLevel(int $logLevel)
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method \Guanguans\SoarPHP\Soar addLogOutput(string $logOutput)
+ * @method self addLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar addLogErrStacks($logErrStacks)
+ * @method self addLogErrStacks( $logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method \Guanguans\SoarPHP\Soar addLogRotateMaxSize(int $logRotateMaxSize)
+ * @method self addLogRotateMaxSize(int $logRotateMaxSize)
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method \Guanguans\SoarPHP\Soar addMarkdownExtensions(int $markdownExtensions)
+ * @method self addMarkdownExtensions(int $markdownExtensions)
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method \Guanguans\SoarPHP\Soar addMarkdownHtmlFlags(int $markdownHtmlFlags)
+ * @method self addMarkdownHtmlFlags(int $markdownHtmlFlags)
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method \Guanguans\SoarPHP\Soar addMaxColumnCount(int $maxColumnCount)
+ * @method self addMaxColumnCount(int $maxColumnCount)
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar addMaxDistinctCount(int $maxDistinctCount)
+ * @method self addMaxDistinctCount(int $maxDistinctCount)
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar addMaxGroupByColsCount(int $maxGroupByColsCount)
+ * @method self addMaxGroupByColsCount(int $maxGroupByColsCount)
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method \Guanguans\SoarPHP\Soar addMaxInCount(int $maxInCount)
+ * @method self addMaxInCount(int $maxInCount)
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method \Guanguans\SoarPHP\Soar addMaxIndexBytes(int $maxIndexBytes)
+ * @method self addMaxIndexBytes(int $maxIndexBytes)
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method \Guanguans\SoarPHP\Soar addMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
+ * @method self addMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar addMaxIndexColsCount(int $maxIndexColsCount)
+ * @method self addMaxIndexColsCount(int $maxIndexColsCount)
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method \Guanguans\SoarPHP\Soar addMaxIndexCount(int $maxIndexCount)
+ * @method self addMaxIndexCount(int $maxIndexCount)
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar addMaxJoinTableCount(int $maxJoinTableCount)
+ * @method self addMaxJoinTableCount(int $maxJoinTableCount)
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method \Guanguans\SoarPHP\Soar addMaxPrettySqlLength(int $maxPrettySqlLength)
+ * @method self addMaxPrettySqlLength(int $maxPrettySqlLength)
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method \Guanguans\SoarPHP\Soar addMaxQueryCost(int $maxQueryCost)
+ * @method self addMaxQueryCost(int $maxQueryCost)
  *
  * MaxSubqueryDepth (default 5)
- * @method \Guanguans\SoarPHP\Soar addMaxSubqueryDepth(int $maxSubqueryDepth)
+ * @method self addMaxSubqueryDepth(int $maxSubqueryDepth)
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method \Guanguans\SoarPHP\Soar addMaxTextColsCount(int $maxTextColsCount)
+ * @method self addMaxTextColsCount(int $maxTextColsCount)
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method \Guanguans\SoarPHP\Soar addMaxTotalRows(int $maxTotalRows)
+ * @method self addMaxTotalRows(int $maxTotalRows)
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method \Guanguans\SoarPHP\Soar addMaxValueCount(int $maxValueCount)
+ * @method self addMaxValueCount(int $maxValueCount)
  *
  * MaxVarcharLength (default 1024)
- * @method \Guanguans\SoarPHP\Soar addMaxVarcharLength(int $maxVarcharLength)
+ * @method self addMaxVarcharLength(int $maxVarcharLength)
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method \Guanguans\SoarPHP\Soar addMinCardinality(float $minCardinality)
+ * @method self addMinCardinality(float $minCardinality)
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar addOnlineDsn(string $onlineDsn)
+ * @method self addOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar addOnlySyntaxCheck($onlySyntaxCheck)
+ * @method self addOnlySyntaxCheck( $onlySyntaxCheck)
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar addPrintConfig($printConfig)
+ * @method self addPrintConfig( $printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar addProfiling($profiling)
+ * @method self addProfiling( $profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method \Guanguans\SoarPHP\Soar addQuery(string $query)
+ * @method self addQuery(string $query)
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar addReportCss(string $reportCss)
+ * @method self addReportCss(string $reportCss)
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar addReportJavascript(string $reportJavascript)
+ * @method self addReportJavascript(string $reportJavascript)
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method \Guanguans\SoarPHP\Soar addReportTitle(string $reportTitle)
+ * @method self addReportTitle(string $reportTitle)
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method \Guanguans\SoarPHP\Soar addReportType(string $reportType)
+ * @method self addReportType(string $reportType)
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method \Guanguans\SoarPHP\Soar addRewriteRules(string $rewriteRules)
+ * @method self addRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar addSampling($sampling)
+ * @method self addSampling( $sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method \Guanguans\SoarPHP\Soar addSamplingCondition(string $samplingCondition)
+ * @method self addSamplingCondition(string $samplingCondition)
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method \Guanguans\SoarPHP\Soar addSamplingStatisticTarget(int $samplingStatisticTarget)
+ * @method self addSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar addShowLastQueryCost($showLastQueryCost)
+ * @method self addShowLastQueryCost( $showLastQueryCost)
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar addShowWarnings($showWarnings)
+ * @method self addShowWarnings( $showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method \Guanguans\SoarPHP\Soar addSpaghettiQueryLength(int $spaghettiQueryLength)
+ * @method self addSpaghettiQueryLength(int $spaghettiQueryLength)
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar addTestDsn(string $testDsn)
+ * @method self addTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar addTrace($trace)
+ * @method self addTrace( $trace)
  *
  * UkPrefix (default "uk_")
- * @method \Guanguans\SoarPHP\Soar addUniqueKeyPrefix(string $uniqueKeyPrefix)
+ * @method self addUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar addVerbose($verbose)
+ * @method self addVerbose( $verbose)
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar addVersion($version)
+ * @method self addVersion( $version)
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar addHelp($help)
+ * @method self addHelp( $help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method \Guanguans\SoarPHP\Soar removeAllowCharsets()
+ * @method self removeAllowCharsets()
  *
  * AllowCollates
- * @method \Guanguans\SoarPHP\Soar removeAllowCollates()
+ * @method self removeAllowCollates()
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar removeAllowDropIndex()
+ * @method self removeAllowDropIndex()
  *
  * AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar removeAllowEngines()
+ * @method self removeAllowEngines()
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar removeAllowOnlineAsTest()
+ * @method self removeAllowOnlineAsTest()
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar removeBlacklist()
+ * @method self removeBlacklist()
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar removeCheckConfig()
+ * @method self removeCheckConfig()
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar removeCleanupTestDatabase()
+ * @method self removeCleanupTestDatabase()
  *
  * ColumnNotAllowType (default "boolean")
- * @method \Guanguans\SoarPHP\Soar removeColumnNotAllowType()
+ * @method self removeColumnNotAllowType()
  *
  * Config file path
- * @method \Guanguans\SoarPHP\Soar removeConfig()
+ * @method self removeConfig()
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method \Guanguans\SoarPHP\Soar removeDelimiter()
+ * @method self removeDelimiter()
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar removeDropTestTemporary()
+ * @method self removeDropTestTemporary()
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar removeDryRun()
+ * @method self removeDryRun()
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar removeExplain()
+ * @method self removeExplain()
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method \Guanguans\SoarPHP\Soar removeExplainFormat()
+ * @method self removeExplainFormat()
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method \Guanguans\SoarPHP\Soar removeExplainMaxFiltered()
+ * @method self removeExplainMaxFiltered()
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method \Guanguans\SoarPHP\Soar removeExplainMaxKeys()
+ * @method self removeExplainMaxKeys()
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method \Guanguans\SoarPHP\Soar removeExplainMaxRows()
+ * @method self removeExplainMaxRows()
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method \Guanguans\SoarPHP\Soar removeExplainMinKeys()
+ * @method self removeExplainMinKeys()
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method \Guanguans\SoarPHP\Soar removeExplainSqlReportType()
+ * @method self removeExplainSqlReportType()
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method \Guanguans\SoarPHP\Soar removeExplainType()
+ * @method self removeExplainType()
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method \Guanguans\SoarPHP\Soar removeExplainWarnAccessType()
+ * @method self removeExplainWarnAccessType()
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method \Guanguans\SoarPHP\Soar removeExplainWarnExtra()
+ * @method self removeExplainWarnExtra()
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method \Guanguans\SoarPHP\Soar removeExplainWarnScalability()
+ * @method self removeExplainWarnScalability()
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method \Guanguans\SoarPHP\Soar removeExplainWarnSelectType()
+ * @method self removeExplainWarnSelectType()
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method \Guanguans\SoarPHP\Soar removeIgnoreRules()
+ * @method self removeIgnoreRules()
  *
  * IdxPrefix (default "idx_")
- * @method \Guanguans\SoarPHP\Soar removeIndexPrefix()
+ * @method self removeIndexPrefix()
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar removeListHeuristicRules()
+ * @method self removeListHeuristicRules()
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar removeListReportTypes()
+ * @method self removeListReportTypes()
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar removeListRewriteRules()
+ * @method self removeListRewriteRules()
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar removeListTestSqls()
+ * @method self removeListTestSqls()
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method \Guanguans\SoarPHP\Soar removeLogLevel()
+ * @method self removeLogLevel()
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method \Guanguans\SoarPHP\Soar removeLogOutput()
+ * @method self removeLogOutput()
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar removeLogErrStacks()
+ * @method self removeLogErrStacks()
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method \Guanguans\SoarPHP\Soar removeLogRotateMaxSize()
+ * @method self removeLogRotateMaxSize()
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method \Guanguans\SoarPHP\Soar removeMarkdownExtensions()
+ * @method self removeMarkdownExtensions()
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method \Guanguans\SoarPHP\Soar removeMarkdownHtmlFlags()
+ * @method self removeMarkdownHtmlFlags()
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method \Guanguans\SoarPHP\Soar removeMaxColumnCount()
+ * @method self removeMaxColumnCount()
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar removeMaxDistinctCount()
+ * @method self removeMaxDistinctCount()
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar removeMaxGroupByColsCount()
+ * @method self removeMaxGroupByColsCount()
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method \Guanguans\SoarPHP\Soar removeMaxInCount()
+ * @method self removeMaxInCount()
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method \Guanguans\SoarPHP\Soar removeMaxIndexBytes()
+ * @method self removeMaxIndexBytes()
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method \Guanguans\SoarPHP\Soar removeMaxIndexBytesPercolumn()
+ * @method self removeMaxIndexBytesPercolumn()
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar removeMaxIndexColsCount()
+ * @method self removeMaxIndexColsCount()
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method \Guanguans\SoarPHP\Soar removeMaxIndexCount()
+ * @method self removeMaxIndexCount()
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar removeMaxJoinTableCount()
+ * @method self removeMaxJoinTableCount()
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method \Guanguans\SoarPHP\Soar removeMaxPrettySqlLength()
+ * @method self removeMaxPrettySqlLength()
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method \Guanguans\SoarPHP\Soar removeMaxQueryCost()
+ * @method self removeMaxQueryCost()
  *
  * MaxSubqueryDepth (default 5)
- * @method \Guanguans\SoarPHP\Soar removeMaxSubqueryDepth()
+ * @method self removeMaxSubqueryDepth()
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method \Guanguans\SoarPHP\Soar removeMaxTextColsCount()
+ * @method self removeMaxTextColsCount()
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method \Guanguans\SoarPHP\Soar removeMaxTotalRows()
+ * @method self removeMaxTotalRows()
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method \Guanguans\SoarPHP\Soar removeMaxValueCount()
+ * @method self removeMaxValueCount()
  *
  * MaxVarcharLength (default 1024)
- * @method \Guanguans\SoarPHP\Soar removeMaxVarcharLength()
+ * @method self removeMaxVarcharLength()
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method \Guanguans\SoarPHP\Soar removeMinCardinality()
+ * @method self removeMinCardinality()
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar removeOnlineDsn()
+ * @method self removeOnlineDsn()
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar removeOnlySyntaxCheck()
+ * @method self removeOnlySyntaxCheck()
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar removePrintConfig()
+ * @method self removePrintConfig()
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar removeProfiling()
+ * @method self removeProfiling()
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method \Guanguans\SoarPHP\Soar removeQuery()
+ * @method self removeQuery()
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar removeReportCss()
+ * @method self removeReportCss()
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar removeReportJavascript()
+ * @method self removeReportJavascript()
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method \Guanguans\SoarPHP\Soar removeReportTitle()
+ * @method self removeReportTitle()
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method \Guanguans\SoarPHP\Soar removeReportType()
+ * @method self removeReportType()
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method \Guanguans\SoarPHP\Soar removeRewriteRules()
+ * @method self removeRewriteRules()
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar removeSampling()
+ * @method self removeSampling()
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method \Guanguans\SoarPHP\Soar removeSamplingCondition()
+ * @method self removeSamplingCondition()
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method \Guanguans\SoarPHP\Soar removeSamplingStatisticTarget()
+ * @method self removeSamplingStatisticTarget()
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar removeShowLastQueryCost()
+ * @method self removeShowLastQueryCost()
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar removeShowWarnings()
+ * @method self removeShowWarnings()
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method \Guanguans\SoarPHP\Soar removeSpaghettiQueryLength()
+ * @method self removeSpaghettiQueryLength()
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar removeTestDsn()
+ * @method self removeTestDsn()
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar removeTrace()
+ * @method self removeTrace()
  *
  * UkPrefix (default "uk_")
- * @method \Guanguans\SoarPHP\Soar removeUniqueKeyPrefix()
+ * @method self removeUniqueKeyPrefix()
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar removeVerbose()
+ * @method self removeVerbose()
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar removeVersion()
+ * @method self removeVersion()
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar removeHelp()
+ * @method self removeHelp()
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method \Guanguans\SoarPHP\Soar onlyAllowCharsets()
+ * @method self onlyAllowCharsets()
  *
  * AllowCollates
- * @method \Guanguans\SoarPHP\Soar onlyAllowCollates()
+ * @method self onlyAllowCollates()
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar onlyAllowDropIndex()
+ * @method self onlyAllowDropIndex()
  *
  * AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar onlyAllowEngines()
+ * @method self onlyAllowEngines()
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar onlyAllowOnlineAsTest()
+ * @method self onlyAllowOnlineAsTest()
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar onlyBlacklist()
+ * @method self onlyBlacklist()
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar onlyCheckConfig()
+ * @method self onlyCheckConfig()
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar onlyCleanupTestDatabase()
+ * @method self onlyCleanupTestDatabase()
  *
  * ColumnNotAllowType (default "boolean")
- * @method \Guanguans\SoarPHP\Soar onlyColumnNotAllowType()
+ * @method self onlyColumnNotAllowType()
  *
  * Config file path
- * @method \Guanguans\SoarPHP\Soar onlyConfig()
+ * @method self onlyConfig()
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method \Guanguans\SoarPHP\Soar onlyDelimiter()
+ * @method self onlyDelimiter()
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar onlyDropTestTemporary()
+ * @method self onlyDropTestTemporary()
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar onlyDryRun()
+ * @method self onlyDryRun()
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar onlyExplain()
+ * @method self onlyExplain()
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method \Guanguans\SoarPHP\Soar onlyExplainFormat()
+ * @method self onlyExplainFormat()
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method \Guanguans\SoarPHP\Soar onlyExplainMaxFiltered()
+ * @method self onlyExplainMaxFiltered()
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method \Guanguans\SoarPHP\Soar onlyExplainMaxKeys()
+ * @method self onlyExplainMaxKeys()
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method \Guanguans\SoarPHP\Soar onlyExplainMaxRows()
+ * @method self onlyExplainMaxRows()
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method \Guanguans\SoarPHP\Soar onlyExplainMinKeys()
+ * @method self onlyExplainMinKeys()
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method \Guanguans\SoarPHP\Soar onlyExplainSqlReportType()
+ * @method self onlyExplainSqlReportType()
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method \Guanguans\SoarPHP\Soar onlyExplainType()
+ * @method self onlyExplainType()
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method \Guanguans\SoarPHP\Soar onlyExplainWarnAccessType()
+ * @method self onlyExplainWarnAccessType()
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method \Guanguans\SoarPHP\Soar onlyExplainWarnExtra()
+ * @method self onlyExplainWarnExtra()
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method \Guanguans\SoarPHP\Soar onlyExplainWarnScalability()
+ * @method self onlyExplainWarnScalability()
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method \Guanguans\SoarPHP\Soar onlyExplainWarnSelectType()
+ * @method self onlyExplainWarnSelectType()
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method \Guanguans\SoarPHP\Soar onlyIgnoreRules()
+ * @method self onlyIgnoreRules()
  *
  * IdxPrefix (default "idx_")
- * @method \Guanguans\SoarPHP\Soar onlyIndexPrefix()
+ * @method self onlyIndexPrefix()
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar onlyListHeuristicRules()
+ * @method self onlyListHeuristicRules()
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar onlyListReportTypes()
+ * @method self onlyListReportTypes()
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar onlyListRewriteRules()
+ * @method self onlyListRewriteRules()
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar onlyListTestSqls()
+ * @method self onlyListTestSqls()
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method \Guanguans\SoarPHP\Soar onlyLogLevel()
+ * @method self onlyLogLevel()
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method \Guanguans\SoarPHP\Soar onlyLogOutput()
+ * @method self onlyLogOutput()
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar onlyLogErrStacks()
+ * @method self onlyLogErrStacks()
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method \Guanguans\SoarPHP\Soar onlyLogRotateMaxSize()
+ * @method self onlyLogRotateMaxSize()
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method \Guanguans\SoarPHP\Soar onlyMarkdownExtensions()
+ * @method self onlyMarkdownExtensions()
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method \Guanguans\SoarPHP\Soar onlyMarkdownHtmlFlags()
+ * @method self onlyMarkdownHtmlFlags()
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method \Guanguans\SoarPHP\Soar onlyMaxColumnCount()
+ * @method self onlyMaxColumnCount()
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar onlyMaxDistinctCount()
+ * @method self onlyMaxDistinctCount()
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar onlyMaxGroupByColsCount()
+ * @method self onlyMaxGroupByColsCount()
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method \Guanguans\SoarPHP\Soar onlyMaxInCount()
+ * @method self onlyMaxInCount()
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method \Guanguans\SoarPHP\Soar onlyMaxIndexBytes()
+ * @method self onlyMaxIndexBytes()
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method \Guanguans\SoarPHP\Soar onlyMaxIndexBytesPercolumn()
+ * @method self onlyMaxIndexBytesPercolumn()
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar onlyMaxIndexColsCount()
+ * @method self onlyMaxIndexColsCount()
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method \Guanguans\SoarPHP\Soar onlyMaxIndexCount()
+ * @method self onlyMaxIndexCount()
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar onlyMaxJoinTableCount()
+ * @method self onlyMaxJoinTableCount()
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method \Guanguans\SoarPHP\Soar onlyMaxPrettySqlLength()
+ * @method self onlyMaxPrettySqlLength()
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method \Guanguans\SoarPHP\Soar onlyMaxQueryCost()
+ * @method self onlyMaxQueryCost()
  *
  * MaxSubqueryDepth (default 5)
- * @method \Guanguans\SoarPHP\Soar onlyMaxSubqueryDepth()
+ * @method self onlyMaxSubqueryDepth()
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method \Guanguans\SoarPHP\Soar onlyMaxTextColsCount()
+ * @method self onlyMaxTextColsCount()
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method \Guanguans\SoarPHP\Soar onlyMaxTotalRows()
+ * @method self onlyMaxTotalRows()
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method \Guanguans\SoarPHP\Soar onlyMaxValueCount()
+ * @method self onlyMaxValueCount()
  *
  * MaxVarcharLength (default 1024)
- * @method \Guanguans\SoarPHP\Soar onlyMaxVarcharLength()
+ * @method self onlyMaxVarcharLength()
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method \Guanguans\SoarPHP\Soar onlyMinCardinality()
+ * @method self onlyMinCardinality()
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar onlyOnlineDsn()
+ * @method self onlyOnlineDsn()
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar onlyOnlySyntaxCheck()
+ * @method self onlyOnlySyntaxCheck()
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar onlyPrintConfig()
+ * @method self onlyPrintConfig()
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar onlyProfiling()
+ * @method self onlyProfiling()
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method \Guanguans\SoarPHP\Soar onlyQuery()
+ * @method self onlyQuery()
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar onlyReportCss()
+ * @method self onlyReportCss()
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar onlyReportJavascript()
+ * @method self onlyReportJavascript()
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method \Guanguans\SoarPHP\Soar onlyReportTitle()
+ * @method self onlyReportTitle()
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method \Guanguans\SoarPHP\Soar onlyReportType()
+ * @method self onlyReportType()
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method \Guanguans\SoarPHP\Soar onlyRewriteRules()
+ * @method self onlyRewriteRules()
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar onlySampling()
+ * @method self onlySampling()
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method \Guanguans\SoarPHP\Soar onlySamplingCondition()
+ * @method self onlySamplingCondition()
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method \Guanguans\SoarPHP\Soar onlySamplingStatisticTarget()
+ * @method self onlySamplingStatisticTarget()
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar onlyShowLastQueryCost()
+ * @method self onlyShowLastQueryCost()
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar onlyShowWarnings()
+ * @method self onlyShowWarnings()
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method \Guanguans\SoarPHP\Soar onlySpaghettiQueryLength()
+ * @method self onlySpaghettiQueryLength()
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar onlyTestDsn()
+ * @method self onlyTestDsn()
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar onlyTrace()
+ * @method self onlyTrace()
  *
  * UkPrefix (default "uk_")
- * @method \Guanguans\SoarPHP\Soar onlyUniqueKeyPrefix()
+ * @method self onlyUniqueKeyPrefix()
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar onlyVerbose()
+ * @method self onlyVerbose()
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar onlyVersion()
+ * @method self onlyVersion()
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar onlyHelp()
+ * @method self onlyHelp()
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method \Guanguans\SoarPHP\Soar setAllowCharsets(string $allowCharsets)
+ * @method self setAllowCharsets(string $allowCharsets)
  *
  * AllowCollates
- * @method \Guanguans\SoarPHP\Soar setAllowCollates(string $allowCollates)
+ * @method self setAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar setAllowDropIndex($allowDropIndex)
+ * @method self setAllowDropIndex( $allowDropIndex)
  *
  * AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar setAllowEngines(string $allowEngines)
+ * @method self setAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar setAllowOnlineAsTest($allowOnlineAsTest)
+ * @method self setAllowOnlineAsTest( $allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar setBlacklist(string $blacklist)
+ * @method self setBlacklist(string $blacklist)
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar setCheckConfig($checkConfig)
+ * @method self setCheckConfig( $checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar setCleanupTestDatabase($cleanupTestDatabase)
+ * @method self setCleanupTestDatabase( $cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
- * @method \Guanguans\SoarPHP\Soar setColumnNotAllowType(string $columnNotAllowType)
+ * @method self setColumnNotAllowType(string $columnNotAllowType)
  *
  * Config file path
- * @method \Guanguans\SoarPHP\Soar setConfig(string $config)
+ * @method self setConfig(string $config)
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method \Guanguans\SoarPHP\Soar setDelimiter(string $delimiter)
+ * @method self setDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar setDropTestTemporary($dropTestTemporary)
+ * @method self setDropTestTemporary( $dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar setDryRun($dryRun)
+ * @method self setDryRun( $dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar setExplain($explain)
+ * @method self setExplain( $explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method \Guanguans\SoarPHP\Soar setExplainFormat(string $explainFormat)
+ * @method self setExplainFormat(string $explainFormat)
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method \Guanguans\SoarPHP\Soar setExplainMaxFiltered(float $explainMaxFiltered)
+ * @method self setExplainMaxFiltered(float $explainMaxFiltered)
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method \Guanguans\SoarPHP\Soar setExplainMaxKeys(int $explainMaxKeys)
+ * @method self setExplainMaxKeys(int $explainMaxKeys)
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method \Guanguans\SoarPHP\Soar setExplainMaxRows(int $explainMaxRows)
+ * @method self setExplainMaxRows(int $explainMaxRows)
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method \Guanguans\SoarPHP\Soar setExplainMinKeys(int $explainMinKeys)
+ * @method self setExplainMinKeys(int $explainMinKeys)
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method \Guanguans\SoarPHP\Soar setExplainSqlReportType(string $explainSqlReportType)
+ * @method self setExplainSqlReportType(string $explainSqlReportType)
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method \Guanguans\SoarPHP\Soar setExplainType(string $explainType)
+ * @method self setExplainType(string $explainType)
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method \Guanguans\SoarPHP\Soar setExplainWarnAccessType(string $explainWarnAccessType)
+ * @method self setExplainWarnAccessType(string $explainWarnAccessType)
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method \Guanguans\SoarPHP\Soar setExplainWarnExtra(string $explainWarnExtra)
+ * @method self setExplainWarnExtra(string $explainWarnExtra)
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method \Guanguans\SoarPHP\Soar setExplainWarnScalability(string $explainWarnScalability)
+ * @method self setExplainWarnScalability(string $explainWarnScalability)
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method \Guanguans\SoarPHP\Soar setExplainWarnSelectType(string $explainWarnSelectType)
+ * @method self setExplainWarnSelectType(string $explainWarnSelectType)
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method \Guanguans\SoarPHP\Soar setIgnoreRules(string $ignoreRules)
+ * @method self setIgnoreRules(string $ignoreRules)
  *
  * IdxPrefix (default "idx_")
- * @method \Guanguans\SoarPHP\Soar setIndexPrefix(string $indexPrefix)
+ * @method self setIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar setListHeuristicRules($listHeuristicRules)
+ * @method self setListHeuristicRules( $listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar setListReportTypes($listReportTypes)
+ * @method self setListReportTypes( $listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar setListRewriteRules($listRewriteRules)
+ * @method self setListRewriteRules( $listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar setListTestSqls($listTestSqls)
+ * @method self setListTestSqls( $listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method \Guanguans\SoarPHP\Soar setLogLevel(int $logLevel)
+ * @method self setLogLevel(int $logLevel)
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method \Guanguans\SoarPHP\Soar setLogOutput(string $logOutput)
+ * @method self setLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar setLogErrStacks($logErrStacks)
+ * @method self setLogErrStacks( $logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method \Guanguans\SoarPHP\Soar setLogRotateMaxSize(int $logRotateMaxSize)
+ * @method self setLogRotateMaxSize(int $logRotateMaxSize)
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method \Guanguans\SoarPHP\Soar setMarkdownExtensions(int $markdownExtensions)
+ * @method self setMarkdownExtensions(int $markdownExtensions)
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method \Guanguans\SoarPHP\Soar setMarkdownHtmlFlags(int $markdownHtmlFlags)
+ * @method self setMarkdownHtmlFlags(int $markdownHtmlFlags)
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method \Guanguans\SoarPHP\Soar setMaxColumnCount(int $maxColumnCount)
+ * @method self setMaxColumnCount(int $maxColumnCount)
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar setMaxDistinctCount(int $maxDistinctCount)
+ * @method self setMaxDistinctCount(int $maxDistinctCount)
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar setMaxGroupByColsCount(int $maxGroupByColsCount)
+ * @method self setMaxGroupByColsCount(int $maxGroupByColsCount)
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method \Guanguans\SoarPHP\Soar setMaxInCount(int $maxInCount)
+ * @method self setMaxInCount(int $maxInCount)
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method \Guanguans\SoarPHP\Soar setMaxIndexBytes(int $maxIndexBytes)
+ * @method self setMaxIndexBytes(int $maxIndexBytes)
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method \Guanguans\SoarPHP\Soar setMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
+ * @method self setMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar setMaxIndexColsCount(int $maxIndexColsCount)
+ * @method self setMaxIndexColsCount(int $maxIndexColsCount)
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method \Guanguans\SoarPHP\Soar setMaxIndexCount(int $maxIndexCount)
+ * @method self setMaxIndexCount(int $maxIndexCount)
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar setMaxJoinTableCount(int $maxJoinTableCount)
+ * @method self setMaxJoinTableCount(int $maxJoinTableCount)
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method \Guanguans\SoarPHP\Soar setMaxPrettySqlLength(int $maxPrettySqlLength)
+ * @method self setMaxPrettySqlLength(int $maxPrettySqlLength)
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method \Guanguans\SoarPHP\Soar setMaxQueryCost(int $maxQueryCost)
+ * @method self setMaxQueryCost(int $maxQueryCost)
  *
  * MaxSubqueryDepth (default 5)
- * @method \Guanguans\SoarPHP\Soar setMaxSubqueryDepth(int $maxSubqueryDepth)
+ * @method self setMaxSubqueryDepth(int $maxSubqueryDepth)
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method \Guanguans\SoarPHP\Soar setMaxTextColsCount(int $maxTextColsCount)
+ * @method self setMaxTextColsCount(int $maxTextColsCount)
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method \Guanguans\SoarPHP\Soar setMaxTotalRows(int $maxTotalRows)
+ * @method self setMaxTotalRows(int $maxTotalRows)
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method \Guanguans\SoarPHP\Soar setMaxValueCount(int $maxValueCount)
+ * @method self setMaxValueCount(int $maxValueCount)
  *
  * MaxVarcharLength (default 1024)
- * @method \Guanguans\SoarPHP\Soar setMaxVarcharLength(int $maxVarcharLength)
+ * @method self setMaxVarcharLength(int $maxVarcharLength)
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method \Guanguans\SoarPHP\Soar setMinCardinality(float $minCardinality)
+ * @method self setMinCardinality(float $minCardinality)
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar setOnlineDsn(string $onlineDsn)
+ * @method self setOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar setOnlySyntaxCheck($onlySyntaxCheck)
+ * @method self setOnlySyntaxCheck( $onlySyntaxCheck)
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar setPrintConfig($printConfig)
+ * @method self setPrintConfig( $printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar setProfiling($profiling)
+ * @method self setProfiling( $profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method \Guanguans\SoarPHP\Soar setQuery(string $query)
+ * @method self setQuery(string $query)
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar setReportCss(string $reportCss)
+ * @method self setReportCss(string $reportCss)
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar setReportJavascript(string $reportJavascript)
+ * @method self setReportJavascript(string $reportJavascript)
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method \Guanguans\SoarPHP\Soar setReportTitle(string $reportTitle)
+ * @method self setReportTitle(string $reportTitle)
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method \Guanguans\SoarPHP\Soar setReportType(string $reportType)
+ * @method self setReportType(string $reportType)
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method \Guanguans\SoarPHP\Soar setRewriteRules(string $rewriteRules)
+ * @method self setRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar setSampling($sampling)
+ * @method self setSampling( $sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method \Guanguans\SoarPHP\Soar setSamplingCondition(string $samplingCondition)
+ * @method self setSamplingCondition(string $samplingCondition)
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method \Guanguans\SoarPHP\Soar setSamplingStatisticTarget(int $samplingStatisticTarget)
+ * @method self setSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar setShowLastQueryCost($showLastQueryCost)
+ * @method self setShowLastQueryCost( $showLastQueryCost)
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar setShowWarnings($showWarnings)
+ * @method self setShowWarnings( $showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method \Guanguans\SoarPHP\Soar setSpaghettiQueryLength(int $spaghettiQueryLength)
+ * @method self setSpaghettiQueryLength(int $spaghettiQueryLength)
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar setTestDsn(string $testDsn)
+ * @method self setTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar setTrace($trace)
+ * @method self setTrace( $trace)
  *
  * UkPrefix (default "uk_")
- * @method \Guanguans\SoarPHP\Soar setUniqueKeyPrefix(string $uniqueKeyPrefix)
+ * @method self setUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar setVerbose($verbose)
+ * @method self setVerbose( $verbose)
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar setVersion($version)
+ * @method self setVersion( $version)
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar setHelp($help)
+ * @method self setHelp( $help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method \Guanguans\SoarPHP\Soar mergeAllowCharsets(string $allowCharsets)
+ * @method self mergeAllowCharsets(string $allowCharsets)
  *
  * AllowCollates
- * @method \Guanguans\SoarPHP\Soar mergeAllowCollates(string $allowCollates)
+ * @method self mergeAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method \Guanguans\SoarPHP\Soar mergeAllowDropIndex($allowDropIndex)
+ * @method self mergeAllowDropIndex( $allowDropIndex)
  *
  * AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar mergeAllowEngines(string $allowEngines)
+ * @method self mergeAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method \Guanguans\SoarPHP\Soar mergeAllowOnlineAsTest($allowOnlineAsTest)
+ * @method self mergeAllowOnlineAsTest( $allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar mergeBlacklist(string $blacklist)
+ * @method self mergeBlacklist(string $blacklist)
  *
  * Check configs
- * @method \Guanguans\SoarPHP\Soar mergeCheckConfig($checkConfig)
+ * @method self mergeCheckConfig( $checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method \Guanguans\SoarPHP\Soar mergeCleanupTestDatabase($cleanupTestDatabase)
+ * @method self mergeCleanupTestDatabase( $cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
- * @method \Guanguans\SoarPHP\Soar mergeColumnNotAllowType(string $columnNotAllowType)
+ * @method self mergeColumnNotAllowType(string $columnNotAllowType)
  *
  * Config file path
- * @method \Guanguans\SoarPHP\Soar mergeConfig(string $config)
+ * @method self mergeConfig(string $config)
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method \Guanguans\SoarPHP\Soar mergeDelimiter(string $delimiter)
+ * @method self mergeDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method \Guanguans\SoarPHP\Soar mergeDropTestTemporary($dropTestTemporary)
+ * @method self mergeDropTestTemporary( $dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method \Guanguans\SoarPHP\Soar mergeDryRun($dryRun)
+ * @method self mergeDryRun( $dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method \Guanguans\SoarPHP\Soar mergeExplain($explain)
+ * @method self mergeExplain( $explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method \Guanguans\SoarPHP\Soar mergeExplainFormat(string $explainFormat)
+ * @method self mergeExplainFormat(string $explainFormat)
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method \Guanguans\SoarPHP\Soar mergeExplainMaxFiltered(float $explainMaxFiltered)
+ * @method self mergeExplainMaxFiltered(float $explainMaxFiltered)
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method \Guanguans\SoarPHP\Soar mergeExplainMaxKeys(int $explainMaxKeys)
+ * @method self mergeExplainMaxKeys(int $explainMaxKeys)
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method \Guanguans\SoarPHP\Soar mergeExplainMaxRows(int $explainMaxRows)
+ * @method self mergeExplainMaxRows(int $explainMaxRows)
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method \Guanguans\SoarPHP\Soar mergeExplainMinKeys(int $explainMinKeys)
+ * @method self mergeExplainMinKeys(int $explainMinKeys)
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method \Guanguans\SoarPHP\Soar mergeExplainSqlReportType(string $explainSqlReportType)
+ * @method self mergeExplainSqlReportType(string $explainSqlReportType)
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method \Guanguans\SoarPHP\Soar mergeExplainType(string $explainType)
+ * @method self mergeExplainType(string $explainType)
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method \Guanguans\SoarPHP\Soar mergeExplainWarnAccessType(string $explainWarnAccessType)
+ * @method self mergeExplainWarnAccessType(string $explainWarnAccessType)
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method \Guanguans\SoarPHP\Soar mergeExplainWarnExtra(string $explainWarnExtra)
+ * @method self mergeExplainWarnExtra(string $explainWarnExtra)
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method \Guanguans\SoarPHP\Soar mergeExplainWarnScalability(string $explainWarnScalability)
+ * @method self mergeExplainWarnScalability(string $explainWarnScalability)
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method \Guanguans\SoarPHP\Soar mergeExplainWarnSelectType(string $explainWarnSelectType)
+ * @method self mergeExplainWarnSelectType(string $explainWarnSelectType)
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method \Guanguans\SoarPHP\Soar mergeIgnoreRules(string $ignoreRules)
+ * @method self mergeIgnoreRules(string $ignoreRules)
  *
  * IdxPrefix (default "idx_")
- * @method \Guanguans\SoarPHP\Soar mergeIndexPrefix(string $indexPrefix)
+ * @method self mergeIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method \Guanguans\SoarPHP\Soar mergeListHeuristicRules($listHeuristicRules)
+ * @method self mergeListHeuristicRules( $listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method \Guanguans\SoarPHP\Soar mergeListReportTypes($listReportTypes)
+ * @method self mergeListReportTypes( $listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method \Guanguans\SoarPHP\Soar mergeListRewriteRules($listRewriteRules)
+ * @method self mergeListRewriteRules( $listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method \Guanguans\SoarPHP\Soar mergeListTestSqls($listTestSqls)
+ * @method self mergeListTestSqls( $listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method \Guanguans\SoarPHP\Soar mergeLogLevel(int $logLevel)
+ * @method self mergeLogLevel(int $logLevel)
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method \Guanguans\SoarPHP\Soar mergeLogOutput(string $logOutput)
+ * @method self mergeLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method \Guanguans\SoarPHP\Soar mergeLogErrStacks($logErrStacks)
+ * @method self mergeLogErrStacks( $logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method \Guanguans\SoarPHP\Soar mergeLogRotateMaxSize(int $logRotateMaxSize)
+ * @method self mergeLogRotateMaxSize(int $logRotateMaxSize)
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method \Guanguans\SoarPHP\Soar mergeMarkdownExtensions(int $markdownExtensions)
+ * @method self mergeMarkdownExtensions(int $markdownExtensions)
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method \Guanguans\SoarPHP\Soar mergeMarkdownHtmlFlags(int $markdownHtmlFlags)
+ * @method self mergeMarkdownHtmlFlags(int $markdownHtmlFlags)
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method \Guanguans\SoarPHP\Soar mergeMaxColumnCount(int $maxColumnCount)
+ * @method self mergeMaxColumnCount(int $maxColumnCount)
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar mergeMaxDistinctCount(int $maxDistinctCount)
+ * @method self mergeMaxDistinctCount(int $maxDistinctCount)
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar mergeMaxGroupByColsCount(int $maxGroupByColsCount)
+ * @method self mergeMaxGroupByColsCount(int $maxGroupByColsCount)
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method \Guanguans\SoarPHP\Soar mergeMaxInCount(int $maxInCount)
+ * @method self mergeMaxInCount(int $maxInCount)
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method \Guanguans\SoarPHP\Soar mergeMaxIndexBytes(int $maxIndexBytes)
+ * @method self mergeMaxIndexBytes(int $maxIndexBytes)
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method \Guanguans\SoarPHP\Soar mergeMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
+ * @method self mergeMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar mergeMaxIndexColsCount(int $maxIndexColsCount)
+ * @method self mergeMaxIndexColsCount(int $maxIndexColsCount)
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method \Guanguans\SoarPHP\Soar mergeMaxIndexCount(int $maxIndexCount)
+ * @method self mergeMaxIndexCount(int $maxIndexCount)
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method \Guanguans\SoarPHP\Soar mergeMaxJoinTableCount(int $maxJoinTableCount)
+ * @method self mergeMaxJoinTableCount(int $maxJoinTableCount)
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method \Guanguans\SoarPHP\Soar mergeMaxPrettySqlLength(int $maxPrettySqlLength)
+ * @method self mergeMaxPrettySqlLength(int $maxPrettySqlLength)
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method \Guanguans\SoarPHP\Soar mergeMaxQueryCost(int $maxQueryCost)
+ * @method self mergeMaxQueryCost(int $maxQueryCost)
  *
  * MaxSubqueryDepth (default 5)
- * @method \Guanguans\SoarPHP\Soar mergeMaxSubqueryDepth(int $maxSubqueryDepth)
+ * @method self mergeMaxSubqueryDepth(int $maxSubqueryDepth)
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method \Guanguans\SoarPHP\Soar mergeMaxTextColsCount(int $maxTextColsCount)
+ * @method self mergeMaxTextColsCount(int $maxTextColsCount)
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method \Guanguans\SoarPHP\Soar mergeMaxTotalRows(int $maxTotalRows)
+ * @method self mergeMaxTotalRows(int $maxTotalRows)
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method \Guanguans\SoarPHP\Soar mergeMaxValueCount(int $maxValueCount)
+ * @method self mergeMaxValueCount(int $maxValueCount)
  *
  * MaxVarcharLength (default 1024)
- * @method \Guanguans\SoarPHP\Soar mergeMaxVarcharLength(int $maxVarcharLength)
+ * @method self mergeMaxVarcharLength(int $maxVarcharLength)
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method \Guanguans\SoarPHP\Soar mergeMinCardinality(float $minCardinality)
+ * @method self mergeMinCardinality(float $minCardinality)
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar mergeOnlineDsn(string $onlineDsn)
+ * @method self mergeOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method \Guanguans\SoarPHP\Soar mergeOnlySyntaxCheck($onlySyntaxCheck)
+ * @method self mergeOnlySyntaxCheck( $onlySyntaxCheck)
  *
  * Print configs
- * @method \Guanguans\SoarPHP\Soar mergePrintConfig($printConfig)
+ * @method self mergePrintConfig( $printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method \Guanguans\SoarPHP\Soar mergeProfiling($profiling)
+ * @method self mergeProfiling( $profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method \Guanguans\SoarPHP\Soar mergeQuery(string $query)
+ * @method self mergeQuery(string $query)
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar mergeReportCss(string $reportCss)
+ * @method self mergeReportCss(string $reportCss)
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method \Guanguans\SoarPHP\Soar mergeReportJavascript(string $reportJavascript)
+ * @method self mergeReportJavascript(string $reportJavascript)
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method \Guanguans\SoarPHP\Soar mergeReportTitle(string $reportTitle)
+ * @method self mergeReportTitle(string $reportTitle)
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method \Guanguans\SoarPHP\Soar mergeReportType(string $reportType)
+ * @method self mergeReportType(string $reportType)
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method \Guanguans\SoarPHP\Soar mergeRewriteRules(string $rewriteRules)
+ * @method self mergeRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method \Guanguans\SoarPHP\Soar mergeSampling($sampling)
+ * @method self mergeSampling( $sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method \Guanguans\SoarPHP\Soar mergeSamplingCondition(string $samplingCondition)
+ * @method self mergeSamplingCondition(string $samplingCondition)
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method \Guanguans\SoarPHP\Soar mergeSamplingStatisticTarget(int $samplingStatisticTarget)
+ * @method self mergeSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method \Guanguans\SoarPHP\Soar mergeShowLastQueryCost($showLastQueryCost)
+ * @method self mergeShowLastQueryCost( $showLastQueryCost)
  *
  * ShowWarnings
- * @method \Guanguans\SoarPHP\Soar mergeShowWarnings($showWarnings)
+ * @method self mergeShowWarnings( $showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method \Guanguans\SoarPHP\Soar mergeSpaghettiQueryLength(int $spaghettiQueryLength)
+ * @method self mergeSpaghettiQueryLength(int $spaghettiQueryLength)
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method \Guanguans\SoarPHP\Soar mergeTestDsn(string $testDsn)
+ * @method self mergeTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method \Guanguans\SoarPHP\Soar mergeTrace($trace)
+ * @method self mergeTrace( $trace)
  *
  * UkPrefix (default "uk_")
- * @method \Guanguans\SoarPHP\Soar mergeUniqueKeyPrefix(string $uniqueKeyPrefix)
+ * @method self mergeUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method \Guanguans\SoarPHP\Soar mergeVerbose($verbose)
+ * @method self mergeVerbose( $verbose)
  *
  * Print version info
- * @method \Guanguans\SoarPHP\Soar mergeVersion($version)
+ * @method self mergeVersion( $version)
  *
  * Help
- * @method \Guanguans\SoarPHP\Soar mergeHelp($help)
+ * @method self mergeHelp( $help)
  *
  * AllowCharsets (default "utf8,utf8mb4")
  * @method null|string getAllowCharsets($default = null)
