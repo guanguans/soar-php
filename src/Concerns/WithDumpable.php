@@ -20,6 +20,8 @@ use Symfony\Component\VarDumper\VarDumper;
 trait WithDumpable
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @return never-return
      */
     public function dd(...$args): void

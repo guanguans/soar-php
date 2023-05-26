@@ -44,13 +44,13 @@ trait HasSoarPath
     private function getDefaultSoarPath(): string
     {
         if (OS::isWindows()) {
-            return __DIR__.'/../../bin/soar.windows-amd64';
+            return __DIR__.'/../../bin/soar.windows-amd64'; // @codeCoverageIgnore
         }
 
         if (OS::isMacOS()) {
             return OS::isArm() ? __DIR__.'/../../bin/soar.darwin-arm64' : __DIR__.'/../../bin/soar.darwin-amd64';
         }
 
-        return __DIR__.'/../../bin/soar.linux-amd64';
+        return __DIR__.'/../../bin/soar.linux-amd64'; // @codeCoverageIgnore
     }
 }
