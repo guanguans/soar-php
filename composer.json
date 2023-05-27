@@ -100,9 +100,7 @@
             ]
         },
         "phpstan": {
-            "includes": [
-                "extension.neon"
-            ]
+            "includes": []
         }
     },
     "scripts": {
