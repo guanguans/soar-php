@@ -2,6 +2,15 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v3.2.6 - 2023-06-16
+
+### What's Changed
+
+- Update dms/phpunit-arraysubset-asserts requirement from ^0.4 to ^0.4 || ^0.5 by @dependabot in https://github.com/guanguans/soar-php/pull/147
+- Update rector/rector requirement from ^0.16 to ^0.16 || ^0.17 by @dependabot in https://github.com/guanguans/soar-php/pull/146
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.2.5...v3.2.6
+
 ## v3.2.5 - 2023-05-27
 
 **Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.2.4...v3.2.5
