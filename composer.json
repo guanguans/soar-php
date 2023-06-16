@@ -39,7 +39,7 @@
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "composer/composer": "^2.5",
-        "dms/phpunit-arraysubset-asserts": "^0.4 || ^0.5",
+        "dms/phpunit-arraysubset-asserts": "^0.5",
         "friendsofphp/php-cs-fixer": "^3.4",
         "jetbrains/phpstorm-attributes": "^1.0",
         "johnkary/phpunit-speedtrap": "^4.0",
@@ -50,7 +50,7 @@
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^1.1",
         "phpunit/phpunit": "^8.5 || ^9.0 || ^10.0",
-        "rector/rector": "^0.16 || ^0.17",
+        "rector/rector": "^0.17",
         "roave/security-advisories": "dev-latest",
         "spatie/phpunit-snapshot-assertions": "^3.0 || ^4.0",
         "symfony/var-dumper": "^5.4 || ^6.0",
