@@ -26,7 +26,7 @@ use Guanguans\SoarPHP\Soar;
 final class SoarBench
 {
     /**
-     * @var \Guanguans\SoarPHP\Soar
+     * @var null|\Guanguans\SoarPHP\Soar
      */
     private $soar;
 
