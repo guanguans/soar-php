@@ -16,6 +16,7 @@ use Guanguans\SoarPHP\Concerns\ConcreteMagic;
 use Guanguans\SoarPHP\Concerns\ConcreteScores;
 use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\HasSoarPath;
+use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
 
@@ -25,6 +26,7 @@ class Soar implements Contracts\Soar
     use ConcreteScores;
     use HasOptions;
     use HasSoarPath;
+    use HasSudoPassword;
     use WithDumpable;
     use WithRunable;
 
