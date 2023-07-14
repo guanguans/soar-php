@@ -37,13 +37,13 @@ trait HasSudoPassword
         return $this;
     }
 
-    protected function shouldApplySudoPassword(): bool
-    {
-        return $this->sudoPassword && OS::isUnix() && (\PHP_SAPI !== 'cli' && \PHP_SAPI !== 'phpdbg');
-    }
-
-    protected function getEscapeSudoPassword(): string
+    protected function getEscapedSudoPassword(): string
     {
         return EscapeArg::escape($this->sudoPassword);
+    }
+
+    protected function shouldApplySudoPassword(): bool
+    {
+        return $this->sudoPassword && OS::isUnix() && ! \in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg'], true);
     }
 }

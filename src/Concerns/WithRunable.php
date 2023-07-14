@@ -62,7 +62,7 @@ trait WithRunable
         if ($this->shouldApplySudoPassword()) {
             $process = Process::fromShellCommandline(sprintf(
                 'echo %s | sudo -S %s',
-                $this->getEscapeSudoPassword(),
+                $this->getEscapedSudoPassword(),
                 $process->getCommandLine()
             ));
         }
