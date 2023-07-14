@@ -85,6 +85,15 @@ $soar->clone() // 克隆 soar，避免操作原始 soar 的选项。
 </details>
 
 <details>
+<summary><b>:warning: 在 unix 操作系统非 cli 环境中运行时，可能会抛出 `Fatal error: ...Exit Code: 2(Misuse of shell builtins)...`</b></summary>
+
+```php
+// Fatal error: Uncaught Guanguans\SoarPHP\Exceptions\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64' '-report-type=json' '-query=select * from users;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1938665] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x65 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x175 in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php:36 Stack trace: #0 /Users/yaozm/Documents/develop/soar-php/test.php(163): Guanguans\SoarPHP\Soar->run() #1 /User in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php on line 36
+$soar->setSudoPassword('your sudo password'); // 设置 sudo 密码，以 sudo 运行 soar 命令，避免出现上述错误。
+```
+</details>
+
+<details>
 <summary><b>SQL 评分(SQL 指纹、分数、Explain 解读、启发式规则建议、索引规则建议)</b></summary>
 
 ```php
