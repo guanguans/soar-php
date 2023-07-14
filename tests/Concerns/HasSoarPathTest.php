@@ -25,6 +25,10 @@ use Guanguans\Tests\TestCase;
  */
 class HasSoarPathTest extends TestCase
 {
+    /**
+     * @noinspection PhpUnreachableStatementInspection
+     * @noinspection PhpUnitTestFailedLineInspection
+     */
     public function testGetSoarPath(): void
     {
         // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();

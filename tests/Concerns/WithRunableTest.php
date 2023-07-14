@@ -45,8 +45,15 @@ class WithRunableTest extends TestCase
         $soar->setOnlySyntaxCheck(true)->setQuery($optionsOfError)->run();
     }
 
+    /**
+     * @noinspection PhpUnreachableStatementInspection
+     */
     public function testMisuseOfShellBuiltinsProcessFailedExceptionForRun(): void
     {
+        $this->markTestSkipped(
+            __METHOD__.'is skipped. Because run sudo command is not allowed in github actions.'
+        );
+
         $soar = new class() extends Soar {
             protected function shouldApplySudoPassword(): bool
             {
@@ -54,13 +61,14 @@ class WithRunableTest extends TestCase
             }
         };
         $fatalErrorMessages = [
-            'sudo',
-            'password',
+            'Password:Sorry, try again',
+            'sudo: no password was provided',
+            'sudo: 1 incorrect password attempt',
         ];
 
         $this->expectException(ProcessFailedException::class);
         foreach ($fatalErrorMessages as $fatalErrorMessage) {
-            // $this->expectExceptionMessage($fatalErrorMessage);
+            $this->expectExceptionMessage($fatalErrorMessage);
         }
 
         $soar->setSudoPassword('foo')->setQuery('select bar;')->run();

@@ -39,7 +39,7 @@ trait HasSudoPassword
 
     protected function getEscapedSudoPassword(): string
     {
-        return EscapeArg::escape($this->sudoPassword);
+        return EscapeArg::escape((string) $this->sudoPassword);
     }
 
     protected function shouldApplySudoPassword(): bool
