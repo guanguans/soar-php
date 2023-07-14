@@ -2,6 +2,14 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v3.3.0 - 2023-07-14
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/guanguans/soar-php/pull/148
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.2.7...v3.3.0
+
 ## v3.2.7 - 2023-06-17
 
 **Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.2.6...v3.2.7
