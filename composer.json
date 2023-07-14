@@ -39,6 +39,7 @@
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "composer/composer": "^2.5",
         "dms/phpunit-arraysubset-asserts": "^0.5",
+        "ergebnis/composer-normalize": "^2.19",
         "friendsofphp/php-cs-fixer": "^3.4",
         "jetbrains/phpstorm-attributes": "^1.0",
         "johnkary/phpunit-speedtrap": "^4.0",
@@ -78,6 +79,7 @@
     ],
     "config": {
         "allow-plugins": {
+            "ergebnis/composer-normalize": true,
             "phpstan/extension-installer": true
         },
         "apcu-autoloader": true,
@@ -110,23 +112,23 @@
         "post-update-cmd": [
             "@cghooks update"
         ],
+        "ai-commit": "/usr/local/opt/php@7.3/bin/php ./vendor/bin/ai-commit commit --generator=bito_cli --ansi",
+        "ai-commit-no-verify": "@ai-commit --commit-options=--no-verify",
         "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=5 --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
         "checks": [
-            "@mark-start",
+            "@composer-normalize",
             "@composer-validate",
-            "@mark-separate",
             "@md-lint",
-            "@mark-separate",
             "@lint",
-            "@mark-separate",
             "@style-lint",
-            "@mark-separate",
             "@test",
-            "@mark-separate",
-            "@psalm",
-            "@mark-finish"
+            "@psalm"
         ],
+        "composer-bin-all-update": "@composer bin all update --ansi -v",
+        "composer-check-platform-reqs": "@composer check-platform-reqs --lock --ansi -v",
+        "composer-normalize": "@composer normalize --dry-run --diff --ansi -v",
+        "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
         "dump-soar-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScript::dumpSoarDocblock",
         "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScript::dumpSoarConfig",

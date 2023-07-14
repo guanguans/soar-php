@@ -14,7 +14,6 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
-use Guanguans\SoarPHP\Support\EscapeArg;
 use Symfony\Component\Process\Process;
 
 /**
@@ -60,10 +59,10 @@ trait WithRunable
             ? Process::fromShellCommandline("$this->soarPath {$this->getSerializedNormalizedOptions()} $withOptions")
             : new Process(array_merge([$this->soarPath], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions(), []));
 
-        if ($this->sudoPassword) {
+        if ($this->shouldApplySudoPassword()) {
             $process = Process::fromShellCommandline(sprintf(
-                "'echo' %s | 'sudo' '-S' %s",
-                EscapeArg::escape($this->sudoPassword),
+                'echo %s | sudo -S %s',
+                $this->getEscapeSudoPassword(),
                 $process->getCommandLine()
             ));
         }
