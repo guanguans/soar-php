@@ -120,6 +120,7 @@ return static function (RectorConfig $rectorConfig): void {
         ],
 
         // paths
+        __DIR__.'/tests/Concerns/WithRunableTest.php',
         __DIR__.'/tests/AspectMock',
         '**/Fixture*',
         '**/Fixture/*',
