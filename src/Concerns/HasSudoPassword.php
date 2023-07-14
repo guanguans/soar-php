@@ -39,7 +39,7 @@ trait HasSudoPassword
 
     protected function shouldApplySudoPassword(): bool
     {
-        return OS::isUnix() && $this->sudoPassword;
+        return $this->sudoPassword && OS::isUnix() && (\PHP_SAPI !== 'cli' && \PHP_SAPI !== 'phpdbg');
     }
 
     protected function getEscapeSudoPassword(): string
