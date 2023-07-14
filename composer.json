@@ -142,8 +142,9 @@
         "mark-start": "printf '\\n!\\n!\\t\\033[0;36m%s\\033[0m\\n!\\n\\n' \"Started\"",
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
-        "pest": "@php ./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache --ansi -v",
+        "pest": "@php ./vendor/bin/pest",
         "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
+        "pest-migrate-configuration": "@pest --migrate-configuration",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "post-merge": [
@@ -155,7 +156,8 @@
         "rector-dry-run": "@rector --dry-run",
         "style-fix": "@php ./vendor/bin/php-cs-fixer fix --using-cache=yes --config=.php-cs-fixer.php --ansi -v",
         "style-lint": "@style-fix --diff --dry-run",
-        "test": "@php ./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text -v",
-        "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml"
+        "test": "@php ./vendor/bin/phpunit --coverage-text -v",
+        "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml",
+        "test-migrate-configuration": "@test --migrate-configuration"
     }
 }

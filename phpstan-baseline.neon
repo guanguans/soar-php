@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to method run\\(\\) on an unknown class Guanguans\\\\SoarPHP\\\\Concerns\\\\HasOptions\\.$#"
+			count: 3
+			path: src/Soar.php
+
+		-
+			message: "#^Call to method scores\\(\\) on an unknown class Guanguans\\\\SoarPHP\\\\Concerns\\\\HasOptions\\.$#"
+			count: 3
+			path: src/Soar.php
+
+		-
 			message: "#^Result of && is always false\\.$#"
 			count: 2
 			path: src/Soar.php

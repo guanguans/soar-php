@@ -41,6 +41,7 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\StrictArrayParamDimFetchRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames(true, false);
@@ -112,6 +113,9 @@ return static function (RectorConfig $rectorConfig): void {
         ],
         StaticClosureRector::class => [
             __DIR__.'/tests/Concerns/WithRunableTest.php',
+        ],
+        StrictArrayParamDimFetchRector::class => [
+            __DIR__.'/src/Concerns/WithDumpable.php',
         ],
 
         // paths
