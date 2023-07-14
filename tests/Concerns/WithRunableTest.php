@@ -25,7 +25,7 @@ use Symfony\Component\Process\Process;
  */
 class WithRunableTest extends TestCase
 {
-    public function testInvalidArgumentExceptionForExec(): void
+    public function testInvalidArgumentExceptionForRun(): void
     {
         $soar = Soar::create();
         $optionsOfError = true;
@@ -35,7 +35,7 @@ class WithRunableTest extends TestCase
         $soar->run($optionsOfError);
     }
 
-    public function testProcessFailedExceptionForExec(): void
+    public function testProcessFailedExceptionForRun(): void
     {
         $soar = Soar::create();
         $optionsOfError = 'optionsOfError';
@@ -43,6 +43,27 @@ class WithRunableTest extends TestCase
         $this->expectException(ProcessFailedException::class);
         $this->expectExceptionMessage($optionsOfError);
         $soar->setOnlySyntaxCheck(true)->setQuery($optionsOfError)->run();
+    }
+
+    public function testMisuseOfShellBuiltinsProcessFailedExceptionForRun(): void
+    {
+        $soar = new class() extends Soar {
+            protected function shouldApplySudoPassword(): bool
+            {
+                return true;
+            }
+        };
+        $fatalErrorMessages = [
+            'sudo',
+            'password',
+        ];
+
+        $this->expectException(ProcessFailedException::class);
+        foreach ($fatalErrorMessages as $fatalErrorMessage) {
+            // $this->expectExceptionMessage($fatalErrorMessage);
+        }
+
+        $soar->setSudoPassword('foo')->setQuery('select bar;')->run();
     }
 
     /**

@@ -113,6 +113,7 @@ return static function (RectorConfig $rectorConfig): void {
         ],
         StaticClosureRector::class => [
             __DIR__.'/tests/Concerns/WithRunableTest.php',
+            __DIR__.'/tests/Concerns/HasSudoPasswordTest.php',
         ],
         StrictArrayParamDimFetchRector::class => [
             __DIR__.'/src/Concerns/WithDumpable.php',
