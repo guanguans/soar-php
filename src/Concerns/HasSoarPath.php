@@ -41,6 +41,11 @@ trait HasSoarPath
         return $this;
     }
 
+    protected function getEscapedSoarPath(): string
+    {
+        return escape_argument($this->soarPath);
+    }
+
     private function getDefaultSoarPath(): string
     {
         if (OS::isWindows()) {

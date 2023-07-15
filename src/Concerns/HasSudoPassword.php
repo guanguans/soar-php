@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Support\EscapeArg;
 use Guanguans\SoarPHP\Support\OS;
 
 /**
@@ -39,7 +38,7 @@ trait HasSudoPassword
 
     protected function getEscapedSudoPassword(): string
     {
-        return EscapeArg::escape((string) $this->sudoPassword);
+        return escape_argument($this->sudoPassword);
     }
 
     protected function shouldApplySudoPassword(): bool
