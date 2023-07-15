@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 /**
  * AllowCharsets (default "utf8,utf8mb4")
+ *
  * @method self addAllowCharsets(string $allowCharsets)
  *
  * AllowCollates

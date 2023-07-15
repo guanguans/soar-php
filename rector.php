@@ -10,7 +10,6 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-use PHPUnit\Framework\TestCase;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
@@ -23,19 +22,16 @@ use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
-use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
-use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\StmtsAwareInterface\ReturnEarlyIfVariableRector;
 use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
-use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
-use Rector\PHPUnit\Rector\MethodCall\RemoveExpectAnyFromMockRector;
+use Rector\PHPUnit\CodeQuality\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
@@ -82,7 +78,6 @@ return static function (RectorConfig $rectorConfig): void {
         // rules
         // AddArrayDefaultToArrayPropertyRector::class,
         // AddDefaultValueForUndefinedVariableRector::class,
-        // AddSeeTestAnnotationRector::class,
         // CallableThisArrayToAnonymousFunctionRector::class,
         // ChangeAndIfToEarlyReturnRector::class,
         // ExplicitBoolCompareRector::class,
@@ -96,17 +91,16 @@ return static function (RectorConfig $rectorConfig): void {
         EncapsedStringsToSprintfRector::class,
         InlineIfToExplicitIfRector::class,
         LogicalToBooleanRector::class,
-        ReturnBinaryAndToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
 
         BooleanInBooleanNotRuleFixerRector::class => [
             __DIR__.'/src/Support/EscapeArg.php',
         ],
-        RemoveExpectAnyFromMockRector::class => [
-            __DIR__.'/tests/Concerns/WithDumpableTest.php',
-        ],
         ReturnEarlyIfVariableRector::class => [
             __DIR__.'/src/Support/EscapeArg.php',
+        ],
+        RemoveExpectAnyFromMockRector::class => [
+            __DIR__.'/tests/Concerns/WithDumpableTest.php',
         ],
         UnSpreadOperatorRector::class => [
             __DIR__.'/src/Concerns/WithDumpable.php',
@@ -157,23 +151,10 @@ return static function (RectorConfig $rectorConfig): void {
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_80,
         PHPUnitSetList::PHPUNIT_80,
-        PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
-        PHPUnitSetList::PHPUNIT_EXCEPTION,
-        PHPUnitSetList::REMOVE_MOCKS,
-        PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
-        // PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
-        PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ]);
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,
     ]);
-
-    // $rectorConfig->ruleWithConfiguration(
-    //     PreferThisOrSelfMethodCallRector::class,
-    //     [
-    //         TestCase::class => PreferenceSelfThis::PREFER_THIS,
-    //     ]
-    // );
 };

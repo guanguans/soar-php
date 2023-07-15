@@ -25,6 +25,7 @@ EOF;
 $finder = Finder::create()
     ->in([
         __DIR__.'/benchmarks',
+        __DIR__.'/examples',
         __DIR__.'/src',
         __DIR__.'/tests',
     ])
@@ -35,19 +36,7 @@ $finder = Finder::create()
         'vendor/',
         '__snapshots__/',
     ])
-    ->append([
-        __FILE__,
-        __DIR__.'/.phpstorm.meta.php',
-        __DIR__.'/composer-unused.php',
-        __DIR__.'/doctum.php',
-        __DIR__.'/rector.php',
-        __DIR__.'/rector-laravel.php',
-        __DIR__.'/monorepo-builder.php',
-        __DIR__.'/phparkitect.php',
-        // __DIR__.'/examples/soar.options.docblock.php',
-        __DIR__.'/examples/soar.options.example.php',
-        __DIR__.'/examples/soar.options.full.php',
-    ])
+    ->append(glob(__DIR__.'/{*,.*}.php', GLOB_BRACE))
     ->notPath([
         'bootstrap/*',
         'storage/*',
@@ -65,8 +54,8 @@ $finder = Finder::create()
 return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
-    ->setUsingCache(false)
-    ->setCacheFile(__DIR__.'/build/.php-cs-fixer.cache')
+    ->setUsingCache(true)
+    ->setCacheFile(__DIR__.'/.php-cs-fixer.cache')
     // ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     // ->registerCustomFixers(new PedroTroller\CS\Fixer\Fixers())
     ->setRules([
