@@ -57,7 +57,7 @@ trait WithRunable
     {
         $process = \is_string($withOptions)
             ? Process::fromShellCommandline(sprintf(
-                "%s {$this->getSerializedEscapedNormalizedOptions()} $withOptions",
+                "%s {$this->getHydratedEscapedNormalizedOptions()} $withOptions",
                 escape_argument($this->soarPath)
             ))
             : new Process(array_merge([$this->soarPath], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));

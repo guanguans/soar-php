@@ -102,11 +102,11 @@ class HasOptionsTest extends TestCase
         $this->assertIsArray($soar->getNormalizedOptions());
     }
 
-    public function testGetSerializedEscapedNormalizedOptions(): void
+    public function testGetHydratedEscapedNormalizedOptions(): void
     {
         $soar = Soar::create();
 
-        $this->assertIsString($soar->getSerializedEscapedNormalizedOptions());
+        $this->assertIsString($soar->getHydratedEscapedNormalizedOptions());
     }
 
     public function testGetOptions(): void

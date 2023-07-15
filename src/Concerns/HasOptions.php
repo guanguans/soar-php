@@ -1502,7 +1502,7 @@ trait HasOptions
     /**
      * @throws InvalidOptionException
      */
-    public function getSerializedEscapedNormalizedOptions(): string
+    public function getHydratedEscapedNormalizedOptions(): string
     {
         return implode(' ', $this->getEscapedNormalizedOptions());
     }
