@@ -1499,11 +1499,25 @@ trait HasOptions
         return $this->options[$key] ?? $default;
     }
 
-    public function getSerializedNormalizedOptions(): string
+    /**
+     * @throws InvalidOptionException
+     */
+    public function getSerializedEscapedNormalizedOptions(): string
     {
-        return implode(' ', $this->getNormalizedOptions());
+        return implode(' ', $this->getEscapedNormalizedOptions());
     }
 
+    /**
+     * @throws InvalidOptionException
+     */
+    public function getEscapedNormalizedOptions(): array
+    {
+        return array_map('escape_argument', $this->getNormalizedOptions());
+    }
+
+    /**
+     * @throws InvalidOptionException
+     */
     public function getNormalizedOptions(): array
     {
         return $this->normalizeOptions($this->options);

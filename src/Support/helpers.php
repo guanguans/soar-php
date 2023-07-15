@@ -10,6 +10,23 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
+use Guanguans\SoarPHP\Support\EscapeArg;
+use Symfony\Component\Process\Process;
+
+if (! function_exists('escape_argument')) {
+    /**
+     * Escapes a string to be used as a shell argument.
+     */
+    function escape_argument(?string $argument): string
+    {
+        return method_exists(Process::class, 'escapeArgument')
+            ? (function (?string $argument): string {
+                return $this->escapeArgument($argument);
+            })->call(new Process([]), $argument)
+            : EscapeArg::escape((string) $argument);
+    }
+}
+
 if (! function_exists('array_reduce_with_keys')) {
     function array_reduce_with_keys(array $array, callable $callback, $carry = null)
     {
