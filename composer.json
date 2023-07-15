@@ -119,7 +119,9 @@
         "checks": [
             "@composer-normalize",
             "@composer-validate",
+            "@json-lint",
             "@md-lint",
+            "@yaml-lint",
             "@lint",
             "@style-lint",
             "@test",
@@ -133,6 +135,7 @@
         "dump-soar-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScript::dumpSoarDocblock",
         "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScript::dumpSoarConfig",
         "dump-soar-yaml-config": "./bin/soar.darwin-amd64 -print-config -verbose > examples/soar.options.example.yaml",
+        "json-lint": "@php ./vendor/bin/jsonlint *.json .*rc",
         "lint": [
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
             "for DIR in ./src ./tests; do find $DIR -type f -name '*.php' -type f ! -name 'xxx.php' -exec php -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done"
@@ -158,6 +161,7 @@
         "style-lint": "@style-fix --diff --dry-run",
         "test": "@php ./vendor/bin/phpunit --coverage-text -v",
         "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml",
-        "test-migrate-configuration": "@test --migrate-configuration"
+        "test-migrate-configuration": "@test --migrate-configuration",
+        "yaml-lint": "@php ./vendor/bin/yaml-lint .github --ansi -v"
     }
 }
