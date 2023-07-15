@@ -31,7 +31,6 @@ class ConcreteMagicTest extends TestCase
         $this->assertInstanceOf(Soar::class, $unserializedSoar);
         $this->assertNotEmpty($unserializedSoar->getSoarPath());
         $this->assertNotEmpty($unserializedSoar->getOptions());
-        $this->assertNotEmpty($unserializedSoar->getNormalizedOptions());
     }
 
     /**
@@ -47,6 +46,5 @@ class ConcreteMagicTest extends TestCase
         $this->assertInstanceOf(Soar::class, $exportedSoar);
         $this->assertNotEmpty($exportedSoar->getSoarPath());
         $this->assertNotEmpty($exportedSoar->getOptions());
-        $this->assertNotEmpty($exportedSoar->getNormalizedOptions());
     }
 }

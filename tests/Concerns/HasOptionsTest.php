@@ -95,20 +95,6 @@ class HasOptionsTest extends TestCase
         $this->assertSame($val, $option);
     }
 
-    public function testGetNormalizedOptions(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertIsArray($soar->getNormalizedOptions());
-    }
-
-    public function testGetHydratedEscapedNormalizedOptions(): void
-    {
-        $soar = Soar::create();
-
-        $this->assertIsString($soar->getHydratedEscapedNormalizedOptions());
-    }
-
     public function testGetOptions(): void
     {
         $soar = Soar::create();
@@ -151,7 +137,9 @@ class HasOptionsTest extends TestCase
     {
         $this->expectException(InvalidOptionException::class);
         $this->expectExceptionMessage('object');
-        Soar::create(['foo' => $this->createMock(\stdClass::class)])->getNormalizedOptions();
+        (function (): array {
+            return $this->getNormalizedOptions();
+        })->call(Soar::create(['foo' => $this->createMock(\stdClass::class)]));
     }
 
     public function testNormalizeOptions(): void
@@ -183,6 +171,10 @@ class HasOptionsTest extends TestCase
             'invoke' => new InvokeOption(),
         ]);
 
-        $this->assertIsArray($soar->getNormalizedOptions());
+        $this->assertIsArray(
+            (function (): array {
+                return $this->getNormalizedOptions();
+            })->call($soar)
+        );
     }
 }

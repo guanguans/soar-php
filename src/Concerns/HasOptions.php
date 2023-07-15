@@ -1502,7 +1502,7 @@ trait HasOptions
     /**
      * @throws InvalidOptionException
      */
-    public function getHydratedEscapedNormalizedOptions(): string
+    protected function getHydratedEscapedNormalizedOptions(): string
     {
         return implode(' ', $this->getEscapedNormalizedOptions());
     }
@@ -1510,7 +1510,7 @@ trait HasOptions
     /**
      * @throws InvalidOptionException
      */
-    public function getEscapedNormalizedOptions(): array
+    protected function getEscapedNormalizedOptions(): array
     {
         return array_map('escape_argument', $this->getNormalizedOptions());
     }
@@ -1518,7 +1518,7 @@ trait HasOptions
     /**
      * @throws InvalidOptionException
      */
-    public function getNormalizedOptions(): array
+    protected function getNormalizedOptions(): array
     {
         return $this->normalizeOptions($this->options);
     }
