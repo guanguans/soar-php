@@ -59,6 +59,19 @@ class HasOptionsTest extends TestCase
         $this->assertNull($soar->getOption($key2));
     }
 
+    public function testOnlyDsn(): void
+    {
+        $soar = Soar::create([
+            $key1 = '-test-dsn' => $val = 'val',
+            $key2 = 'key2' => $val,
+        ]);
+        $soar = $soar->onlyDsn();
+
+        $this->assertSame($soar->getOption($key1), $val);
+        $this->assertNotSame($soar->getOption($key2), $val);
+        $this->assertNull($soar->getOption($key2));
+    }
+
     public function testSetOption(): void
     {
         $soar = Soar::create();

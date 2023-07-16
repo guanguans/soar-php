@@ -1441,7 +1441,7 @@ trait HasOptions
         return $this;
     }
 
-    public function onlyOptions(array $keys = ['-test-dsn', '-online-dsn']): self
+    public function onlyOptions(array $keys): self
     {
         $this->options = array_filter(
             $this->options,
@@ -1457,6 +1457,13 @@ trait HasOptions
     public function onlyOption(string $key): self
     {
         $this->onlyOptions([$key]);
+
+        return $this;
+    }
+
+    public function onlyDsn(): self
+    {
+        $this->onlyOptions(['-test-dsn', '-online-dsn']);
 
         return $this;
     }

@@ -46,12 +46,12 @@ class Soar implements Contracts\Soar
 
     public function help(): string
     {
-        return $this->clone()->onlyOptions()->setHelp(true)->run();
+        return $this->clone()->setHelp(true)->onlyHelp()->run();
     }
 
     public function version(): string
     {
-        return $this->clone()->onlyOptions()->setVersion(true)->run();
+        return $this->clone()->setVersion(true)->onlyVersion()->run();
     }
 
     public function clone(): self
