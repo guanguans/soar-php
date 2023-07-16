@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/soar-php` will be documented in this file.
 
+## v3.3.4 - 2023-07-16
+
+**Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.3.3...v3.3.4
+
 ## v3.3.3 - 2023-07-15
 
 **Full Changelog**: https://github.com/guanguans/soar-php/compare/v3.3.2...v3.3.3
