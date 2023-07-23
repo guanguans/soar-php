@@ -75,6 +75,7 @@
         "bin/soar.darwin-amd64",
         "bin/soar.darwin-arm64",
         "bin/soar.linux-amd64",
+        "bin/soar.linux-arm64",
         "bin/soar.windows-amd64"
     ],
     "config": {

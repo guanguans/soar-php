@@ -38,7 +38,7 @@ class SoarTest extends TestCase
 
         $this->assertStringContainsString('Version: 2023-01-21 17:22:53 +0800 0.11.0-146-gfab0463', $version);
         $this->assertStringContainsString('Branch: dev', $version);
-        $this->assertStringContainsString('Compile: 2023-05-19 16:43:09 +0800 by go version go1.20.4', $version);
+        $this->assertStringContainsString('2023-07-23 18:37:53 +0800 by go version go1.20.6', $version);
         $this->assertStringContainsString('GitDirty:        0', $version);
     }
 }
