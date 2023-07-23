@@ -56,6 +56,6 @@ trait HasSoarPath
             return OS::isArm() ? __DIR__.'/../../bin/soar.darwin-arm64' : __DIR__.'/../../bin/soar.darwin-amd64';
         }
 
-        return __DIR__.'/../../bin/soar.linux-amd64'; // @codeCoverageIgnore
+        return OS::isArm() ? __DIR__.'/../../bin/soar.linux-arm64' : __DIR__.'/../../bin/soar.linux-arm64'; // @codeCoverageIgnore
     }
 }
