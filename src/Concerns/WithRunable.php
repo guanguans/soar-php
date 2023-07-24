@@ -24,6 +24,8 @@ trait WithRunable
 {
     /**
      * @param array|string $withOptions
+     *
+     * @throws InvalidOptionException
      */
     public function run($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
     {
@@ -42,6 +44,8 @@ trait WithRunable
 
     /**
      * @param array|string $withOptions
+     *
+     * @throws InvalidOptionException
      *
      * @deprecated The method is deprecated and will be removed in version 4.0.0.
      *             Please use the {@see run} instead.
