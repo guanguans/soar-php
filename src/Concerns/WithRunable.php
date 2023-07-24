@@ -70,12 +70,10 @@ trait WithRunable
             ));
         }
 
-        return (static function (Process $process) use ($processTapper): Process {
-            if (\is_callable($processTapper)) {
-                $processTapper($process);
-            }
+        if (\is_callable($processTapper)) {
+            $processTapper($process);
+        }
 
-            return $process;
-        })($process);
+        return $process;
     }
 }
