@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.4.2"></a>
+## [3.4.2] - 2023-07-30
+### Fix
+- **concerns:** deprecate exec method
+
+
 <a name="3.4.1"></a>
 ## [3.4.1] - 2023-07-24
 ### Fix
@@ -367,7 +373,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.1...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.2...HEAD
+[3.4.2]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.1...3.4.2
 [3.4.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.0...3.4.1
 [3.4.0]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.3.4...3.4.0
 [v3.3.4]: https://github.com/guanguans/monorepo-builder-worker/compare/v3.3.3...v3.3.4
