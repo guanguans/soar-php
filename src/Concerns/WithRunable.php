@@ -52,12 +52,11 @@ trait WithRunable
      */
     protected function exec($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
     {
-        @trigger_error(
-            sprintf(
-                'Since guanguans/soar-php 3.0: The "%s" method is deprecated and will be removed in version 4.0. Please use the "run" method instead.',
-                __METHOD__
-            ),
-            E_USER_DEPRECATED
+        trigger_deprecation(
+            'guanguans/soar-php',
+            '3.0',
+            'The "%s" method is deprecated and will be removed in version 4.0. Please use the "run" method instead.',
+            __METHOD__
         );
 
         return $this->run($withOptions, $processTapper, $callback);
