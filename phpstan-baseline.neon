@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to method onlyHelp\\(\\) on an unknown class Guanguans\\\\SoarPHP\\\\Concerns\\\\HasOptions\\.$#"
+			count: 1
+			path: src/Soar.php
+
+		-
+			message: "#^Call to method onlyVersion\\(\\) on an unknown class Guanguans\\\\SoarPHP\\\\Concerns\\\\HasOptions\\.$#"
+			count: 1
+			path: src/Soar.php
+
+		-
 			message: "#^Call to method run\\(\\) on an unknown class Guanguans\\\\SoarPHP\\\\Concerns\\\\HasOptions\\.$#"
 			count: 3
 			path: src/Soar.php
