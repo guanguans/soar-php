@@ -1553,7 +1553,7 @@ trait HasOptions
     private function normalizeOption($key, $value): string
     {
         $converter = function ($value) {
-            \is_callable($value) and $value = $value($this);
+            \is_callable($value) and ! (\is_string($value) && \function_exists($value)) and $value = $value($this);
             true === $value and $value = 'true';
             false === $value and $value = 'false';
             0 === $value and $value = '0';
