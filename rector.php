@@ -18,7 +18,6 @@ use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
-use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
@@ -85,7 +84,6 @@ return static function (RectorConfig $rectorConfig): void {
         // ReturnBinaryOrToEarlyReturnRector::class,
         // SimplifyBoolIdenticalTrueRector::class,
         // StaticClosureRector::class,
-        // UnSpreadOperatorRector::class,
 
         ExplicitBoolCompareRector::class,
         EncapsedStringsToSprintfRector::class,
@@ -101,9 +99,6 @@ return static function (RectorConfig $rectorConfig): void {
         ],
         RemoveExpectAnyFromMockRector::class => [
             __DIR__.'/tests/Concerns/WithDumpableTest.php',
-        ],
-        UnSpreadOperatorRector::class => [
-            __DIR__.'/src/Concerns/WithDumpable.php',
         ],
         StaticClosureRector::class => [
             __DIR__.'/tests/Concerns/WithRunableTest.php',
