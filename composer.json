@@ -37,7 +37,7 @@
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
-        "composer/composer": "^2.5",
+        "composer/composer": "^2.6",
         "dms/phpunit-arraysubset-asserts": "^0.5",
         "ergebnis/composer-normalize": "^2.19",
         "friendsofphp/php-cs-fixer": "^3.4",
