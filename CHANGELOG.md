@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.4.4"></a>
+## [3.4.4] - 2023-09-15
+### Fix
+- **HasOptions:** handle callable values in normalizeOption
+
+### Refactor
+- **coding-style:** remove UnSpreadOperatorRector
+
+### Pull Requests
+- Merge pull request [#151](https://github.com/guanguans/monorepo-builder-worker/issues/151) from guanguans/dependabot/github_actions/actions/checkout-4
+
+
 <a name="3.4.3"></a>
 ## [3.4.3] - 2023-08-22
 ### Fix
@@ -382,7 +394,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.3...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.4...HEAD
+[3.4.4]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.3...3.4.4
 [3.4.3]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.2...3.4.3
 [3.4.2]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.1...3.4.2
 [3.4.1]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.0...3.4.1
