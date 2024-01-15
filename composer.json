@@ -41,6 +41,8 @@
         "dms/phpunit-arraysubset-asserts": "^0.5",
         "ergebnis/composer-normalize": "^2.20",
         "friendsofphp/php-cs-fixer": "^3.4",
+        "guanguans/ai-commit": "dev-main",
+        "guanguans/monorepo-builder-worker": "^1.4",
         "jetbrains/phpstorm-attributes": "^1.0",
         "johnkary/phpunit-speedtrap": "^4.0",
         "mockery/mockery": "^1.6",
