@@ -21,7 +21,6 @@ $header = <<<'HEADER'
     This source file is subject to the MIT license that is bundled.
     HEADER;
 
-/** @noinspection PhpParamsInspection */
 $finder = Finder::create()
     ->in([
         __DIR__.'/benchmarks',
