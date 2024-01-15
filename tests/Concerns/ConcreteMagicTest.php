@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 use Guanguans\SoarPHP\Soar;
 
-it('can be unserialized', function (): void {
+it('can serialize and unserialize', function (): void {
     $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
     $serializedSoar = serialize($soar);
     $unserializedSoar = unserialize($serializedSoar);
@@ -24,7 +24,7 @@ it('can be unserialized', function (): void {
         ->getOptions()->not->toBeEmpty();
 });
 
-it('can be exported', function (): void {
+it('can export', function (): void {
     $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
     /** @noinspection DebugFunctionUsageInspection */
     $exportedSoarStr = var_export($soar, true);

@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection DuplicateCustomExpectationInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 

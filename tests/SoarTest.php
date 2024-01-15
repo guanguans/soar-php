@@ -1,6 +1,8 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
+
 declare(strict_types=1);
 
 /**
@@ -15,9 +17,8 @@ use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
 it('can get help', function (): void {
-    OS::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
     expect(Soar::create())->help()->toContain('-version');
-});
+})->skip(OS::isWindows(), 'The method of help is not supported on windows.');
 
 it('can get version', function (): void {
     expect(Soar::create())->version()->toContain(

@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
@@ -82,15 +83,10 @@ it('can get json scores', function (): void {
 it('can get html scores', function (): void {
     $htmlScores = Soar::create()->htmlScores('select * from foo');
 
-    expect($htmlScores)->toBeString()->not->toBeEmpty();
-
-    $this->assertStringContainsString('foo', $htmlScores);
-    $this->assertStringContainsString('<h1>', $htmlScores);
-    $this->assertStringContainsString('<p>', $htmlScores);
-    $this->assertStringContainsString('<pre>', $htmlScores);
-    $this->assertStringContainsString('<h2>', $htmlScores);
-    $this->assertStringContainsString('<ul>', $htmlScores);
-    $this->assertStringContainsString('<li>', $htmlScores);
+    expect($htmlScores)
+        ->toBeString()
+        ->not->toBeEmpty()
+        ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>');
 
     OS::isWindows() or $this->assertMatchesSnapshot($htmlScores);
 });
@@ -98,13 +94,10 @@ it('can get html scores', function (): void {
 it('can get markdown scores', function (): void {
     $markdownScores = Soar::create()->markdownScores('select * from foo');
 
-    expect($markdownScores)->toBeString()->not->toBeEmpty();
-
-    $this->assertStringContainsString('foo', $markdownScores);
-    $this->assertStringContainsString('#', $markdownScores);
-    $this->assertStringContainsString('```sql', $markdownScores);
-    $this->assertStringContainsString('##', $markdownScores);
-    $this->assertStringContainsString('*', $markdownScores);
+    expect($markdownScores)
+        ->toBeString()
+        ->not->toBeEmpty()
+        ->toContain('foo', '#', '```sql', '##', '*');
 
     OS::isWindows() or $this->assertMatchesSnapshot($markdownScores);
 });

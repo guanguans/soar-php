@@ -16,8 +16,6 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHPTests\Fixtures\InvokeOption;
-use Guanguans\SoarPHPTests\Fixtures\StringableOption;
 
 it('can add option', function (): void {
     $options = [$key = 'foo' => $val = 'bar'];
@@ -141,8 +139,18 @@ it('can normalize options', function (): void {
         'closure' => static function (Soar $soar): string {
             return $soar->getOption('foo');
         },
-        'stringable' => new StringableOption(),
-        'invoke' => new InvokeOption(),
+        'stringable' => new class() {
+            public function __toString(): string
+            {
+                return __CLASS__;
+            }
+        },
+        'invoke' => new class() {
+            public function __invoke(): string
+            {
+                return __CLASS__;
+            }
+        },
     ]);
 
     expect(function (): array {

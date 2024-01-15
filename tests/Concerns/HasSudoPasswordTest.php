@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection StaticClosureCanBeUsedInspection */
+
 declare(strict_types=1);
 
 /**
@@ -14,6 +15,7 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 
 it('can set sudo password', function (): void {
+    /** @noinspection NullPointerExceptionInspection */
     expect(Soar::create())
         ->setSudoPassword($sudoPassword = 'foo')
         ->getSudoPassword()->toBe($sudoPassword);
