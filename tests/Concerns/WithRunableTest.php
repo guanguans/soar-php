@@ -81,15 +81,16 @@ class WithRunableTest extends TestCase
     public function testRun(): void
     {
         $soar = Soar::create();
-        $run = $soar->run(
-            '-version',
-            static function (Process $process): void {
+        $run = $soar
+            ->setProcessTapper(static function (Process $process): void {
                 $process->setTimeout(30);
-            },
-            static function (string $type, string $data): void {
+            })
+            ->run(
+                '-version',
+                static function (string $type, string $data): void {
                 dump($type, $data);
             }
-        );
+            );
 
         $this->assertIsString($run);
     }

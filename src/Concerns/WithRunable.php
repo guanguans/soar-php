@@ -23,17 +23,29 @@ use Symfony\Component\Process\Process;
 trait WithRunable
 {
     /**
+     * @var null|callable
+     */
+    protected $processTapper;
+
+    public function setProcessTapper(?callable $processTapper): self
+    {
+        $this->processTapper = $processTapper;
+
+        return $this;
+    }
+
+    /**
      * @param array|string $withOptions
      *
      * @throws InvalidOptionException
      */
-    public function run($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
+    public function run($withOptions = [], ?callable $callback = null): string
     {
         if (! \is_string($withOptions) && ! \is_array($withOptions)) {
             throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', \gettype($withOptions)));
         }
 
-        $process = $this->createProcess($withOptions, $processTapper);
+        $process = $this->createProcess($withOptions);
         $process->run($callback);
         if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
@@ -50,7 +62,7 @@ trait WithRunable
      * @deprecated The method is deprecated and will be removed in version 4.0.
      *             Please use the {@see run} instead.
      */
-    protected function exec($withOptions = [], ?callable $processTapper = null, ?callable $callback = null): string
+    protected function exec($withOptions = [], ?callable $callback = null): string
     {
         trigger_deprecation(
             'guanguans/soar-php',
@@ -59,7 +71,7 @@ trait WithRunable
             __METHOD__
         );
 
-        return $this->run($withOptions, $processTapper, $callback);
+        return $this->run($withOptions, $callback);
     }
 
     /**
@@ -67,7 +79,7 @@ trait WithRunable
      *
      * @throws InvalidOptionException
      */
-    private function createProcess($withOptions = [], ?callable $processTapper = null): Process
+    private function createProcess($withOptions = []): Process
     {
         $process = \is_string($withOptions)
             ? Process::fromShellCommandline("{$this->getEscapedSoarPath()} {$this->getHydratedEscapedNormalizedOptions()} $withOptions")
@@ -81,8 +93,8 @@ trait WithRunable
             ));
         }
 
-        if (\is_callable($processTapper)) {
-            $processTapper($process);
+        if (\is_callable($this->processTapper)) {
+            ($this->processTapper)($process);
         }
 
         return $process;
