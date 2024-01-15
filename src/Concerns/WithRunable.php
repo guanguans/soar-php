@@ -22,9 +22,7 @@ use Symfony\Component\Process\Process;
  */
 trait WithRunable
 {
-    /**
-     * @var null|callable
-     */
+    /** @var null|callable */
     protected $processTapper;
 
     public function setProcessTapper(?callable $processTapper): self

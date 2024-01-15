@@ -1389,9 +1389,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  */
 trait HasOptions
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $options = [];
 
     /**

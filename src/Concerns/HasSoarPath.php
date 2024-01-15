@@ -20,9 +20,7 @@ use Guanguans\SoarPHP\Support\OS;
  */
 trait HasSoarPath
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $soarPath;
 
     public function getSoarPath(): string

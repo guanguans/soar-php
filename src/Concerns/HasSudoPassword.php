@@ -19,9 +19,7 @@ use Guanguans\SoarPHP\Support\OS;
  */
 trait HasSudoPassword
 {
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $sudoPassword;
 
     public function getSudoPassword(): ?string

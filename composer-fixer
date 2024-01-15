@@ -21,14 +21,10 @@ use Symfony\Component\Process\Process;
 require __DIR__.'/vendor/autoload.php';
 
 (new class() {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $composerJsonFile = __DIR__.'/composer.json';
 
-    /**
-     * @var SymfonyStyle
-     */
+    /** @var SymfonyStyle */
     private $symfonyStyle;
 
     public function __construct()

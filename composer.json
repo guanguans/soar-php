@@ -45,6 +45,7 @@
         "guanguans/monorepo-builder-worker": "^1.4",
         "jetbrains/phpstorm-attributes": "^1.0",
         "johnkary/phpunit-speedtrap": "^4.0",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.7",
         "mockery/mockery": "^1.6",
         "php-mock/php-mock-phpunit": "^2.9",
         "phpbench/phpbench": "^1.2",
