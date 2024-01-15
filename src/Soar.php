@@ -19,6 +19,7 @@ use Guanguans\SoarPHP\Concerns\HasSoarPath;
 use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
+use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 
 class Soar implements Contracts\Soar
 {
@@ -30,9 +31,6 @@ class Soar implements Contracts\Soar
     use WithDumpable;
     use WithRunable;
 
-    /**
-     * @noinspection MissingParentCallInspection
-     */
     public function __construct(array $options = [], ?string $soarPath = null)
     {
         $this->setOptions($options);
@@ -44,11 +42,17 @@ class Soar implements Contracts\Soar
         return new static($options, $soarPath);
     }
 
+    /**
+     * @throws InvalidOptionException
+     */
     public function help(): string
     {
         return $this->clone()->setHelp(true)->onlyHelp()->run();
     }
 
+    /**
+     * @throws InvalidOptionException
+     */
     public function version(): string
     {
         return $this->clone()->setVersion(true)->onlyVersion()->run();

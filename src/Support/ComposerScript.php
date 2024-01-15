@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Support;
 
 use Composer\Script\Event;
+use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Soar;
 
 /**
@@ -20,6 +21,9 @@ use Guanguans\SoarPHP\Soar;
  */
 class ComposerScript
 {
+    /**
+     * @throws InvalidOptionException
+     */
     public static function dumpSoarDocblock(Event $event): int
     {
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
@@ -88,6 +92,9 @@ class ComposerScript
         return 0;
     }
 
+    /**
+     * @throws InvalidOptionException
+     */
     public static function dumpSoarConfig(Event $event): int
     {
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
@@ -136,6 +143,8 @@ class ComposerScript
 
     /**
      * @psalm-suppress RedundantCast
+     *
+     * @throws InvalidOptionException
      *
      * @return array<string, array<string, null|string>>
      */

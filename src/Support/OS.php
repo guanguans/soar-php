@@ -32,16 +32,16 @@ class OS
 
     private const RegExPPC = '/(ppc*)/';
 
-    /** @var string */
-    private static $OS;
+    /** @var null|string */
+    private static $os;
 
-    /** @var string */
-    private static $OSVersion;
+    /** @var null|string */
+    private static $oSVersion;
 
-    /** @var string */
+    /** @var null|string */
     private static $arch;
 
-    /** @var string */
+    /** @var null|string */
     private static $hostname;
 
     public static function isUnix(): bool
@@ -61,17 +61,17 @@ class OS
 
     public static function isWindowsSeven(): bool
     {
-        return '6.1' === self::getOSVersion();
+        return '6.1' === self::getOsVersion();
     }
 
     public static function isWindowsEightOrHigher(): bool
     {
-        return version_compare(self::getOSVersion(), '6.2', '>=');
+        return version_compare(self::getOsVersion(), '6.2', '>=');
     }
 
     public static function isMacOS(): bool
     {
-        return false !== strpos(self::getOS(), 'Darwin');
+        return false !== strpos(self::getOs(), 'Darwin');
     }
 
     /**
@@ -148,25 +148,25 @@ class OS
     /**
      * Returns the system's OS.
      */
-    public static function getOS(): string
+    public static function getOs(): string
     {
-        if (null === self::$OS) {
-            self::$OS = php_uname('s');
+        if (null === self::$os) {
+            self::$os = php_uname('s');
         }
 
-        return self::$OS;
+        return self::$os;
     }
 
     /**
      * Returns the system's OS version.
      */
-    public static function getOSVersion(): string
+    public static function getOsVersion(): string
     {
-        if (null === self::$OSVersion) {
-            self::$OSVersion = php_uname('r');
+        if (null === self::$oSVersion) {
+            self::$oSVersion = php_uname('r');
         }
 
-        return self::$OSVersion;
+        return self::$oSVersion;
     }
 
     /**
