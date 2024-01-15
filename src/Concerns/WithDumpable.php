@@ -21,8 +21,6 @@ trait WithDumpable
 {
     /**
      * @codeCoverageIgnore
-     *
-     * @return never-return
      */
     public function dd(...$args): void
     {

@@ -14,22 +14,22 @@
   testdox="true"
   verbose="true"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
+  <coverage>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <exclude>
+      <directory>src/Support</directory>
+      <file>src/PDOConnector-xxx.php</file>
+    </exclude>
+  </coverage>
   <testsuites>
     <testsuite name="Application Test Suite">
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist>
-      <directory suffix=".php">src/</directory>
-      <exclude>
-        <directory>src/Support</directory>
-        <file>src/PDOConnector-xxx.php</file>
-      </exclude>
-    </whitelist>
-  </filter>
   <listeners>
     <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
       <arguments>

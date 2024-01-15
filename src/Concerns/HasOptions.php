@@ -1400,7 +1400,7 @@ trait HasOptions
     public function __call(string $name, array $arguments)
     {
         foreach (['add', 'remove', 'only', 'set', 'merge', 'get'] as $prefix) {
-            if (str_starts_with($name, $prefix)) {
+            if (0 === strncmp($name, $prefix, \strlen($prefix))) {
                 $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
                 $newName = $prefix.'Option';
 

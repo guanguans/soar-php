@@ -13,13 +13,13 @@ declare(strict_types=1);
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-$header = <<<'EOF'
-This file is part of the guanguans/soar-php.
+$header = <<<'HEADER'
+    This file is part of the guanguans/soar-php.
 
-(c) guanguans <ityaozm@gmail.com>
+    (c) guanguans <ityaozm@gmail.com>
 
-This source file is subject to the MIT license that is bundled.
-EOF;
+    This source file is subject to the MIT license that is bundled.
+    HEADER;
 
 /** @noinspection PhpParamsInspection */
 $finder = Finder::create()
@@ -66,7 +66,7 @@ return (new Config())
         '@PHP70Migration:risky' => true,
         '@PHP71Migration' => true,
         '@PHP71Migration:risky' => true,
-        // '@PHP73Migration' => true,
+        '@PHP73Migration' => true,
         // '@PHP74Migration' => true,
         // '@PHP74Migration:risky' => true,
         // '@PHP80Migration' => true,

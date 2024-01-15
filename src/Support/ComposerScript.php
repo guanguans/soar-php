@@ -25,26 +25,26 @@ class ComposerScript
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
 
         $prefix = <<<'docblock'
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-/**
- * This file is part of the guanguans/soar-php.
- *
- * (c) guanguans <ityaozm@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled.
- */
-/**
-docblock;
+            /**
+             * This file is part of the guanguans/soar-php.
+             *
+             * (c) guanguans <ityaozm@gmail.com>
+             *
+             * This source file is subject to the MIT license that is bundled.
+             */
+            /**
+            docblock;
 
         $suffix = <<<'docblock'
 
- * @mixin \Guanguans\SoarPHP\Soar
- */
+             * @mixin \Guanguans\SoarPHP\Soar
+             */
 
-docblock;
+            docblock;
 
         $methodMapper = [
             'add' => ' * @method self add{method}({type} ${name})',
@@ -64,7 +64,7 @@ docblock;
                     $option['type'] = 'int';
                 }
 
-                if (str_starts_with($typeOfMethod, 'get') && null === $option['type']) {
+                if (0 === strncmp($typeOfMethod, 'get', \strlen('get')) && null === $option['type']) {
                     $option['type'] = 'mixed';
                 }
 
@@ -93,24 +93,24 @@ docblock;
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
 
         $prefix = <<<'PHP'
-<?php
+            <?php
 
-declare(strict_types=1);
+            declare(strict_types=1);
 
-/**
- * This file is part of the guanguans/soar-php.
- *
- * (c) guanguans <ityaozm@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled.
- */
+            /**
+             * This file is part of the guanguans/soar-php.
+             *
+             * (c) guanguans <ityaozm@gmail.com>
+             *
+             * This source file is subject to the MIT license that is bundled.
+             */
 
-// +----------------------------------------------------------------------+//
-// |              请参考 @see https://github.com/XiaoMi/soar               |//
-// +----------------------------------------------------------------------+//
+            // +----------------------------------------------------------------------+//
+            // |              请参考 @see https://github.com/XiaoMi/soar               |//
+            // +----------------------------------------------------------------------+//
 
-return [
-PHP;
+            return [
+            PHP;
 
         $suffix = '];'.PHP_EOL;
 
@@ -118,12 +118,12 @@ PHP;
             null === $options['default'] and $options['default'] = 'null';
 
             $item = <<<PHP
-    /**
-     * {$options['description']}.
-     */
-    '{$options['name']}' => {$options['default']},
+                    /**
+                     * {$options['description']}.
+                     */
+                    '{$options['name']}' => {$options['default']},
 
-PHP;
+                PHP;
 
             return $code.PHP_EOL.$item;
         }, '');
@@ -142,7 +142,7 @@ PHP;
     public static function extractOptionsFromHelp(): array
     {
         $arrayMap = array_map(static function (string $option): ?string {
-            if (! str_starts_with($option, ' ')) {
+            if (0 !== strncmp($option, ' ', \strlen(' '))) {
                 return null;
             }
 
@@ -154,7 +154,7 @@ PHP;
             preg_match('/\\(default .*\\)/', $option[1], $defaults);
 
             $default = $defaults[0] ?? null;
-            if (\is_string($default) && str_starts_with($default, $pre = '(default ')) {
+            if (\is_string($default) && 0 === strncmp($default, $pre = '(default ', \strlen($pre = '(default '))) {
                 $default = rtrim(substr($default, \strlen($pre)), ')');
             }
 
