@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -12,9 +13,7 @@ declare(strict_types=1);
 
 use Guanguans\SoarPHP\Soar;
 
-uses(Guanguans\SoarPHPTests\TestCase::class);
-
-test('dump', function (): void {
+it('can dump self and additional params', function (): void {
     $soar = Soar::create([
         'foo' => 'bar',
     ]);

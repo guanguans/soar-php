@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -13,22 +14,16 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
-uses(Guanguans\SoarPHPTests\TestCase::class);
-
-test('help', function (): void {
+it('can get help', function (): void {
     OS::isWindows() and $this->markTestSkipped('The method of help is not supported on windows.');
-    $soar = Soar::create();
-    $help = $soar->help();
-
-    $this->assertStringContainsString('-version', $help);
+    expect(Soar::create())->help()->toContain('-version');
 });
 
-test('version', function (): void {
-    $soar = Soar::create();
-    $version = $soar->version();
-
-    $this->assertStringContainsString('Version: 2023-01-21 17:22:53 +0800 0.11.0-146-gfab0463', $version);
-    $this->assertStringContainsString('Branch: dev', $version);
-    $this->assertStringContainsString('2023-07-23 18:37:53 +0800 by go version go1.20.6', $version);
-    $this->assertStringContainsString('GitDirty:        0', $version);
+it('can get version', function (): void {
+    expect(Soar::create())->version()->toContain(
+        'Version: 2023-01-21 17:22:53 +0800 0.11.0-146-gfab0463',
+        'Branch: dev',
+        '2023-07-23 18:37:53 +0800 by go version go1.20.6',
+        'GitDirty:        0',
+    );
 });

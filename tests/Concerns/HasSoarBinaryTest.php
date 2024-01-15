@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection StaticClosureCanBeUsedInspection */
 declare(strict_types=1);
 
 /**
@@ -15,9 +16,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
-uses(Guanguans\SoarPHPTests\TestCase::class);
-
-test('get soar binary', function (): void {
+it('get soar binary', function (): void {
     // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
     // $mock->allows('isWindows')->andReturnTrue();
     // $soar = Soar::create();
@@ -50,9 +49,6 @@ test('get soar binary', function (): void {
     test::double(OS::class, $originals);
 });
 
-test('invalid argument exception for set soar binary', function (): void {
-    $soar = Soar::create();
-
-    $this->expectException(InvalidArgumentException::class);
-    $soar->setSoarBinary('soar.path');
-});
+it('will throw an exception when set invalid binary', function (): void {
+    Soar::create()->setSoarBinary('soar.path');
+})->throws(InvalidArgumentException::class);

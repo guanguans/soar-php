@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection DuplicateCustomExpectationInspection */
+/** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);
 
@@ -24,7 +25,7 @@ uses(TestCase::class)
     })
     ->afterAll(function (): void {
     })
-    ->in(__DIR__.'/Feature', __DIR__.'/Unit');
+    ->in(__DIR__, __DIR__.'/Feature', __DIR__.'/Unit');
 /*
 |--------------------------------------------------------------------------
 | Expectations

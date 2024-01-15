@@ -1,5 +1,9 @@
 <?php
 
+/** @noinspection SqlNoDataSourceInspection */
+/** @noinspection SqlResolve */
+/** @noinspection StaticClosureCanBeUsedInspection */
+
 declare(strict_types=1);
 
 /**
@@ -14,10 +18,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
-uses(Guanguans\SoarPHPTests\TestCase::class);
-
-test('array scores', function (): void {
-    $soar = Soar::create();
+it('can get array scores', function (): void {
     $sqls = <<<'sqls'
         SELECT * FROM `post` WHERE `name`='so"a`r';
         SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
@@ -47,18 +48,22 @@ test('array scores', function (): void {
           UNIQUE KEY `users_email_unique` (`email`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         sqls;
-    $arrayScores = $soar->arrayScores($sqls);
 
-    expect($arrayScores)->toBeArray();
-    expect($arrayScores)->not->toBeEmpty();
-
-    foreach ($arrayScores as $arrayScore) {
-        expect($arrayScore)->toBeArray();
-        $keys = ['ID', 'Fingerprint', 'Score', 'Sample', 'Explain', 'HeuristicRules', 'IndexRules', 'Tables'];
-        foreach ($keys as $key) {
-            expect($arrayScore)->toHaveKey($key);
-        }
-    }
+    expect($arrayScores = Soar::create()->arrayScores($sqls))
+        ->toBeArray()
+        ->not->toBeEmpty()
+        ->each(function (Pest\Expectation $arrayScore): void {
+            $arrayScore->toBeArray()->toHaveKeys([
+                'ID',
+                'Fingerprint',
+                'Score',
+                'Sample',
+                'Explain',
+                'HeuristicRules',
+                'IndexRules',
+                'Tables',
+            ]);
+        });
 
     /** @noinspection ForgottenDebugOutputInspection */
     /** @noinspection DebugFunctionUsageInspection */
@@ -66,23 +71,18 @@ test('array scores', function (): void {
     OS::isWindows() or \PHP_VERSION_ID >= 80100 or $this->assertMatchesYamlSnapshot($arrayScores);
 });
 
-test('json scores', function (): void {
-    $soar = Soar::create();
+it('can get json scores', function (): void {
     $sqls = 'select * from foo';
-    $jsonScores = $soar->jsonScores($sqls);
 
-    expect($jsonScores)->toBeJson();
-    expect($jsonScores)->not->toBeEmpty();
+    expect($jsonScores = Soar::create()->jsonScores($sqls))->toBeJson()->not->toBeEmpty();
 
     $this->assertMatchesJsonSnapshot($jsonScores);
 });
 
-test('html scores', function (): void {
-    $soar = Soar::create();
-    $htmlScores = $soar->htmlScores('select * from foo');
+it('can get html scores', function (): void {
+    $htmlScores = Soar::create()->htmlScores('select * from foo');
 
-    expect($htmlScores)->toBeString();
-    expect($htmlScores)->not->toBeEmpty();
+    expect($htmlScores)->toBeString()->not->toBeEmpty();
 
     $this->assertStringContainsString('foo', $htmlScores);
     $this->assertStringContainsString('<h1>', $htmlScores);
@@ -95,12 +95,10 @@ test('html scores', function (): void {
     OS::isWindows() or $this->assertMatchesSnapshot($htmlScores);
 });
 
-test('markdown scores', function (): void {
-    $soar = Soar::create();
-    $markdownScores = $soar->markdownScores('select * from foo');
+it('can get markdown scores', function (): void {
+    $markdownScores = Soar::create()->markdownScores('select * from foo');
 
-    expect($markdownScores)->toBeString();
-    expect($markdownScores)->not->toBeEmpty();
+    expect($markdownScores)->toBeString()->not->toBeEmpty();
 
     $this->assertStringContainsString('foo', $markdownScores);
     $this->assertStringContainsString('#', $markdownScores);
@@ -111,28 +109,19 @@ test('markdown scores', function (): void {
     OS::isWindows() or $this->assertMatchesSnapshot($markdownScores);
 });
 
-test('invalid argument exception for scores', function (): void {
-    $soar = Soar::create();
-    $sqls = true;
+it('will throw an exception when scores is not a string or array', function (): void {
+    Soar::create()->scores(true);
+})->throws(InvalidArgumentException::class);
 
-    $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage(gettype($sqls));
-
-    $soar->scores($sqls);
-});
-
-test('scores', function (): void {
+it('can get scores', function (): void {
     $soar = Soar::create();
     $scores = $soar->scores('select * from users;');
-    expect($scores)->toBeString();
-    expect($scores)->not->toBeEmpty();
+    expect($scores)->toBeString()->not->toBeEmpty();
 
     $scores = $soar->scores(['select * from a; select * from b', 'select * from c', 'select * from d']);
-    expect($scores)->toBeString();
-    expect($scores)->not->toBeEmpty();
+    expect($scores)->toBeString()->not->toBeEmpty();
 
     $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
     $scores = $soar->scores('select * from users;');
-    expect($scores)->toBeString();
-    expect($scores)->not->toBeEmpty();
+    expect($scores)->toBeString()->not->toBeEmpty();
 });
