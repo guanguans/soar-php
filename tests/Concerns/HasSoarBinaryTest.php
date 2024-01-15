@@ -23,22 +23,22 @@ use Guanguans\Tests\TestCase;
  *
  * @small
  */
-class HasSoarPathTest extends TestCase
+class HasSoarBinaryTest extends TestCase
 {
     /**
      * @noinspection PhpUnreachableStatementInspection
      * @noinspection PhpUnitTestFailedLineInspection
      */
-    public function testGetSoarPath(): void
+    public function testGetSoarBinary(): void
     {
         // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
         // $mock->allows('isWindows')->andReturnTrue();
         // $soar = Soar::create();
-        // $this->assertFileExists($soar->getSoarPath());
-        // $this->assertStringContainsString('windows', $soar->getSoarPath());
+        // $this->assertFileExists($soar->getSoarBinary());
+        // $this->assertStringContainsString('windows', $soar->getSoarBinary());
 
         $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarPath());
+        $this->assertFileExists($soar->getSoarBinary());
 
         $this->markTestSkipped(__METHOD__.' is skipped.');
 
@@ -47,28 +47,28 @@ class HasSoarPathTest extends TestCase
 
         test::double(OS::class, ['isWindows' => true, 'isMacOS' => false]);
         $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarPath());
-        $this->assertStringContainsString('windows', $soar->getSoarPath());
+        $this->assertFileExists($soar->getSoarBinary());
+        $this->assertStringContainsString('windows', $soar->getSoarBinary());
 
         test::double(OS::class, ['isWindows' => false, 'isMacOS' => true]);
         $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarPath());
-        $this->assertStringContainsString('darwin', $soar->getSoarPath());
+        $this->assertFileExists($soar->getSoarBinary());
+        $this->assertStringContainsString('darwin', $soar->getSoarBinary());
 
         test::double(OS::class, ['isWindows' => false, 'isMacOS' => false]);
         $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarPath());
-        $this->assertStringContainsString('linux', $soar->getSoarPath());
+        $this->assertFileExists($soar->getSoarBinary());
+        $this->assertStringContainsString('linux', $soar->getSoarBinary());
 
         // 恢复
         test::double(OS::class, $originals);
     }
 
-    public function testInvalidArgumentExceptionForSetSoarPath(): void
+    public function testInvalidArgumentExceptionForSetSoarBinary(): void
     {
         $soar = Soar::create();
 
         $this->expectException(InvalidArgumentException::class);
-        $soar->setSoarPath('soar.path');
+        $soar->setSoarBinary('soar.path');
     }
 }

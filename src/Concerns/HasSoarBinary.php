@@ -18,33 +18,33 @@ use Guanguans\SoarPHP\Support\OS;
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
-trait HasSoarPath
+trait HasSoarBinary
 {
     /** @var string */
-    protected $soarPath;
+    protected $soarBinary;
 
-    public function getSoarPath(): string
+    public function getSoarBinary(): string
     {
-        return $this->soarPath;
+        return $this->soarBinary;
     }
 
-    public function setSoarPath(string $soarPath): self
+    public function setSoarBinary(string $soarBinary): self
     {
-        if (! file_exists($soarPath) || ! is_executable($soarPath)) {
-            throw new InvalidArgumentException("The file($soarPath) does not exist or cannot executable.");
+        if (! file_exists($soarBinary) || ! is_executable($soarBinary)) {
+            throw new InvalidArgumentException("The file($soarBinary) does not exist or cannot executable.");
         }
 
-        $this->soarPath = realpath($soarPath);
+        $this->soarBinary = realpath($soarBinary);
 
         return $this;
     }
 
-    protected function getEscapedSoarPath(): string
+    protected function getEscapedSoarBinary(): string
     {
-        return escape_argument($this->soarPath);
+        return escape_argument($this->soarBinary);
     }
 
-    private function getDefaultSoarPath(): string
+    private function getDefaultSoarBinary(): string
     {
         if (OS::isWindows()) {
             return __DIR__.'/../../bin/soar.windows-amd64'; // @codeCoverageIgnore

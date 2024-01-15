@@ -42,7 +42,7 @@ return static function (RectorConfig $rectorConfig): void {
     define('MHASH_XXH32', 2 << 1);
     define('MHASH_XXH64', 2 << 2);
     define('MHASH_XXH128', 2 << 3);
-    $rectorConfig->importNames(true, false);
+    $rectorConfig->importNames(false, false);
     $rectorConfig->importShortClasses(false);
     // $rectorConfig->disableParallel();
     $rectorConfig->parallel(240);

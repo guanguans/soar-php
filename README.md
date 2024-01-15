@@ -30,7 +30,7 @@
 ## 安装
 
 ```shell
-composer require guanguans/soar-php -vvv
+composer require guanguans/soar-php -v
 ```
 
 ## 使用

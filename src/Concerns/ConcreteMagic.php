@@ -21,7 +21,7 @@ trait ConcreteMagic
 {
     public function __sleep()
     {
-        return ['options', 'soarPath'];
+        return ['options', 'soarBinary'];
     }
 
     public function __wakeup(): void
@@ -36,7 +36,7 @@ trait ConcreteMagic
     // {
     //     return [
     //         'options' => $this->options,
-    //         'soarPath' => $this->soarPath,
+    //         'soarBinary' => $this->soarBinary,
     //     ];
     // }
     //
@@ -46,7 +46,7 @@ trait ConcreteMagic
     // public function __unserialize(array $data): void
     // {
     //     $this->setOptions($data['options']);
-    //     $this->setSoarPath($data['soarPath']);
+    //     $this->setSoarBinary($data['soarBinary']);
     // }
 
     public function __debugInfo()
@@ -56,7 +56,7 @@ trait ConcreteMagic
 
     public static function __set_state(array $properties)
     {
-        return new static($properties['options'], $properties['soarPath']);
+        return new static($properties['options'], $properties['soarBinary']);
     }
 
     /**

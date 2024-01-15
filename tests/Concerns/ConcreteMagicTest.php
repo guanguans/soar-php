@@ -29,7 +29,7 @@ class ConcreteMagicTest extends TestCase
         $unserializedSoar = unserialize($serializedSoar);
 
         $this->assertInstanceOf(Soar::class, $unserializedSoar);
-        $this->assertNotEmpty($unserializedSoar->getSoarPath());
+        $this->assertNotEmpty($unserializedSoar->getSoarBinary());
         $this->assertNotEmpty($unserializedSoar->getOptions());
     }
 
@@ -44,7 +44,7 @@ class ConcreteMagicTest extends TestCase
         eval("\$exportedSoar = $exportedSoarStr;");
 
         $this->assertInstanceOf(Soar::class, $exportedSoar);
-        $this->assertNotEmpty($exportedSoar->getSoarPath());
+        $this->assertNotEmpty($exportedSoar->getSoarBinary());
         $this->assertNotEmpty($exportedSoar->getOptions());
     }
 }

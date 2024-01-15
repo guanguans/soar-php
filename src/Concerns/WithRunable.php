@@ -60,8 +60,8 @@ trait WithRunable
     private function createProcess($withOptions = []): Process
     {
         $process = \is_string($withOptions)
-            ? Process::fromShellCommandline("{$this->getEscapedSoarPath()} {$this->getHydratedEscapedNormalizedOptions()} $withOptions")
-            : new Process(array_merge([$this->soarPath], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
+            ? Process::fromShellCommandline("{$this->getEscapedSoarBinary()} {$this->getHydratedEscapedNormalizedOptions()} $withOptions")
+            : new Process(array_merge([$this->soarBinary], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
 
         if ($this->shouldApplySudoPassword()) {
             $process = Process::fromShellCommandline(sprintf(

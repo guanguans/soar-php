@@ -15,7 +15,7 @@ namespace Guanguans\SoarPHP;
 use Guanguans\SoarPHP\Concerns\ConcreteMagic;
 use Guanguans\SoarPHP\Concerns\ConcreteScores;
 use Guanguans\SoarPHP\Concerns\HasOptions;
-use Guanguans\SoarPHP\Concerns\HasSoarPath;
+use Guanguans\SoarPHP\Concerns\HasSoarBinary;
 use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
@@ -26,20 +26,20 @@ class Soar implements Contracts\Soar
     use ConcreteMagic;
     use ConcreteScores;
     use HasOptions;
-    use HasSoarPath;
+    use HasSoarBinary;
     use HasSudoPassword;
     use WithDumpable;
     use WithRunable;
 
-    public function __construct(array $options = [], ?string $soarPath = null)
+    public function __construct(array $options = [], ?string $soarBinary = null)
     {
         $this->setOptions($options);
-        $this->setSoarPath($soarPath ?? $this->getDefaultSoarPath());
+        $this->setSoarBinary($soarBinary ?? $this->getDefaultSoarBinary());
     }
 
-    public static function create(array $options = [], ?string $soarPath = null): self
+    public static function create(array $options = [], ?string $soarBinary = null): self
     {
-        return new static($options, $soarPath);
+        return new static($options, $soarBinary);
     }
 
     /**
