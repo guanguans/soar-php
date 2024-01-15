@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="3.5.0"></a>
+## [3.5.0] - 2024-01-15
+### Refactor
+- **monorepo-builder:** update release workers
+
+### Pull Requests
+- Merge pull request [#155](https://github.com/guanguans/monorepo-builder-worker/issues/155) from guanguans/dependabot/composer/rector/rector-tw-0.18or-tw-0.19
+- Merge pull request [#154](https://github.com/guanguans/monorepo-builder-worker/issues/154) from guanguans/dependabot/github_actions/actions/stale-9
+- Merge pull request [#153](https://github.com/guanguans/monorepo-builder-worker/issues/153) from guanguans/dependabot/github_actions/actions/labeler-5
+- Merge pull request [#152](https://github.com/guanguans/monorepo-builder-worker/issues/152) from guanguans/dependabot/github_actions/stefanzweifel/git-auto-commit-action-5
+
+
 <a name="3.4.4"></a>
 ## [3.4.4] - 2023-09-15
 ### Fix
@@ -394,7 +406,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.4...HEAD
+[Unreleased]: https://github.com/guanguans/monorepo-builder-worker/compare/3.5.0...HEAD
+[3.5.0]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.4...3.5.0
 [3.4.4]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.3...3.4.4
 [3.4.3]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.2...3.4.3
 [3.4.2]: https://github.com/guanguans/monorepo-builder-worker/compare/3.4.1...3.4.2
