@@ -8,10 +8,12 @@
   convertErrorsToExceptions="true"
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"
-  executionOrder="depends,defects"
+  executionOrder="random"
+  printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
   processIsolation="false"
+  resolveDependencies="true"
   stopOnFailure="false"
-  testdox="true"
+  testdox="false"
   verbose="true"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
@@ -31,7 +33,7 @@
     </testsuite>
   </testsuites>
   <listeners>
-    <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
+    <!--<listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
       <arguments>
         <array>
           <element key="slowThreshold">
@@ -45,6 +47,6 @@
           </element>
         </array>
       </arguments>
-    </listener>
+    </listener>-->
   </listeners>
 </phpunit>

@@ -10,9 +10,8 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Tests;
+namespace Guanguans\SoarPHPTests;
 
-use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
@@ -24,7 +23,6 @@ use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
  */
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    use ArraySubsetAsserts;
     use MatchesSnapshots;
     use PHPMock;
     use VarDumperTestTrait;

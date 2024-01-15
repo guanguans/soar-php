@@ -10,12 +10,12 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Tests\Concerns;
+namespace Guanguans\SoarPHPTests\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
-use Guanguans\Tests\TestCase;
+use Guanguans\SoarPHPTests\TestCase;
 use Symfony\Component\Process\Process;
 
 /**

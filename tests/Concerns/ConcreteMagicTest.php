@@ -10,41 +10,27 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Tests\Concerns;
-
 use Guanguans\SoarPHP\Soar;
-use Guanguans\Tests\TestCase;
 
-/**
- * @internal
- *
- * @small
- */
-class ConcreteMagicTest extends TestCase
-{
-    public function testSleep(): void
-    {
-        $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
-        $serializedSoar = serialize($soar);
-        $unserializedSoar = unserialize($serializedSoar);
+uses(Guanguans\SoarPHPTests\TestCase::class);
 
-        $this->assertInstanceOf(Soar::class, $unserializedSoar);
-        $this->assertNotEmpty($unserializedSoar->getSoarBinary());
-        $this->assertNotEmpty($unserializedSoar->getOptions());
-    }
+test('sleep', function (): void {
+    $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
+    $serializedSoar = serialize($soar);
+    $unserializedSoar = unserialize($serializedSoar);
 
-    /**
-     * @noinspection DebugFunctionUsageInspection
-     */
-    public function testSetState(): void
-    {
-        $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
-        $exportedSoarStr = var_export($soar, true);
-        $exportedSoar = null;
-        eval("\$exportedSoar = $exportedSoarStr;");
+    expect($unserializedSoar)->toBeInstanceOf(Soar::class);
+    expect($unserializedSoar->getSoarBinary())->not->toBeEmpty();
+    expect($unserializedSoar->getOptions())->not->toBeEmpty();
+});
 
-        $this->assertInstanceOf(Soar::class, $exportedSoar);
-        $this->assertNotEmpty($exportedSoar->getSoarBinary());
-        $this->assertNotEmpty($exportedSoar->getOptions());
-    }
-}
+test('set state', function (): void {
+    $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
+    $exportedSoarStr = var_export($soar, true);
+    $exportedSoar = null;
+    eval("\$exportedSoar = $exportedSoarStr;");
+
+    expect($exportedSoar)->toBeInstanceOf(Soar::class);
+    expect($exportedSoar->getSoarBinary())->not->toBeEmpty();
+    expect($exportedSoar->getOptions())->not->toBeEmpty();
+});

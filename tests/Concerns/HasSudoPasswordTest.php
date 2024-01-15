@@ -10,33 +10,22 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Tests\Concerns;
-
 use Guanguans\SoarPHP\Soar;
-use Guanguans\Tests\TestCase;
 
-/**
- * @internal
- *
- * @small
- */
-class HasSudoPasswordTest extends TestCase
-{
-    public function testSetSudoPassword(): void
-    {
-        $soar = Soar::create();
-        $soar->setSudoPassword($sudoPassword = 'foo');
+uses(Guanguans\SoarPHPTests\TestCase::class);
 
-        $this->assertSame($sudoPassword, $soar->getSudoPassword());
-    }
+test('set sudo password', function (): void {
+    $soar = Soar::create();
+    $soar->setSudoPassword($sudoPassword = 'foo');
 
-    public function testGetEscapedSudoPassword(): void
-    {
-        $soar = Soar::create();
-        $escapedSudoPassword = (function (Soar $soar): string {
-            return $soar->getEscapedSudoPassword();
-        })->call($soar, $soar);
+    expect($soar->getSudoPassword())->toBe($sudoPassword);
+});
 
-        $this->assertIsString($escapedSudoPassword);
-    }
-}
+test('get escaped sudo password', function (): void {
+    $soar = Soar::create();
+    $escapedSudoPassword = (function (Soar $soar): string {
+        return $soar->getEscapedSudoPassword();
+    })->call($soar, $soar);
+
+    expect($escapedSudoPassword)->toBeString();
+});

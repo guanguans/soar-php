@@ -10,65 +10,49 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Tests\Concerns;
-
 use AspectMock\Test as test;
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
-use Guanguans\Tests\TestCase;
 
-/**
- * @internal
- *
- * @small
- */
-class HasSoarBinaryTest extends TestCase
-{
-    /**
-     * @noinspection PhpUnreachableStatementInspection
-     * @noinspection PhpUnitTestFailedLineInspection
-     */
-    public function testGetSoarBinary(): void
-    {
-        // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
-        // $mock->allows('isWindows')->andReturnTrue();
-        // $soar = Soar::create();
-        // $this->assertFileExists($soar->getSoarBinary());
-        // $this->assertStringContainsString('windows', $soar->getSoarBinary());
+uses(Guanguans\SoarPHPTests\TestCase::class);
 
-        $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarBinary());
+test('get soar binary', function (): void {
+    // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
+    // $mock->allows('isWindows')->andReturnTrue();
+    // $soar = Soar::create();
+    // $this->assertFileExists($soar->getSoarBinary());
+    // $this->assertStringContainsString('windows', $soar->getSoarBinary());
+    $soar = Soar::create();
+    expect($soar->getSoarBinary())->toBeFile();
 
-        $this->markTestSkipped(__METHOD__.' is skipped.');
+    $this->markTestSkipped(__METHOD__.' is skipped.');
 
-        // 暂存
-        $originals = ['isWindows' => OS::isWindows(), 'isMacOS' => OS::isMacOS()];
+    // 暂存
+    $originals = ['isWindows' => OS::isWindows(), 'isMacOS' => OS::isMacOS()];
 
-        test::double(OS::class, ['isWindows' => true, 'isMacOS' => false]);
-        $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarBinary());
-        $this->assertStringContainsString('windows', $soar->getSoarBinary());
+    test::double(OS::class, ['isWindows' => true, 'isMacOS' => false]);
+    $soar = Soar::create();
+    expect($soar->getSoarBinary())->toBeFile();
+    $this->assertStringContainsString('windows', $soar->getSoarBinary());
 
-        test::double(OS::class, ['isWindows' => false, 'isMacOS' => true]);
-        $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarBinary());
-        $this->assertStringContainsString('darwin', $soar->getSoarBinary());
+    test::double(OS::class, ['isWindows' => false, 'isMacOS' => true]);
+    $soar = Soar::create();
+    expect($soar->getSoarBinary())->toBeFile();
+    $this->assertStringContainsString('darwin', $soar->getSoarBinary());
 
-        test::double(OS::class, ['isWindows' => false, 'isMacOS' => false]);
-        $soar = Soar::create();
-        $this->assertFileExists($soar->getSoarBinary());
-        $this->assertStringContainsString('linux', $soar->getSoarBinary());
+    test::double(OS::class, ['isWindows' => false, 'isMacOS' => false]);
+    $soar = Soar::create();
+    expect($soar->getSoarBinary())->toBeFile();
+    $this->assertStringContainsString('linux', $soar->getSoarBinary());
 
-        // 恢复
-        test::double(OS::class, $originals);
-    }
+    // 恢复
+    test::double(OS::class, $originals);
+});
 
-    public function testInvalidArgumentExceptionForSetSoarBinary(): void
-    {
-        $soar = Soar::create();
+test('invalid argument exception for set soar binary', function (): void {
+    $soar = Soar::create();
 
-        $this->expectException(InvalidArgumentException::class);
-        $soar->setSoarBinary('soar.path');
-    }
-}
+    $this->expectException(InvalidArgumentException::class);
+    $soar->setSoarBinary('soar.path');
+});

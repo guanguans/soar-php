@@ -10,28 +10,18 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Tests\Concerns;
-
 use Guanguans\SoarPHP\Soar;
-use Guanguans\Tests\TestCase;
 
-/**
- * @internal
- *
- * @small
- */
-class WithDumpableTest extends TestCase
-{
-    public function testDump(): void
-    {
-        $soar = Soar::create([
-            'foo' => 'bar',
-        ]);
+uses(Guanguans\SoarPHPTests\TestCase::class);
 
-        $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
+test('dump', function (): void {
+    $soar = Soar::create([
+        'foo' => 'bar',
+    ]);
 
-        $mockObject = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'class_exists');
-        $mockObject->expects($this->any())->willReturn(false);
-        $this->assertInstanceOf(Soar::class, $soar->dump('foo'));
-    }
-}
+    expect($soar->dump('foo'))->toBeInstanceOf(Soar::class);
+
+    $mockObject = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'class_exists');
+    $mockObject->expects($this->any())->willReturn(false);
+    expect($soar->dump('foo'))->toBeInstanceOf(Soar::class);
+});

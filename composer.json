@@ -38,21 +38,20 @@
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "composer/composer": "^2.6",
-        "dms/phpunit-arraysubset-asserts": "^0.5",
         "ergebnis/composer-normalize": "^2.20",
         "friendsofphp/php-cs-fixer": "^3.4",
         "guanguans/ai-commit": "dev-main",
         "guanguans/monorepo-builder-worker": "^1.4",
         "jetbrains/phpstorm-attributes": "^1.0",
-        "johnkary/phpunit-speedtrap": "^4.0",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.7",
         "mockery/mockery": "^1.6",
+        "pestphp/pest": "^1.23 || ^2.0",
+        "pestphp/pest-plugin-faker": "^1.0 || ^2.0",
         "php-mock/php-mock-phpunit": "^2.9",
         "phpbench/phpbench": "^1.2",
         "phpstan/extension-installer": "^1.3",
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^1.1",
-        "phpunit/phpunit": "^9.6 || ^10.0",
         "rector/rector": "^0.19",
         "spatie/phpunit-snapshot-assertions": "^4.2",
         "symfony/var-dumper": "^5.4 || ^6.0 || ^7.0",
@@ -70,7 +69,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Guanguans\\Tests\\": "tests"
+            "Guanguans\\SoarPHPTests\\": "tests"
         }
     },
     "bin": [
@@ -83,6 +82,7 @@
     "config": {
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         },
         "apcu-autoloader": true,
@@ -158,8 +158,8 @@
         "mark-start": "printf '\\n!\\n!\\t\\033[0;36m%s\\033[0m\\n!\\n\\n' \"Started\"",
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
-        "pest": "@php ./vendor/bin/pest",
-        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
+        "pest": "@php ./vendor/bin/pest --coverage",
+        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=./clover.xml",
         "pest-migrate-configuration": "@pest --migrate-configuration",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
@@ -179,9 +179,11 @@
         "release-patch-dry-run": "@release-patch --dry-run",
         "style-fix": "@php ./vendor/bin/php-cs-fixer fix --using-cache=yes --config=.php-cs-fixer.php --ansi -v",
         "style-lint": "@style-fix --diff --dry-run",
-        "test": "@php ./vendor/bin/phpunit --coverage-text -v",
-        "test-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml",
-        "test-migrate-configuration": "@test --migrate-configuration",
+        "test": "@pest",
+        "test-coverage": "@pest-coverage",
+        "test-migrate-configuration": "@pest-migrate-configuration",
+        "test-phpunit": "@php ./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text --ansi -v",
+        "test-phpunit-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml",
         "yaml-lint": "@php ./vendor/bin/yaml-lint .github --ansi -v"
     }
 }
