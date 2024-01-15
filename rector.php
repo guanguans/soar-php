@@ -29,16 +29,20 @@ use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\StmtsAwareInterface\ReturnEarlyIfVariableRector;
-use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
 use Rector\PHPUnit\CodeQuality\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\StrictArrayParamDimFetchRector;
 
 return static function (RectorConfig $rectorConfig): void {
+    define('MHASH_XXH3', 2 << 0);
+    define('MHASH_XXH32', 2 << 1);
+    define('MHASH_XXH64', 2 << 2);
+    define('MHASH_XXH128', 2 << 3);
     $rectorConfig->importNames(true, false);
     $rectorConfig->importShortClasses(false);
     // $rectorConfig->disableParallel();
@@ -76,7 +80,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         // rules
         // AddArrayDefaultToArrayPropertyRector::class,
-        // AddDefaultValueForUndefinedVariableRector::class,
         // CallableThisArrayToAnonymousFunctionRector::class,
         // ChangeAndIfToEarlyReturnRector::class,
         // RemoveEmptyClassMethodRector::class,
@@ -128,6 +131,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->sets([
+        // DowngradeLevelSetList::DOWN_TO_PHP_72,
         LevelSetList::UP_TO_PHP_72,
         SetList::PHP_72,
         // SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
