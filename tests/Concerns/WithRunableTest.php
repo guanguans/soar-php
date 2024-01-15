@@ -88,20 +88,10 @@ class WithRunableTest extends TestCase
             ->run(
                 '-version',
                 static function (string $type, string $data): void {
-                dump($type, $data);
-            }
+                    dump($type, $data);
+                }
             );
 
         $this->assertIsString($run);
-    }
-
-    public function testExec(): void
-    {
-        $soar = Soar::create();
-        $exec = (function (Soar $soar): string {
-            return $soar->exec('-version');
-        })->call($soar, $soar);
-
-        $this->assertIsString($exec);
     }
 }

@@ -58,26 +58,6 @@ trait WithRunable
      * @param array|string $withOptions
      *
      * @throws InvalidOptionException
-     *
-     * @deprecated The method is deprecated and will be removed in version 4.0.
-     *             Please use the {@see run} instead.
-     */
-    protected function exec($withOptions = [], ?callable $callback = null): string
-    {
-        trigger_deprecation(
-            'guanguans/soar-php',
-            '3.0',
-            'The "%s" method is deprecated and will be removed in version 4.0. Please use the "run" method instead.',
-            __METHOD__
-        );
-
-        return $this->run($withOptions, $callback);
-    }
-
-    /**
-     * @param array|string $withOptions
-     *
-     * @throws InvalidOptionException
      */
     private function createProcess($withOptions = []): Process
     {
