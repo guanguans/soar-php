@@ -15,14 +15,14 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 
 it('can dump self and additional params', function (): void {
-    $soar = Soar::create([
-        'foo' => 'bar',
-    ]);
+    expect(Soar::create(['foo' => 'bar']))
+        ->dump('foo')
+        ->toBeInstanceOf(Soar::class);
 
-    expect($soar)->dump('foo')->toBeInstanceOf(Soar::class);
-
-    $mockObject = $this->getFunctionMock('\\Guanguans\\SoarPHP', 'class_exists');
+    $mockObject = $this->getFunctionMock(class_namespace(Soar::class), 'class_exists');
     /** @noinspection UnnecessaryAssertionInspection */
     $mockObject->expects($this->any())->willReturn(false);
-    expect($soar)->dump('foo')->toBeInstanceOf(Soar::class);
-});
+    expect(Soar::create(['foo' => 'bar']))
+        ->dump('foo')
+        ->toBeInstanceOf(Soar::class);
+})->group(__DIR__, __FILE__);

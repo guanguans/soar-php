@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
@@ -50,7 +52,8 @@ it('can get array scores', function (): void {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         sqls;
 
-    expect($arrayScores = Soar::create()->arrayScores($sqls))
+    expect(Soar::create())
+        ->arrayScores($sqls)
         ->toBeArray()
         ->not->toBeEmpty()
         ->each(function (Pest\Expectation $arrayScore): void {
@@ -64,57 +67,67 @@ it('can get array scores', function (): void {
                 'IndexRules',
                 'Tables',
             ]);
+        })
+        ->when(OS::isWindows(), function (Pest\Expectation $expectation): void {
+            /** @noinspection ForgottenDebugOutputInspection */
+            /** @noinspection DebugFunctionUsageInspection */
+            dump($expectation->value);
+        })
+        ->when(OS::isWindows() && \PHP_VERSION_ID >= 80100, function (Pest\Expectation $expectation): void {
+            $this->assertMatchesYamlSnapshot($expectation->value);
         });
-
-    /** @noinspection ForgottenDebugOutputInspection */
-    /** @noinspection DebugFunctionUsageInspection */
-    OS::isWindows() and dump($arrayScores);
-    OS::isWindows() or \PHP_VERSION_ID >= 80100 or $this->assertMatchesYamlSnapshot($arrayScores);
-});
+})->group(__DIR__, __FILE__);
 
 it('can get json scores', function (): void {
-    $sqls = 'select * from foo';
-
-    expect($jsonScores = Soar::create()->jsonScores($sqls))->toBeJson()->not->toBeEmpty();
-
-    $this->assertMatchesJsonSnapshot($jsonScores);
-});
+    expect(Soar::create())
+        ->jsonScores('select * from foo')
+        ->toBeJson()
+        ->not->toBeEmpty()
+        ->assert(function (string $jsonScores): void {
+            $this->assertMatchesJsonSnapshot($jsonScores);
+        });
+})->group(__DIR__, __FILE__);
 
 it('can get html scores', function (): void {
-    $htmlScores = Soar::create()->htmlScores('select * from foo');
-
-    expect($htmlScores)
+    expect(Soar::create())
+        ->htmlScores('select * from foo')
         ->toBeString()
         ->not->toBeEmpty()
-        ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>');
-
-    OS::isWindows() or $this->assertMatchesSnapshot($htmlScores);
-});
+        ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>')
+        ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
+            $this->assertMatchesSnapshot($expectation->value);
+        });
+})->group(__DIR__, __FILE__);
 
 it('can get markdown scores', function (): void {
-    $markdownScores = Soar::create()->markdownScores('select * from foo');
-
-    expect($markdownScores)
+    expect(Soar::create())
+        ->markdownScores('select * from foo')
         ->toBeString()
         ->not->toBeEmpty()
-        ->toContain('foo', '#', '```sql', '##', '*');
-
-    OS::isWindows() or $this->assertMatchesSnapshot($markdownScores);
+        ->toContain('foo', '#', '```sql', '##', '*')
+        ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
+            $this->assertMatchesSnapshot($expectation->value);
+        });
 });
 
 it('will throw an exception when scores is not a string or array', function (): void {
     Soar::create()->scores(true);
-})->throws(InvalidArgumentException::class);
+})
+    ->group(__DIR__, __FILE__)
+    ->throws(InvalidArgumentException::class, gettype(true));
 
 it('can get scores', function (): void {
-    $soar = Soar::create();
-    $scores = $soar->scores('select * from users;');
-    expect($scores)->toBeString()->not->toBeEmpty();
-
-    $scores = $soar->scores(['select * from a; select * from b', 'select * from c', 'select * from d']);
-    expect($scores)->toBeString()->not->toBeEmpty();
-
-    $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
-    $scores = $soar->scores('select * from users;');
-    expect($scores)->toBeString()->not->toBeEmpty();
-});
+    expect(Soar::create())->scores('select * from users;')
+        ->toBeString()
+        ->not->toBeEmpty()
+        ->and(Soar::create(require __DIR__.'/../../examples/soar.options.full.php'))->scores('select * from users;')
+        ->toBeString()
+        ->not->toBeEmpty()
+        ->and(Soar::create())->scores([
+            'select * from a; select * from b',
+            'select * from c',
+            'select * from d',
+        ])
+        ->toBeString()
+        ->not->toBeEmpty();
+})->group(__DIR__, __FILE__);

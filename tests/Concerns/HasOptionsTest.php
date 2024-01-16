@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection NullPointerExceptionInspection */
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
@@ -18,102 +19,90 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Soar;
 
 it('can add option', function (): void {
-    $options = [$key = 'foo' => $val = 'bar'];
-    $soar = Soar::create($options);
-    $option = $soar->addOption($key, $addVal = 'foo')->getOption($key);
-
-    expect($val)->toBe($option)
-        ->and($addVal)->not->toBe($option);
-});
+    expect(Soar::create())
+        ->addOption($key = 'foo', $val = 'bar')
+        ->getOption($key)->toBe($val)
+        ->addOption($key, 'foo')
+        ->getOption($key)->toBe($val);
+})->group(__DIR__, __FILE__);
 
 it('can remove option', function (): void {
-    $options = [$key = 'foo' => $val = 'bar'];
-    $soar = Soar::create($options);
-    $option = $soar->removeOption($key)->getOption($key);
-
-    expect($option)->toBeNull()->not->toBe($val);
-});
+    expect(Soar::create([$key = 'foo' => $val = 'bar']))
+        ->getOption($key)->toBe($val)
+        ->removeOption($key)
+        ->getOption($key)->toBeNull();
+})->group(__DIR__, __FILE__);
 
 it('can only option', function (): void {
-    $soar = Soar::create([
+    expect(Soar::create([
         $key1 = 'key1' => $val = 'val',
         $key2 = 'key2' => $val,
-    ]);
-    $soar = $soar->onlyOption($key1);
-
-    expect($val)->toBe($soar->getOption($key1))
-        ->not->toBe($soar->getOption($key2))
-        ->and($soar->getOption($key2))->toBeNull();
-});
+    ]))
+        ->onlyOption($key1)
+        ->getOption($key1)->toBe($val)
+        ->getOption($key2)->toBeNull();
+})->group(__DIR__, __FILE__);
 
 it('can only dsn', function (): void {
-    $soar = Soar::create([
+    expect(Soar::create([
         $key1 = '-test-dsn' => $val = 'val',
         $key2 = 'key2' => $val,
-    ]);
-    $soar = $soar->onlyDsn();
-
-    expect($val)->toBe($soar->getOption($key1))
-        ->not->toBe($soar->getOption($key2))
-        ->and($soar->getOption($key2))->toBeNull();
-});
+    ]))
+        ->onlyDsn()
+        ->getOption($key1)->toBe($val)
+        ->getOption($key2)->toBeNull();
+})->group(__DIR__, __FILE__);
 
 it('can set option', function (): void {
-    $soar = Soar::create();
-
-    expect($soar->setOption($key = 'foo', $str = 'bar')->getOption($key))->toBe($str)
-        ->and($soar->setOption($key = '-online-dsn', $arr = [
-            'host' => '192.168.10.10',
-            'port' => '3306',
-            'dbname' => 'laravel',
-            'username' => 'homestead',
-            'password' => 'secret',
-            'disable' => false,
-            'options' => [],
-        ])->getOption($key))->toBe($arr)
-        ->and($soar->setOption($key = '-foo', $arr = ['a', 'b', 'c'])->getOption($key))->toBe($arr);
-});
+    expect(Soar::create())
+        ->setOption($key = 'foo', $str = 'bar')->getOption($key)->toBe($str)
+        ->setOption(
+            $key = '-online-dsn',
+            $arr = [
+                'host' => '192.168.10.10',
+                'port' => '3306',
+                'dbname' => 'laravel',
+                'username' => 'homestead',
+                'password' => 'secret',
+                'disable' => false,
+                'options' => [],
+            ]
+        )->getOption($key)->toBe($arr)
+        ->setOption($key = '-foo', $arr = ['a', 'b', 'c'])->getOption($key)->toBe($arr);
+})->group(__DIR__, __FILE__);
 
 it('can merge option', function (): void {
-    $soar = Soar::create();
-    $option = $soar->mergeOption($key = 'foo', $val = 'bar')->getOption($key);
-
-    expect($option)->toBe($val);
-});
+    expect(Soar::create())
+        ->mergeOption($key = 'foo', $val = 'bar')
+        ->getOption($key)->toBe($val);
+})->group(__DIR__, __FILE__);
 
 it('can get options', function (): void {
     expect(Soar::create())->getOptions()->toBeArray();
-});
+})->group(__DIR__, __FILE__);
 
 it('will throw an exception when call unknown method', function (): void {
     /** @noinspection PhpUndefinedMethodInspection */
     Soar::create()->foo();
-})->throws(BadMethodCallException::class, 'foo');
+})
+    ->group(__DIR__, __FILE__)
+    ->throws(BadMethodCallException::class, 'foo');
 
-it('can call', function (): void {
+it('can call options methods', function (): void {
     // $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
-    $val = 'version';
-    $version = Soar::create()->addVersion($val)->getVersion();
-    expect($version)->toBe($val);
-
-    $version = Soar::create()->setVersion($val)->removeVersion()->getVersion();
-    expect($version)->toBeNull();
-
-    $version = Soar::create()->onlyVersion()->getVersion();
-    expect($version)->toBeNull();
-
-    $version = Soar::create()->setVersion($val)->getVersion();
-    expect($version)->toBe($val);
-
-    $version = Soar::create()->mergeVersion($val)->getVersion();
-    expect($version)->toBe($val);
-});
+    expect(Soar::create())
+        ->addVersion($val = 'version')->getVersion()->toBe($val)
+        ->setVersion($val)->removeVersion()->getVersion()->toBeNull()
+        ->onlyVersion()->getVersion()->toBeNull()
+        ->setVersion($val)->getVersion()->toBe($val)
+        ->mergeVersion($val)->getVersion()->toBe($val);
+})->group(__DIR__, __FILE__);
 
 it('will throw an exception when normalize invalid option', function (): void {
     (function (): array {
         return $this->getNormalizedOptions();
     })->call(Soar::create(['foo' => $this->createMock(stdClass::class)]));
-})->throws(InvalidOptionException::class, 'object');
+})->group(__DIR__, __FILE__)->throws(InvalidOptionException::class, 'object');
 
 it('can normalize options', function (): void {
     $soar = Soar::create([

@@ -18,7 +18,9 @@ use Guanguans\SoarPHP\Support\OS;
 
 it('can get help', function (): void {
     expect(Soar::create())->help()->toContain('-version');
-})->skip(OS::isWindows(), 'The method of help is not supported on windows.');
+})
+    ->group(__DIR__, __FILE__)
+    ->skip(OS::isWindows(), 'The method of help is not supported on windows.');
 
 it('can get version', function (): void {
     expect(Soar::create())->version()->toContain(
@@ -27,4 +29,4 @@ it('can get version', function (): void {
         '2023-07-23 18:37:53 +0800 by go version go1.20.6',
         'GitDirty:        0',
     );
-});
+})->group(__DIR__, __FILE__);

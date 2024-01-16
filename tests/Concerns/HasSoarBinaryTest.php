@@ -17,16 +17,16 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
-it('get soar binary', function (): void {
+it('can get soar binary', function (): void {
+    expect(Soar::create())->getSoarBinary()->toBeFile();
+})->group(__DIR__, __FILE__);
+
+it('can also get soar binary', function (): void {
     // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
     // $mock->allows('isWindows')->andReturnTrue();
     // $soar = Soar::create();
     // $this->assertFileExists($soar->getSoarBinary());
     // $this->assertStringContainsString('windows', $soar->getSoarBinary());
-    $soar = Soar::create();
-    expect($soar->getSoarBinary())->toBeFile();
-
-    $this->markTestSkipped(__METHOD__.' is skipped.');
 
     // 暂存
     $originals = ['isWindows' => OS::isWindows(), 'isMacOS' => OS::isMacOS()];
@@ -48,8 +48,12 @@ it('get soar binary', function (): void {
 
     // 恢复
     test::double(OS::class, $originals);
-});
+})
+    ->group(__DIR__, __FILE__)
+    ->skip('This test is skipped.');
 
 it('will throw an exception when set invalid binary', function (): void {
     Soar::create()->setSoarBinary('soar.path');
-})->throws(InvalidArgumentException::class);
+})
+    ->group(__DIR__, __FILE__)
+    ->throws(InvalidArgumentException::class);
