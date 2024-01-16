@@ -33,7 +33,7 @@ trait WithRunable
     }
 
     /**
-     * @param array|string $withOptions
+     * @param array<string>|string $withOptions
      *
      * @throws InvalidOptionException
      */
@@ -53,11 +53,11 @@ trait WithRunable
     }
 
     /**
-     * @param array|string $withOptions
+     * @param array<string>|string $withOptions
      *
      * @throws InvalidOptionException
      */
-    private function createProcess($withOptions = []): Process
+    protected function createProcess($withOptions = []): Process
     {
         $process = \is_string($withOptions)
             ? Process::fromShellCommandline("{$this->getEscapedSoarBinary()} {$this->getHydratedEscapedNormalizedOptions()} $withOptions")

@@ -99,6 +99,7 @@ class EscapeArg
      * @param bool                 $meta Additionally escape cmd.exe meta characters
      *
      * @return string The escaped command line
+     * @noinspection PhpUnused
      */
     public static function escapeCommand(array $args, bool $meta = true): string
     {

@@ -1531,7 +1531,7 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeOptions(array $options): array
+    protected function normalizeOptions(array $options): array
     {
         return array_reduce_with_keys($options, function (array $normalizedOptions, $value, $key): array {
             if ($normalizedOption = $this->normalizeOption($key, $value)) {
@@ -1548,7 +1548,7 @@ trait HasOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeOption($key, $value): string
+    protected function normalizeOption($key, $value): string
     {
         $converter = function ($value) {
             \is_callable($value) and ! (\is_string($value) && \function_exists($value)) and $value = $value($this);

@@ -23,6 +23,7 @@ class ComposerScript
 {
     /**
      * @throws InvalidOptionException
+     * @noinspection PhpUnused
      */
     public static function dumpSoarDocblock(Event $event): int
     {
@@ -94,6 +95,7 @@ class ComposerScript
 
     /**
      * @throws InvalidOptionException
+     * @noinspection PhpUnused
      */
     public static function dumpSoarConfig(Event $event): int
     {

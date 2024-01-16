@@ -19,7 +19,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  */
 trait ConcreteMagic
 {
-    public function __sleep()
+    public function __sleep(): array
     {
         return ['options', 'soarBinary'];
     }
@@ -49,12 +49,15 @@ trait ConcreteMagic
     //     $this->setSoarBinary($data['soarBinary']);
     // }
 
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         return get_object_vars($this) + ['commandLine' => (string) $this];
     }
 
-    public static function __set_state(array $properties)
+    /**
+     * @noinspection MagicMethodsValidityInspection
+     */
+    public static function __set_state(array $properties): self
     {
         return new static($properties['options'], $properties['soarBinary']);
     }
@@ -64,7 +67,7 @@ trait ConcreteMagic
      *
      * @noinspection MagicMethodsValidityInspection
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->createProcess()->getCommandLine();
     }
