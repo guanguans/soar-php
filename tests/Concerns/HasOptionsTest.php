@@ -1,7 +1,7 @@
 <?php
 
-/** @noinspection NullPointerExceptionInspection */
 /** @noinspection AnonymousFunctionStaticInspection */
+/** @noinspection NullPointerExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);

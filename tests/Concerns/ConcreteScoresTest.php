@@ -1,9 +1,9 @@
 <?php
 
+/** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
@@ -26,7 +26,7 @@ use Guanguans\SoarPHP\Support\OS;
 it('can get array scores', function (): void {
     $sqls = <<<'sqls'
         SELECT * FROM `post` WHERE `name`='so"a`r';
-        SELECT DATE_FORMAT (t.last_update,'%Y-%m-%d'),COUNT (DISTINCT (t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
+        SELECT DATE_FORMAT(t.last_update,'%Y-%m-%d'), COUNT(DISTINCT(t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
 
         DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL;
 

@@ -1,8 +1,8 @@
 <?php
 
-/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection DuplicateCustomExpectationInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);

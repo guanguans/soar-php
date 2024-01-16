@@ -20,7 +20,7 @@ it('can get help', function (): void {
     expect(Soar::create())->help()->toContain('-version');
 })
     ->group(__DIR__, __FILE__)
-    ->skip(OS::isWindows(), 'The method of help is not supported on windows.');
+    ->skip(OS::isWindows(), 'This test is skipped. Because is not supported in windows.');
 
 it('can get version', function (): void {
     expect(Soar::create())->version()->toContain(

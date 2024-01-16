@@ -22,17 +22,17 @@ use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Symfony\Component\Process\Process;
 
-it('will throw InvalidArgumentException when options is boolean', function (): void {
+it('will throw InvalidArgumentException when with-options is boolean', function (): void {
     Soar::create()->run(true);
 })
     ->group(__DIR__, __FILE__)
     ->throws(InvalidArgumentException::class, \gettype(true));
 
 it('will throw ProcessFailedException when sqls is invalid sql', function (): void {
-    Soar::create()->setOnlySyntaxCheck(true)->setQuery('optionsOfError')->run();
+    Soar::create()->setOnlySyntaxCheck(true)->setQuery('invalid sql')->run();
 })
     ->group(__DIR__, __FILE__)
-    ->throws(ProcessFailedException::class, 'optionsOfError');
+    ->throws(ProcessFailedException::class, 'invalid sql');
 
 it('will throw ProcessFailedException when sudo password is empty', function (): void {
     foreach ([
@@ -55,7 +55,7 @@ it('will throw ProcessFailedException when sudo password is empty', function ():
         ProcessFailedException::class,
         'Password:Sorry, try again * sudo: no password was provided * sudo: 1 incorrect password attempt'
     )
-    ->skip('This test is skipped. Because run sudo command is not allowed in github actions.');
+    ->skip('This test is skipped. Because is not supported in github actions.');
 
 it('can run soar process with tapper', function (): void {
     expect(Soar::create())
