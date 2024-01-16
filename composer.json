@@ -145,6 +145,11 @@
         "composer-normalize": "@composer normalize --dry-run --diff --ansi -v",
         "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
+        "dump-soar": [
+            "@dump-soar-docblock",
+            "@dump-soar-php-config",
+            "@dump-soar-yaml-config"
+        ],
         "dump-soar-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScript::dumpSoarDocblock",
         "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScript::dumpSoarConfig",
         "dump-soar-yaml-config": "./bin/soar.darwin-amd64 -print-config -verbose > examples/soar.options.example.yaml",
