@@ -22,29 +22,21 @@ it('can get soar binary', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can also get soar binary', function (): void {
-    // $mock = \Mockery::mock('alias:'.OS::class)->makePartial();
+    // $mock = Mockery::mock('alias:'.OS::class)->makePartial();
     // $mock->allows('isWindows')->andReturnTrue();
-    // $soar = Soar::create();
-    // $this->assertFileExists($soar->getSoarBinary());
-    // $this->assertStringContainsString('windows', $soar->getSoarBinary());
+    // expect(Soar::create())->getSoarBinary()->toBeFile()->toContain('windows');
 
     // 暂存
     $originals = ['isWindows' => OS::isWindows(), 'isMacOS' => OS::isMacOS()];
 
     test::double(OS::class, ['isWindows' => true, 'isMacOS' => false]);
-    $soar = Soar::create();
-    expect($soar->getSoarBinary())->toBeFile();
-    $this->assertStringContainsString('windows', $soar->getSoarBinary());
+    expect(Soar::create())->getSoarBinary()->toBeFile()->toContain('windows');
 
     test::double(OS::class, ['isWindows' => false, 'isMacOS' => true]);
-    $soar = Soar::create();
-    expect($soar->getSoarBinary())->toBeFile();
-    $this->assertStringContainsString('darwin', $soar->getSoarBinary());
+    expect(Soar::create())->getSoarBinary()->toBeFile()->toContain('darwin');
 
     test::double(OS::class, ['isWindows' => false, 'isMacOS' => false]);
-    $soar = Soar::create();
-    expect($soar->getSoarBinary())->toBeFile();
-    $this->assertStringContainsString('linux', $soar->getSoarBinary());
+    expect(Soar::create())->getSoarBinary()->toBeFile()->toContain('linux');
 
     // 恢复
     test::double(OS::class, $originals);
@@ -52,7 +44,7 @@ it('can also get soar binary', function (): void {
     ->group(__DIR__, __FILE__)
     ->skip('This test is skipped.');
 
-it('will throw an exception when set invalid binary', function (): void {
+it('will throw InvalidArgumentException when set invalid binary', function (): void {
     Soar::create()->setSoarBinary('soar.path');
 })
     ->group(__DIR__, __FILE__)

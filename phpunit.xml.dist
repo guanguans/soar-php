@@ -32,8 +32,8 @@
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>
-  <listeners>
-    <!--<listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
+  <!--<listeners>
+    <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
       <arguments>
         <array>
           <element key="slowThreshold">
@@ -47,6 +47,6 @@
           </element>
         </array>
       </arguments>
-    </listener>-->
-  </listeners>
+    </listener>
+  </listeners>-->
 </phpunit>

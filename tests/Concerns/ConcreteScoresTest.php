@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection DebugFunctionUsageInspection */
+/** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -55,7 +57,7 @@ it('can get array scores', function (): void {
     expect(Soar::create())
         ->arrayScores($sqls)
         ->toBeArray()
-        ->not->toBeEmpty()
+        ->toBeTruthy()
         ->each(function (Pest\Expectation $arrayScore): void {
             $arrayScore->toBeArray()->toHaveKeys([
                 'ID',
@@ -69,11 +71,9 @@ it('can get array scores', function (): void {
             ]);
         })
         ->when(OS::isWindows(), function (Pest\Expectation $expectation): void {
-            /** @noinspection ForgottenDebugOutputInspection */
-            /** @noinspection DebugFunctionUsageInspection */
             dump($expectation->value);
         })
-        ->when(OS::isWindows() && \PHP_VERSION_ID >= 80100, function (Pest\Expectation $expectation): void {
+        ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
             $this->assertMatchesYamlSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
@@ -82,7 +82,7 @@ it('can get json scores', function (): void {
     expect(Soar::create())
         ->jsonScores('select * from foo')
         ->toBeJson()
-        ->not->toBeEmpty()
+        ->toBeTruthy()
         ->assert(function (string $jsonScores): void {
             $this->assertMatchesJsonSnapshot($jsonScores);
         });
@@ -92,7 +92,7 @@ it('can get html scores', function (): void {
     expect(Soar::create())
         ->htmlScores('select * from foo')
         ->toBeString()
-        ->not->toBeEmpty()
+        ->toBeTruthy()
         ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>')
         ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
             $this->assertMatchesSnapshot($expectation->value);
@@ -103,31 +103,32 @@ it('can get markdown scores', function (): void {
     expect(Soar::create())
         ->markdownScores('select * from foo')
         ->toBeString()
-        ->not->toBeEmpty()
+        ->toBeTruthy()
         ->toContain('foo', '#', '```sql', '##', '*')
         ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
             $this->assertMatchesSnapshot($expectation->value);
         });
 });
 
-it('will throw an exception when scores is not a string or array', function (): void {
+it('will throw InvalidArgumentException when sqls is boolean', function (): void {
     Soar::create()->scores(true);
 })
     ->group(__DIR__, __FILE__)
     ->throws(InvalidArgumentException::class, gettype(true));
 
 it('can get scores', function (): void {
-    expect(Soar::create())->scores('select * from users;')
+    expect(Soar::create())
+        ->scores('select * from users;')
         ->toBeString()
-        ->not->toBeEmpty()
-        ->and(Soar::create(require __DIR__.'/../../examples/soar.options.full.php'))->scores('select * from users;')
-        ->toBeString()
-        ->not->toBeEmpty()
-        ->and(Soar::create())->scores([
+        ->toBeTruthy()
+        ->scores([
             'select * from a; select * from b',
             'select * from c',
             'select * from d',
         ])
         ->toBeString()
-        ->not->toBeEmpty();
+        ->toBeTruthy()
+        ->mergeOptions(require __DIR__.'/../../examples/soar.options.full.php')->scores('select * from users;')
+        ->toBeString()
+        ->toBeTruthy();
 })->group(__DIR__, __FILE__);

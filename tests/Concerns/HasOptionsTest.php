@@ -22,15 +22,14 @@ it('can add option', function (): void {
     expect(Soar::create())
         ->addOption($key = 'foo', $val = 'bar')
         ->getOption($key)->toBe($val)
-        ->addOption($key, 'foo')
+        ->addOption($key, $key)
         ->getOption($key)->toBe($val);
 })->group(__DIR__, __FILE__);
 
 it('can remove option', function (): void {
     expect(Soar::create([$key = 'foo' => $val = 'bar']))
         ->getOption($key)->toBe($val)
-        ->removeOption($key)
-        ->getOption($key)->toBeNull();
+        ->removeOption($key)->getOption($key)->toBeNull();
 })->group(__DIR__, __FILE__);
 
 it('can only option', function (): void {
@@ -72,23 +71,23 @@ it('can set option', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can merge option', function (): void {
-    expect(Soar::create())
-        ->mergeOption($key = 'foo', $val = 'bar')
-        ->getOption($key)->toBe($val);
+    expect(Soar::create([$key = 'foo', 'bar']))
+        ->mergeOption($key, $key)
+        ->getOption($key)->toBe($key);
 })->group(__DIR__, __FILE__);
 
 it('can get options', function (): void {
-    expect(Soar::create())->getOptions()->toBeArray();
+    expect(Soar::create($options = ['foo' => 'bar']))->getOptions()->toBe($options);
 })->group(__DIR__, __FILE__);
 
-it('will throw an exception when call unknown method', function (): void {
+it('will throw BadMethodCallException when call not exist method', function (): void {
     /** @noinspection PhpUndefinedMethodInspection */
     Soar::create()->foo();
 })
     ->group(__DIR__, __FILE__)
     ->throws(BadMethodCallException::class, 'foo');
 
-it('can call options methods', function (): void {
+it('can call option methods via magic call', function (): void {
     // $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
     expect(Soar::create())
         ->addVersion($val = 'version')->getVersion()->toBe($val)
@@ -98,51 +97,53 @@ it('can call options methods', function (): void {
         ->mergeVersion($val)->getVersion()->toBe($val);
 })->group(__DIR__, __FILE__);
 
-it('will throw an exception when normalize invalid option', function (): void {
+it('will throw InvalidOptionException when normalize invalid option', function (): void {
     (function (): array {
         return $this->getNormalizedOptions();
     })->call(Soar::create(['foo' => $this->createMock(stdClass::class)]));
-})->group(__DIR__, __FILE__)->throws(InvalidOptionException::class, 'object');
+})
+    ->group(__DIR__, __FILE__)
+    ->throws(InvalidOptionException::class, 'object');
 
 it('can normalize options', function (): void {
-    $soar = Soar::create([
-        'foo' => 'bar',
-        '-verbose',
-        '-test-dsn' => [
-            'host' => 'you_host',
-            'port' => 'you_port',
-            'dbname' => 'you_dbname',
-            'username' => 'you_username',
-            'password' => 'you_password',
-            'disable' => false,
-        ],
-        '-online-dsn' => [
-            'host' => 'you_host',
-            'port' => 'you_port',
-            'dbname' => 'you_dbname',
-            'username' => 'you_username',
-            'password' => 'you_password',
-            'disable' => true,
-        ],
-        'arr' => ['foo', 'bar', 'baz'],
-        'closure' => static function (Soar $soar): string {
-            return $soar->getOption('foo');
-        },
-        'stringable' => new class() {
-            public function __toString(): string
-            {
-                return __CLASS__;
-            }
-        },
-        'invoke' => new class() {
-            public function __invoke(): string
-            {
-                return __CLASS__;
-            }
-        },
-    ]);
-
     expect(function (): array {
         return $this->getNormalizedOptions();
-    })->call($soar)->toBeArray();
+    })
+        ->call(Soar::create([
+            'foo' => 'bar',
+            '-verbose',
+            '-test-dsn' => [
+                'host' => 'you_host',
+                'port' => 'you_port',
+                'dbname' => 'you_dbname',
+                'username' => 'you_username',
+                'password' => 'you_password',
+                'disable' => false,
+            ],
+            '-online-dsn' => [
+                'host' => 'you_host',
+                'port' => 'you_port',
+                'dbname' => 'you_dbname',
+                'username' => 'you_username',
+                'password' => 'you_password',
+                'disable' => true,
+            ],
+            'arr' => ['foo', 'bar', 'baz'],
+            'closure' => static function (Soar $soar): string {
+                return $soar->getOption('foo');
+            },
+            'stringable' => new class() {
+                public function __toString(): string
+                {
+                    return __CLASS__;
+                }
+            },
+            'invoke' => new class() {
+                public function __invoke(): string
+                {
+                    return __CLASS__;
+                }
+            },
+        ]))
+        ->toBeArray();
 });

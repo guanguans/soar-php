@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection UnnecessaryAssertionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);
@@ -20,7 +22,6 @@ it('can dump self and additional params', function (): void {
         ->toBeInstanceOf(Soar::class);
 
     $mockObject = $this->getFunctionMock(class_namespace(Soar::class), 'class_exists');
-    /** @noinspection UnnecessaryAssertionInspection */
     $mockObject->expects($this->any())->willReturn(false);
     expect(Soar::create(['foo' => 'bar']))
         ->dump('foo')

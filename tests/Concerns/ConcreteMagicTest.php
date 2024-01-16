@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection DebugFunctionUsageInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);
@@ -15,22 +16,20 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 
 it('can serialize and unserialize', function (): void {
-    $soar = Soar::create(require __DIR__.'/../../examples/soar.options.full.php');
-    expect(unserialize(serialize($soar)))->toBeInstanceOf(Soar::class)
+    expect(unserialize(serialize(Soar::create(require __DIR__.'/../../examples/soar.options.full.php'))))
+        ->toBeInstanceOf(Soar::class)
         ->getSoarBinary()->not->toBeEmpty()
         ->getOptions()->not->toBeEmpty();
 })->group(__DIR__, __FILE__);
 
-it('can export code block and eval it', function (): void {
+it('can export soar code block and eval it', function (): void {
     expect(
         (static function () {
             $soar = null;
-            /** @noinspection DebugFunctionUsageInspection */
-            $exportedSoarCodeBlock = var_export(
+            eval(sprintf('$soar = %s;', var_export(
                 Soar::create(require __DIR__.'/../../examples/soar.options.full.php'),
                 true
-            );
-            eval("\$soar = $exportedSoarCodeBlock;");
+            )));
 
             /** @noinspection PhpExpressionAlwaysNullInspection */
             return $soar;

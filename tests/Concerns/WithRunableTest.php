@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection DebugFunctionUsageInspection */
+/** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
@@ -20,19 +22,19 @@ use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Symfony\Component\Process\Process;
 
-it('will throw an InvalidArgumentException when options is not string', function (): void {
+it('will throw InvalidArgumentException when options is boolean', function (): void {
     Soar::create()->run(true);
 })
     ->group(__DIR__, __FILE__)
     ->throws(InvalidArgumentException::class, \gettype(true));
 
-it('will throw an ProcessFailedException when query is not sql', function (): void {
+it('will throw ProcessFailedException when sqls is invalid sql', function (): void {
     Soar::create()->setOnlySyntaxCheck(true)->setQuery('optionsOfError')->run();
 })
     ->group(__DIR__, __FILE__)
     ->throws(ProcessFailedException::class, 'optionsOfError');
 
-it('will throw an ProcessFailedException when sudo password is empty', function (): void {
+it('will throw ProcessFailedException when sudo password is empty', function (): void {
     foreach ([
         'Password:Sorry, try again',
         'sudo: no password was provided',
@@ -49,7 +51,10 @@ it('will throw an ProcessFailedException when sudo password is empty', function 
     })->setSudoPassword('foo')->setQuery('select bar;')->run();
 })
     ->group(__DIR__, __FILE__)
-    ->throws(ProcessFailedException::class, 'Password:Sorry, try again')
+    ->throws(
+        ProcessFailedException::class,
+        'Password:Sorry, try again * sudo: no password was provided * sudo: 1 incorrect password attempt'
+    )
     ->skip('This test is skipped. Because run sudo command is not allowed in github actions.');
 
 it('can run soar process with tapper', function (): void {
@@ -60,8 +65,6 @@ it('can run soar process with tapper', function (): void {
         ->run(
             '-version',
             static function (string $type, string $data): void {
-                /** @noinspection ForgottenDebugOutputInspection */
-                /** @noinspection DebugFunctionUsageInspection */
                 dump($type, $data);
             }
         )
