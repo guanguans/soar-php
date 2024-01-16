@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.0.2"></a>
+## [4.0.2] - 2024-01-16
+### Docs
+- Update README.md and README-zh_CN.md
+
+### Feat
+- **composer:** add dump-soar command
+
+### Refactor
+- **concerns:** improve magic methods
+
+
 <a name="4.0.1"></a>
 ## [4.0.1] - 2024-01-16
 ### Test
@@ -424,7 +436,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.0.2...HEAD
+[4.0.2]: https://github.com/guanguans/soar-php/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/guanguans/soar-php/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/guanguans/soar-php/compare/3.5.0...4.0.0
 [3.5.0]: https://github.com/guanguans/soar-php/compare/3.4.4...3.5.0
