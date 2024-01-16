@@ -161,6 +161,7 @@
         "pest": "@php ./vendor/bin/pest --coverage",
         "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=./clover.xml",
         "pest-migrate-configuration": "@pest --migrate-configuration",
+        "pest-update-snapshots": "@pest -d --update-snapshots",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
         "post-merge": [
@@ -184,6 +185,7 @@
         "test-migrate-configuration": "@pest-migrate-configuration",
         "test-phpunit": "@php ./vendor/bin/phpunit --cache-result-file=./build/phpunit/.phpunit.result.cache --coverage-text --ansi -v",
         "test-phpunit-coverage": "@test --coverage-html=./build/phpunit/ --coverage-clover=clover.xml",
+        "test-update-snapshots": "@pest-update-snapshots",
         "yaml-lint": "@php ./vendor/bin/yaml-lint .github --ansi -v"
     }
 }

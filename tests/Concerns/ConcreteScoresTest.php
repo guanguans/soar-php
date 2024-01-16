@@ -58,8 +58,8 @@ it('can get array scores', function (): void {
         ->arrayScores($sqls)
         ->toBeArray()
         ->toBeTruthy()
-        ->each(function (Pest\Expectation $arrayScore): void {
-            $arrayScore->toBeArray()->toHaveKeys([
+        ->each(function (Pest\Expectation $expectation): void {
+            $expectation->toBeArray()->toHaveKeys([
                 'ID',
                 'Fingerprint',
                 'Score',

@@ -135,13 +135,13 @@ it('can normalize options', function (): void {
             'stringable' => new class() {
                 public function __toString(): string
                 {
-                    return __CLASS__;
+                    return self::class;
                 }
             },
             'invoke' => new class() {
                 public function __invoke(): string
                 {
-                    return __CLASS__;
+                    return self::class;
                 }
             },
         ]))
