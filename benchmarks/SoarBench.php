@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnused */
+
 declare(strict_types=1);
 
 /**
@@ -33,6 +35,11 @@ final class SoarBench
         $this->soar = Soar::create();
     }
 
+    /**
+     * @noinspection PhpUnhandledExceptionInspection
+     * @noinspection SqlNoDataSourceInspection
+     * @noinspection SqlResolve
+     */
     public function benchScores(): void
     {
         $this->soar->scores('SELECT * FROM foo;');

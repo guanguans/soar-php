@@ -186,6 +186,7 @@ require __DIR__.'/vendor/autoload.php';
             ->setWorkingDirectory(dirname($this->composerJsonFile))
             ->setEnv(['COMPOSER_MEMORY_LIMIT' => -1])
             ->mustRun(function (string $type, string $buffer) {
+                /** @noinspection PhpVoidFunctionResultUsedInspection */
                 return $this->symfonyStyle->write($buffer);
             });
     }
