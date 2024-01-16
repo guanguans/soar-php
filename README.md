@@ -1,8 +1,8 @@
 # soar-php
 
-> 基于小米的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
+> SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's [soar](https://github.com/XiaoMi/soar).
 
-[简体中文](README.md) | [ENGLISH](README-EN.md)
+[简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
 [![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
 [![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
@@ -11,13 +11,13 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v/stable)](https://packagist.org/packages/guanguans/soar-php)
 [![License](https://poser.pugx.org/guanguans/soar-php/license)](https://packagist.org/packages/guanguans/soar-php)
 
-## 环境要求
+## Requirements
 
 * PHP >= 7.3
 * ext-json
 * ext-mbstring
 
-## 框架中使用
+## Used in the framework
 
 - [x] Laravel - [laravel-soar](https://github.com/guanguans/laravel-soar), [laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
 - [x] ThinkPHP - [think-soar](https://github.com/guanguans/think-soar)
@@ -27,16 +27,16 @@
 - [ ] Symfony
 - [ ] Slim
 
-## 安装
+## Installation
 
 ```shell
 composer require guanguans/soar-php -v
 ```
 
-## 使用
+## Usage
 
 <details>
-<summary><b>快速开始</b></summary>
+<summary><b>Quick start</b></summary>
 
 ```php
 <?php
@@ -45,12 +45,12 @@ require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
-// 快速创建 soar 实例
+// Quickly create a soar instance
 $soar = Soar::create();
 
 /**
- * 创建自定义 soar 实例
- * 选项 @see examples/soar.options.example.php
+ * Create a custom soar instance
+ * Options @see examples/soar.options.example.php
  */
 $soar = Soar::create(
     [
@@ -71,30 +71,30 @@ $soar = Soar::create(
     '自定义的 soar 路径'
 );
 
-// 最终运行: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
-$soar->clone() // 克隆 soar，避免操作原始 soar 的选项。
-    ->addVersion(true) // 添加 -version 选项的值为 `true`
-    ->addVerbose(true) // 添加 -verbose 选项的值为 `true`
-    ->removeVersion()  // 移除 -version 选项
-    ->setVersion(true) // 设置 -version 选项的值为 `true`
-    ->mergeVersion(true) // 合并 -version 选项的值为 `true`
-    ->onlyVersion() // 仅保留 -version 选项
-    ->dump() // 打印调试信息
-    ->run(); // 运行
+// Final run: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
+$soar->clone() // Clone soar and avoid the option to manipulate the original soar.
+    ->addVersion(true) // Add -version value of the option is `true`
+    ->addVerbose(true) // Add -verbose value of the option is `true`
+    ->removeVersion()  // Remove -version option
+    ->setVersion(true) // Set -version value of the option is `true`
+    ->mergeVersion(true) // Merge -version value of the option is `true`
+    ->onlyVersion() // Only keep -version option
+    ->dump() // Dump debug information
+    ->run(); // Run
 ```
 </details>
 
 <details>
-<summary><b>:warning: 在 unix 操作系统非 cli 环境中运行时，可能会抛出 `Fatal error: ...Exit Code: 2(Misuse of shell builtins)...`</b></summary>
+<summary><b>:warning: When running in a unix OS non-cli environment, may throw `Fatal error: ...Exit Code: 2(Misuse of shell builtins)...`</b></summary>
 
 ```php
 // Fatal error: Uncaught Guanguans\SoarPHP\Exceptions\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64' '-report-type=json' '-query=select * from users;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1938665] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x65 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x175 in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php:36 Stack trace: #0 /Users/yaozm/Documents/develop/soar-php/test.php(163): Guanguans\SoarPHP\Soar->run() #1 /User in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php on line 36
-$soar->setSudoPassword('your sudo password'); // 设置 sudo 密码，以 sudo 运行 soar 命令，避免出现上述错误。
+$soar->setSudoPassword('your sudo password'); // Set a sudo password to run the soar command with sudo to avoid the above errors.
 ```
 </details>
 
 <details>
-<summary><b>SQL 评分(SQL 指纹、分数、Explain 解读、启发式规则建议、索引规则建议)</b></summary>
+<summary><b>SQL Scores(SQL fingerprint、Score、Explain interpretation、Heuristic rule suggestions、Index rule suggestions)</b></summary>
 
 ```php
 $sqls = <<<'sql'
@@ -485,7 +485,7 @@ array:9 [
 </details>
 
 <details>
-<summary><b>soar 帮助</b></summary>
+<summary><b>soar help</b></summary>
 
 ```php
 $soar->help()
@@ -646,23 +646,23 @@ Usage of /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64:
 ```
 </details>
 
-## 测试
+## Testing
 
 ```bash
 composer test
 ```
 
-## 变更日志
+## Changelog
 
-请参阅 [CHANGELOG](CHANGELOG.md) 获取最近有关更改的更多信息。
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## 贡献指南
+## Contributing
 
-请参阅 [CONTRIBUTING](.github/CONTRIBUTING.md) 有关详细信息。
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
-## 安全漏洞
+## Security Vulnerabilities
 
-请查看[我们的安全政策](../../security/policy)了解如何报告安全漏洞。
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Contributors ✨
 
@@ -688,6 +688,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-## 协议
+## License
 
-MIT 许可证（MIT）。有关更多信息，请参见[协议文件](LICENSE)。
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
