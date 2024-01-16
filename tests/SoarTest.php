@@ -24,9 +24,9 @@ it('can get help', function (): void {
 
 it('can get version', function (): void {
     expect(Soar::create())->version()->toContain(
-        'Version: 2023-01-21 17:22:53 +0800 0.11.0-146-gfab0463',
+        'Version: 2023-12-15 17:13:07 +0800 0.11.0-148-g5ed8574',
         'Branch: dev',
-        '2023-07-23 18:37:53 +0800 by go version go1.20.6',
-        'GitDirty:        0',
+        'Compile: 2024-01-16 15:35:51 +0800 by go version go1.21.5',
+        'GitDirty:       12',
     );
 })->group(__DIR__, __FILE__);
