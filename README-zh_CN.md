@@ -1,5 +1,6 @@
 # soar-php
 
+> [!NOTE]
 > 基于小米的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器、重写器(辅助 SQL 调优)。
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
