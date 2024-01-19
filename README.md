@@ -1,5 +1,6 @@
 # soar-php
 
+> [!NOTE]
 > SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's [soar](https://github.com/XiaoMi/soar).
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
