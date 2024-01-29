@@ -8,6 +8,19 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.0.3"></a>
+## [4.0.3] - 2024-01-29
+### Fix
+- **HasSudoPassword:** Update shouldApplySudoPassword condition
+
+### Refactor
+- **config:** update PHPUnit set and add new rule
+
+### Pull Requests
+- Merge pull request [#156](https://github.com/guanguans/soar-php/issues/156) from guanguans/dependabot/github_actions/actions/cache-4
+- Merge pull request [#157](https://github.com/guanguans/soar-php/issues/157) from guanguans/dependabot/github_actions/codecov/codecov-action-3.1.5
+
+
 <a name="4.0.2"></a>
 ## [4.0.2] - 2024-01-16
 ### Docs
@@ -436,7 +449,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.0.3...HEAD
+[4.0.3]: https://github.com/guanguans/soar-php/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/guanguans/soar-php/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/guanguans/soar-php/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/guanguans/soar-php/compare/3.5.0...4.0.0
