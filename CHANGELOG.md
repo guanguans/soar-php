@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.1.0"></a>
+## [4.1.0] - 2024-02-22
+### Refactor
+- **src:** Improve __debugInfo method
+
+### Pull Requests
+- Merge pull request [#160](https://github.com/guanguans/soar-php/issues/160) from guanguans/dependabot/github_actions/codecov/codecov-action-4.0.1
+- Merge pull request [#161](https://github.com/guanguans/soar-php/issues/161) from guanguans/dependabot/composer/rector/rector-tw-0.19or-tw-1.0
+- Merge pull request [#158](https://github.com/guanguans/soar-php/issues/158) from guanguans/dependabot/github_actions/codecov/codecov-action-3.1.6
+
+
 <a name="4.0.3"></a>
 ## [4.0.3] - 2024-01-29
 ### Fix
@@ -449,7 +460,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.0.3...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.1.0...HEAD
+[4.1.0]: https://github.com/guanguans/soar-php/compare/4.0.3...4.1.0
 [4.0.3]: https://github.com/guanguans/soar-php/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/guanguans/soar-php/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/guanguans/soar-php/compare/4.0.0...4.0.1
