@@ -8,6 +8,25 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.2.0"></a>
+## [4.2.0] - 2024-04-23
+### Feat
+- **composer-updater:** add dry-run option
+
+### Refactor
+- **HasSoarBinary:** rename getDefaultSoarBinary to defaultSoarBinary
+- **debug:** improve debug info handling
+
+### Pull Requests
+- Merge pull request [#165](https://github.com/guanguans/soar-php/issues/165) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.0.0
+- Merge pull request [#168](https://github.com/guanguans/soar-php/issues/168) from guanguans/dependabot/github_actions/codecov/codecov-action-4.3.0
+- Merge pull request [#167](https://github.com/guanguans/soar-php/issues/167) from guanguans/dependabot/github_actions/codecov/codecov-action-4.2.0
+- Merge pull request [#166](https://github.com/guanguans/soar-php/issues/166) from guanguans/dependabot/github_actions/codecov/codecov-action-4.1.1
+- Merge pull request [#164](https://github.com/guanguans/soar-php/issues/164) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-1.7.0
+- Merge pull request [#163](https://github.com/guanguans/soar-php/issues/163) from guanguans/dependabot/github_actions/codecov/codecov-action-4.1.0
+- Merge pull request [#162](https://github.com/guanguans/soar-php/issues/162) from guanguans/dependabot/github_actions/codecov/codecov-action-4.0.2
+
+
 <a name="4.1.0"></a>
 ## [4.1.0] - 2024-02-22
 ### Refactor
@@ -460,7 +479,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.0...HEAD
+[4.2.0]: https://github.com/guanguans/soar-php/compare/4.1.0...4.2.0
 [4.1.0]: https://github.com/guanguans/soar-php/compare/4.0.3...4.1.0
 [4.0.3]: https://github.com/guanguans/soar-php/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/guanguans/soar-php/compare/4.0.1...4.0.2
