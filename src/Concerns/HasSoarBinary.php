@@ -44,7 +44,7 @@ trait HasSoarBinary
         return escape_argument($this->soarBinary);
     }
 
-    protected function getDefaultSoarBinary(): string
+    protected function defaultSoarBinary(): string
     {
         if (OS::isWindows()) {
             return __DIR__.'/../../bin/soar.windows-amd64'; // @codeCoverageIgnore

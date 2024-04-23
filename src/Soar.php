@@ -34,7 +34,7 @@ class Soar implements Contracts\Soar
     public function __construct(array $options = [], ?string $soarBinary = null)
     {
         $this->setOptions($options);
-        $this->setSoarBinary($soarBinary ?? $this->getDefaultSoarBinary());
+        $this->setSoarBinary($soarBinary ?? $this->defaultSoarBinary());
     }
 
     public static function create(array $options = [], ?string $soarBinary = null): self
