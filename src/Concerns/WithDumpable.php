@@ -46,4 +46,9 @@ trait WithDumpable
 
         return $this;
     }
+
+    private function mergeDebugInfo(array $debugInfo): array
+    {
+        return class_exists(VarDumper::class) ? $debugInfo : get_object_vars($this) + $debugInfo;
+    }
 }

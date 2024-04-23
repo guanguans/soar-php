@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar
@@ -52,9 +51,7 @@ trait ConcreteMagic
 
     public function __debugInfo(): array
     {
-        $debugInfo = ['commandLine' => (string) $this];
-
-        return class_exists(VarDumper::class) ? $debugInfo : get_object_vars($this) + $debugInfo;
+        return $this->mergeDebugInfo(['commandLine' => (string) $this]);
     }
 
     /**
