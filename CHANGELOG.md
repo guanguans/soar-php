@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.2.1"></a>
+## [4.2.1] - 2024-06-11
+### Pull Requests
+- Merge pull request [#169](https://github.com/guanguans/soar-php/issues/169) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.1.0
+
+
 <a name="4.2.0"></a>
 ## [4.2.0] - 2024-04-23
 ### Feat
@@ -479,7 +485,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.1...HEAD
+[4.2.1]: https://github.com/guanguans/soar-php/compare/4.2.0...4.2.1
 [4.2.0]: https://github.com/guanguans/soar-php/compare/4.1.0...4.2.0
 [4.1.0]: https://github.com/guanguans/soar-php/compare/4.0.3...4.1.0
 [4.0.3]: https://github.com/guanguans/soar-php/compare/4.0.2...4.0.3
