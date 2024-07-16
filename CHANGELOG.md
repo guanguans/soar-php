@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.2.3"></a>
+## [4.2.3] - 2024-07-16
+### Fix
+- **HasSudoPassword:** Improve formatting of setSudoPassword method
+
+
 <a name="4.2.2"></a>
 ## [4.2.2] - 2024-07-16
 ### CI
@@ -494,7 +500,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.2...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.3...HEAD
+[4.2.3]: https://github.com/guanguans/soar-php/compare/4.2.2...4.2.3
 [4.2.2]: https://github.com/guanguans/soar-php/compare/4.2.1...4.2.2
 [4.2.1]: https://github.com/guanguans/soar-php/compare/4.2.0...4.2.1
 [4.2.0]: https://github.com/guanguans/soar-php/compare/4.1.0...4.2.0
