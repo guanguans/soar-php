@@ -23,7 +23,7 @@ use Guanguans\SoarPHP\Soar;
  *
  * @revs(10)
  *
- * @iterations(5)
+ * @iterations(3)
  */
 final class SoarBench
 {

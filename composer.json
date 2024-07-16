@@ -122,7 +122,7 @@
         ],
         "ai-commit": "/opt/homebrew/opt/php@7.3/bin/php ./vendor/bin/ai-commit commit --generator=bito_cli --ansi",
         "ai-commit-no-verify": "@ai-commit --commit-options=--no-verify",
-        "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=5 --ansi -v",
+        "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=10 --report=default --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
         "checks": [
             "@composer-normalize",

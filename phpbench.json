@@ -7,8 +7,8 @@
     "runner.php_config": {
         "xdebug.mode": "none"
     },
-    "runner.iterations": 10,
-    "runner.retry_threshold": 5,
+    "runner.iterations": 3,
+    "runner.retry_threshold": 1,
     "runner.revs": 10,
     "runner.assert": "mode(variant.time.avg) as ms <= mode(baseline.time.avg) as ms +/- 5%",
     "report.generators": {
