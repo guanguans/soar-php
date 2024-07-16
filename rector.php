@@ -93,9 +93,9 @@ return static function (RectorConfig $rectorConfig): void {
         LogicalToBooleanRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
 
-        BooleanInBooleanNotRuleFixerRector::class => [
-            __DIR__.'/src/Support/EscapeArg.php',
-        ],
+        // BooleanInBooleanNotRuleFixerRector::class => [
+        //     __DIR__.'/src/Support/EscapeArg.php',
+        // ],
         ReturnEarlyIfVariableRector::class => [
             __DIR__.'/src/Support/EscapeArg.php',
         ],
@@ -152,5 +152,6 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,
+        StaticClosureRector::class,
     ]);
 };
