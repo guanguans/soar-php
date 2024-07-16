@@ -36,7 +36,7 @@
         "symfony/process": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
-        "brainmaestro/composer-git-hooks": "^2.8",
+        "brainmaestro/composer-git-hooks": "^2.8 || ^3.0",
         "composer/composer": "^2.7",
         "ergebnis/composer-normalize": "^2.20",
         "friendsofphp/php-cs-fixer": "^3.4",
@@ -52,7 +52,7 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^1.11",
         "phpstan/phpstan-deprecation-rules": "^1.2",
-        "rector/rector": "^1.1",
+        "rector/rector": "^1.2",
         "spatie/phpunit-snapshot-assertions": "^4.2 || ^5.0",
         "symfony/var-dumper": "^5.4 || ^6.0 || ^7.0",
         "vimeo/psalm": "^4.30 || ^5.0"
