@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.2.2"></a>
+## [4.2.2] - 2024-07-16
+### CI
+- **release:** Add StaticClosureRector and update rules
+
+### Pull Requests
+- Merge pull request [#170](https://github.com/guanguans/soar-php/issues/170) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.2.0
+
+
 <a name="4.2.1"></a>
 ## [4.2.1] - 2024-06-11
 ### Pull Requests
@@ -485,7 +494,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.1...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.2...HEAD
+[4.2.2]: https://github.com/guanguans/soar-php/compare/4.2.1...4.2.2
 [4.2.1]: https://github.com/guanguans/soar-php/compare/4.2.0...4.2.1
 [4.2.0]: https://github.com/guanguans/soar-php/compare/4.1.0...4.2.0
 [4.1.0]: https://github.com/guanguans/soar-php/compare/4.0.3...4.1.0
