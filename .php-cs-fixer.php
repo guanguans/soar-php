@@ -274,6 +274,12 @@ return (new PhpCsFixer\Config())
             ],
         ],
         // 'statement_indentation' => true,
+        'class_definition' => [
+            // 'multi_line_extends_each_single_line' => false,
+            // 'single_item_single_line' => false,
+            // 'single_line' => false,
+            // 'space_before_parenthesis' => false,
+        ],
 
         // https://github.com/kubawerlos/php-cs-fixer-custom-fixers
         PhpCsFixerCustomFixers\Fixer\CommentSurroundedBySpacesFixer::name() => true,

@@ -40,7 +40,16 @@ $status = (new SingleCommandApplication())
         assert($this instanceof SingleCommandApplication);
         assert((bool) $input->getOption('highest-php-binary'));
 
-        (new class($input->getOption('composer-json-path') ?: __DIR__.'/composer.json', $input->getOption('highest-php-binary'), $input->getOption('composer-binary'), $input->getOption('except-packages'), $input->getOption('except-dependency-versions'), $input->getOption('dry-run'), new SymfonyStyle($input, $output), new Differ()) {
+        (new class(
+            $input->getOption('composer-json-path') ?: __DIR__.'/composer.json',
+            $input->getOption('highest-php-binary'),
+            $input->getOption('composer-binary'),
+            $input->getOption('except-packages'),
+            $input->getOption('except-dependency-versions'),
+            $input->getOption('dry-run'),
+            new SymfonyStyle($input, $output),
+            new Differ()
+        ) {
             private $composerJsonPath;
             private $composerJsonContents;
             private $highestComposerBinary;
