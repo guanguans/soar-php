@@ -69,6 +69,8 @@ trait WithRunable
                 $this->getEscapedSudoPassword(),
                 $process->getCommandLine()
             ));
+
+            // $process->setInput($this->getSudoPassword());
         }
 
         if (\is_callable($this->processTapper)) {
