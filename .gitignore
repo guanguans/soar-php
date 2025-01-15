@@ -17,7 +17,7 @@ cghooks.lock
 clover.xml
 .phplint-cache
 .php-cs-fixer.cache
-build/
+.build/
 phpunit.xml
 psalm.xml
 .history/
