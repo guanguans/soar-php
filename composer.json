@@ -42,7 +42,7 @@
         "friendsofphp/php-cs-fixer": "^3.4",
         "guanguans/ai-commit": "dev-main",
         "guanguans/monorepo-builder-worker": "^1.4",
-        "jetbrains/phpstorm-attributes": "^1.1",
+        "jetbrains/phpstorm-attributes": "^1.2",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.7",
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0",
@@ -50,12 +50,12 @@
         "php-mock/php-mock-phpunit": "^2.10",
         "phpbench/phpbench": "^1.2",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan": "^1.12",
-        "phpstan/phpstan-deprecation-rules": "^1.2",
-        "rector/rector": "^1.2",
+        "phpstan/phpstan": "^1.12 || ^2.0",
+        "phpstan/phpstan-deprecation-rules": "^1.2 || ^2.0",
+        "rector/rector": "^1.2 || ^2.0",
         "spatie/phpunit-snapshot-assertions": "^4.2 || ^5.0",
         "symfony/var-dumper": "^5.4 || ^6.0 || ^7.0",
-        "vimeo/psalm": "^4.30 || ^5.0"
+        "vimeo/psalm": "^4.30"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -120,8 +120,14 @@
         "post-update-cmd": [
             "@cghooks update"
         ],
-        "ai-commit": "/opt/homebrew/opt/php@7.3/bin/php ./vendor/bin/ai-commit commit --generator=bito_cli --ansi",
-        "ai-commit-no-verify": "@ai-commit --commit-options=--no-verify",
+        "ai-commit": "@php ./vendor/bin/ai-commit commit --ansi",
+        "ai-commit-bito": "@ai-commit --generator=bito_cli",
+        "ai-commit-bito-no-verify": "@ai-commit-bito --no-verify",
+        "ai-commit-github-copilot": "@ai-commit --generator=github_copilot_cli",
+        "ai-commit-github-copilot-no-verify": "@ai-commit-github-copilot --no-verify",
+        "ai-commit-github-models": "@ai-commit --generator=github_models_cli",
+        "ai-commit-github-models-no-verify": "@ai-commit-github-models --no-verify",
+        "ai-commit-no-verify": "@ai-commit --no-verify",
         "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=10 --report=default --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
         "checks": [
@@ -142,7 +148,7 @@
         "composer-unused": "@php ./vendor/bin/composer-unused --ansi -v",
         "composer-updater": [
             "Composer\\Config::disableProcessTimeout",
-            "@php ./composer-updater --highest-php-binary=/opt/homebrew/opt/php@8.3/bin/php --ansi"
+            "@php ./composer-updater --highest-php-binary=/opt/homebrew/opt/php@8.4/bin/php --ansi"
         ],
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
         "dump-soar": [
