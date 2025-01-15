@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="4.2.6"></a>
+## [4.2.6] - 2025-01-15
+### CI
+- **composer:** Update dependencies
+
+### Pull Requests
+- Merge pull request [#171](https://github.com/guanguans/soar-php/issues/171) from guanguans/dependabot/github_actions/codecov/codecov-action-5
+
+
 <a name="4.2.5"></a>
 ## [4.2.5] - 2024-10-11
 
@@ -509,7 +518,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.5...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.6...HEAD
+[4.2.6]: https://github.com/guanguans/soar-php/compare/4.2.5...4.2.6
 [4.2.5]: https://github.com/guanguans/soar-php/compare/4.2.4...4.2.5
 [4.2.4]: https://github.com/guanguans/soar-php/compare/4.2.3...4.2.4
 [4.2.3]: https://github.com/guanguans/soar-php/compare/4.2.2...4.2.3
