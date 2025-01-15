@@ -28,7 +28,7 @@ use Guanguans\SoarPHP\Soar;
  */
 final class SoarBench
 {
-    private ?\Guanguans\SoarPHP\Soar $soar;
+    private ?\Guanguans\SoarPHP\Soar $soar = null;
 
     public function setUp(): void
     {

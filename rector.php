@@ -11,62 +11,33 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Rector\Caching\ValueObject\Storage\FileCacheStorage;
+use Guanguans\SoarPHP\Support\Rectors\ToInternalExceptionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
-use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
-use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
+use Rector\CodeQuality\Rector\ClassMethod\ExplicitReturnNullRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
+use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
+use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
-use Rector\Configuration\Option;
-use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
-use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
-use Rector\EarlyReturn\Rector\StmtsAwareInterface\ReturnEarlyIfVariableRector;
-use Rector\PHPUnit\CodeQuality\Rector\MethodCall\RemoveExpectAnyFromMockRector;
+use Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector;
+use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
+use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
+use Rector\Php71\Rector\FuncCall\RemoveExtraParametersRector;
+use Rector\Php74\Rector\Ternary\ParenthesizeNestedTernaryRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector;
-use Rector\TypeDeclaration\Rector\ClassMethod\StrictArrayParamDimFetchRector;
-use Rector\ValueObject\PhpVersion;
+use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 
-return static function (RectorConfig $rectorConfig): void {
-    \define('MHASH_XXH3', 2 << 0);
-    \define('MHASH_XXH32', 2 << 1);
-    \define('MHASH_XXH64', 2 << 2);
-    \define('MHASH_XXH128', 2 << 3);
-    $rectorConfig->importNames(false, false);
-    $rectorConfig->importShortClasses(false);
-    // $rectorConfig->disableParallel();
-    $rectorConfig->parallel(240);
-    $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
-    $rectorConfig->phpVersion(PhpVersion::PHP_73);
-    // $rectorConfig->cacheClass(FileCacheStorage::class);
-    // $rectorConfig->cacheDirectory(__DIR__.'/.build/rector');
-    // $rectorConfig->containerCacheDirectory(__DIR__.'/.build/rector');
-    // $rectorConfig->disableParallel();
-    // $rectorConfig->fileExtensions(['php']);
-    // $rectorConfig->indent(' ', 4);
-    // $rectorConfig->memoryLimit('2G');
-    // $rectorConfig->nestedChainMethodCallLimit(3);
-    // $rectorConfig->noDiffs();
-    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
-    // $rectorConfig->removeUnusedImports();
-
-    $rectorConfig->bootstrapFiles([
-        // __DIR__.'/vendor/autoload.php',
-    ]);
-
-    $rectorConfig->autoloadPaths([
-        // __DIR__.'/vendor/autoload.php',
-    ]);
-
-    $rectorConfig->paths([
+return RectorConfig::configure()
+    ->withPaths([
         __DIR__.'/benchmarks',
         __DIR__.'/examples',
         __DIR__.'/src',
@@ -74,81 +45,103 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__.'/.*.php',
         __DIR__.'/*.php',
         __DIR__.'/composer-updater',
-    ]);
-
-    $rectorConfig->skip([
-        // rules
-        // RemoveEmptyClassMethodRector::class,
-        // RemoveUnusedVariableAssignRector::class,
-        // ReturnBinaryOrToEarlyReturnRector::class,
-        // SimplifyBoolIdenticalTrueRector::class,
-        // StaticClosureRector::class,
-
-        ExplicitBoolCompareRector::class,
-        EncapsedStringsToSprintfRector::class,
-        InlineIfToExplicitIfRector::class,
-        LogicalToBooleanRector::class,
-        WrapEncapsedVariableInCurlyBracesRector::class,
-
-        // BooleanInBooleanNotRuleFixerRector::class => [
-        //     __DIR__.'/src/Support/EscapeArg.php',
-        // ],
-        ReturnEarlyIfVariableRector::class => [
-            __DIR__.'/src/Support/EscapeArg.php',
-        ],
-        RemoveExpectAnyFromMockRector::class => [
-            __DIR__.'/tests/Concerns/WithDumpableTest.php',
-        ],
-        StaticClosureRector::class => [
-            __DIR__.'/tests',
-        ],
-        StrictArrayParamDimFetchRector::class => [
-            __DIR__.'/src/Concerns/WithDumpable.php',
-        ],
-
-        // paths
-        __DIR__.'/tests/Concerns/WithRunableTest.php',
-        __DIR__.'/tests/AspectMock',
-        '**/Fixture*',
-        '**/Fixture/*',
-        '**/Fixtures*',
-        '**/Fixtures/*',
-        '**/Stub*',
-        '**/Stub/*',
-        '**/Stubs*',
-        '**/Stubs/*',
-        '**/Source*',
-        '**/Source/*',
-        '**/Expected/*',
-        '**/Expected*',
-        '**/__snapshots__/*',
-        '**/__snapshots__*',
-    ]);
-
-    $rectorConfig->sets([
-        DowngradeLevelSetList::DOWN_TO_PHP_73,
-        LevelSetList::UP_TO_PHP_73,
-        // SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
+    ])
+    ->withParallel()
+    // ->withoutParallel()
+    ->withImportNames(false)
+    ->withAttributesSets()
+    ->withDeadCodeLevel(42)
+    ->withTypeCoverageLevel(37)
+    ->withFluentCallNewLine()
+    // ->withPhpSets()
+    // ->withPreparedSets()
+    ->withSets([
+        DowngradeLevelSetList::DOWN_TO_PHP_74,
+        LevelSetList::UP_TO_PHP_74,
+    ])
+    ->withSets([
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
-        SetList::DEAD_CODE,
+        // SetList::DEAD_CODE,
         // SetList::STRICT_BOOLEANS,
         // SetList::GMAGICK_TO_IMAGICK,
-        // SetList::MYSQL_TO_MYSQLI,
         SetList::NAMING,
         // SetList::PRIVATIZATION,
-        // SetList::PSR_4,
-        SetList::TYPE_DECLARATION,
+        // SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
-
+    ])
+    ->withSets([
         PHPUnitSetList::PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
-    ]);
-
-    $rectorConfig->rules([
+    ])
+    ->withRules([
         InlineConstructorDefaultToPropertyRector::class,
+        StaticArrowFunctionRector::class,
         StaticClosureRector::class,
+        ToInternalExceptionRector::class,
+    ])
+    ->withConfiguredRule(
+        RenameFunctionRector::class,
+        [
+            'test' => 'it',
+        ] + array_reduce(
+            [
+                // 'make',
+                // 'env_explode',
+            ],
+            static function (array $carry, string $func): array {
+                /** @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Support/functions.php */
+                $carry[$func] = "Guanguans\\SoarPHP\\Support\\$func";
+
+                return $carry;
+            },
+            []
+        )
+    )
+    ->withSkip([
+        '**/fixtures/*',
+        '**/Fixtures/*',
+        '**/__snapshots__/*',
+        __DIR__.'/src/RenderUsings/RenderUsing.php',
+    ])
+    ->withSkip([
+        EncapsedStringsToSprintfRector::class,
+        ExplicitBoolCompareRector::class,
+        ExplicitReturnNullRector::class,
+        LogicalToBooleanRector::class,
+        NewlineAfterStatementRector::class,
+        RenameParamToMatchTypeRector::class,
+        RenameVariableToMatchMethodCallReturnTypeRector::class,
+        ReturnBinaryOrToEarlyReturnRector::class,
+        WrapEncapsedVariableInCurlyBracesRector::class,
+    ])
+    ->withSkip([
+        DisallowedEmptyRuleFixerRector::class => [
+            __DIR__.'/src/Pipes/PaginatorDataPipe.php',
+            __DIR__.'/src/Pipes/ScalarDataPipe.php',
+        ],
+        ParenthesizeNestedTernaryRector::class => [
+            __DIR__.'/src/Pipes/MessagePipe.php',
+        ],
+        RemoveExtraParametersRector::class => [
+            // __DIR__.'/src/Mixins/QueryBuilderMacro.php',
+        ],
+        RemoveUselessReturnTagRector::class => [
+            __DIR__.'/src/Support/Traits/ApiResponseFactory.php',
+        ],
+        RenameFunctionRector::class => [
+            // __DIR__.'/src/Support/helpers.php',
+        ],
+        RenameForeachValueVariableToMatchExprVariableRector::class => [
+            // __DIR__.'/src/OutputManager.php',
+        ],
+        ToInternalExceptionRector::class => [
+            __DIR__.'/tests',
+        ],
+        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
+            __DIR__.'/tests',
+        ],
+        StaticClosureRector::class => $staticClosureSkipPaths,
     ]);
-};

@@ -85,7 +85,7 @@ class EscapeArg
 
         if ($meta) {
             // Caret-escape all meta characters
-            $arg = preg_replace('/(["^&|<>()%])/', '^$1', $arg);
+            return preg_replace('/(["^&|<>()%])/', '^$1', $arg);
         }
 
         return $arg;

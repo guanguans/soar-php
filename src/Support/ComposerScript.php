@@ -65,29 +65,35 @@ final class ComposerScript
 
         $options = self::extractOptionsFromHelp();
 
-        $docblock = array_reduce_with_keys($methodMapper, static function (string $docblock, string $t, string $typeOfMethod) use ($options): string {
-            return array_reduce($options, static function (string $docblock, array $option) use ($typeOfMethod, $t): string {
-                if ('uint' === $option['type']) {
-                    $option['type'] = 'int';
-                }
+        $docblock = array_reduce_with_keys(
+            $methodMapper,
+            static fn (string $docblock, string $t, string $typeOfMethod): string => array_reduce(
+                $options,
+                static function (string $docblock, array $option) use ($typeOfMethod, $t): string {
+                    if ('uint' === $option['type']) {
+                        $option['type'] = 'int';
+                    }
 
-                if (0 === strncmp($typeOfMethod, 'get', \strlen('get')) && null === $option['type']) {
-                    $option['type'] = 'mixed';
-                }
+                    if (0 === strncmp($typeOfMethod, 'get', \strlen('get')) && null === $option['type']) {
+                        $option['type'] = 'mixed';
+                    }
 
-                $description = str_replace('@', '', " * {$option['description']}".\PHP_EOL);
+                    $description = str_replace('@', '', " * {$option['description']}".\PHP_EOL);
 
-                $replacer = [
-                    '{method}' => ucfirst(str_camel($option['name'])),
-                    '{type}' => $option['type'],
-                    '{name}' => str_camel($option['name']),
-                ];
+                    $replacer = [
+                        '{method}' => ucfirst(str_camel($option['name'])),
+                        '{type}' => $option['type'],
+                        '{name}' => str_camel($option['name']),
+                    ];
 
-                $method = str_replace(array_keys($replacer), array_values($replacer), $t);
+                    $method = str_replace(array_keys($replacer), array_values($replacer), $t);
 
-                return $docblock.\PHP_EOL.$description.$method.\PHP_EOL.' *';
-            }, $docblock);
-        }, '');
+                    return $docblock.\PHP_EOL.$description.$method.\PHP_EOL.' *';
+                },
+                $docblock
+            ),
+            ''
+        );
 
         file_put_contents(__DIR__.'/../../examples/soar.options.docblock.php', $prefix.$docblock.$suffix);
         $event->getIO()->write('<info>操作成功</info>');
