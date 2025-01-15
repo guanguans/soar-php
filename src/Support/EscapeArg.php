@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Support;
@@ -41,18 +42,18 @@ class EscapeArg
      * MIT Licensed (c) John Stevenson <john-stevenson@blueyonder.co.uk>
      * See https://github.com/johnstevenson/winbox-args for more information.
      *
-     * @param null|scalar|string $arg    The argument to be escaped
-     * @param bool               $meta   Additionally escape cmd.exe meta characters
-     * @param bool               $module The argument is the module to invoke
-     *
      * @psalm-suppress InvalidArgument
      * @psalm-suppress InvalidScalarArgument
+     *
+     * @param null|scalar|string $arg The argument to be escaped
+     * @param bool $meta Additionally escape cmd.exe meta characters
+     * @param bool $module The argument is the module to invoke
      *
      * @return string The escaped argument
      */
     public static function escape($arg, bool $meta = true, bool $module = false): string
     {
-        if (! \defined('PHP_WINDOWS_VERSION_BUILD')) {
+        if (!\defined('PHP_WINDOWS_VERSION_BUILD')) {
             // Escape single-quotes and enclose in single-quotes
             return "'".str_replace("'", "'\\''", $arg)."'";
         }
@@ -67,10 +68,10 @@ class EscapeArg
             // Check for expansion %..% sequences
             $meta = $dquotes || preg_match('/%[^%]+%/', $arg);
 
-            if (! $meta) {
+            if (!$meta) {
                 // Check for characters that can be escaped in double-quotes
                 $quote = $quote || false !== strpbrk($arg, '^&|<>()');
-            } elseif ($module && ! $dquotes && $quote) {
+            } elseif ($module && !$dquotes && $quote) {
                 // Caret-escaping a module name with whitespace will split the
                 // argument, so just quote it and hope there is no expansion
                 $meta = false;
@@ -95,15 +96,17 @@ class EscapeArg
      *
      * The first argument must be the module (executable) to be invoked.
      *
-     * @param array<scalar|string> $args A list of arguments, with the module name first
-     * @param bool                 $meta Additionally escape cmd.exe meta characters
+     * @noinspection PhpUnused
+     *
+     * @param list<scalar|string> $args A list of arguments, with the module name first
+     * @param bool $meta Additionally escape cmd.exe meta characters
      *
      * @return string The escaped command line
-     * @noinspection PhpUnused
      */
     public static function escapeCommand(array $args, bool $meta = true): string
     {
         $cmd = self::escape(array_shift($args), $meta, true);
+
         foreach ($args as $arg) {
             $cmd .= ' '.self::escape($arg, $meta);
         }

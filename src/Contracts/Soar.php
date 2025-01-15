@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Contracts;
@@ -15,12 +16,12 @@ namespace Guanguans\SoarPHP\Contracts;
 interface Soar
 {
     /**
-     * @param array<string>|string $withOptions
+     * @param list<string>|string $withOptions
      */
     public function run($withOptions = [], ?callable $callback = null): string;
 
     /**
-     * @param array<string>|string $sqls
+     * @param list<string>|string $sqls
      */
     public function scores($sqls): string;
 

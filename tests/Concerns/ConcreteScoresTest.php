@@ -12,11 +12,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
@@ -73,7 +74,7 @@ it('can get array scores', function (): void {
         ->when(OS::isWindows(), function (Pest\Expectation $expectation): void {
             dump($expectation->value);
         })
-        ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
             $this->assertMatchesYamlSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
@@ -94,7 +95,7 @@ it('can get html scores', function (): void {
         ->toBeString()
         ->toBeTruthy()
         ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>')
-        ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
             $this->assertMatchesSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
@@ -105,7 +106,7 @@ it('can get markdown scores', function (): void {
         ->toBeString()
         ->toBeTruthy()
         ->toContain('foo', '#', '```sql', '##', '*')
-        ->when(! OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
             $this->assertMatchesSnapshot($expectation->value);
         });
 });
@@ -114,7 +115,7 @@ it('will throw InvalidArgumentException when sqls is boolean', function (): void
     Soar::create()->scores(true);
 })
     ->group(__DIR__, __FILE__)
-    ->throws(InvalidArgumentException::class, gettype(true));
+    ->throws(InvalidArgumentException::class, \gettype(true));
 
 it('can get scores', function (): void {
     expect(Soar::create())

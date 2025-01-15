@@ -5,11 +5,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Support;
@@ -23,28 +24,15 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
 class OS
 {
     public const X86 = 'x86';
-
     public const PPC = 'ppc';
-
     public const ARM = 'arm';
-
     private const RegExX86 = '/(x86*|i386|i686)/';
-
     private const RegExARM = '/(aarch*|arm*)/';
-
     private const RegExPPC = '/(ppc*)/';
-
-    /** @var null|string */
-    private static $os;
-
-    /** @var null|string */
-    private static $oSVersion;
-
-    /** @var null|string */
-    private static $arch;
-
-    /** @var null|string */
-    private static $hostname;
+    private static ?string $os = null;
+    private static ?string $oSVersion = null;
+    private static ?string $arch = null;
+    private static ?string $hostname = null;
 
     public static function isUnix(): bool
     {

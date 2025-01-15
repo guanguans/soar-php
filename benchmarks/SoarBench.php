@@ -5,11 +5,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\PackageSkeleton\Tests\Benchmark;
@@ -27,8 +28,7 @@ use Guanguans\SoarPHP\Soar;
  */
 final class SoarBench
 {
-    /** @var null|\Guanguans\SoarPHP\Soar */
-    private $soar;
+    private ?\Guanguans\SoarPHP\Soar $soar;
 
     public function setUp(): void
     {

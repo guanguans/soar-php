@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Concerns;
@@ -33,19 +34,20 @@ trait WithRunable
     }
 
     /**
-     * @param array<string>|string $withOptions
+     * @param list<string>|string $withOptions
      *
      * @throws InvalidOptionException
      */
     public function run($withOptions = [], ?callable $callback = null): string
     {
-        if (! \is_string($withOptions) && ! \is_array($withOptions)) {
-            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', \gettype($withOptions)));
+        if (!\is_string($withOptions) && !\is_array($withOptions)) {
+            throw new InvalidArgumentException(\sprintf('Invalid argument type(%s).', \gettype($withOptions)));
         }
 
         $process = $this->createProcess($withOptions);
         $process->run($callback);
-        if (! $process->isSuccessful()) {
+
+        if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
@@ -53,7 +55,7 @@ trait WithRunable
     }
 
     /**
-     * @param array<string>|string $withOptions
+     * @param list<string>|string $withOptions
      *
      * @throws InvalidOptionException
      */
@@ -64,7 +66,7 @@ trait WithRunable
             : new Process(array_merge([$this->soarBinary], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
 
         if ($this->shouldApplySudoPassword()) {
-            $process = Process::fromShellCommandline(sprintf(
+            $process = Process::fromShellCommandline(\sprintf(
                 'echo %s | sudo -S %s',
                 $this->getEscapedSudoPassword(),
                 $process->getCommandLine()

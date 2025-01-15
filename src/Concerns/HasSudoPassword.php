@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Concerns;
@@ -19,8 +20,7 @@ use Guanguans\SoarPHP\Support\OS;
  */
 trait HasSudoPassword
 {
-    /** @var null|string */
-    protected $sudoPassword;
+    protected ?string $sudoPassword = null;
 
     public function getSudoPassword(): ?string
     {
@@ -43,6 +43,6 @@ trait HasSudoPassword
 
     protected function shouldApplySudoPassword(): bool
     {
-        return $this->sudoPassword && OS::isUnix() && ! \in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg', 'embed'], true);
+        return $this->sudoPassword && OS::isUnix() && !\in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg', 'embed'], true);
     }
 }

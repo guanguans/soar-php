@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Concerns;
@@ -16,7 +17,7 @@ use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 
 /**
- * AllowCharsets (default "utf8,utf8mb4")
+ * AllowCharsets (default "utf8,utf8mb4").
  *
  * @method self addAllowCharsets(string $allowCharsets)
  *
@@ -1389,8 +1390,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
  */
 trait HasOptions
 {
-    /** @var array */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
@@ -1443,10 +1443,8 @@ trait HasOptions
     {
         $this->options = array_filter(
             $this->options,
-            static function ($key) use ($keys): bool {
-                return \in_array($key, $keys, true);
-            },
-            ARRAY_FILTER_USE_KEY
+            static fn ($key): bool => \in_array($key, $keys, true),
+            \ARRAY_FILTER_USE_KEY
         );
 
         return $this;
@@ -1544,14 +1542,14 @@ trait HasOptions
 
     /**
      * @param array-key $key
-     * @param mixed     $value
+     * @param mixed $value
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function normalizeOption($key, $value): string
     {
         $converter = function ($value) {
-            \is_callable($value) and ! (\is_string($value) && \function_exists($value)) and $value = $value($this);
+            \is_callable($value) and !(\is_string($value) && \function_exists($value)) and $value = $value($this);
             true === $value and $value = 'true';
             false === $value and $value = 'false';
             0 === $value and $value = '0';
@@ -1560,6 +1558,7 @@ trait HasOptions
         };
 
         $value = $converter($value);
+
         if (null === $value) {
             return '';
         }
@@ -1573,7 +1572,7 @@ trait HasOptions
         }
 
         if (\is_array($value)) {
-            if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && ! ($value['disable'] ?? false)) {
+            if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && !($value['disable'] ?? false)) {
                 $dsn = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
 
                 return "$key=$dsn";
@@ -1582,6 +1581,6 @@ trait HasOptions
             return "$key=".implode(',', array_map($converter, $value));
         }
 
-        throw new InvalidOptionException(sprintf('Invalid configuration type(%s).', \gettype($value)));
+        throw new InvalidOptionException(\sprintf('Invalid configuration type(%s).', \gettype($value)));
     }
 }

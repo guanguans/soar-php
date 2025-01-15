@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Concerns;
@@ -21,7 +22,7 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 trait ConcreteScores
 {
     /**
-     * @param array<string>|string $sqls
+     * @param list<string>|string $sqls
      *
      * @throws InvalidOptionException
      */
@@ -32,7 +33,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param array<string>|string $sqls
+     * @param list<string>|string $sqls
      *
      * @throws InvalidOptionException
      */
@@ -42,7 +43,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param array<string>|string $sqls
+     * @param list<string>|string $sqls
      *
      * @throws InvalidOptionException
      */
@@ -52,7 +53,7 @@ trait ConcreteScores
     }
 
     /**
-     * @param array<string>|string $sqls
+     * @param list<string>|string $sqls
      *
      * @throws InvalidOptionException
      */
@@ -62,14 +63,14 @@ trait ConcreteScores
     }
 
     /**
-     * @param array<string>|string $sqls
+     * @param list<string>|string $sqls
      *
      * @throws InvalidOptionException
      */
     public function scores($sqls): string
     {
-        if (! \is_string($sqls) && ! \is_array($sqls)) {
-            throw new InvalidArgumentException(sprintf('Invalid argument type(%s).', \gettype($sqls)));
+        if (!\is_string($sqls) && !\is_array($sqls)) {
+            throw new InvalidArgumentException(\sprintf('Invalid argument type(%s).', \gettype($sqls)));
         }
 
         if (\is_array($sqls)) {

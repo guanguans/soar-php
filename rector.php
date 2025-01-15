@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
@@ -35,10 +36,10 @@ use Rector\TypeDeclaration\Rector\ClassMethod\StrictArrayParamDimFetchRector;
 use Rector\ValueObject\PhpVersion;
 
 return static function (RectorConfig $rectorConfig): void {
-    define('MHASH_XXH3', 2 << 0);
-    define('MHASH_XXH32', 2 << 1);
-    define('MHASH_XXH64', 2 << 2);
-    define('MHASH_XXH128', 2 << 3);
+    \define('MHASH_XXH3', 2 << 0);
+    \define('MHASH_XXH32', 2 << 1);
+    \define('MHASH_XXH64', 2 << 2);
+    \define('MHASH_XXH128', 2 << 3);
     $rectorConfig->importNames(false, false);
     $rectorConfig->importShortClasses(false);
     // $rectorConfig->disableParallel();

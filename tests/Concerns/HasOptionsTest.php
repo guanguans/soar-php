@@ -7,11 +7,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
@@ -98,17 +99,13 @@ it('can call option methods via magic call', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidOptionException when normalize invalid option', function (): void {
-    (function (): array {
-        return $this->getNormalizedOptions();
-    })->call(Soar::create(['foo' => $this->createMock(stdClass::class)]));
+    (fn (): array => $this->getNormalizedOptions())->call(Soar::create(['foo' => $this->createMock(stdClass::class)]));
 })
     ->group(__DIR__, __FILE__)
     ->throws(InvalidOptionException::class, 'object');
 
 it('can normalize options', function (): void {
-    expect(function (): array {
-        return $this->getNormalizedOptions();
-    })
+    expect(fn (): array => $this->getNormalizedOptions())
         ->call(Soar::create([
             'foo' => 'bar',
             '-verbose',
@@ -129,16 +126,14 @@ it('can normalize options', function (): void {
                 'disable' => true,
             ],
             'arr' => ['foo', 'bar', 'baz'],
-            'closure' => static function (Soar $soar): string {
-                return $soar->getOption('foo');
-            },
-            'stringable' => new class() {
+            'closure' => static fn (Soar $soar): string => $soar->getOption('foo'),
+            'stringable' => new class {
                 public function __toString(): string
                 {
                     return self::class;
                 }
             },
-            'invoke' => new class() {
+            'invoke' => new class {
                 public function __invoke(): string
                 {
                     return self::class;

@@ -8,25 +8,22 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 use Guanguans\SoarPHPTests\TestCase;
 use Pest\Expectation;
 
 uses(TestCase::class)
-    ->beforeAll(function (): void {
-    })
-    ->beforeEach(function (): void {
-    })
-    ->afterEach(function (): void {
-    })
-    ->afterAll(function (): void {
-    })
+    ->beforeAll(function (): void {})
+    ->beforeEach(function (): void {})
+    ->afterEach(function (): void {})
+    ->afterAll(function (): void {})
     ->in(__DIR__, __DIR__.'/Feature', __DIR__.'/Unit');
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +36,7 @@ uses(TestCase::class)
 |
  */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeOne', fn () => $this->toBe(1));
 
 expect()->extend('assert', function (Closure $assertions): Expectation {
     $assertions($this->value);
@@ -75,7 +70,7 @@ expect()->extend('between', function (int $min, int $max): Expectation {
  */
 function class_namespace($class): string
 {
-    $class = is_object($class) ? get_class($class) : $class;
+    $class = \is_object($class) ? \get_class($class) : $class;
 
     return (new ReflectionClass($class))->getNamespaceName();
 }

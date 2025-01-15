@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/soar-php.
+ * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
  *
- * (c) guanguans <ityaozm@gmail.com>
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
  *
- * This source file is subject to the MIT license that is bundled.
+ * @see https://github.com/guanguans/soar-php
  */
 
 namespace Guanguans\SoarPHP\Support;
@@ -19,11 +20,12 @@ use Guanguans\SoarPHP\Soar;
 /**
  * @internal
  */
-class ComposerScript
+final class ComposerScript
 {
     /**
-     * @throws InvalidOptionException
      * @noinspection PhpUnused
+     *
+     * @throws InvalidOptionException
      */
     public static function dumpSoarDocblock(Event $event): int
     {
@@ -73,7 +75,7 @@ class ComposerScript
                     $option['type'] = 'mixed';
                 }
 
-                $description = str_replace('@', '', " * {$option['description']}".PHP_EOL);
+                $description = str_replace('@', '', " * {$option['description']}".\PHP_EOL);
 
                 $replacer = [
                     '{method}' => ucfirst(str_camel($option['name'])),
@@ -83,7 +85,7 @@ class ComposerScript
 
                 $method = str_replace(array_keys($replacer), array_values($replacer), $t);
 
-                return $docblock.PHP_EOL.$description.$method.PHP_EOL.' *';
+                return $docblock.\PHP_EOL.$description.$method.\PHP_EOL.' *';
             }, $docblock);
         }, '');
 
@@ -94,8 +96,9 @@ class ComposerScript
     }
 
     /**
-     * @throws InvalidOptionException
      * @noinspection PhpUnused
+     *
+     * @throws InvalidOptionException
      */
     public static function dumpSoarConfig(Event $event): int
     {
@@ -121,7 +124,7 @@ class ComposerScript
             return [
             PHP;
 
-        $suffix = '];'.PHP_EOL;
+        $suffix = '];'.\PHP_EOL;
 
         $code = array_reduce(self::extractOptionsFromHelp(), static function (string $code, array $options): string {
             null === $options['default'] and $options['default'] = 'null';
@@ -134,7 +137,7 @@ class ComposerScript
 
                 PHP;
 
-            return $code.PHP_EOL.$item;
+            return $code.\PHP_EOL.$item;
         }, '');
 
         file_put_contents(__DIR__.'/../../examples/soar.options.full.php', $prefix.$code.$suffix);
@@ -158,13 +161,14 @@ class ComposerScript
             }
 
             return ltrim($option);
-        }, explode(PHP_EOL, Soar::create()->help()));
+        }, explode(\PHP_EOL, Soar::create()->help()));
 
         $options = array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
             $names = (array) explode(' ', $option[0]);
             preg_match('/\\(default .*\\)/', $option[1], $defaults);
 
             $default = $defaults[0] ?? null;
+
             if (\is_string($default) && 0 === strncmp($default, $pre = '(default ', \strlen($pre = '(default '))) {
                 $default = rtrim(substr($default, \strlen($pre)), ')');
             }
