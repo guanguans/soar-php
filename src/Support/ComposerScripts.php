@@ -19,7 +19,7 @@ use Guanguans\SoarPHP\Soar;
 /**
  * @internal
  */
-final class ComposerScript
+final class ComposerScripts
 {
     /**
      * @noinspection PhpUnused
@@ -36,11 +36,12 @@ final class ComposerScript
             declare(strict_types=1);
 
             /**
-             * This file is part of the guanguans/soar-php.
+             * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
              *
-             * (c) guanguans <ityaozm@gmail.com>
+             * For the full copyright and license information, please view
+             * the LICENSE file that was distributed with this source code.
              *
-             * This source file is subject to the MIT license that is bundled.
+             * @see https://github.com/guanguans/soar-php
              */
             /**
             docblock;
@@ -73,7 +74,7 @@ final class ComposerScript
                         $option['type'] = 'int';
                     }
 
-                    if (0 === strncmp($typeOfMethod, 'get', \strlen('get')) && null === $option['type']) {
+                    if (null === $option['type'] && 0 === strncmp($typeOfMethod, 'get', \strlen('get'))) {
                         $option['type'] = 'mixed';
                     }
 
@@ -115,11 +116,12 @@ final class ComposerScript
             declare(strict_types=1);
 
             /**
-             * This file is part of the guanguans/soar-php.
+             * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
              *
-             * (c) guanguans <ityaozm@gmail.com>
+             * For the full copyright and license information, please view
+             * the LICENSE file that was distributed with this source code.
              *
-             * This source file is subject to the MIT license that is bundled.
+             * @see https://github.com/guanguans/soar-php
              */
 
             // +----------------------------------------------------------------------+//
@@ -174,8 +176,8 @@ final class ComposerScript
 
             $default = $defaults[0] ?? null;
 
-            if (\is_string($default) && 0 === strncmp($default, $pre = '(default ', \strlen($pre = '(default '))) {
-                $default = rtrim(substr($default, \strlen($pre)), ')');
+            if (\is_string($default) && 0 === strncmp($default, $prefix = '(default ', \strlen($prefix))) {
+                $default = rtrim(substr($default, \strlen($prefix)), ')');
             }
 
             $options[$names[0]] = [

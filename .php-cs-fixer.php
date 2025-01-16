@@ -109,6 +109,7 @@ $ruleSet = Config\RuleSet\Php74::create()
             'prefix' => 'provide',
             'suffix' => 'Cases',
         ],
+        'phpdoc_summary' => false,
         'phpdoc_align' => [
             'align' => 'left',
             'spacing' => 1,
