@@ -1,5 +1,8 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
+
 declare(strict_types=1);
 
 /**
@@ -30,7 +33,6 @@ use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\PHPUnit\CodeQuality\Rector\MethodCall\RemoveExpectAnyFromMockRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -53,8 +55,8 @@ return RectorConfig::configure()
     ->withFluentCallNewLine()
     // ->withPhpSets()
     // ->withPreparedSets()
+    ->withDowngradeSets(false, false, false, true)
     ->withSets([
-        DowngradeLevelSetList::DOWN_TO_PHP_74,
         LevelSetList::UP_TO_PHP_74,
     ])
     ->withSets([

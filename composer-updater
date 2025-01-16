@@ -49,17 +49,17 @@ $status = (new SingleCommandApplication)
             $input->getOption('except-dependency-versions'),
             $input->getOption('dry-run'),
             new SymfonyStyle($input, $output),
-            new Differ
+            new Differ,
         ) {
-            private $composerJsonPath;
-            private $composerJsonContents;
-            private $highestComposerBinary;
-            private $composerBinary;
-            private $exceptPackages;
-            private $exceptDependencyVersions;
-            private $dryRun;
-            private $symfonyStyle;
-            private $differ;
+            private string $composerJsonPath;
+            private string $composerJsonContents;
+            private string $highestComposerBinary;
+            private string $composerBinary;
+            private array $exceptPackages;
+            private array $exceptDependencyVersions;
+            private bool $dryRun;
+            private SymfonyStyle $symfonyStyle;
+            private Differ $differ;
 
             /**
              * @noinspection ParameterDefaultsNullInspection
@@ -96,6 +96,9 @@ $status = (new SingleCommandApplication)
                 $this->differ = $differ ?? new Differ;
             }
 
+            /**
+             * @noinspection NullPointerExceptionInspection
+             */
             public function __invoke(): void
             {
                 $this
@@ -160,7 +163,7 @@ $status = (new SingleCommandApplication)
             {
                 $outdatedComposerPackages = $this->getOutdatedComposerPackages();
                 $decodedComposerJson = json_decode(file_get_contents($this->composerJsonPath), true);
-                (fn () => self::reload(null))->call(new InstalledVersions);
+                InstalledVersions::reload([]);
 
                 foreach ($decodedComposerJson as $name => &$value) {
                     if (!\in_array($name, ['require', 'require-dev'], true)) {
