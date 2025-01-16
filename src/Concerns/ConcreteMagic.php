@@ -27,28 +27,29 @@ trait ConcreteMagic
 
     public function __wakeup(): void
     {
-        // $this->setOptions($this->options);
+        $this->setOptions($this->options);
+        $this->setSoarBinary($this->soarBinary);
     }
 
-    // /**
-    //  * @since PHP 7.4.0
-    //  */
-    // public function __serialize(): array
-    // {
-    //     return [
-    //         'options' => $this->options,
-    //         'soarBinary' => $this->soarBinary,
-    //     ];
-    // }
-    //
-    // /**
-    //  * @since PHP 7.4.0
-    //  */
-    // public function __unserialize(array $data): void
-    // {
-    //     $this->setOptions($data['options']);
-    //     $this->setSoarBinary($data['soarBinary']);
-    // }
+    /**
+     * @since PHP 7.4.0
+     */
+    public function __serialize(): array
+    {
+        return [
+            'options' => $this->options,
+            'soarBinary' => $this->soarBinary,
+        ];
+    }
+
+    /**
+     * @since PHP 7.4.0
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->setOptions($data['options']);
+        $this->setSoarBinary($data['soarBinary']);
+    }
 
     public function __debugInfo(): array
     {
