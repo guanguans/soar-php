@@ -11,18 +11,18 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Guanguans\SoarPHP\Support\EscapeArg;
 use Symfony\Component\Process\Process;
 
 if (!\function_exists('escape_argument')) {
     /**
      * Escapes a string to be used as a shell argument.
+     *
+     * @see https://github.com/johnstevenson/winbox-args
+     * @see https://github.com/composer/composer/blob/main/src/Composer/Util/ProcessExecutor.php
      */
     function escape_argument(?string $argument): string
     {
-        return method_exists(Process::class, 'escapeArgument')
-            ? (fn (?string $argument): string => $this->escapeArgument($argument))->call(new Process([]), $argument)
-            : EscapeArg::escape((string) $argument);
+        return (fn (?string $argument): string => $this->escapeArgument($argument))->call(new Process([]), $argument);
     }
 }
 
@@ -34,13 +34,6 @@ if (!\function_exists('array_reduce_with_keys')) {
         }
 
         return $carry;
-    }
-}
-
-if (!\function_exists('normalize_sql')) {
-    function normalize_sql(string $sql): string
-    {
-        return str_replace(['`', '"'], ['\`', ''], $sql);
     }
 }
 

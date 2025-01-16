@@ -59,9 +59,3 @@ parameters:
 			identifier: return.unusedType
 			count: 1
 			path: src/Support/Rectors/ToInternalExceptionRector.php
-
-		-
-			message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Process\\\\Process'' and ''escapeArgument'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/Support/helpers.php
