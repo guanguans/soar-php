@@ -104,6 +104,7 @@ $ruleSet = Config\RuleSet\Php74::create()
             'anonymous_class' => false,
             'named_class' => false,
         ],
+        'ordered_traits' => true,
         'php_unit_data_provider_name' => [
             'prefix' => 'provide',
             'suffix' => 'Cases',
