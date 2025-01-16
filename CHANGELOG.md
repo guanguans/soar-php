@@ -8,6 +8,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.0.0"></a>
+## [5.0.0] - 2025-01-16
+### Build
+- Update .gitignore, add .php-cs-fixer-dist.php, and modify composer.json, phpstan.neon, phpunit.xml.dist, psalm.xml.dist, rector.php
+
+### CI
+- apply rector
+- apply php-cs-fixer
+- apply php-cs-fixer
+- **chglog:** update filters and title maps in .chglog/config.yml
+
+### Features
+- **upgrade:** Upgrade PHP version to 7.4
+
+
 <a name="4.2.6"></a>
 ## [4.2.6] - 2025-01-15
 ### CI
@@ -22,18 +37,21 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.2.4"></a>
 ## [4.2.4] - 2024-08-16
-### Test
+### Tests
 - **benchmarks:** Adjust iterations in SoarBench and benchmark settings
 
 
 <a name="4.2.3"></a>
 ## [4.2.3] - 2024-07-16
-### Fix
+### Bug Fixes
 - **HasSudoPassword:** Improve formatting of setSudoPassword method
 
 
 <a name="4.2.2"></a>
 ## [4.2.2] - 2024-07-16
+### Build
+- **composer.json:** update composer-git-hooks and rector versions
+
 ### CI
 - **release:** Add StaticClosureRector and update rules
 
@@ -49,12 +67,12 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.2.0"></a>
 ## [4.2.0] - 2024-04-23
-### Feat
-- **composer-updater:** add dry-run option
-
-### Refactor
+### Code Refactoring
 - **HasSoarBinary:** rename getDefaultSoarBinary to defaultSoarBinary
 - **debug:** improve debug info handling
+
+### Features
+- **composer-updater:** add dry-run option
 
 ### Pull Requests
 - Merge pull request [#165](https://github.com/guanguans/soar-php/issues/165) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.0.0
@@ -68,7 +86,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.1.0"></a>
 ## [4.1.0] - 2024-02-22
-### Refactor
+### Code Refactoring
 - **src:** Improve __debugInfo method
 
 ### Pull Requests
@@ -79,10 +97,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.0.3"></a>
 ## [4.0.3] - 2024-01-29
-### Fix
+### Bug Fixes
 - **HasSudoPassword:** Update shouldApplySudoPassword condition
 
-### Refactor
+### Code Refactoring
 - **config:** update PHPUnit set and add new rule
 
 ### Pull Requests
@@ -92,19 +110,19 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.0.2"></a>
 ## [4.0.2] - 2024-01-16
+### Code Refactoring
+- **concerns:** improve magic methods
+
 ### Docs
 - Update README.md and README-zh_CN.md
 
-### Feat
+### Features
 - **composer:** add dump-soar command
-
-### Refactor
-- **concerns:** improve magic methods
 
 
 <a name="4.0.1"></a>
 ## [4.0.1] - 2024-01-16
-### Test
+### Tests
 - add snapshot update command
 - refactor test
 - refactor test
@@ -115,14 +133,14 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.0.0"></a>
 ## [4.0.0] - 2024-01-15
-### Refactor
+### Code Refactoring
 - rename SoarPath -> SoarBinary
 - **WithRunable:** remove deprecated exec method
 
 
 <a name="3.5.0"></a>
 ## [3.5.0] - 2024-01-15
-### Refactor
+### Code Refactoring
 - **monorepo-builder:** update release workers
 
 ### Pull Requests
@@ -134,10 +152,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="3.4.4"></a>
 ## [3.4.4] - 2023-09-15
-### Fix
+### Bug Fixes
 - **HasOptions:** handle callable values in normalizeOption
 
-### Refactor
+### Code Refactoring
 - **coding-style:** remove UnSpreadOperatorRector
 
 ### Pull Requests
@@ -146,7 +164,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="3.4.3"></a>
 ## [3.4.3] - 2023-08-22
-### Fix
+### Bug Fixes
 - **phpstan:** Ignore errors in Soar.php
 
 ### Pull Requests
@@ -155,80 +173,80 @@ All notable changes to this project will be documented in this file.
 
 <a name="3.4.2"></a>
 ## [3.4.2] - 2023-07-30
-### Fix
+### Bug Fixes
 - **concerns:** deprecate exec method
 
 
 <a name="3.4.1"></a>
 ## [3.4.1] - 2023-07-24
-### Fix
+### Bug Fixes
 - **Concerns:** Fix InvalidOptionException in ConcreteMagic trait
 
-### Refactor
+### Code Refactoring
 - **WithRunable:** simplify process tapper logic
 
 
 <a name="3.4.0"></a>
 ## [3.4.0] - 2023-07-23
-### Feat
-- **bin:** Add support for Linux ARM64 architecture
-- **monorepo-builder:** Add monorepo-builder configuration
-
-### Fix
+### Bug Fixes
 - **concerns:** Update Soar path for Linux ARM64
 - **path:** update Soar path for linux-amd64
+
+### Features
+- **bin:** Add support for Linux ARM64 architecture
+- **monorepo-builder:** Add monorepo-builder configuration
 
 
 <a name="v3.3.4"></a>
 ## [v3.3.4] - 2023-07-16
-### Refactor
+### Code Refactoring
 - **HasOptions:** update onlyOptions method
 
 
 <a name="v3.3.3"></a>
 ## [v3.3.3] - 2023-07-16
-### Feat
-- **lint:** Add json-lint and yaml-lint checks
-
-### Fix
+### Bug Fixes
 - **HasSoarPath:** Add getEscapedSoarPath method
 
-### Refactor
+### Code Refactoring
 - **HasOptions:** change access modifiers of methods
 - **HasOptions:** rename method getSerializedEscapedNormalizedOptions to getHydratedEscapedNormalizedOptions
+
+### Features
+- **lint:** Add json-lint and yaml-lint checks
 
 
 <a name="v3.3.2"></a>
 ## [v3.3.2] - 2023-07-15
-### Fix
+### Bug Fixes
 - **workflows:** update php-cs-fixer workflow
 
-### Refactor
+### Code Refactoring
 - **HasOptions:** update getSerializedEscapedNormalizedOptions method
 - **rector:** remove unused imports and update rules
 
 
 <a name="v3.3.1"></a>
 ## [v3.3.1] - 2023-07-14
+### Code Refactoring
+- **HasSudoPassword:** improve escaping of sudo password
+
 ### Docs
 - **README.md:** add section for fatal error and its fix
 
-### Feat
+### Features
 - **tests:** Add new test file for SudoPassword
-
-### Refactor
-- **HasSudoPassword:** improve escaping of sudo password
 
 
 <a name="v3.3.0"></a>
 ## [v3.3.0] - 2023-07-14
-### Feat
-- **HasSudoPassword:** Add new trait
-
-### Refactor
+### Code Refactoring
 - **concerns:** update getEscapeSudoPassword method
 - **concerns:** update shouldApplySudoPassword logic
 - **sudo:** move sudo password related methods to trait
+
+### Features
+- **HasSudoPassword:** Add new trait
 
 ### Pull Requests
 - Merge pull request [#148](https://github.com/guanguans/soar-php/issues/148) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-1.6.0
@@ -434,11 +452,14 @@ All notable changes to this project will be documented in this file.
 
 <a name="v2.1.1"></a>
 ## [v2.1.1] - 2021-04-29
+### Build
+- Update composer.json
+
 ### Docs
 - Update README.md
 - Update README.md
 
-### Perf
+### Performance Improvements
 - Remove config file init
 - Delete `Services/SoarService.php`
 
@@ -451,7 +472,7 @@ All notable changes to this project will be documented in this file.
 ### Docs
 - Update README.md
 
-### Test
+### Tests
 - Fix tests
 
 
@@ -518,7 +539,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/4.2.6...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/5.0.0...HEAD
+[5.0.0]: https://github.com/guanguans/soar-php/compare/4.2.6...5.0.0
 [4.2.6]: https://github.com/guanguans/soar-php/compare/4.2.5...4.2.6
 [4.2.5]: https://github.com/guanguans/soar-php/compare/4.2.4...4.2.5
 [4.2.4]: https://github.com/guanguans/soar-php/compare/4.2.3...4.2.4
