@@ -30,12 +30,12 @@ trait HasSoarBinary
 
     public function setSoarBinary(string $soarBinary): self
     {
-        if (!file_exists($soarBinary)) {
-            throw new InvalidArgumentException("The file [$soarBinary] does not exist.");
-        }
-
-        if (!is_executable($soarBinary)) {
-            throw new InvalidArgumentException("The file [$soarBinary] is not executable.");
+        if (
+            !is_file($soarBinary)
+            // || !file_exists($soarBinary)
+            || !is_executable($soarBinary)
+        ) {
+            throw new InvalidArgumentException("The file [$soarBinary] does not exist or is not executable.");
         }
 
         $this->soarBinary = realpath($soarBinary);

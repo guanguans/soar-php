@@ -18,17 +18,9 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHPTests\Concerns;
 
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
 use Symfony\Component\Process\Process;
-
-it('will throw InvalidArgumentException when with-options is boolean', function (): void {
-    Soar::create()->run(true);
-})
-    ->group(__DIR__, __FILE__)
-    ->throws(InvalidArgumentException::class, \gettype(true))
-    ->skip();
 
 it('will throw ProcessFailedException when sqls is invalid sql', function (): void {
     Soar::create()->setOnlySyntaxCheck(true)->setQuery('invalid sql')->run();

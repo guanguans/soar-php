@@ -46,6 +46,7 @@ it('can also get soar binary', function (): void {
     ->skip('This test is skipped. Because is not supported in github actions.');
 
 it('will throw InvalidArgumentException when set invalid binary', function (): void {
+    Soar::create()->setSoarBinary('/');
     Soar::create()->setSoarBinary('soar.path');
 })
     ->group(__DIR__, __FILE__)

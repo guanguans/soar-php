@@ -20,6 +20,7 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
 /**
  * This file was modified from https://github.com/jolicode/JoliNotif.
  * This file was modified from https://github.com/utopia-php/system.
+ * This file was modified from https://github.com/loophp/phposinfo.
  */
 class OS
 {

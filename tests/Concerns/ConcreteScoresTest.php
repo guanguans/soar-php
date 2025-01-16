@@ -20,7 +20,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
 
@@ -110,13 +109,6 @@ it('can get markdown scores', function (): void {
             $this->assertMatchesSnapshot($expectation->value);
         });
 });
-
-it('will throw InvalidArgumentException when sqls is boolean', function (): void {
-    Soar::create()->scores(true);
-})
-    ->group(__DIR__, __FILE__)
-    ->throws(InvalidArgumentException::class, \gettype(true))
-    ->skip();
 
 it('can get scores', function (): void {
     expect(Soar::create())
