@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.0.2"></a>
+## [5.0.2] - 2025-01-16
+### CI
+- **formatting:** Fix formatting issues in .php-cs-fixer.php, examples/soar.options.docblock.php, and src/Support/ComposerScript.php
+
+### Performance Improvements
+- **Concerns:** improve error handling in setSoarBinary
+
+
 <a name="5.0.1"></a>
 ## [5.0.1] - 2025-01-16
 ### CI
@@ -559,7 +568,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/5.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/5.0.2...HEAD
+[5.0.2]: https://github.com/guanguans/soar-php/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/guanguans/soar-php/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/guanguans/soar-php/compare/4.2.6...5.0.0
 [4.2.6]: https://github.com/guanguans/soar-php/compare/4.2.5...4.2.6
