@@ -134,7 +134,7 @@
         "ai-commit-github-models": "@ai-commit --generator=github_models_cli",
         "ai-commit-github-models-no-verify": "@ai-commit-github-models --no-verify",
         "ai-commit-no-verify": "@ai-commit --no-verify",
-        "benchmark": "@php ./vendor/bin/phpbench run --warmup=1 --retry-threshold=1 --iterations=3 --revs=10 --report=default --ansi -v",
+        "benchmark": "@php ./vendor/bin/phpbench run --report=aggregate --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
         "checks": [
             "@composer-normalize",

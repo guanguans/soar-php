@@ -20,15 +20,11 @@ use Guanguans\SoarPHP\Soar;
 /**
  * @beforeMethods({"setUp"})
  *
- * @warmup(1)
- *
- * @revs(10)
- *
- * @iterations(3)
+ * @revs(100)
  */
 final class SoarBench
 {
-    private ?\Guanguans\SoarPHP\Soar $soar = null;
+    private ?Soar $soar = null;
 
     public function setUp(): void
     {
