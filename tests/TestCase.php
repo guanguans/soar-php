@@ -18,10 +18,13 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 /**
+ * @coversNothing
+ *
  * @small
  */
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    use Faker;
     use MatchesSnapshots;
     use PHPMock;
     use VarDumperTestTrait;

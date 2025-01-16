@@ -1,8 +1,8 @@
 <?php
 
+/** @noinspection PhpUnused */
+/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection AnonymousFunctionStaticInspection */
-/** @noinspection DuplicateCustomExpectationInspection */
-/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);
@@ -36,21 +36,15 @@ uses(TestCase::class)
 |
  */
 
-expect()->extend('toBeOne', fn () => $this->toBe(1));
-
-expect()->extend('assert', function (Closure $assertions): Expectation {
+expect()->extend('toAssert', function (Closure $assertions): Expectation {
     $assertions($this->value);
 
     return $this;
 });
 
-expect()->extend('between', function (int $min, int $max): Expectation {
-    expect($this->value)
-        ->toBeGreaterThanOrEqual($min)
-        ->toBeLessThanOrEqual($max);
-
-    return $this;
-});
+expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($this->value)
+    ->toBeGreaterThanOrEqual($min)
+    ->toBeLessThanOrEqual($max));
 
 /*
 |--------------------------------------------------------------------------
@@ -77,5 +71,5 @@ function class_namespace($class): string
 
 function fixtures_path(string $path = ''): string
 {
-    return __DIR__.'/Fixtures'.($path ? \DIRECTORY_SEPARATOR.$path : $path);
+    return __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.($path ? \DIRECTORY_SEPARATOR.$path : $path);
 }

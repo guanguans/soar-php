@@ -101,10 +101,10 @@ return RectorConfig::configure()
         )
     )
     ->withSkip([
+        '**/__aspect_mock__/*',
         '**/__snapshots__/*',
         '**/fixtures/*',
         '**/Fixtures/*',
-        __DIR__.'/tests/AspectMock',
         __DIR__.'/tests/Concerns/WithRunableTest.php',
     ])
     ->withSkip([

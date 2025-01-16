@@ -84,7 +84,7 @@ it('can get json scores', function (): void {
         ->jsonScores('select * from foo')
         ->toBeJson()
         ->toBeTruthy()
-        ->assert(function (string $jsonScores): void {
+        ->toAssert(function (string $jsonScores): void {
             $this->assertMatchesJsonSnapshot($jsonScores);
         });
 })->group(__DIR__, __FILE__);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  bootstrap="vendor/autoload.php"
+  bootstrap="tests/bootstrap.php"
   cacheResultFile=".build/phpunit/.phpunit.result.cache"
   colors="true"
   verbose="true"
@@ -13,7 +13,6 @@
     </include>
     <exclude>
       <directory>src/Support</directory>
-      <file>src/PDOConnector-xxx.php</file>
       <!--<file>src/Support/helpers.php</file>-->
     </exclude>
   </coverage>
