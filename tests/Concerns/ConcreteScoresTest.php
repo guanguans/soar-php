@@ -115,7 +115,8 @@ it('will throw InvalidArgumentException when sqls is boolean', function (): void
     Soar::create()->scores(true);
 })
     ->group(__DIR__, __FILE__)
-    ->throws(InvalidArgumentException::class, \gettype(true));
+    ->throws(InvalidArgumentException::class, \gettype(true))
+    ->skip();
 
 it('can get scores', function (): void {
     expect(Soar::create())

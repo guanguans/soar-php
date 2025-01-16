@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
-
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
@@ -24,7 +21,7 @@ trait ConcreteScores
     /**
      * @param list<string>|string $sqls
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function arrayScores($sqls, int $depth = 512, int $options = 0): array
     {
@@ -35,7 +32,7 @@ trait ConcreteScores
     /**
      * @param list<string>|string $sqls
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function jsonScores($sqls): string
     {
@@ -45,7 +42,7 @@ trait ConcreteScores
     /**
      * @param list<string>|string $sqls
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function htmlScores($sqls): string
     {
@@ -55,7 +52,7 @@ trait ConcreteScores
     /**
      * @param list<string>|string $sqls
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function markdownScores($sqls): string
     {
@@ -65,14 +62,10 @@ trait ConcreteScores
     /**
      * @param list<string>|string $sqls
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function scores($sqls): string
     {
-        if (!\is_string($sqls) && !\is_array($sqls)) {
-            throw new InvalidArgumentException(\sprintf('Invalid argument type(%s).', \gettype($sqls)));
-        }
-
         if (\is_array($sqls)) {
             $sqls = implode($this->getDelimiter(';'), $sqls);
         }
