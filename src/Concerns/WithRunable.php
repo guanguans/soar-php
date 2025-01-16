@@ -60,13 +60,13 @@ trait WithRunable
             : new Process(array_merge([$this->soarBinary], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
 
         if ($this->shouldApplySudoPassword()) {
-            $process = Process::fromShellCommandline(\sprintf(
-                'echo %s | sudo -S %s',
-                $this->getEscapedSudoPassword(),
-                $process->getCommandLine()
-            ));
+            // $process = Process::fromShellCommandline(\sprintf(
+            //     'echo %s | sudo -S %s',
+            //     $this->getEscapedSudoPassword(),
+            //     $process->getCommandLine()
+            // ));
 
-            // $process->setInput($this->getSudoPassword());
+            $process = Process::fromShellCommandline("sudo -S {$process->getCommandLine()}")->setInput($this->getSudoPassword());
         }
 
         if (\is_callable($this->processTapper)) {
