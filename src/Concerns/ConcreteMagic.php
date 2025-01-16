@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
-
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
@@ -67,7 +65,7 @@ trait ConcreteMagic
     /**
      * @noinspection MagicMethodsValidityInspection
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function __toString(): string
     {

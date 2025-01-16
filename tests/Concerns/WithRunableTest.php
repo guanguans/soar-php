@@ -27,7 +27,8 @@ it('will throw InvalidArgumentException when with-options is boolean', function 
     Soar::create()->run(true);
 })
     ->group(__DIR__, __FILE__)
-    ->throws(InvalidArgumentException::class, \gettype(true));
+    ->throws(InvalidArgumentException::class, \gettype(true))
+    ->skip();
 
 it('will throw ProcessFailedException when sqls is invalid sql', function (): void {
     Soar::create()->setOnlySyntaxCheck(true)->setQuery('invalid sql')->run();

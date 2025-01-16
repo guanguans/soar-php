@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Support;
 
 use Composer\Script\Event;
-use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Soar;
 
 /**
@@ -25,7 +24,7 @@ final class ComposerScript
     /**
      * @noinspection PhpUnused
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public static function dumpSoarDocblock(Event $event): int
     {
@@ -104,7 +103,7 @@ final class ComposerScript
     /**
      * @noinspection PhpUnused
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public static function dumpSoarConfig(Event $event): int
     {
@@ -155,7 +154,7 @@ final class ComposerScript
     /**
      * @psalm-suppress RedundantCast
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      *
      * @return array<string, array<string, null|string>>
      */

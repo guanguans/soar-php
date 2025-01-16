@@ -7,12 +7,6 @@ parameters:
 			path: src/Soar.php
 
 		-
-			message: '#^Call to function is_array\(\) with list\<string\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/Soar.php
-
-		-
 			message: '#^Call to method onlyHelp\(\) on an unknown class Guanguans\\SoarPHP\\Concerns\\HasOptions\.$#'
 			identifier: class.notFound
 			count: 1
@@ -39,12 +33,6 @@ parameters:
 		-
 			message: '#^Calling var_dump\(\) is forbidden, use some logger instead\.$#'
 			identifier: disallowed.function
-			count: 1
-			path: src/Soar.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
 			count: 1
 			path: src/Soar.php
 

@@ -1406,7 +1406,7 @@ trait HasOptions
             }
         }
 
-        throw new BadMethodCallException("The method($name) does not exist.");
+        throw new BadMethodCallException("The method [$name] does not exist.");
     }
 
     public function addOptions(array $options): self
@@ -1503,7 +1503,7 @@ trait HasOptions
     }
 
     /**
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function getHydratedEscapedNormalizedOptions(): string
     {
@@ -1511,7 +1511,7 @@ trait HasOptions
     }
 
     /**
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function getEscapedNormalizedOptions(): array
     {
@@ -1519,7 +1519,7 @@ trait HasOptions
     }
 
     /**
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function getNormalizedOptions(): array
     {

@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -36,14 +34,10 @@ trait WithRunable
     /**
      * @param list<string>|string $withOptions
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function run($withOptions = [], ?callable $callback = null): string
     {
-        if (!\is_string($withOptions) && !\is_array($withOptions)) {
-            throw new InvalidArgumentException(\sprintf('Invalid argument type(%s).', \gettype($withOptions)));
-        }
-
         $process = $this->createProcess($withOptions);
         $process->run($callback);
 
@@ -57,7 +51,7 @@ trait WithRunable
     /**
      * @param list<string>|string $withOptions
      *
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function createProcess($withOptions = []): Process
     {

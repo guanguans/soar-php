@@ -20,7 +20,6 @@ use Guanguans\SoarPHP\Concerns\HasSoarBinary;
 use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
-use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 
 class Soar implements Contracts\Soar
 {
@@ -44,7 +43,7 @@ class Soar implements Contracts\Soar
     }
 
     /**
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function help(): string
     {
@@ -52,7 +51,7 @@ class Soar implements Contracts\Soar
     }
 
     /**
-     * @throws InvalidOptionException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public function version(): string
     {
