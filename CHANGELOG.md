@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.0.3"></a>
+## [5.0.3] - 2025-01-16
+### Code Refactoring
+- **WithRunable:** Simplify sudo password handling
+
+### Docs
+- **README:** Update badges for CI and versioning
+
+
 <a name="5.0.2"></a>
 ## [5.0.2] - 2025-01-16
 ### CI
@@ -568,7 +577,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/5.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/5.0.3...HEAD
+[5.0.3]: https://github.com/guanguans/soar-php/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/guanguans/soar-php/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/guanguans/soar-php/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/guanguans/soar-php/compare/4.2.6...5.0.0
