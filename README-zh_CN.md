@@ -7,16 +7,15 @@
 
 [![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
 [![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
-[![codecov](https://codecov.io/gh/guanguans/soar-php/branch/master/graph/badge.svg)](https://codecov.io/gh/guanguans/soar-php)
+[![codecov](https://codecov.io/gh/guanguans/soar-php/graph/badge.svg?token=0RtgSGom4K)](https://codecov.io/gh/guanguans/soar-php)
+[![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v)](https://packagist.org/packages/guanguans/soar-php)
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/guanguans/soar-php)](https://github.com/guanguans/soar-php/releases)
 [![Total Downloads](https://poser.pugx.org/guanguans/soar-php/downloads)](https://packagist.org/packages/guanguans/soar-php)
-[![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v/stable)](https://packagist.org/packages/guanguans/soar-php)
 [![License](https://poser.pugx.org/guanguans/soar-php/license)](https://packagist.org/packages/guanguans/soar-php)
 
 ## 环境要求
 
 * PHP >= 7.4
-* ext-json
-* ext-mbstring
 
 ## 框架中使用
 
