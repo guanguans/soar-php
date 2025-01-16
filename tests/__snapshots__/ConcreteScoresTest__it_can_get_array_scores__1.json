@@ -1,0 +1,21 @@
+{
+    "ID": "168B52F11C3C49C4",
+    "Fingerprint": "select * from `post` where `name`=?",
+    "Score": 95,
+    "Sample": "SELECT * FROM `post` WHERE `name`='so\"a`r'",
+    "Explain": null,
+    "HeuristicRules": [
+        {
+            "Item": "COL.001",
+            "Severity": "L1",
+            "Summary": "\u4e0d\u5efa\u8bae\u4f7f\u7528 SELECT * \u7c7b\u578b\u67e5\u8be2",
+            "Content": "\u5f53\u8868\u7ed3\u6784\u53d8\u66f4\u65f6\uff0c\u4f7f\u7528 * \u901a\u914d\u7b26\u9009\u62e9\u6240\u6709\u5217\u5c06\u5bfc\u81f4\u67e5\u8be2\u7684\u542b\u4e49\u548c\u884c\u4e3a\u4f1a\u53d1\u751f\u66f4\u6539\uff0c\u53ef\u80fd\u5bfc\u81f4\u67e5\u8be2\u8fd4\u56de\u66f4\u591a\u7684\u6570\u636e\u3002",
+            "Case": "select * from tbl where id=1",
+            "Position": 0
+        }
+    ],
+    "IndexRules": null,
+    "Tables": [
+        "`information_schema`.`post`"
+    ]
+}

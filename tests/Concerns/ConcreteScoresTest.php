@@ -75,7 +75,7 @@ it('can get array scores', function (): void {
             dump($expectation->value);
         })
         ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
-            $this->assertMatchesYamlSnapshot($expectation->value);
+            $this->assertMatchesJsonSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
 

@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-  backupGlobals="false"
-  backupStaticAttributes="false"
-  bootstrap="tests/bootstrap.php"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  bootstrap="vendor/autoload.php"
   cacheResultFile=".build/phpunit/.phpunit.result.cache"
   colors="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true"
-  executionOrder="random"
-  printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
-  processIsolation="false"
-  resolveDependencies="true"
-  stopOnFailure="false"
-  testdox="false"
   verbose="true"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
 >
   <coverage>
     <include>
@@ -25,11 +14,13 @@
     <exclude>
       <directory>src/Support</directory>
       <file>src/PDOConnector-xxx.php</file>
+      <!--<file>src/Support/helpers.php</file>-->
     </exclude>
   </coverage>
   <testsuites>
     <testsuite name="Application Test Suite">
       <directory>./tests/</directory>
+      <exclude>vendor/</exclude>
     </testsuite>
   </testsuites>
   <!--<listeners>

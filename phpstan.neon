@@ -1,9 +1,14 @@
 includes:
     - phpstan-baseline.neon
-#    - vendor/roave/no-floaters/rules.neon
+#    - vendor-bin/larastan/vendor/larastan/larastan/extension.neon
+#    - vendor/roavcome/no-floaters/rules.neon
 #    - vendor/phpstan/phpstan-strict-rules/rules.neon
 #    - vendor/ergebnis/phpstan-rules/rules.neon
 #    - vendor/ekino/phpstan-banned-code/extension.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-dangerous-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-execution-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-insecure-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-loose-calls.neon
 
 parameters:
     level: 5
@@ -12,7 +17,7 @@ parameters:
     tmpDir: .build/phpstan
 #    checkOctaneCompatibility: true
 #    checkModelProperties: true
-    checkMissingIterableValueType: true
+#    checkMissingIterableValueType: true
 #    disallowFloatsEverywhere: true
 
 #    strictRules:
@@ -28,3 +33,10 @@ parameters:
 #        strictCalls: false
 #        switchConditionsMatchingType: false
 #        noVariableVariables: false
+    ignoreErrors:
+        - "#^Unsafe usage of new static\\(\\)\\.$#"
+        - '#^Method Guanguans\\SoarPHP\\Support\\Rectors\\ToInternalExceptionRector\:\:refactor\(\) never returns \d so it can be removed from the return type\.$#'
+        - '#^Method Guanguans\\SoarPHP\\Support\\Rectors\\ToInternalExceptionRector\:\:refactor\(\) should return 1\|2\|3\|4\|array\<PhpParser\\Node\>\|PhpParser\\Node\|null but empty return statement found\.$#'
+#        -
+#            message: "#^Calling env\\(\\) is forbidden, use config\\(\\) instead\\.$#"
+#            path: src/Support/helpers.php
