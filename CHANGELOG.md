@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.1.0"></a>
+## [5.1.0] - 2025-02-05
+### Build
+- **dependencies:** Upgrade phpstan-disallowed-calls and psalm
+
+### Features
+- **Concerns:** Add Makeable trait for object creation
+
+### Pull Requests
+- Merge pull request [#173](https://github.com/guanguans/soar-php/issues/173) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.3.0
+
+
 <a name="5.0.3"></a>
 ## [5.0.3] - 2025-01-16
 ### Code Refactoring
@@ -577,7 +589,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/5.0.3...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/5.1.0...HEAD
+[5.1.0]: https://github.com/guanguans/soar-php/compare/5.0.3...5.1.0
 [5.0.3]: https://github.com/guanguans/soar-php/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/guanguans/soar-php/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/guanguans/soar-php/compare/5.0.0...5.0.1
