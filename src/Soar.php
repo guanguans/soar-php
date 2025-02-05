@@ -18,6 +18,7 @@ use Guanguans\SoarPHP\Concerns\ConcreteScores;
 use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\HasSoarBinary;
 use Guanguans\SoarPHP\Concerns\HasSudoPassword;
+use Guanguans\SoarPHP\Concerns\Makeable;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
 
@@ -28,6 +29,7 @@ class Soar implements Contracts\Soar
     use HasOptions;
     use HasSoarBinary;
     use HasSudoPassword;
+    use Makeable;
     use WithDumpable;
     use WithRunable;
 
@@ -35,11 +37,6 @@ class Soar implements Contracts\Soar
     {
         $this->setOptions($options);
         $this->setSoarBinary($soarBinary ?? $this->defaultSoarBinary());
-    }
-
-    public static function create(array $options = [], ?string $soarBinary = null): self
-    {
-        return new static($options, $soarBinary);
     }
 
     /**

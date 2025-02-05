@@ -59,7 +59,7 @@
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
         "spaze/phpstan-disallowed-calls": "^4.2",
         "symfony/var-dumper": "^5.4 || ^6.0 || ^7.0",
-        "vimeo/psalm": "^5.26 || ^6.0"
+        "vimeo/psalm": "^4.0 || ^5.0 || ^6.0"
     },
     "suggest": {
         "symfony/var-dumper": "Required to use the the trait [WithDumpable]."

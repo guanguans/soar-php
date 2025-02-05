@@ -29,7 +29,6 @@ trait HasSudoPassword
 
     /**
      * @noinspection PhpLanguageLevelInspection
-     * @noinspection PhpMultipleClassDeclarationsInspection
      */
     public function setSudoPassword(
         #[\SensitiveParameter]
