@@ -1,2 +1,5 @@
-# total 2 errors
+# total 4 errors
 includes:
+    - disallowed.function.neon
+    - function.alreadyNarrowedType.neon
+    - new.static.neon

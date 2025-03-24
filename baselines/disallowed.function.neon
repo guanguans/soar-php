@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Calling var_dump\(\) is forbidden, use some logger instead\.$#'
+            count: 1
+            path: ../src/Soar.php
