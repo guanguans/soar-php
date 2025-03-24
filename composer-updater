@@ -107,7 +107,7 @@ $status = (new SingleCommandApplication)
                     ->updateComposerPackages()
                     ->updateOutdatedComposerPackages()
                     ->updateComposerPackages()
-                    ->normalizeComposerJson()
+                    // ->normalizeComposerJson()
                     ->success();
             }
 
@@ -144,6 +144,9 @@ $status = (new SingleCommandApplication)
                 return $this;
             }
 
+            /**
+             * @noinspection PhpUnusedPrivateMethodInspection
+             */
             private function normalizeComposerJson(): self
             {
                 $this->mustRunCommand("$this->composerBinary normalize --diff --ansi");
@@ -237,7 +240,6 @@ $status = (new SingleCommandApplication)
             }
 
             /**
-             * @noinspection MissingParameterTypeDeclarationInspection
              * @noinspection PhpSameParameterValueInspection
              *
              * @param mixed $input The input as stream resource, scalar or \Traversable, or null for no input
@@ -249,9 +251,16 @@ $status = (new SingleCommandApplication)
                 mixed $input = null,
                 ?float $timeout = 300
             ): Process {
+                $additionalOptions = [
+                    '--no-interaction',
+                    '--no-plugins',
+                    '--no-scripts',
+                    '--ansi',
+                ];
+
                 $process = \is_string($command)
-                    ? Process::fromShellCommandline($command, $cwd, $env, $input, $timeout)
-                    : new Process($command, $cwd, $env, $input, $timeout);
+                    ? Process::fromShellCommandline(\sprintf("$command %s", implode(' ', $additionalOptions)), $cwd, $env, $input, $timeout)
+                    : new Process($command + $additionalOptions, $cwd, $env, $input, $timeout);
 
                 $this->symfonyStyle->warning($process->getCommandLine());
 
@@ -275,8 +284,6 @@ $status = (new SingleCommandApplication)
 
             /**
              * @noinspection SuspiciousLoopInspection
-             * @noinspection ComparisonScalarOrderInspection
-             * @noinspection MissingParameterTypeDeclarationInspection
              */
             private function strIs(array|string $pattern, string $value): bool
             {

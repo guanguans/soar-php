@@ -1,0 +1,3 @@
+# total 2 errors
+includes:
+    - disallowed.function.neon

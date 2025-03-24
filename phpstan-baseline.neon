@@ -1,13 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: '#^Method Guanguans\\SoarPHP\\Support\\Rectors\\ToInternalExceptionRector\:\:refactor\(\) never returns array\<PhpParser\\Node\> so it can be removed from the return type\.$#'
-			identifier: return.unusedType
-			count: 1
-			path: src/Support/Rectors/ToInternalExceptionRector.php
-
-		-
-			message: '#^Method Guanguans\\SoarPHP\\Support\\Rectors\\ToInternalExceptionRector\:\:refactor\(\) never returns null so it can be removed from the return type\.$#'
-			identifier: return.unusedType
-			count: 1
-			path: src/Support/Rectors/ToInternalExceptionRector.php
+	ignoreErrors: []

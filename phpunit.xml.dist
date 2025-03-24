@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  bootstrap="tests/bootstrap.php"
+  bootstrap="vendor/autoload.php"
   cacheResultFile=".build/phpunit/.phpunit.result.cache"
   colors="true"
   verbose="true"
   xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
 >
+  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"-->
+  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printers\DefaultPrinter"-->
+  <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printers\ReportablePrinter"-->
+  <testsuites>
+    <testsuite name="Guanguans Test Suite">
+      <directory>tests/</directory>
+      <exclude>vendor/</exclude>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <exclude>
+      <directory>src/Support</directory>
+      <!--<file>src/Support/helpers.php</file>-->
+    </exclude>
+  </source>
   <coverage>
     <include>
       <directory suffix=".php">src/</directory>
@@ -16,27 +34,9 @@
       <!--<file>src/Support/helpers.php</file>-->
     </exclude>
   </coverage>
-  <testsuites>
-    <testsuite name="Application Test Suite">
-      <directory>./tests/</directory>
-      <exclude>vendor/</exclude>
-    </testsuite>
-  </testsuites>
-  <!--<listeners>
-    <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
-      <arguments>
-        <array>
-          <element key="slowThreshold">
-            <integer>500</integer>
-          </element>
-          <element key="reportLength">
-            <integer>10</integer>
-          </element>
-          <element key="stopOnSlow">
-            <boolean>false</boolean>
-          </element>
-        </array>
-      </arguments>
-    </listener>
-  </listeners>-->
+  <extensions>
+    <!--<extension class="NunoMaduro\Collision\Adapters\Phpunit\Printer"/>-->
+    <!--<extension class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
+    <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
+  </extensions>
 </phpunit>

@@ -57,7 +57,6 @@ return RectorConfig::configure()
     ->withRootFiles()
     // ->withSkipPath(__DIR__.'/tests.php')
     ->withSkip([
-        '**/__aspect_mock__/*',
         '**/__snapshots__/*',
         '**/Fixtures/*',
         // __FILE__,

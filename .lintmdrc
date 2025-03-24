@@ -1,8 +1,12 @@
 {
     "excludeFiles": [
+        ".build/",
+        "baselines/",
+        "config/",
         "src/",
         "tests/",
         "vendor/",
+        "vendor-bin/",
         "./CHANGELOG.md"
     ],
     "rules": {

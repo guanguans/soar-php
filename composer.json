@@ -16,9 +16,12 @@
     "authors": [
         {
             "name": "guanguans",
-            "email": "ityaozm@gmail.com"
+            "email": "ityaozm@gmail.com",
+            "homepage": "https://www.guanguans.cn",
+            "role": "developer"
         }
     ],
+    "homepage": "https://github.com/guanguans/laravel-exception-notify",
     "support": {
         "issues": "https://github.com/guanguans/soar-php/issues",
         "source": "https://github.com/guanguans/soar-php"
@@ -107,6 +110,10 @@
         "branch-alias": {
             "dev-master": "5.x-dev"
         },
+        "composer-normalize": {
+            "indent-size": 4,
+            "indent-style": "space"
+        },
         "hooks": {
             "post-merge": [
                 "composer checks"
@@ -114,9 +121,6 @@
             "pre-commit": [
                 "composer checks"
             ]
-        },
-        "phpstan": {
-            "includes": []
         }
     },
     "scripts": {
@@ -224,5 +228,6 @@
         "test-phpunit-coverage": "@test --coverage-html=./.build/phpunit/ --coverage-clover=clover.xml",
         "test-update-snapshots": "@pest-update-snapshots",
         "yaml-lint": "@php ./vendor/bin/yaml-lint .github/ examples/ --ansi -v"
-    }
+    },
+    "$schema": "https://getcomposer.org/schema.json"
 }

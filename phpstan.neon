@@ -46,8 +46,6 @@ parameters:
     ignoreErrors:
         - "#^Unsafe usage of new static\\(\\)\\.$#"
         - '#^Call to method .*\(\) on an unknown class Guanguans\\SoarPHP\\Concerns\\HasOptions\.$#'
-        - '#^Method Guanguans\\SoarPHP\\Support\\Rectors\\ToInternalExceptionRector\:\:refactor\(\) never returns \d so it can be removed from the return type\.$#'
-        - '#^Method Guanguans\\SoarPHP\\Support\\Rectors\\ToInternalExceptionRector\:\:refactor\(\) should return 1\|2\|3\|4\|array\<PhpParser\\Node\>\|PhpParser\\Node\|null but empty return statement found\.$#'
         - '#^Unused result of "and" operator\.$#'
         -
             message: '#^Call to function function_exists\(\) with callable\-string will always evaluate to true\.$#'

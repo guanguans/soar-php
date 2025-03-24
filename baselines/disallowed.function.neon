@@ -1,0 +1,13 @@
+# total 2 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Calling sha1\(\) is forbidden, use hash\(\) with at least SHA\-256 for secure hash, or password_hash\(\) for passwords\.$#'
+            count: 1
+            path: ../src/Channels/Channel.php
+
+        -
+            message: '#^Calling env\(\) is forbidden, use config\(\) instead\.$#'
+            count: 1
+            path: ../src/Support/helpers.php
