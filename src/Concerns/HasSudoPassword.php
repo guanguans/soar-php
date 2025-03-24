@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Support\OS;
+use function Guanguans\SoarPHP\Support\escape_argument;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar

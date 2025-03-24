@@ -74,7 +74,7 @@ final class ComposerScripts
                         $option['type'] = 'int';
                     }
 
-                    if (null === $option['type'] && 0 === strncmp($typeOfMethod, 'get', \strlen('get'))) {
+                    if (null === $option['type'] && str_starts_with($typeOfMethod, 'get')) {
                         $option['type'] = 'mixed';
                     }
 
@@ -154,8 +154,6 @@ final class ComposerScripts
     }
 
     /**
-     * @psalm-suppress RedundantCast
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      *
      * @return array<string, array<string, null|string>>
@@ -163,7 +161,7 @@ final class ComposerScripts
     public static function extractOptionsFromHelp(): array
     {
         $arrayMap = array_map(static function (string $option): ?string {
-            if (0 !== strncmp($option, ' ', \strlen(' '))) {
+            if (!str_starts_with($option, ' ')) {
                 return null;
             }
 

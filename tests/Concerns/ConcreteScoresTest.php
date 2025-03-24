@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
+use Pest\Expectation;
 
 it('can get array scores', function (): void {
     $sqls = <<<'sqls'
@@ -58,7 +59,7 @@ it('can get array scores', function (): void {
         ->arrayScores($sqls)
         ->toBeArray()
         ->toBeTruthy()
-        ->each(function (Pest\Expectation $expectation): void {
+        ->each(function (Expectation $expectation): void {
             $expectation->toBeArray()->toHaveKeys([
                 'ID',
                 'Fingerprint',
@@ -70,10 +71,10 @@ it('can get array scores', function (): void {
                 'Tables',
             ]);
         })
-        ->when(OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(OS::isWindows(), function (Expectation $expectation): void {
             dump($expectation->value);
         })
-        ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(!OS::isWindows(), function (Expectation $expectation): void {
             $this->assertMatchesJsonSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
@@ -94,7 +95,7 @@ it('can get html scores', function (): void {
         ->toBeString()
         ->toBeTruthy()
         ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>')
-        ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(!OS::isWindows(), function (Expectation $expectation): void {
             $this->assertMatchesSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
@@ -105,7 +106,7 @@ it('can get markdown scores', function (): void {
         ->toBeString()
         ->toBeTruthy()
         ->toContain('foo', '#', '```sql', '##', '*')
-        ->when(!OS::isWindows(), function (Pest\Expectation $expectation): void {
+        ->when(!OS::isWindows(), function (Expectation $expectation): void {
             $this->assertMatchesSnapshot($expectation->value);
         });
 });

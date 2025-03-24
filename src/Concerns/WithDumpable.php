@@ -20,9 +20,6 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 trait WithDumpable
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function dd(...$args): void
     {
         $this->dump(...$args);
@@ -33,8 +30,6 @@ trait WithDumpable
     /**
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection DebugFunctionUsageInspection
-     *
-     * @psalm-suppress ForbiddenCode
      */
     public function dump(...$args): self
     {

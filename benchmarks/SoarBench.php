@@ -16,12 +16,11 @@ declare(strict_types=1);
 namespace Guanguans\PackageSkeleton\Tests\Benchmark;
 
 use Guanguans\SoarPHP\Soar;
+use PhpBench\Attributes\BeforeMethods;
+use PhpBench\Attributes\Revs;
 
-/**
- * @beforeMethods({"setUp"})
- *
- * @revs(100)
- */
+#[BeforeMethods('setUp')]
+#[Revs(100)]
 final class SoarBench
 {
     private ?Soar $soar = null;

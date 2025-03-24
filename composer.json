@@ -143,10 +143,8 @@
             "@json-lint",
             "@md-lint",
             "@yaml-lint",
-            "@lint",
             "@style-lint",
             "@test",
-            "@psalm",
             "@phpstan",
             "@rector-dry-run"
         ],
@@ -201,6 +199,8 @@
             "@putenv PHP83=/opt/homebrew/opt/php@8.4/bin/php"
         ],
         "rector": "@php ./vendor/bin/rector --ansi -v",
+        "rector-clear-cache": "@rector --clear-cache",
+        "rector-clear-cache-dry-run": "@rector-clear-cache --dry-run",
         "rector-custom-rule": "@rector custom-rule",
         "rector-detect-node": "@rector detect-node --loop",
         "rector-dry-run": "@rector --dry-run",

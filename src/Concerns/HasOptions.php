@@ -15,6 +15,8 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
+use function Guanguans\SoarPHP\Support\array_reduce_with_keys;
+use function Guanguans\SoarPHP\Support\str_snake;
 
 /**
  * AllowCharsets (default "utf8,utf8mb4").
@@ -1398,7 +1400,7 @@ trait HasOptions
     public function __call(string $name, array $arguments)
     {
         foreach (['add', 'remove', 'only', 'set', 'merge', 'get'] as $prefix) {
-            if (0 === strncmp($name, $prefix, \strlen($prefix))) {
+            if (str_starts_with($name, $prefix)) {
                 $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
                 $newName = $prefix.'Option';
 
@@ -1515,7 +1517,7 @@ trait HasOptions
      */
     protected function getEscapedNormalizedOptions(): array
     {
-        return array_map('escape_argument', $this->getNormalizedOptions());
+        return array_map('Guanguans\SoarPHP\Support\escape_argument', $this->getNormalizedOptions());
     }
 
     /**

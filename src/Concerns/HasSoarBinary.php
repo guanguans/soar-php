@@ -15,6 +15,7 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OS;
+use function Guanguans\SoarPHP\Support\escape_argument;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar

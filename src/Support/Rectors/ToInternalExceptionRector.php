@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Support\Rectors;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
@@ -61,34 +62,28 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
     public function getNodeTypes(): array
     {
         return [
-            Node\Expr\New_::class,
+            New_::class,
         ];
     }
 
     /**
      * @noinspection PhpInconsistentReturnPointsInspection
      *
-     * @psalm-suppress MoreSpecificImplementedParamType
-     *
      * @param Node\Expr\New_ $node
      *
      * @throws \ReflectionException
      */
-    public function refactor(Node $node)
+    public function refactor(Node $node): ?Node
     {
         $class = $node->class;
 
         if (
             !$class instanceof Name
             || $this->is($this->except, $class->toString())
-            || 0 === strncmp(
-                $class->toString(),
-                'Guanguans\\SoarPHP\\Exceptions\\',
-                \strlen('Guanguans\\SoarPHP\\Exceptions\\'),
-            )
-            || 0 !== substr_compare($class->toString(), 'Exception', -\strlen('Exception'))
+            || str_starts_with($class->toString(), 'Guanguans\\SoarPHP\\Exceptions\\')
+            || !str_ends_with($class->toString(), 'Exception')
         ) {
-            return;
+            return null;
         }
 
         $internalExceptionClass = "\\Guanguans\\SoarPHP\\Exceptions\\{$class->getLast()}";
