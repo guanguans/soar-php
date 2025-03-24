@@ -20,7 +20,7 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 trait WithDumpable
 {
-    public function dd(...$args): void
+    public function dd(mixed ...$args): void
     {
         $this->dump(...$args);
 
@@ -31,7 +31,7 @@ trait WithDumpable
      * @noinspection ForgottenDebugOutputInspection
      * @noinspection DebugFunctionUsageInspection
      */
-    public function dump(...$args): self
+    public function dump(mixed ...$args): self
     {
         $args[] = $this;
         $varDumperExists = class_exists(VarDumper::class);

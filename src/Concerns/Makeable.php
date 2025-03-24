@@ -15,12 +15,12 @@ namespace Guanguans\SoarPHP\Concerns;
 
 trait Makeable
 {
-    public static function create(...$parameters): self
+    public static function create(mixed ...$parameters): self
     {
         return static::make(...$parameters);
     }
 
-    public static function make(...$parameters): self
+    public static function make(mixed ...$parameters): self
     {
         return new static(...$parameters);
     }

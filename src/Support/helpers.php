@@ -16,7 +16,7 @@ namespace Guanguans\SoarPHP\Support;
 use Symfony\Component\Process\Process;
 
 if (!\function_exists('Guanguans\SoarPHP\Support\array_reduce_with_keys')) {
-    function array_reduce_with_keys(array $array, callable $callback, $carry = null)
+    function array_reduce_with_keys(array $array, callable $callback, mixed $carry = null): mixed
     {
         foreach ($array as $key => $value) {
             $carry = $callback($carry, $value, $key);

@@ -102,6 +102,7 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
      */
     private function createInternalException(Name $name): void
     {
+        /** @var class-string $externalExceptionClass */
         $externalExceptionClass = $name->toString();
         $reflectionClass = new \ReflectionClass($externalExceptionClass);
 

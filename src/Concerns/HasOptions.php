@@ -1397,7 +1397,7 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
      */
-    public function __call(string $name, array $arguments)
+    public function __call(string $name, array $arguments): mixed
     {
         foreach (['add', 'remove', 'only', 'set', 'merge', 'get'] as $prefix) {
             if (str_starts_with($name, $prefix)) {
@@ -1418,7 +1418,7 @@ trait HasOptions
         return $this;
     }
 
-    public function addOption(string $key, $value): self
+    public function addOption(string $key, mixed $value): self
     {
         $this->addOptions([$key => $value]);
 
@@ -1445,7 +1445,7 @@ trait HasOptions
     {
         $this->options = array_filter(
             $this->options,
-            static fn ($key): bool => \in_array($key, $keys, true),
+            static fn (string $key): bool => \in_array($key, $keys, true),
             \ARRAY_FILTER_USE_KEY
         );
 
@@ -1473,7 +1473,7 @@ trait HasOptions
         return $this;
     }
 
-    public function setOption(string $key, $value): self
+    public function setOption(string $key, mixed $value): self
     {
         $this->options[$key] = $value;
 
@@ -1487,7 +1487,7 @@ trait HasOptions
         return $this;
     }
 
-    public function mergeOption(string $key, $value): self
+    public function mergeOption(string $key, mixed $value): self
     {
         $this->mergeOptions([$key => $value]);
 
@@ -1499,7 +1499,7 @@ trait HasOptions
         return $this->options;
     }
 
-    public function getOption(string $key, $default = null)
+    public function getOption(string $key, mixed $default = null): mixed
     {
         return $this->options[$key] ?? $default;
     }
@@ -1533,7 +1533,7 @@ trait HasOptions
      */
     protected function normalizeOptions(array $options): array
     {
-        return array_reduce_with_keys($options, function (array $normalizedOptions, $value, $key): array {
+        return array_reduce_with_keys($options, function (array $normalizedOptions, mixed $value, int|string $key): array {
             if ($normalizedOption = $this->normalizeOption($key, $value)) {
                 $normalizedOptions[\is_int($key) ? (string) $value : $key] = $normalizedOption;
             }
@@ -1543,13 +1543,11 @@ trait HasOptions
     }
 
     /**
-     * @param array-key $key
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function normalizeOption($key, mixed $value): string
+    protected function normalizeOption(int|string $key, mixed $value): string
     {
-        $converter = function ($value) {
+        $converter = function (mixed $value) {
             \is_callable($value) and !(\is_string($value) && \function_exists($value)) and $value = $value($this);
             true === $value and $value = 'true';
             false === $value and $value = 'false';

@@ -20,6 +20,8 @@ trait ConcreteScores
 {
     /**
      * @param list<string>|string $sqls
+     * @param int<1, 512> $depth
+     * @param int<0, 4194304> $options
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */

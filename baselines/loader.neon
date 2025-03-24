@@ -1,5 +1,6 @@
-# total 4 errors
+# total 5 errors
 includes:
     - disallowed.function.neon
     - function.alreadyNarrowedType.neon
     - new.static.neon
+    - typePerfect.narrowPublicClassMethodParamType.neon
