@@ -28,9 +28,6 @@ trait HasSudoPassword
         return $this->sudoPassword;
     }
 
-    /**
-     * @noinspection PhpLanguageLevelInspection
-     */
     public function setSudoPassword(
         #[\SensitiveParameter]
         ?string $sudoPassword

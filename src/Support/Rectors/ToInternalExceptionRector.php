@@ -67,11 +67,7 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
     }
 
     /**
-     * @noinspection PhpInconsistentReturnPointsInspection
-     *
      * @param Node\Expr\New_ $node
-     *
-     * @throws \ReflectionException
      */
     public function refactor(Node $node): ?Node
     {
@@ -97,9 +93,6 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
         return $node;
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     private function createInternalException(Name $name): void
     {
         /** @var class-string $externalExceptionClass */

@@ -169,7 +169,7 @@ final class ComposerScripts
         }, explode(\PHP_EOL, Soar::create()->help()));
 
         $options = array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
-            $names = (array) explode(' ', $option[0]);
+            $names = explode(' ', $option[0]);
             preg_match('/\\(default .*\\)/', $option[1], $defaults);
 
             $default = $defaults[0] ?? null;

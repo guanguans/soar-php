@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection MissingParameterTypeDeclarationInspection */
+
 declare(strict_types=1);
 
 /**
@@ -1571,7 +1573,7 @@ trait HasOptions
         }
 
         if (\is_array($value)) {
-            if (\in_array($key, ['-test-dsn', '-online-dsn'], true) && !($value['disable'] ?? false)) {
+            if (!($value['disable'] ?? false) && \in_array($key, ['-test-dsn', '-online-dsn'], true)) {
                 $dsn = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
 
                 return "$key=$dsn";

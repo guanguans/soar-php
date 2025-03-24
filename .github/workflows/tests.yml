@@ -6,7 +6,7 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ windows-latest, macos-latest, ubuntu-latest ]
         php: [ 8.0, 8.4 ]
@@ -28,7 +28,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, json, mbstring, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, json, mbstring, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, sodium
           coverage: xdebug
 
       - name: Install dependencies
