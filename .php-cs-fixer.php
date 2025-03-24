@@ -11,25 +11,34 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Ergebnis\License;
-use Ergebnis\PhpCsFixer\Config;
+use Ergebnis\License\Holder;
+use Ergebnis\License\Range;
+use Ergebnis\License\Type\MIT;
+use Ergebnis\License\Url;
+use Ergebnis\License\Year;
+use Ergebnis\PhpCsFixer\Config\Factory;
+use Ergebnis\PhpCsFixer\Config\Fixers;
+use Ergebnis\PhpCsFixer\Config\Rules;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php80;
 use PhpCsFixer\Finder;
+use PhpCsFixer\Fixer\DeprecatedFixerInterface;
+use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 
-$license = License\Type\MIT::text(
+$license = MIT::text(
     __DIR__.'/LICENSE',
-    License\Range::since(
-        License\Year::fromString('2019'),
+    Range::since(
+        Year::fromString('2019'),
         new DateTimeZone('Asia/Shanghai'),
     ),
-    License\Holder::fromString('guanguans<ityaozm@gmail.com>'),
-    License\Url::fromString('https://github.com/guanguans/soar-php'),
+    Holder::fromString('guanguans<ityaozm@gmail.com>'),
+    Url::fromString('https://github.com/guanguans/soar-php'),
 );
 
 $license->save();
 
-$ruleSet = Config\RuleSet\Php74::create()
+$ruleSet = Php80::create()
     ->withHeader($license->header())
-    ->withRules(Config\Rules::fromArray([
+    ->withRules(Rules::fromArray([
         '@PHP70Migration' => true,
         '@PHP70Migration:risky' => true,
         '@PHP71Migration' => true,
@@ -37,8 +46,8 @@ $ruleSet = Config\RuleSet\Php74::create()
         '@PHP73Migration' => true,
         '@PHP74Migration' => true,
         '@PHP74Migration:risky' => true,
-        // '@PHP80Migration' => true,
-        // '@PHP80Migration:risky' => true,
+        '@PHP80Migration' => true,
+        '@PHP80Migration:risky' => true,
         // '@PHP81Migration' => true,
         // '@PHP82Migration' => true,
         // '@PHP83Migration' => true,
@@ -48,6 +57,9 @@ $ruleSet = Config\RuleSet\Php74::create()
         // '@DoctrineAnnotation' => true,
         // '@PhpCsFixer' => true,
         // '@PhpCsFixer:risky' => true,
+        'attribute_empty_parentheses' => [
+            'use_parentheses' => false,
+        ],
         'blank_line_before_statement' => [
             'statements' => [
                 'break',
@@ -92,6 +104,32 @@ $ruleSet = Config\RuleSet\Php74::create()
         'final_class' => false,
         // 'final_internal_class' => false,
         // 'final_public_method_for_abstract_class' => false,
+        'fully_qualified_strict_types' => [
+            'import_symbols' => false,
+            'leading_backslash_in_global_namespace' => false,
+            'phpdoc_tags' => [
+                // 'param',
+                // 'phpstan-param',
+                // 'phpstan-property',
+                // 'phpstan-property-read',
+                // 'phpstan-property-write',
+                // 'phpstan-return',
+                // 'phpstan-var',
+                // 'property',
+                // 'property-read',
+                // 'property-write',
+                // 'psalm-param',
+                // 'psalm-property',
+                // 'psalm-property-read',
+                // 'psalm-property-write',
+                // 'psalm-return',
+                // 'psalm-var',
+                // 'return',
+                // 'see',
+                // 'throws',
+                // 'var',
+            ],
+        ],
         'logical_operators' => false,
         'mb_str_functions' => false,
         'native_function_invocation' => [
@@ -104,12 +142,13 @@ $ruleSet = Config\RuleSet\Php74::create()
             'anonymous_class' => false,
             'named_class' => false,
         ],
-        'ordered_traits' => true,
+        'ordered_traits' => [
+            'case_sensitive' => true,
+        ],
         'php_unit_data_provider_name' => [
             'prefix' => 'provide',
             'suffix' => 'Cases',
         ],
-        'phpdoc_summary' => false,
         'phpdoc_align' => [
             'align' => 'left',
             'spacing' => 1,
@@ -138,28 +177,54 @@ $ruleSet = Config\RuleSet\Php74::create()
         ],
         'phpdoc_order' => [
             'order' => [
+                'noinspection',
+                'phan-suppress',
+                'phpcsSuppress',
+                'phpstan-ignore',
+                'psalm-suppress',
+
                 'deprecated',
                 'internal',
                 'covers',
                 'uses',
                 'dataProvider',
-                'noinspection',
-                'psalm-suppress',
                 'param',
                 'throws',
                 'return',
             ],
         ],
+        'phpdoc_order_by_value' => [
+            'annotations' => [
+                'author',
+                'covers',
+                'coversNothing',
+                'dataProvider',
+                'depends',
+                'group',
+                'internal',
+                // 'method',
+                'mixin',
+                'property',
+                'property-read',
+                'property-write',
+                'requires',
+                'throws',
+                'uses',
+            ],
+        ],
         'phpdoc_to_param_type' => [
             'scalar_types' => true,
+            'types_map' => [],
             'union_types' => true,
         ],
         'phpdoc_to_property_type' => [
             'scalar_types' => true,
+            'types_map' => [],
             'union_types' => true,
         ],
         'phpdoc_to_return_type' => [
             'scalar_types' => true,
+            'types_map' => [],
             'union_types' => true,
         ],
         'simplified_if_return' => true,
@@ -171,44 +236,37 @@ $ruleSet = Config\RuleSet\Php74::create()
         'static_lambda' => false, // pest
     ]));
 
-$ruleSet->withCustomFixers(Config\Fixers::fromFixers(
+$ruleSet->withCustomFixers(Fixers::fromFixers(
     ...array_filter(
         iterator_to_array(new PhpCsFixerCustomFixers\Fixers),
-        static fn (
-            PhpCsFixerCustomFixers\Fixer\AbstractFixer $fixer
-        ): bool => !$fixer instanceof PhpCsFixer\Fixer\DeprecatedFixerInterface
+        static fn (AbstractFixer $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
             && !\array_key_exists($fixer->getName(), $ruleSet->rules()->toArray())
     )
 ));
 
-return Config\Factory::fromRuleSet($ruleSet)
+return Factory::fromRuleSet($ruleSet)
     ->setFinder(
         Finder::create()
-            ->in(__DIR__)
-            ->exclude([
-                '.build/',
-                '.chglog/',
-                '.github/',
-                '__snapshots__/',
-                'docs/',
-                'vendor-bin/',
+            ->in([
+                __DIR__.'/examples/',
+                __DIR__.'/src/',
+                __DIR__.'/tests/',
             ])
-            ->append(glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE))
+            ->exclude([
+                '__snapshots__',
+                'Fixtures',
+            ])
             ->append([
+                ...array_filter(
+                    glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
+                    static fn (string $filename): bool => !\in_array($filename, [
+                        __DIR__.'/.phpstorm.meta.php',
+                        // __DIR__.'/_ide_helper.php',
+                        __DIR__.'/_ide_helper_models.php',
+                    ], true)
+                ),
                 __DIR__.'/composer-updater',
             ])
-            ->notPath([
-                'bootstrap/*',
-                'storage/*',
-                'resources/view/mail/*',
-                'vendor-bin/*',
-            ])
-            ->notName([
-                '*.blade.php',
-                '_ide_helper.php',
-            ])
-            ->ignoreDotFiles(true)
-            ->ignoreVCS(true)
     )
     ->setRiskyAllowed(true)
     ->setUsingCache(true)

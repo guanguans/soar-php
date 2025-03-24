@@ -18,12 +18,12 @@ interface Soar
     /**
      * @param list<string>|string $withOptions
      */
-    public function run($withOptions = [], ?callable $callback = null): string;
+    public function run(array|string $withOptions = [], ?callable $callback = null): string;
 
     /**
      * @param list<string>|string $sqls
      */
-    public function scores($sqls): string;
+    public function scores(array|string $sqls): string;
 
     public function help(): string;
 

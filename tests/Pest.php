@@ -58,13 +58,11 @@ expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($th
  */
 
 /**
- * @param object|string $class
- *
  * @throws \ReflectionException
  */
-function class_namespace($class): string
+function class_namespace(object|string $class): string
 {
-    $class = \is_object($class) ? \get_class($class) : $class;
+    $class = \is_object($class) ? $class::class : $class;
 
     return (new ReflectionClass($class))->getNamespaceName();
 }

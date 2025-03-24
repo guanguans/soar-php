@@ -1542,11 +1542,10 @@ trait HasOptions
 
     /**
      * @param array-key $key
-     * @param mixed $value
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function normalizeOption($key, $value): string
+    protected function normalizeOption($key, mixed $value): string
     {
         $converter = function ($value) {
             \is_callable($value) and !(\is_string($value) && \function_exists($value)) and $value = $value($this);

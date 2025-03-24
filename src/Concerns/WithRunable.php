@@ -36,7 +36,7 @@ trait WithRunable
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function run($withOptions = [], ?callable $callback = null): string
+    public function run(array|string $withOptions = [], ?callable $callback = null): string
     {
         $process = $this->createProcess($withOptions);
         $process->run($callback);
@@ -53,7 +53,7 @@ trait WithRunable
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function createProcess($withOptions = []): Process
+    protected function createProcess(array|string $withOptions = []): Process
     {
         $process = \is_string($withOptions)
             ? Process::fromShellCommandline("{$this->getEscapedSoarBinary()} {$this->getHydratedEscapedNormalizedOptions()} $withOptions")

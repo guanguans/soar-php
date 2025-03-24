@@ -62,7 +62,7 @@ class OS
 
     public static function isMacOS(): bool
     {
-        return false !== strpos(self::getOs(), 'Darwin');
+        return str_contains(self::getOs(), 'Darwin');
     }
 
     /**

@@ -23,7 +23,7 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function arrayScores($sqls, int $depth = 512, int $options = 0): array
+    public function arrayScores(array|string $sqls, int $depth = 512, int $options = 0): array
     {
         /** @noinspection JsonEncodingApiUsageInspection */
         return (array) json_decode($this->jsonScores($sqls), true, $depth, $options);
@@ -34,7 +34,7 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function jsonScores($sqls): string
+    public function jsonScores(array|string $sqls): string
     {
         return $this->setReportType('json')->scores($sqls);
     }
@@ -44,7 +44,7 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function htmlScores($sqls): string
+    public function htmlScores(array|string $sqls): string
     {
         return $this->setReportType('html')->scores($sqls);
     }
@@ -54,7 +54,7 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function markdownScores($sqls): string
+    public function markdownScores(array|string $sqls): string
     {
         return $this->setReportType('markdown')->scores($sqls);
     }
@@ -64,7 +64,7 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function scores($sqls): string
+    public function scores(array|string $sqls): string
     {
         if (\is_array($sqls)) {
             $sqls = implode($this->getDelimiter(';'), $sqls);

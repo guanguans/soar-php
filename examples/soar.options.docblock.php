@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 /**
- * AllowCharsets (default "utf8,utf8mb4")
+ * AllowCharsets (default "utf8,utf8mb4").
  *
  * @method self addAllowCharsets(string $allowCharsets)
  *
