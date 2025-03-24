@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="5.1.1"></a>
+## [5.1.1] - 2025-03-24
+### Build
+- **dependencies:** Update PHP dependencies in composer.json
+
+
 <a name="5.1.0"></a>
 ## [5.1.0] - 2025-02-05
 ### Build
@@ -589,7 +595,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/5.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/5.1.1...HEAD
+[5.1.1]: https://github.com/guanguans/soar-php/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/guanguans/soar-php/compare/5.0.3...5.1.0
 [5.0.3]: https://github.com/guanguans/soar-php/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/guanguans/soar-php/compare/5.0.1...5.0.2
