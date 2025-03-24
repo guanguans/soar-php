@@ -74,6 +74,7 @@ $status = (new SingleCommandApplication)
                 ?SymfonyStyle $symfonyStyle = null,
                 ?Differ $differ = null
             ) {
+                error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_WARNING);
                 assert_options(\ASSERT_BAIL, 1);
                 \assert((bool) $composerJsonPath);
 
@@ -205,7 +206,7 @@ $status = (new SingleCommandApplication)
                             $output = $this
                                 ->mustRunCommand("$this->highestComposerBinary outdated --format=json --direct --ansi")
                                 ->getOutput(),
-                            strpos($output, '{')
+                            strpos($output, '{'.\PHP_EOL)
                         ),
                         true
                     )['installed'],

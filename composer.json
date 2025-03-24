@@ -39,6 +39,8 @@
         "symfony/process": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
+        "azjezz/psl": "^1.9 || ^2.0 || ^3.0",
+        "bamarni/composer-bin-plugin": "^1.8",
         "brainmaestro/composer-git-hooks": "^3.0",
         "composer/composer": "^2.8",
         "ergebnis/composer-normalize": "^2.45",
@@ -47,9 +49,9 @@
         "ergebnis/rector-rules": "^1.3",
         "guanguans/ai-commit": "dev-main",
         "guanguans/monorepo-builder-worker": "^1.4",
-        "icanhazstring/composer-unused": "^0.8",
-        "maglnet/composer-require-checker": "^3.8 || ^4.0",
+        "illuminate/support": "^9.52 || ^10.0 || ^11.0 || ^12.0",
         "mockery/mockery": "^1.6",
+        "nette/utils": "^4.0",
         "pestphp/pest": "^1.23 || ^2.0 || ^3.0",
         "pestphp/pest-plugin-faker": "^1.0 || ^2.0 || ^3.0",
         "php-mock/php-mock-phpunit": "^2.13",
@@ -57,12 +59,21 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-webmozart-assert": "^2.0",
         "povils/phpmnd": "^3.6",
         "rector/rector": "^2.0",
+        "rector/swiss-knife": "^2.1",
+        "rector/type-perfect": "^2.0",
+        "shipmonk/composer-dependency-analyser": "^1.8",
+        "shipmonk/phpstan-baseline-per-identifier": "^2.1",
         "spatie/pest-plugin-snapshots": "^1.1 || ^2.0",
         "spaze/phpstan-disallowed-calls": "^4.4",
         "symfony/var-dumper": "^6.0 || ^7.0",
-        "vimeo/psalm": "^5.26 || ^6.0"
+        "symplify/phpstan-extensions": "^12.0",
+        "symplify/phpstan-rules": "^14.4",
+        "tomasvotruba/class-leak": "^2.0",
+        "tomasvotruba/type-coverage": "^2.0",
+        "yamadashy/phpstan-friendly-formatter": "^1.2"
     },
     "suggest": {
         "symfony/var-dumper": "Required to use the the trait [WithDumpable]."
@@ -91,6 +102,7 @@
     ],
     "config": {
         "allow-plugins": {
+            "bamarni/composer-bin-plugin": true,
             "ergebnis/composer-normalize": true,
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
@@ -108,7 +120,7 @@
             "target-directory": "vendor-bin"
         },
         "branch-alias": {
-            "dev-master": "5.x-dev"
+            "dev-master": "6.x-dev"
         },
         "composer-normalize": {
             "indent-size": 4,
@@ -141,6 +153,7 @@
         "ai-commit-no-verify": "@ai-commit --no-verify",
         "benchmark": "@php ./vendor/bin/phpbench run --report=aggregate --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
+        "cghooks-ignore": "[ ! -f \"./vendor/bin/cghooks\" ] && exit 0 || php ./vendor/bin/cghooks --ansi -v",
         "checks": [
             "@composer-normalize",
             "@composer-validate",
@@ -150,10 +163,15 @@
             "@style-lint",
             "@test",
             "@phpstan",
-            "@rector-dry-run"
+            "@rector-dry-run",
+            "@composer-dependency-analyser"
         ],
+        "class-leak": "@php ./vendor/bin/class-leak --ansi -v",
+        "class-leak-check": "@class-leak check ./config ./src --skip-suffix=Pipe --skip-path=Support/Traits --skip-path=Channels --skip-type=\\Guanguans\\LaravelExceptionNotify\\Contracts\\Channel --skip-type=\\Guanguans\\LaravelExceptionNotify\\Contracts\\Collector --skip-type=Rector\\Rector\\AbstractRector",
+        "composer-audit": "@composer audit --ansi -v",
         "composer-bin-all-update": "@composer bin all update --ansi -v",
         "composer-check-platform-reqs": "@composer check-platform-reqs --lock --ansi -v",
+        "composer-dependency-analyser": "@php ./vendor/bin/composer-dependency-analyser --verbose",
         "composer-normalize": "@composer normalize --dry-run --diff --ansi -v",
         "composer-require-checker": "@php ./vendor/bin/composer-require-checker check --config-file=composer-require-checker.json composer.json --ansi -v",
         "composer-require-checker-json": "@php ./vendor/bin/composer-require-checker check --config-file=composer-require-checker.json composer.json --ansi -v --output=json | jq",
@@ -169,6 +187,11 @@
         "dump-soar-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarDocblock",
         "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarConfig",
         "dump-soar-yaml-config": "./bin/soar.darwin-amd64 -print-config -verbose > examples/soar.options.example.yaml",
+        "facade-lint": "@facade-update --lint",
+        "facade-update": [
+            "@putenvs",
+            "$PHP81 -f ./vendor/bin/facade.php -- Guanguans\\\\LaravelExceptionNotify\\\\Facades\\\\ExceptionNotify"
+        ],
         "json-lint": "@php ./vendor/bin/jsonlint *.json .*rc",
         "lint": [
             "@putenvs",
@@ -180,14 +203,26 @@
         "mark-start": "printf '\\n!\\n!\\t\\033[0;36m%s\\033[0m\\n!\\n\\n' \"Started\"",
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./.github/ ./docs/",
-        "peck": "/opt/homebrew/opt/php@8.3/bin/php ./vendor/bin/peck --ansi -v",
+        "peck": "/opt/homebrew/opt/php@8.3/bin/php ./vendor/bin/peck check --path=src/ --config=peck.json --ansi -v",
+        "peck-init": "@peck --init",
         "pest": "@php ./vendor/bin/pest --coverage",
-        "pest-coverage": "@pest --coverage-html=./.build/phpunit/ --coverage-clover=./.build/phpunit/clover.xml --coverage",
+        "pest-coverage": "@pest --coverage-html=./.build/phpunit/ --coverage-clover=./.build/phpunit/clover.xml",
+        "pest-highest": [
+            "@putenvs",
+            "$PHP83 ./vendor/bin/pest --coverage"
+        ],
         "pest-migrate-configuration": "@pest --migrate-configuration",
+        "pest-profile": "@pest --profile",
+        "pest-type-coverage": "@pest --type-coverage",
         "pest-update-snapshots": "@pest -d --update-snapshots",
         "phpmnd": "@php ./vendor/bin/phpmnd src --exclude-path=Support/Utils.php --hint --progress --ansi -v",
         "phpstan": "@php ./vendor/bin/phpstan analyse --ansi -v",
         "phpstan-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
+        "phpstan-split-baseline": [
+            "@phpstan --generate-baseline=baselines/loader.neon --allow-empty-baseline",
+            "find baselines/ -type f -not -name loader.neon -delete",
+            "@php ./vendor/bin/split-phpstan-baseline baselines/loader.neon"
+        ],
         "post-merge": [
             "composer install --ansi -v"
         ],
@@ -219,15 +254,29 @@
         "release-minor-dry-run": "@release-minor --dry-run",
         "release-patch": "@release patch",
         "release-patch-dry-run": "@release-patch --dry-run",
+        "sk": "@php ./vendor/bin/swiss-knife --ansi -v",
+        "sk-check-commented-code": "@sk check-commented-code ./config ./src --line-limit=5",
+        "sk-check-conflicts": "@sk check-conflicts ./config ./src",
+        "sk-finalize-classes": "@sk finalize-classes ./config ./src",
+        "sk-finalize-classes-dry-run": "@sk-finalize-classes --dry-run",
+        "sk-find-multi-classes": "@sk find-multi-classes ./config ./src",
+        "sk-namespace-to-psr-4": "@sk namespace-to-psr-4 ./src --namespace-root=Guanguans\\LaravelExceptionNotify\\",
         "style-fix": "@php ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --show-progress=dots --diff --ansi -v",
         "style-lint": "@style-fix --diff --dry-run",
         "test": "@pest",
         "test-coverage": "@pest-coverage",
+        "test-highest": "@pest-highest",
         "test-migrate-configuration": "@pest-migrate-configuration",
         "test-phpunit": "@php ./vendor/bin/phpunit --cache-result-file=./.build/phpunit/.phpunit.result.cache --coverage-text --ansi -v",
         "test-phpunit-coverage": "@test --coverage-html=./.build/phpunit/ --coverage-clover=clover.xml",
+        "test-type-coverage": "@pest-type-coverage",
         "test-update-snapshots": "@pest-update-snapshots",
-        "yaml-lint": "@php ./vendor/bin/yaml-lint .github/ examples/ --ansi -v"
+        "time-end": "@php -r 'date_default_timezone_set('\\''Asia/Shanghai'\\''); echo \"\\nTime: \".round(time() - (int) getenv('\\''START_TIME'\\'')).'\\'' seconds, Memory: '\\''.round(memory_get_peak_usage(true) / 1024 / 1024, 2).\" MB\\n\";'",
+        "time-start": "@putenv START_TIME=$(date +%s);",
+        "trufflehog": "trufflehog git https://github.com/guanguans/notify --only-verified",
+        "yaml-lint": "@php ./vendor/bin/yaml-lint .github/ examples/ --ansi -v",
+        "zh-fix": "@zh-lint --fix",
+        "zh-lint": "zhlint {./,docs/,docs/**/}*-zh_CN.md"
     },
     "$schema": "https://getcomposer.org/schema.json"
 }
