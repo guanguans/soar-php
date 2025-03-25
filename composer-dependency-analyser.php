@@ -17,33 +17,21 @@ use ShipMonk\ComposerDependencyAnalyser\Config\ErrorType;
 return (new Configuration)
     ->addPathsToScan(
         [
-            __DIR__.'/src',
+            __DIR__.'/src/',
         ],
         false
     )
     ->addPathsToExclude([
-        __DIR__.'/tests',
-        __DIR__.'/src/Support/Rectors',
+        __DIR__.'/src/Support/Rectors/',
+        __DIR__.'/src/Support/ComposerScripts.php',
+        __DIR__.'/tests/',
     ])
-    ->ignoreErrorsOnExtensions(
-        [
-            'ext-mbstring',
-        ],
-        [ErrorType::SHADOW_DEPENDENCY]
-    )
-    ->ignoreErrorsOnPackages(
-        [
-            'guzzlehttp/guzzle',
-            'psr/http-message',
-            'symfony/console',
-            'symfony/error-handler',
-            'symfony/var-dumper',
-        ],
-        [ErrorType::SHADOW_DEPENDENCY]
-    )
-    ->ignoreErrorsOnPackages(
-        [
-            'guanguans/ai-commit',
-        ],
+    ->ignoreUnknownClasses([
+        // SensitiveParameter::class,
+        'SensitiveParameter',
+    ])
+    ->ignoreErrorsOnPackageAndPath(
+        'symfony/var-dumper',
+        __DIR__.'/src/Concerns/WithDumpable.php',
         [ErrorType::DEV_DEPENDENCY_IN_PROD]
     );

@@ -34,7 +34,6 @@
     ],
     "require": {
         "php": ">=8.0",
-        "ext-json": "*",
         "ext-mbstring": "*",
         "symfony/process": "^5.4 || ^6.0 || ^7.0"
     },

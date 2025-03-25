@@ -20,6 +20,9 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 trait WithDumpable
 {
+    /**
+     * @noinspection PhpNoReturnAttributeCanBeAddedInspection
+     */
     public function dd(mixed ...$args): void
     {
         $this->dump(...$args);
