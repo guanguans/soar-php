@@ -2,6 +2,8 @@
 
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);

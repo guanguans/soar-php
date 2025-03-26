@@ -1,7 +1,12 @@
 <?php
 
+/** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
+
+/** @noinspection Annotator */
 
 declare(strict_types=1);
 

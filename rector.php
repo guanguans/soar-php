@@ -1,7 +1,8 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 

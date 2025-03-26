@@ -1,9 +1,14 @@
 <?php
 
-/** @noinspection PhpUnused */
-/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection AnonymousFunctionStaticInspection */
+/** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
+
+/** @noinspection PhpInconsistentReturnPointsInspection */
+/** @noinspection PhpInternalEntityUsedInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 declare(strict_types=1);
 
@@ -16,7 +21,10 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
+use Composer\Autoload\ClassLoader;
+use Faker\Factory;
 use Guanguans\SoarPHPTests\TestCase;
+use Illuminate\Support\Collection;
 use Pest\Expectation;
 
 uses(TestCase::class)
@@ -57,8 +65,21 @@ expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($th
 |
  */
 
+function classes(): Collection
+{
+    return collect(spl_autoload_functions())
+        ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
+            $splAutoloadFunctions
+                ->firstOrFail(
+                    static fn (mixed $loader): bool => \is_array($loader) && $loader[0] instanceof ClassLoader
+                )[0]
+                ->getClassMap()
+        ))
+        ->keys();
+}
+
 /**
- * @throws \ReflectionException
+ * @throws ReflectionException
  */
 function class_namespace(object|string $class): string
 {
@@ -70,4 +91,14 @@ function class_namespace(object|string $class): string
 function fixtures_path(string $path = ''): string
 {
     return __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.($path ? \DIRECTORY_SEPARATOR.$path : $path);
+}
+
+function faker(string $locale = Factory::DEFAULT_LOCALE): Generator
+{
+    return fake($locale);
+}
+
+function fake(string $locale = Factory::DEFAULT_LOCALE): Generator
+{
+    return Factory::create($locale);
 }

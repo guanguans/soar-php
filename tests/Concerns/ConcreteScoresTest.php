@@ -1,13 +1,16 @@
 <?php
 
 /** @noinspection AnonymousFunctionStaticInspection */
+/** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection StaticClosureCanBeUsedInspection */
+
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
-/** @noinspection StaticClosureCanBeUsedInspection */
 
 declare(strict_types=1);
 

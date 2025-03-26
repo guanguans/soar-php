@@ -1,9 +1,13 @@
 <?php
 
-/** @noinspection DebugFunctionUsageInspection */
-/** @noinspection ForgottenDebugOutputInspection */
+/** @noinspection AnonymousFunctionStaticInspection */
+/** @noinspection NullPointerExceptionInspection */
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
+
+/** @noinspection DebugFunctionUsageInspection */
+/** @noinspection ForgottenDebugOutputInspection */
 
 declare(strict_types=1);
 
