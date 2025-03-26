@@ -1509,22 +1509,6 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function getHydratedEscapedNormalizedOptions(): string
-    {
-        return implode(' ', $this->getEscapedNormalizedOptions());
-    }
-
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
-     */
-    protected function getEscapedNormalizedOptions(): array
-    {
-        return array_map('Guanguans\SoarPHP\Support\escape_argument', $this->getNormalizedOptions());
-    }
-
-    /**
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
-     */
     protected function getNormalizedOptions(): array
     {
         return $this->normalizeOptions($this->options);

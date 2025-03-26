@@ -15,7 +15,6 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Support\OS;
-use function Guanguans\SoarPHP\Support\escape_argument;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar
@@ -42,11 +41,6 @@ trait HasSoarBinary
         $this->soarBinary = realpath($soarBinary);
 
         return $this;
-    }
-
-    protected function getEscapedSoarBinary(): string
-    {
-        return escape_argument($this->soarBinary);
     }
 
     protected function defaultSoarBinary(): string
