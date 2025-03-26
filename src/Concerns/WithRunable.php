@@ -32,11 +32,11 @@ trait WithRunable
     }
 
     /**
-     * @param list<string>|string $withOptions
+     * @param list<string> $withOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function run(array|string $withOptions = [], ?callable $callback = null): string
+    public function run(array $withOptions = [], ?callable $callback = null): string
     {
         $process = $this->createProcess($withOptions);
         $process->run($callback);
@@ -49,15 +49,13 @@ trait WithRunable
     }
 
     /**
-     * @param list<string>|string $withOptions
+     * @param list<string> $withOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function createProcess(array|string $withOptions = []): Process
+    protected function createProcess(array $withOptions = []): Process
     {
-        $process = \is_string($withOptions)
-            ? Process::fromShellCommandline("{$this->getEscapedSoarBinary()} {$this->getHydratedEscapedNormalizedOptions()} $withOptions")
-            : new Process(array_merge([$this->soarBinary], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
+        $process = new Process(array_merge([$this->soarBinary], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
 
         if ($this->shouldApplySudoPassword()) {
             // $process = Process::fromShellCommandline(\sprintf(
