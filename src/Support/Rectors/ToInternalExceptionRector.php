@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Support\Rectors;
 
+use Illuminate\Support\Str;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -75,7 +76,7 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
 
         if (
             !$class instanceof Name
-            || $this->is($this->except, $class->toString())
+            || Str::is($this->except, $class->toString())
             || str_starts_with($class->toString(), 'Guanguans\\SoarPHP\\Exceptions\\')
             || !str_ends_with($class->toString(), 'Exception')
         ) {
@@ -123,43 +124,5 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
 
                 PHP
         );
-    }
-
-    /**
-     * Determine if a given string matches a given pattern.
-     *
-     * @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Support/Str.php
-     *
-     * @param iterable<string> $patterns
-     */
-    private function is(iterable $patterns, string $value, bool $ignoreCase = false): bool
-    {
-        foreach ($patterns as $pattern) {
-            $pattern = (string) $pattern;
-
-            // If the given value is an exact match we can of course return true right
-            // from the beginning. Otherwise, we will translate asterisks and do an
-            // actual pattern match against the two strings to see if they match.
-            if ($pattern === $value) {
-                return true;
-            }
-
-            if ($ignoreCase && mb_strtolower($pattern) === mb_strtolower($value)) {
-                return true;
-            }
-
-            $pattern = preg_quote($pattern, '#');
-
-            // Asterisks are translated into zero-or-more regular expression wildcards
-            // to make it convenient to check if the strings starts with the given
-            // pattern such as "library/*", making any string check convenient.
-            $pattern = str_replace('\*', '.*', $pattern);
-
-            if (preg_match('#^'.$pattern.'\z#'.($ignoreCase ? 'iu' : 'u'), $value) === 1) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

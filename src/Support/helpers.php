@@ -39,20 +39,24 @@ if (!\function_exists('Guanguans\SoarPHP\Support\escape_argument')) {
     }
 }
 
-if (!\function_exists('Guanguans\SoarPHP\Support\str_camel')) {
-    function str_camel(string $str): string
-    {
-        $str = ucwords(str_replace(['-', '_'], ' ', $str));
-
-        return lcfirst(str_replace(' ', '', $str));
-    }
-}
-
 if (!\function_exists('Guanguans\SoarPHP\Support\str_snake')) {
-    function str_snake(string $str, string $delimiter = '_'): string
+    function str_snake(string $value, string $delimiter = '_'): string
     {
-        $str = preg_replace('/\s+/u', '', ucwords($str));
+        $key = $value;
 
-        return strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1'.$delimiter, $str));
+        /** @var array<string, array<string, string>> $snakeCache */
+        static $snakeCache = [];
+
+        if (isset($snakeCache[$key][$delimiter])) {
+            return $snakeCache[$key][$delimiter];
+        }
+
+        if (!ctype_lower($value)) {
+            $value = preg_replace('/\s+/u', '', ucwords($value));
+
+            $value = mb_strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1'.$delimiter, $value), 'UTF-8');
+        }
+
+        return $snakeCache[$key][$delimiter] = $value;
     }
 }

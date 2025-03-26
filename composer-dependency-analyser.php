@@ -30,6 +30,14 @@ return (new Configuration)
         // SensitiveParameter::class,
         'SensitiveParameter',
     ])
+    /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
+    ->ignoreErrorsOnExtensions(
+        [
+            'ext-ctype',
+            'ext-mbstring',
+        ],
+        [ErrorType::SHADOW_DEPENDENCY],
+    )
     ->ignoreErrorsOnPackageAndPath(
         'symfony/var-dumper',
         __DIR__.'/src/Concerns/WithDumpable.php',

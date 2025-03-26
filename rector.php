@@ -115,7 +115,6 @@ return RectorConfig::configure()
             [
                 'array_reduce_with_keys',
                 'escape_argument',
-                'str_camel',
                 'str_snake',
             ],
             static function (array $carry, string $func): array {

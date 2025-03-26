@@ -15,6 +15,7 @@ namespace Guanguans\SoarPHP\Support;
 
 use Composer\Script\Event;
 use Guanguans\SoarPHP\Soar;
+use Illuminate\Support\Str;
 
 /**
  * @internal
@@ -81,9 +82,9 @@ final class ComposerScripts
                     $description = str_replace('@', '', " * {$option['description']}".\PHP_EOL);
 
                     $replacer = [
-                        '{method}' => ucfirst(str_camel($option['name'])),
+                        '{method}' => ucfirst(Str::camel($option['name'])),
                         '{type}' => $option['type'],
-                        '{name}' => str_camel($option['name']),
+                        '{name}' => Str::camel($option['name']),
                     ];
 
                     $method = str_replace(array_keys($replacer), array_values($replacer), $t);
