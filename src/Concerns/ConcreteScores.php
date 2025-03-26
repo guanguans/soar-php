@@ -24,11 +24,11 @@ trait ConcreteScores
      * @param int<0, 4194304> $options
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     * @throws \JsonException
      */
     public function arrayScores(array|string $sqls, int $depth = 512, int $options = 0): array
     {
-        /** @noinspection JsonEncodingApiUsageInspection */
-        return (array) json_decode($this->jsonScores($sqls), true, $depth, $options);
+        return json_decode($this->jsonScores($sqls), true, $depth, $options | \JSON_THROW_ON_ERROR);
     }
 
     /**
