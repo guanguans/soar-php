@@ -1,8 +1,8 @@
-# total 2 errors
+# total 1 error
 
 parameters:
     ignoreErrors:
         -
             message: '#^Unsafe usage of new static\(\)\.$#'
-            count: 2
+            count: 1
             path: ../src/Soar.php

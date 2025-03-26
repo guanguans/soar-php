@@ -59,7 +59,7 @@ trait ConcreteMagic
      */
     public static function __set_state(array $properties): self
     {
-        return new static($properties['options'], $properties['soarBinary']);
+        return new self($properties['options'], $properties['soarBinary']);
     }
 
     /**

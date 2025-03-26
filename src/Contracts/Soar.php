@@ -15,6 +15,9 @@ namespace Guanguans\SoarPHP\Contracts;
 
 interface Soar
 {
+    /**
+     * @param null|callable(string, string): void $callback
+     */
     public function run(?callable $callback = null): string;
 
     /**

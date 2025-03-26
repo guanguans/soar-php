@@ -30,11 +30,7 @@ trait HasSoarBinary
 
     public function setSoarBinary(string $soarBinary): self
     {
-        if (
-            !is_file($soarBinary)
-            // || !file_exists($soarBinary)
-            || !is_executable($soarBinary)
-        ) {
+        if (!is_file($soarBinary) || !is_executable($soarBinary)) {
             throw new InvalidArgumentException("The file [$soarBinary] does not exist or is not executable.");
         }
 
@@ -46,13 +42,13 @@ trait HasSoarBinary
     protected function defaultSoarBinary(): string
     {
         if (OS::isWindows()) {
-            return __DIR__.'/../../bin/soar.windows-amd64'; // @codeCoverageIgnore
+            return __DIR__.'/../../bin/soar.windows-amd64';
         }
 
         if (OS::isMacOS()) {
             return OS::isArm() ? __DIR__.'/../../bin/soar.darwin-arm64' : __DIR__.'/../../bin/soar.darwin-amd64';
         }
 
-        return OS::isArm() ? __DIR__.'/../../bin/soar.linux-arm64' : __DIR__.'/../../bin/soar.linux-amd64'; // @codeCoverageIgnore
+        return OS::isArm() ? __DIR__.'/../../bin/soar.linux-arm64' : __DIR__.'/../../bin/soar.linux-amd64';
     }
 }
