@@ -55,17 +55,14 @@ trait WithRunable
      */
     protected function createProcess(array $withOptions = []): Process
     {
-        $process = new Process(array_merge([$this->soarBinary], $this->clone()->mergeOptions($withOptions)->getNormalizedOptions()));
+        $normalizedOptions = $this->clone()->mergeOptions($withOptions)->getNormalizedOptions();
 
-        if ($this->shouldApplySudoPassword()) {
-            // $process = Process::fromShellCommandline(\sprintf(
-            //     'echo %s | sudo -S %s',
-            //     $this->getEscapedSudoPassword(),
-            //     $process->getCommandLine()
-            // ));
-
-            $process = Process::fromShellCommandline("sudo -S {$process->getCommandLine()}")->setInput($this->getSudoPassword());
-        }
+        $process = $this->shouldApplySudoPassword()
+            ? new Process(
+                command: array_merge(['sudo', '-S', $this->soarBinary], $normalizedOptions),
+                input: $this->getSudoPassword()
+            )
+            : new Process(array_merge([$this->soarBinary], $normalizedOptions));
 
         if (\is_callable($this->processTapper)) {
             ($this->processTapper)($process);
