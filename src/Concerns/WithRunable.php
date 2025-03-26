@@ -32,13 +32,11 @@ trait WithRunable
     }
 
     /**
-     * @param list<string> $withOptions
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function run(array $withOptions = [], ?callable $callback = null): string
+    public function run(?callable $callback = null): string
     {
-        $process = $this->createProcess($withOptions);
+        $process = $this->toProcess();
         $process->run($callback);
 
         if (!$process->isSuccessful()) {
@@ -49,13 +47,11 @@ trait WithRunable
     }
 
     /**
-     * @param list<string> $withOptions
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function createProcess(array $withOptions = []): Process
+    protected function toProcess(): Process
     {
-        $normalizedOptions = $this->clone()->mergeOptions($withOptions)->getNormalizedOptions();
+        $normalizedOptions = $this->clone()->getNormalizedOptions();
 
         $process = $this->shouldApplySudoPassword()
             ? new Process(

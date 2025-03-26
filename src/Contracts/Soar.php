@@ -15,10 +15,7 @@ namespace Guanguans\SoarPHP\Contracts;
 
 interface Soar
 {
-    /**
-     * @param list<string> $withOptions
-     */
-    public function run(array $withOptions = [], ?callable $callback = null): string;
+    public function run(?callable $callback = null): string;
 
     /**
      * @param list<string>|string $sqls

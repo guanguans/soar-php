@@ -69,6 +69,6 @@ trait ConcreteMagic
      */
     public function __toString(): string
     {
-        return $this->createProcess()->getCommandLine();
+        return $this->toProcess()->getCommandLine();
     }
 }

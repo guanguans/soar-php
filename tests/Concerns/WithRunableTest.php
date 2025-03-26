@@ -61,7 +61,6 @@ it('can run soar process with tapper', function (): void {
             $process->setTimeout(30);
         })
         ->run(
-            ['-version'],
             static function (string $type, string $data): void {
                 dump($type, $data);
             }
