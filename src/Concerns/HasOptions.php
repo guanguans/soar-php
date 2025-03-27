@@ -1170,18 +1170,18 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\BadMethodCallException
      */
-    public function __call(string $name, array $arguments): mixed
+    public function __call(string $method, array $arguments): mixed
     {
         foreach (['set', 'with', 'get', 'only', 'except'] as $prefix) {
-            if (str_starts_with($name, $prefix)) {
-                $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
-                $newName = $prefix.'Option';
+            if (str_starts_with($method, $prefix)) {
+                $key = '-'.str_snake(substr($method, \strlen($prefix)), '-');
+                $actionMethod = $prefix.'Option';
 
-                return $this->{$newName}($key, ...$arguments);
+                return $this->{$actionMethod}($key, ...$arguments);
             }
         }
 
-        throw new BadMethodCallException("The method [$name] does not exist.");
+        throw new BadMethodCallException("The method [$method] does not exist.");
     }
 
     public function flushOptions(): self
