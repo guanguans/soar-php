@@ -15,93 +15,16 @@ namespace Guanguans\SoarPHP\Support;
 
 use Composer\Script\Event;
 use Guanguans\SoarPHP\Soar;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @internal
  */
 final class ComposerScripts
 {
-    /**
-     * @noinspection PhpUnused
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
-     */
-    public static function dumpSoarDocblock(Event $event): int
-    {
-        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
-
-        $prefix = <<<'docblock'
-            <?php
-
-            declare(strict_types=1);
-
-            /**
-             * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
-             *
-             * For the full copyright and license information, please view
-             * the LICENSE file that was distributed with this source code.
-             *
-             * @see https://github.com/guanguans/soar-php
-             */
-            /**
-            docblock;
-
-        $suffix = <<<'docblock'
-
-             * @mixin \Guanguans\SoarPHP\Soar
-             */
-
-            docblock;
-
-        $methodMapper = [
-            'set' => ' * @method self set{method}({type} ${name})',
-            'with' => ' * @method self with{method}({type} ${name})',
-            'get' => ' * @method null|{type} get{method}($default = null)',
-            'only' => ' * @method self only{method}()',
-            'except' => ' * @method self except{method}()',
-            // 'add' => ' * @method self add{method}({type} ${name})',
-            // 'getNormalized' => ' * @method null|{type} getNormalized{method}($default = null)',
-        ];
-
-        $options = self::extractOptionsFromHelp();
-
-        $docblock = array_reduce_with_keys(
-            $methodMapper,
-            static fn (string $docblock, string $t, string $typeOfMethod): string => array_reduce(
-                $options,
-                static function (string $docblock, array $option) use ($typeOfMethod, $t): string {
-                    if ('uint' === $option['type']) {
-                        $option['type'] = 'int';
-                    }
-
-                    if (null === $option['type'] && str_starts_with($typeOfMethod, 'get')) {
-                        $option['type'] = 'mixed';
-                    }
-
-                    $description = str_replace('@', '', " * {$option['description']}".\PHP_EOL);
-
-                    $replacer = [
-                        '{method}' => ucfirst(Str::camel($option['name'])),
-                        '{type}' => $option['type'],
-                        '{name}' => Str::camel($option['name']),
-                    ];
-
-                    $method = str_replace(array_keys($replacer), array_values($replacer), $t);
-
-                    return $docblock.\PHP_EOL.$description.$method.\PHP_EOL.' *';
-                },
-                $docblock
-            ),
-            ''
-        );
-
-        file_put_contents(__DIR__.'/../../examples/soar.options.docblock.php', $prefix.$docblock.$suffix);
-        $event->getIO()->write('<info>操作成功</info>');
-
-        return 0;
-    }
-
     /**
      * @noinspection PhpUnused
      *
@@ -134,8 +57,9 @@ final class ComposerScripts
 
         $suffix = '];'.\PHP_EOL;
 
-        $code = array_reduce(self::extractOptionsFromHelp(), static function (string $code, array $options): string {
+        $code = array_reduce(self::resolveSoarOptions(), static function (string $code, array $options): string {
             null === $options['default'] and $options['default'] = 'null';
+            $options['default'] = \is_string($options['default']) ? $options['default'] : json_encode($options['default'], \JSON_THROW_ON_ERROR);
 
             $item = <<<PHP
                     /**
@@ -157,45 +81,65 @@ final class ComposerScripts
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      *
-     * @return array<string, array<string, null|string>>
+     * @return array<string, array{
+     *     name: string,
+     *     type: string,
+     *     default: string|null,
+     *     description: string,
+     * }>
      */
-    public static function extractOptionsFromHelp(): array
+    public static function resolveSoarOptions(): array
     {
-        $arrayMap = array_map(static function (string $option): ?string {
-            if (!str_starts_with($option, ' ')) {
-                return null;
-            }
+        // collect(Yaml::parse(Soar::create()->setPrintConfig(true)->run()))
+        //     ->tap(function (Collection $collection): void {
+        //         file_put_contents(__DIR__.'/../../examples/soar.options.example.yaml', Yaml::dump($collection->all(), indent: 2));
+        //     })
+        //     ->dd();
 
-            return ltrim($option);
-        }, explode(\PHP_EOL, Soar::create()->help()));
+        return Str::of(Soar::create()->help())
+            ->explode(\PHP_EOL)
+            ->filter(static fn (string $option): bool => str_starts_with($option, ' '))
+            ->map(static fn (string $option): string => trim($option))
+            ->chunk(2)
+            ->reduce(
+                static function (Collection $options, Collection $option): Collection {
+                    [$name, $type] = Str::of($option->firstOrFail())
+                        ->explode(' ')
+                        ->pad(2, 'bool')
+                        ->pipe(static function (Collection $collection): array {
+                            [$name, $type] = $collection->all();
 
-        $options = array_reduce(array_chunk(array_filter($arrayMap), 2), static function (array $options, array $option): array {
-            $names = explode(' ', $option[0]);
-            preg_match('/\\(default .*\\)/', $option[1], $defaults);
+                            return [$name, match ($type) {
+                                'uint' => 'int',
+                                default => $type,
+                            }];
+                        });
 
-            $default = $defaults[0] ?? null;
+                    $default = Str::of($option->last())
+                        /** @lang PhpRegExp */
+                        ->match('/\\(default .*\\)/')
+                        ->pipe(
+                            static fn (Stringable $stringable): Stringable => $stringable
+                                ->replaceFirst('(default ', '')
+                                ->replaceLast(')', '')
+                        )
+                        ->toString() ?: null;
 
-            if (\is_string($default) && 0 === strncmp($default, $prefix = '(default ', \strlen($prefix))) {
-                $default = rtrim(substr($default, \strlen($prefix)), ')');
-            }
-
-            $options[$names[0]] = [
-                'name' => $names[0],
-                'description' => $option[1],
-                'type' => $names[1] ?? null,
-                'default' => $default,
-            ];
-
-            return $options;
-        }, []);
-
-        $options['help'] = [
-            'name' => 'help',
-            'description' => 'Help',
-            'type' => null,
-            'default' => null,
-        ];
-
-        return $options;
+                    return $options->put($name, [
+                        'name' => $name,
+                        'type' => $type,
+                        'default' => $default,
+                        'description' => $option->last(),
+                    ]);
+                },
+                collect()
+            )
+            ->put('help', [
+                'name' => 'help',
+                'type' => 'bool',
+                'default' => null,
+                'description' => 'Help',
+            ])
+            ->all();
     }
 }

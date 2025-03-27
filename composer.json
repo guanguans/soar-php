@@ -178,11 +178,9 @@
         "composer-updater-dry-run": "@composer-updater --dry-run",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
         "dump-soar": [
-            "@dump-soar-docblock",
             "@dump-soar-php-config",
             "@dump-soar-yaml-config"
         ],
-        "dump-soar-docblock": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarDocblock",
         "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarConfig",
         "dump-soar-yaml-config": "./bin/soar.darwin-amd64 -print-config -verbose > examples/soar.options.example.yaml",
         "facade-lint": "@facade-update --lint",

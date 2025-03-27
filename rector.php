@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 use Composer\Autoload\ClassLoader;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
+use Guanguans\SoarPHP\Support\Rectors\HasOptionsDocCommentRector;
 use Guanguans\SoarPHP\Support\Rectors\ToInternalExceptionRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -65,7 +66,7 @@ return RectorConfig::configure()
     ])
     ->withCache(__DIR__.'/.build/rector/')
     ->withParallel()
-    // ->withoutParallel()
+    ->withoutParallel()
     // ->withImportNames(importNames: false)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
     ->withFluentCallNewLine()
@@ -96,6 +97,7 @@ return RectorConfig::configure()
         SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
+        HasOptionsDocCommentRector::class,
         ToInternalExceptionRector::class,
     ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
