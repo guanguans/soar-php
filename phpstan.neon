@@ -66,13 +66,13 @@ parameters:
             message: 'use config() instead'
     ignoreErrors:
 #        - identifier: argument.templateType
+#        - identifier: cast.string
 #        - identifier: method.nonObject
 #        - identifier: missingType.generics
 #        - identifier: return.void
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.type
         - identifier: binaryOp.invalid
-        - identifier: cast.string
         - identifier: encapsedStringPart.nonString
         - identifier: logicalAnd.resultUnused
         - identifier: missingType.iterableValue

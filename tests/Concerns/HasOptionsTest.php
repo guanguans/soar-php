@@ -110,7 +110,7 @@ it('can normalize options', function (): void {
     expect(fn (): array => $this->getNormalizedOptions())
         ->call(Soar::create([
             'foo' => 'bar',
-            '-verbose',
+            '-verbose' => true,
             '-test-dsn' => [
                 'host' => 'you_host',
                 'port' => 'you_port',

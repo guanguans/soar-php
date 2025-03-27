@@ -1181,7 +1181,7 @@ trait HasOptions
             }
         }
 
-        throw new BadMethodCallException("The method [$method] does not exist.");
+        throw new BadMethodCallException(\sprintf('The method [%s::%s] does not exist.', static::class, $method));
     }
 
     public function flushOptions(): self
@@ -1275,6 +1275,7 @@ trait HasOptions
     }
 
     /**
+     * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function getNormalizedOptions(): array
@@ -1283,58 +1284,71 @@ trait HasOptions
     }
 
     /**
+     * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function normalizeOptions(array $options): array
     {
-        return array_reduce_with_keys($options, function (array $normalizedOptions, mixed $value, int|string $name): array {
-            if ($normalizedOption = $this->normalizeOption($name, $value)) {
-                $normalizedOptions[\is_int($name) ? (string) $value : $name] = $normalizedOption;
-            }
+        return array_reduce_with_keys(
+            $options,
+            function (array $normalizedOptions, mixed $value, string $name): array {
+                $normalizedOptions[$name] = $this->normalizeOption($name, $value);
 
-            return $normalizedOptions;
-        }, []);
+                return $normalizedOptions;
+            },
+            []
+        );
     }
 
     /**
+     * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function normalizeOption(int|string $name, mixed $value): string
+    protected function normalizeOption(string $name, mixed $value): string
     {
-        $converter = function (mixed $value) {
-            /** @noinspection UselessIsComparisonInspection */
-            \is_callable($value) and !(\is_string($value) && \function_exists($value)) and $value = $value($this);
-            true === $value and $value = 'true';
-            false === $value and $value = 'false';
-            0 === $value and $value = '0';
+        if (
+            \is_array($value)
+            && !($value['disable'] ?? false)
+            && \in_array($name, ['-test-dsn', '-online-dsn'], true)
+        ) {
+            $value = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
+        }
 
+        return null === ($value = $this->normalizeValue($value)) ? $name : "$name=$value";
+    }
+
+    /**
+     * @throws \JsonException
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    private function normalizeValue(mixed $value): ?string
+    {
+        if (\is_string($value) || null === $value) {
             return $value;
-        };
-
-        $value = $converter($value);
-
-        if (null === $value) {
-            return $name;
         }
 
-        if (\is_scalar($value) || (\is_object($value) && method_exists($value, '__toString'))) {
-            if (\is_int($name)) {
-                return (string) $value;
-            }
-
-            return "$name=$value";
+        if (\is_scalar($value)) {
+            return json_encode($value, \JSON_THROW_ON_ERROR);
         }
 
-        if (\is_array($value)) {
-            if (!($value['disable'] ?? false) && \in_array($name, ['-test-dsn', '-online-dsn'], true)) {
-                $dsn = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
-
-                return "$name=$dsn";
-            }
-
-            return "$name=".implode(',', array_map($converter, $value));
+        if (\is_callable($value)) {
+            return $this->normalizeValue($value($this));
         }
 
-        throw new InvalidOptionException(\sprintf('Invalid configuration type(%s).', \gettype($value)));
+        if (\is_object($value) && method_exists($value, '__toString')) {
+            return (string) $value;
+        }
+
+        if (!\is_array($value)) {
+            throw new InvalidOptionException(\sprintf('Invalid option type [%s].', \gettype($value)));
+        }
+
+        return implode(
+            ',',
+            array_filter(
+                array_map(fn (mixed $val): ?string => $this->normalizeValue($val), $value),
+                static fn (?string $v): bool => null !== $v
+            )
+        );
     }
 }

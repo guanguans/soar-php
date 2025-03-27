@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Call to function function_exists\(\) with callable\-string will always evaluate to true\.$#'
-            count: 1
-            path: ../src/Soar.php
