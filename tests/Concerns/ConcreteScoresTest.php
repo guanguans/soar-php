@@ -126,7 +126,12 @@ it('can get scores', function (): void {
         ])
         ->toBeString()
         ->toBeTruthy()
-        ->mergeOptions(require __DIR__.'/../../examples/soar.options.full.php')->scores('select * from users;')
+        // ->mergeOptions(require __DIR__.'/../../examples/soar.options.full.php')
+        ->mergeOptions(array_filter(
+            require __DIR__.'/../../examples/soar.options.full.php',
+            fn (mixed $value): bool => null !== $value
+        ))
+        ->scores('select * from users;')
         ->toBeString()
         ->toBeTruthy();
 })->group(__DIR__, __FILE__);

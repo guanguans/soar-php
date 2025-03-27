@@ -32,7 +32,7 @@ it('can add option', function (): void {
 it('can remove option', function (): void {
     expect(Soar::create([$key = 'foo' => $val = 'bar']))
         ->getOption($key)->toBe($val)
-        ->removeOption($key)->getOption($key)->toBeNull();
+        ->exceptOption($key)->getOption($key)->toBeNull();
 })->group(__DIR__, __FILE__);
 
 it('can only option', function (): void {
@@ -50,7 +50,7 @@ it('can only dsn', function (): void {
         $key1 = '-test-dsn' => $val = 'val',
         $key2 = 'key2' => $val,
     ]))
-        ->onlyDsn()
+        ->onlyDsns()
         ->getOption($key1)->toBe($val)
         ->getOption($key2)->toBeNull();
 })->group(__DIR__, __FILE__);
@@ -91,10 +91,10 @@ it('will throw BadMethodCallException when call not exist method', function (): 
     ->throws(BadMethodCallException::class, 'foo');
 
 it('can call option methods via magic call', function (): void {
-    // $prefixes = ['add', 'remove', 'only', 'set', 'merge', 'getNormalized', 'get'];
+    // $prefixes = ['add', 'except', 'only', 'set', 'merge', 'getNormalized', 'get'];
     expect(Soar::create())
         // ->addVersion($val = 'version')->getVersion()->toBe($val)
-        ->setVersion($val = 'version')->removeVersion()->getVersionc()->toBeNull()
+        ->setVersion($val = 'version')->exceptVersion()->getVersionc()->toBeNull()
         ->onlyVersion()->getVersion()->toBeNull()
         ->setVersion($val)->getVersion()->toBe($val)
         ->mergeVersion($val)->getVersion()->toBe($val);

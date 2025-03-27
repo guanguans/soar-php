@@ -55,13 +55,13 @@ final class ComposerScripts
             docblock;
 
         $methodMapper = [
-            // 'add' => ' * @method self add{method}({type} ${name})',
-            'remove' => ' * @method self remove{method}()',
             'only' => ' * @method self only{method}()',
+            'except' => ' * @method self except{method}()',
             'set' => ' * @method self set{method}({type} ${name})',
-            'merge' => ' * @method self merge{method}({type} ${name})',
-            // 'getNormalized' => ' * @method null|{type} getNormalized{method}($default = null)',
             'get' => ' * @method null|{type} get{method}($default = null)',
+            'merge' => ' * @method self merge{method}({type} ${name})',
+            // 'add' => ' * @method self add{method}({type} ${name})',
+            // 'getNormalized' => ' * @method null|{type} getNormalized{method}($default = null)',
         ];
 
         $options = self::extractOptionsFromHelp();
