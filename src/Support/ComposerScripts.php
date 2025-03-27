@@ -55,7 +55,7 @@ final class ComposerScripts
             docblock;
 
         $methodMapper = [
-            'add' => ' * @method self add{method}({type} ${name})',
+            // 'add' => ' * @method self add{method}({type} ${name})',
             'remove' => ' * @method self remove{method}()',
             'only' => ' * @method self only{method}()',
             'set' => ' * @method self set{method}({type} ${name})',

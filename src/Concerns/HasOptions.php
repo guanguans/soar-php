@@ -1401,7 +1401,7 @@ trait HasOptions
      */
     public function __call(string $name, array $arguments): mixed
     {
-        foreach (['add', 'remove', 'only', 'set', 'merge', 'get'] as $prefix) {
+        foreach (['remove', 'only', 'set', 'merge', 'get'] as $prefix) {
             if (str_starts_with($name, $prefix)) {
                 $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
                 $newName = $prefix.'Option';
@@ -1411,20 +1411,6 @@ trait HasOptions
         }
 
         throw new BadMethodCallException("The method [$name] does not exist.");
-    }
-
-    public function addOptions(array $options): self
-    {
-        $this->options += $options;
-
-        return $this;
-    }
-
-    public function addOption(string $key, mixed $value): self
-    {
-        $this->addOptions([$key => $value]);
-
-        return $this;
     }
 
     public function removeOptions(array $keys): self
