@@ -23,43 +23,43 @@ use Guanguans\SoarPHP\Soar;
 
 it('can add option', function (): void {
     expect(Soar::create())
-        ->addOption($key = 'foo', $val = 'bar')
-        ->getOption($key)->toBe($val)
-        ->addOption($key, $key)
-        ->getOption($key)->toBe($val);
+        ->addOption($name = 'foo', $val = 'bar')
+        ->getOption($name)->toBe($val)
+        ->addOption($name, $name)
+        ->getOption($name)->toBe($val);
 })->group(__DIR__, __FILE__)->skip();
 
 it('can remove option', function (): void {
-    expect(Soar::create([$key = 'foo' => $val = 'bar']))
-        ->getOption($key)->toBe($val)
-        ->exceptOption($key)->getOption($key)->toBeNull();
+    expect(Soar::create([$name = 'foo' => $val = 'bar']))
+        ->getOption($name)->toBe($val)
+        ->exceptOption($name)->getOption($name)->toBeNull();
 })->group(__DIR__, __FILE__);
 
 it('can only option', function (): void {
     expect(Soar::create([
-        $key1 = 'key1' => $val = 'val',
-        $key2 = 'key2' => $val,
+        $name1 = 'key1' => $val = 'val',
+        $name2 = 'key2' => $val,
     ]))
-        ->onlyOption($key1)
-        ->getOption($key1)->toBe($val)
-        ->getOption($key2)->toBeNull();
+        ->onlyOption($name1)
+        ->getOption($name1)->toBe($val)
+        ->getOption($name2)->toBeNull();
 })->group(__DIR__, __FILE__);
 
 it('can only dsn', function (): void {
     expect(Soar::create([
-        $key1 = '-test-dsn' => $val = 'val',
-        $key2 = 'key2' => $val,
+        $name1 = '-test-dsn' => $val = 'val',
+        $name2 = 'key2' => $val,
     ]))
         ->onlyDsns()
-        ->getOption($key1)->toBe($val)
-        ->getOption($key2)->toBeNull();
+        ->getOption($name1)->toBe($val)
+        ->getOption($name2)->toBeNull();
 })->group(__DIR__, __FILE__);
 
 it('can set option', function (): void {
     expect(Soar::create())
-        ->setOption($key = 'foo', $str = 'bar')->getOption($key)->toBe($str)
+        ->setOption($name = 'foo', $str = 'bar')->getOption($name)->toBe($str)
         ->setOption(
-            $key = '-online-dsn',
+            $name = '-online-dsn',
             $arr = [
                 'host' => '192.168.10.10',
                 'port' => '3306',
@@ -69,14 +69,14 @@ it('can set option', function (): void {
                 'disable' => false,
                 'options' => [],
             ]
-        )->getOption($key)->toBe($arr)
-        ->setOption($key = '-foo', $arr = ['a', 'b', 'c'])->getOption($key)->toBe($arr);
+        )->getOption($name)->toBe($arr)
+        ->setOption($name = '-foo', $arr = ['a', 'b', 'c'])->getOption($name)->toBe($arr);
 })->group(__DIR__, __FILE__);
 
 it('can merge option', function (): void {
-    expect(Soar::create([$key = 'foo', 'bar']))
-        ->withOption($key, $key)
-        ->getOption($key)->toBe($key);
+    expect(Soar::create([$name = 'foo', 'bar']))
+        ->withOption($name, $name)
+        ->getOption($name)->toBe($name);
 })->group(__DIR__, __FILE__);
 
 it('can get options', function (): void {

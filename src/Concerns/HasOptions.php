@@ -1174,10 +1174,10 @@ trait HasOptions
     {
         foreach (['set', 'with', 'get', 'only', 'except'] as $prefix) {
             if (str_starts_with($method, $prefix)) {
-                $key = '-'.str_snake(substr($method, \strlen($prefix)), '-');
+                $name = '-'.str_snake(substr($method, \strlen($prefix)), '-');
                 $actionMethod = $prefix.'Option';
 
-                return $this->{$actionMethod}($key, ...$arguments);
+                return $this->{$actionMethod}($name, ...$arguments);
             }
         }
 
@@ -1199,9 +1199,9 @@ trait HasOptions
         return $this;
     }
 
-    public function setOption(string $key, mixed $value): self
+    public function setOption(string $name, mixed $value): self
     {
-        $this->options[$key] = $value;
+        $this->options[$name] = $value;
 
         return $this;
     }
@@ -1216,9 +1216,9 @@ trait HasOptions
         return $this;
     }
 
-    public function withOption(string $key, mixed $value): self
+    public function withOption(string $name, mixed $value): self
     {
-        $this->withOptions([$key => $value]);
+        $this->withOptions([$name => $value]);
 
         return $this;
     }
@@ -1228,9 +1228,9 @@ trait HasOptions
         return $this->options;
     }
 
-    public function getOption(string $key, mixed $default = null): mixed
+    public function getOption(string $name, mixed $default = null): mixed
     {
-        return $this->options[$key] ?? $default;
+        return $this->options[$name] ?? $default;
     }
 
     public function onlyDsns(): self
@@ -1240,36 +1240,36 @@ trait HasOptions
         return $this;
     }
 
-    public function onlyOptions(array $keys): self
+    public function onlyOptions(array $names): self
     {
         $this->options = array_filter(
             $this->options,
-            static fn (string $key): bool => \in_array($key, $keys, true),
+            static fn (string $name): bool => \in_array($name, $names, true),
             \ARRAY_FILTER_USE_KEY
         );
 
         return $this;
     }
 
-    public function onlyOption(string $key): self
+    public function onlyOption(string $name): self
     {
-        $this->onlyOptions([$key]);
+        $this->onlyOptions([$name]);
 
         return $this;
     }
 
-    public function exceptOptions(array $keys): self
+    public function exceptOptions(array $names): self
     {
-        foreach ($keys as $key) {
-            unset($this->options[$key]);
+        foreach ($names as $name) {
+            unset($this->options[$name]);
         }
 
         return $this;
     }
 
-    public function exceptOption(string $key): self
+    public function exceptOption(string $name): self
     {
-        $this->exceptOptions([$key]);
+        $this->exceptOptions([$name]);
 
         return $this;
     }
@@ -1287,9 +1287,9 @@ trait HasOptions
      */
     protected function normalizeOptions(array $options): array
     {
-        return array_reduce_with_keys($options, function (array $normalizedOptions, mixed $value, int|string $key): array {
-            if ($normalizedOption = $this->normalizeOption($key, $value)) {
-                $normalizedOptions[\is_int($key) ? (string) $value : $key] = $normalizedOption;
+        return array_reduce_with_keys($options, function (array $normalizedOptions, mixed $value, int|string $name): array {
+            if ($normalizedOption = $this->normalizeOption($name, $value)) {
+                $normalizedOptions[\is_int($name) ? (string) $value : $name] = $normalizedOption;
             }
 
             return $normalizedOptions;
@@ -1299,7 +1299,7 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function normalizeOption(int|string $key, mixed $value): string
+    protected function normalizeOption(int|string $name, mixed $value): string
     {
         $converter = function (mixed $value) {
             /** @noinspection UselessIsComparisonInspection */
@@ -1314,25 +1314,25 @@ trait HasOptions
         $value = $converter($value);
 
         if (null === $value) {
-            return $key;
+            return $name;
         }
 
         if (\is_scalar($value) || (\is_object($value) && method_exists($value, '__toString'))) {
-            if (\is_int($key)) {
+            if (\is_int($name)) {
                 return (string) $value;
             }
 
-            return "$key=$value";
+            return "$name=$value";
         }
 
         if (\is_array($value)) {
-            if (!($value['disable'] ?? false) && \in_array($key, ['-test-dsn', '-online-dsn'], true)) {
+            if (!($value['disable'] ?? false) && \in_array($name, ['-test-dsn', '-online-dsn'], true)) {
                 $dsn = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
 
-                return "$key=$dsn";
+                return "$name=$dsn";
             }
 
-            return "$key=".implode(',', array_map($converter, $value));
+            return "$name=".implode(',', array_map($converter, $value));
         }
 
         throw new InvalidOptionException(\sprintf('Invalid configuration type(%s).', \gettype($value)));
