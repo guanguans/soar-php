@@ -1172,7 +1172,7 @@ trait HasOptions
      */
     public function __call(string $name, array $arguments): mixed
     {
-        foreach (['except', 'only', 'set', 'merge', 'get'] as $prefix) {
+        foreach (['except', 'only', 'set', 'with', 'get'] as $prefix) {
             if (str_starts_with($name, $prefix)) {
                 $key = '-'.str_snake(substr($name, \strlen($prefix)), '-');
                 $newName = $prefix.'Option';
@@ -1204,16 +1204,16 @@ trait HasOptions
     /**
      * @param array<string, mixed> $options
      */
-    public function mergeOptions(array $options): self
+    public function withOptions(array $options): self
     {
         $this->options = array_merge($this->options, $options);
 
         return $this;
     }
 
-    public function mergeOption(string $key, mixed $value): self
+    public function withOption(string $key, mixed $value): self
     {
-        $this->mergeOptions([$key => $value]);
+        $this->withOptions([$key => $value]);
 
         return $this;
     }

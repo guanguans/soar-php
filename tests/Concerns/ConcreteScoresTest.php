@@ -126,8 +126,8 @@ it('can get scores', function (): void {
         ])
         ->toBeString()
         ->toBeTruthy()
-        // ->mergeOptions(require __DIR__.'/../../examples/soar.options.full.php')
-        ->mergeOptions(array_filter(
+        // ->withOptions(require __DIR__.'/../../examples/soar.options.full.php')
+        ->withOptions(array_filter(
             require __DIR__.'/../../examples/soar.options.full.php',
             fn (mixed $value): bool => null !== $value
         ))

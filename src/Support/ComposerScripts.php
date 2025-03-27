@@ -59,7 +59,7 @@ final class ComposerScripts
             'except' => ' * @method self except{method}()',
             'set' => ' * @method self set{method}({type} ${name})',
             'get' => ' * @method null|{type} get{method}($default = null)',
-            'merge' => ' * @method self merge{method}({type} ${name})',
+            'with' => ' * @method self with{method}({type} ${name})',
             // 'add' => ' * @method self add{method}({type} ${name})',
             // 'getNormalized' => ' * @method null|{type} getNormalized{method}($default = null)',
         ];

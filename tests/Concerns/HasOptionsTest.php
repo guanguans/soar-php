@@ -75,7 +75,7 @@ it('can set option', function (): void {
 
 it('can merge option', function (): void {
     expect(Soar::create([$key = 'foo', 'bar']))
-        ->mergeOption($key, $key)
+        ->withOption($key, $key)
         ->getOption($key)->toBe($key);
 })->group(__DIR__, __FILE__);
 
@@ -91,13 +91,13 @@ it('will throw BadMethodCallException when call not exist method', function (): 
     ->throws(BadMethodCallException::class, 'foo');
 
 it('can call option methods via magic call', function (): void {
-    // $prefixes = ['add', 'except', 'only', 'set', 'merge', 'getNormalized', 'get'];
+    // $prefixes = ['add', 'except', 'only', 'set', 'with', 'getNormalized', 'get'];
     expect(Soar::create())
         // ->addVersion($val = 'version')->getVersion()->toBe($val)
         ->setVersion($val = 'version')->exceptVersion()->getVersionc()->toBeNull()
         ->onlyVersion()->getVersion()->toBeNull()
         ->setVersion($val)->getVersion()->toBe($val)
-        ->mergeVersion($val)->getVersion()->toBe($val);
+        ->withVersion($val)->getVersion()->toBe($val);
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidOptionException when normalize invalid option', function (): void {

@@ -925,232 +925,232 @@ declare(strict_types=1);
  * @method null|mixed getHelp($default = null)
  *
  * AllowCharsets (default "utf8,utf8mb4")
- * @method self mergeAllowCharsets(string $allowCharsets)
+ * @method self withAllowCharsets(string $allowCharsets)
  *
  * AllowCollates
- * @method self mergeAllowCollates(string $allowCollates)
+ * @method self withAllowCollates(string $allowCollates)
  *
  * AllowDropIndex, 允许输出删除重复索引的建议
- * @method self mergeAllowDropIndex( $allowDropIndex)
+ * @method self withAllowDropIndex( $allowDropIndex)
  *
  * AllowEngines (default "innodb")
- * @method self mergeAllowEngines(string $allowEngines)
+ * @method self withAllowEngines(string $allowEngines)
  *
  * AllowOnlineAsTest, 允许线上环境也可以当作测试环境
- * @method self mergeAllowOnlineAsTest( $allowOnlineAsTest)
+ * @method self withAllowOnlineAsTest( $allowOnlineAsTest)
  *
  * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method self mergeBlacklist(string $blacklist)
+ * @method self withBlacklist(string $blacklist)
  *
  * Check configs
- * @method self mergeCheckConfig( $checkConfig)
+ * @method self withCheckConfig( $checkConfig)
  *
  * 单次运行清理历史1小时前残余的测试库。
- * @method self mergeCleanupTestDatabase( $cleanupTestDatabase)
+ * @method self withCleanupTestDatabase( $cleanupTestDatabase)
  *
  * ColumnNotAllowType (default "boolean")
- * @method self mergeColumnNotAllowType(string $columnNotAllowType)
+ * @method self withColumnNotAllowType(string $columnNotAllowType)
  *
  * Config file path
- * @method self mergeConfig(string $config)
+ * @method self withConfig(string $config)
  *
  * Delimiter, SQL分隔符 (default ";")
- * @method self mergeDelimiter(string $delimiter)
+ * @method self withDelimiter(string $delimiter)
  *
  * DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
- * @method self mergeDropTestTemporary( $dropTestTemporary)
+ * @method self withDropTestTemporary( $dropTestTemporary)
  *
  * 是否在预演环境执行 (default true)
- * @method self mergeDryRun( $dryRun)
+ * @method self withDryRun( $dryRun)
  *
  * Explain, 是否开启Explain执行计划分析 (default true)
- * @method self mergeExplain( $explain)
+ * @method self withExplain( $explain)
  *
  * ExplainFormat [json, traditional] (default "traditional")
- * @method self mergeExplainFormat(string $explainFormat)
+ * @method self withExplainFormat(string $explainFormat)
  *
  * ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
- * @method self mergeExplainMaxFiltered(float $explainMaxFiltered)
+ * @method self withExplainMaxFiltered(float $explainMaxFiltered)
  *
  * ExplainMaxKeyLength, 最大key_len (default 3)
- * @method self mergeExplainMaxKeys(int $explainMaxKeys)
+ * @method self withExplainMaxKeys(int $explainMaxKeys)
  *
  * ExplainMaxRows, 最大扫描行数警告 (default 10000)
- * @method self mergeExplainMaxRows(int $explainMaxRows)
+ * @method self withExplainMaxRows(int $explainMaxRows)
  *
  * ExplainMinPossibleKeys, 最小possible_keys警告
- * @method self mergeExplainMinKeys(int $explainMinKeys)
+ * @method self withExplainMinKeys(int $explainMinKeys)
  *
  * ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
- * @method self mergeExplainSqlReportType(string $explainSqlReportType)
+ * @method self withExplainSqlReportType(string $explainSqlReportType)
  *
  * ExplainType [extended, partitions, traditional] (default "extended")
- * @method self mergeExplainType(string $explainType)
+ * @method self withExplainType(string $explainType)
  *
  * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
- * @method self mergeExplainWarnAccessType(string $explainWarnAccessType)
+ * @method self withExplainWarnAccessType(string $explainWarnAccessType)
  *
  * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
- * @method self mergeExplainWarnExtra(string $explainWarnExtra)
+ * @method self withExplainWarnExtra(string $explainWarnExtra)
  *
  * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
- * @method self mergeExplainWarnScalability(string $explainWarnScalability)
+ * @method self withExplainWarnScalability(string $explainWarnScalability)
  *
  * ExplainWarnSelectType, 哪些select_type不建议使用
- * @method self mergeExplainWarnSelectType(string $explainWarnSelectType)
+ * @method self withExplainWarnSelectType(string $explainWarnSelectType)
  *
  * IgnoreRules, 忽略的优化建议规则 (default "COL.011")
- * @method self mergeIgnoreRules(string $ignoreRules)
+ * @method self withIgnoreRules(string $ignoreRules)
  *
  * IdxPrefix (default "idx_")
- * @method self mergeIndexPrefix(string $indexPrefix)
+ * @method self withIndexPrefix(string $indexPrefix)
  *
  * ListHeuristicRules, 打印支持的评审规则列表
- * @method self mergeListHeuristicRules( $listHeuristicRules)
+ * @method self withListHeuristicRules( $listHeuristicRules)
  *
  * ListReportTypes, 打印支持的报告输出类型
- * @method self mergeListReportTypes( $listReportTypes)
+ * @method self withListReportTypes( $listReportTypes)
  *
  * ListRewriteRules, 打印支持的重写规则列表
- * @method self mergeListRewriteRules( $listRewriteRules)
+ * @method self withListRewriteRules( $listRewriteRules)
  *
  * ListTestSqls, 打印测试case用于测试
- * @method self mergeListTestSqls( $listTestSqls)
+ * @method self withListTestSqls( $listTestSqls)
  *
  * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
- * @method self mergeLogLevel(int $logLevel)
+ * @method self withLogLevel(int $logLevel)
  *
  * LogOutput, 日志输出位置 (default "soar.log")
- * @method self mergeLogOutput(string $logOutput)
+ * @method self withLogOutput(string $logOutput)
  *
  * log stack traces for errors
- * @method self mergeLogErrStacks( $logErrStacks)
+ * @method self withLogErrStacks( $logErrStacks)
  *
  * size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
- * @method self mergeLogRotateMaxSize(int $logRotateMaxSize)
+ * @method self withLogRotateMaxSize(int $logRotateMaxSize)
  *
  * MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
- * @method self mergeMarkdownExtensions(int $markdownExtensions)
+ * @method self withMarkdownExtensions(int $markdownExtensions)
  *
  * MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
- * @method self mergeMarkdownHtmlFlags(int $markdownHtmlFlags)
+ * @method self withMarkdownHtmlFlags(int $markdownHtmlFlags)
  *
  * MaxColCount, 单表允许的最大列数 (default 40)
- * @method self mergeMaxColumnCount(int $maxColumnCount)
+ * @method self withMaxColumnCount(int $maxColumnCount)
  *
  * MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
- * @method self mergeMaxDistinctCount(int $maxDistinctCount)
+ * @method self withMaxDistinctCount(int $maxDistinctCount)
  *
  * MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
- * @method self mergeMaxGroupByColsCount(int $maxGroupByColsCount)
+ * @method self withMaxGroupByColsCount(int $maxGroupByColsCount)
  *
  * MaxInCount, IN()最大数量 (default 10)
- * @method self mergeMaxInCount(int $maxInCount)
+ * @method self withMaxInCount(int $maxInCount)
  *
  * MaxIdxBytes, 索引总长度限制 (default 3072)
- * @method self mergeMaxIndexBytes(int $maxIndexBytes)
+ * @method self withMaxIndexBytes(int $maxIndexBytes)
  *
  * MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
- * @method self mergeMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
+ * @method self withMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn)
  *
  * MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
- * @method self mergeMaxIndexColsCount(int $maxIndexColsCount)
+ * @method self withMaxIndexColsCount(int $maxIndexColsCount)
  *
  * MaxIdxCount, 单表最大索引个数 (default 10)
- * @method self mergeMaxIndexCount(int $maxIndexCount)
+ * @method self withMaxIndexCount(int $maxIndexCount)
  *
  * MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
- * @method self mergeMaxJoinTableCount(int $maxJoinTableCount)
+ * @method self withMaxJoinTableCount(int $maxJoinTableCount)
  *
  * MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
- * @method self mergeMaxPrettySqlLength(int $maxPrettySqlLength)
+ * @method self withMaxPrettySqlLength(int $maxPrettySqlLength)
  *
  * MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
- * @method self mergeMaxQueryCost(int $maxQueryCost)
+ * @method self withMaxQueryCost(int $maxQueryCost)
  *
  * MaxSubqueryDepth (default 5)
- * @method self mergeMaxSubqueryDepth(int $maxSubqueryDepth)
+ * @method self withMaxSubqueryDepth(int $maxSubqueryDepth)
  *
  * MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
- * @method self mergeMaxTextColsCount(int $maxTextColsCount)
+ * @method self withMaxTextColsCount(int $maxTextColsCount)
  *
  * MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
- * @method self mergeMaxTotalRows(int $maxTotalRows)
+ * @method self withMaxTotalRows(int $maxTotalRows)
  *
  * MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
- * @method self mergeMaxValueCount(int $maxValueCount)
+ * @method self withMaxValueCount(int $maxValueCount)
  *
  * MaxVarcharLength (default 1024)
- * @method self mergeMaxVarcharLength(int $maxVarcharLength)
+ * @method self withMaxVarcharLength(int $maxVarcharLength)
  *
  * MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
- * @method self mergeMinCardinality(float $minCardinality)
+ * @method self withMinCardinality(float $minCardinality)
  *
  * OnlineDSN, 线上环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method self mergeOnlineDsn(string $onlineDsn)
+ * @method self withOnlineDsn(string $onlineDsn)
  *
  * OnlySyntaxCheck, 只做语法检查不输出优化建议
- * @method self mergeOnlySyntaxCheck( $onlySyntaxCheck)
+ * @method self withOnlySyntaxCheck( $onlySyntaxCheck)
  *
  * Print configs
- * @method self mergePrintConfig( $printConfig)
+ * @method self withPrintConfig( $printConfig)
  *
  * Profiling, 开启数据采样的情况下在测试环境执行Profile
- * @method self mergeProfiling( $profiling)
+ * @method self withProfiling( $profiling)
  *
  * 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
- * @method self mergeQuery(string $query)
+ * @method self withQuery(string $query)
  *
  * ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
- * @method self mergeReportCss(string $reportCss)
+ * @method self withReportCss(string $reportCss)
  *
  * ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
- * @method self mergeReportJavascript(string $reportJavascript)
+ * @method self withReportJavascript(string $reportJavascript)
  *
  * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
- * @method self mergeReportTitle(string $reportTitle)
+ * @method self withReportTitle(string $reportTitle)
  *
  * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
- * @method self mergeReportType(string $reportType)
+ * @method self withReportType(string $reportType)
  *
  * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
- * @method self mergeRewriteRules(string $rewriteRules)
+ * @method self withRewriteRules(string $rewriteRules)
  *
  * Sampling, 数据采样开关
- * @method self mergeSampling( $sampling)
+ * @method self withSampling( $sampling)
  *
  * SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
- * @method self mergeSamplingCondition(string $samplingCondition)
+ * @method self withSamplingCondition(string $samplingCondition)
  *
  * SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
- * @method self mergeSamplingStatisticTarget(int $samplingStatisticTarget)
+ * @method self withSamplingStatisticTarget(int $samplingStatisticTarget)
  *
  * ShowLastQueryCost
- * @method self mergeShowLastQueryCost( $showLastQueryCost)
+ * @method self withShowLastQueryCost( $showLastQueryCost)
  *
  * ShowWarnings
- * @method self mergeShowWarnings( $showWarnings)
+ * @method self withShowWarnings( $showWarnings)
  *
  * SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
- * @method self mergeSpaghettiQueryLength(int $spaghettiQueryLength)
+ * @method self withSpaghettiQueryLength(int $spaghettiQueryLength)
  *
  * TestDSN, 测试环境数据库配置, username:********tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
- * @method self mergeTestDsn(string $testDsn)
+ * @method self withTestDsn(string $testDsn)
  *
  * Trace, 开启数据采样的情况下在测试环境执行Trace
- * @method self mergeTrace( $trace)
+ * @method self withTrace( $trace)
  *
  * UkPrefix (default "uk_")
- * @method self mergeUniqueKeyPrefix(string $uniqueKeyPrefix)
+ * @method self withUniqueKeyPrefix(string $uniqueKeyPrefix)
  *
  * Verbose
- * @method self mergeVerbose( $verbose)
+ * @method self withVerbose( $verbose)
  *
  * Print version info
- * @method self mergeVersion( $version)
+ * @method self withVersion( $version)
  *
  * Help
- * @method self mergeHelp( $help)
+ * @method self withHelp( $help)
  *
  * @mixin \Guanguans\SoarPHP\Soar
  */
