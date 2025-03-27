@@ -55,11 +55,11 @@ final class ComposerScripts
             docblock;
 
         $methodMapper = [
+            'set' => ' * @method self set{method}({type} ${name})',
+            'with' => ' * @method self with{method}({type} ${name})',
+            'get' => ' * @method null|{type} get{method}($default = null)',
             'only' => ' * @method self only{method}()',
             'except' => ' * @method self except{method}()',
-            'set' => ' * @method self set{method}({type} ${name})',
-            'get' => ' * @method null|{type} get{method}($default = null)',
-            'with' => ' * @method self with{method}({type} ${name})',
             // 'add' => ' * @method self add{method}({type} ${name})',
             // 'getNormalized' => ' * @method null|{type} getNormalized{method}($default = null)',
         ];
