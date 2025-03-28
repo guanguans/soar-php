@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHPTests\Concerns;
 
-use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Guanguans\SoarPHP\Soar;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 it('will throw ProcessFailedException when sqls is invalid sql', function (): void {

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Exceptions\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -36,14 +35,7 @@ trait WithRunable
      */
     public function run(?callable $callback = null): string
     {
-        $process = $this->toProcess();
-        $process->run($callback);
-
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        return $process->getOutput();
+        return $this->toProcess()->mustRun($callback)->getOutput();
     }
 
     /**
