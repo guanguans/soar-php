@@ -100,7 +100,7 @@ final class HasOptionsDocCommentRector extends AbstractRector
             [
                 'set' => '\Guanguans\SoarPHP\Soar set{method}({type} ${name}) @description {description}',
                 'with' => '\Guanguans\SoarPHP\Soar with{method}({type} ${name}) @description {description}',
-                'get' => 'null|{type} get{method}(mixed $default = null) @description {description}',
+                // 'get' => 'null|{type} get{method}(mixed $default = null) @description {description}',
                 'only' => '\Guanguans\SoarPHP\Soar only{method}() @description {description}',
                 'except' => '\Guanguans\SoarPHP\Soar except{method}() @description {description}',
             ] as $template

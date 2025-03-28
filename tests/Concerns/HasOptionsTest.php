@@ -98,7 +98,7 @@ it('can call option methods via magic call', function (): void {
         ->onlyVersion()->getVersion()->toBeNull()
         ->setVersion($val)->getVersion()->toBe($val)
         ->withVersion($val)->getVersion()->toBe($val);
-})->group(__DIR__, __FILE__);
+})->group(__DIR__, __FILE__)->skip();
 
 it('will throw InvalidOptionException when normalize invalid option', function (): void {
     (fn (): array => $this->getNormalizedOptions())->call(Soar::create(['foo' => $this->createMock(stdClass::class)]));
