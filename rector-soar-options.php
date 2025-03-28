@@ -21,7 +21,7 @@ use Rector\Config\RectorConfig;
 use Rector\ValueObject\PhpVersion;
 
 file_put_contents(
-    $path = __DIR__.'/examples/soar.options.php',
+    $path = __DIR__.'/examples/soar-options.php',
     $code = \sprintf(
         <<<'PHP'
             <?php

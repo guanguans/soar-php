@@ -22,7 +22,7 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 
 it('can serialize and unserialize', function (): void {
-    expect(unserialize(serialize(Soar::create(require __DIR__.'/../../examples/soar.options.full.php'))))
+    expect(unserialize(serialize(Soar::create(require __DIR__.'/../../examples/soar-options.php'))))
         ->toBeInstanceOf(Soar::class)
         ->getSoarBinary()->toBeTruthy()
         ->getOptions()->toBeTruthy();
@@ -33,7 +33,7 @@ it('can export soar code block and eval it', function (): void {
         (static function () {
             $soar = null;
             eval(\sprintf('$soar = %s;', var_export(
-                Soar::create(require __DIR__.'/../../examples/soar.options.full.php'),
+                Soar::create(require __DIR__.'/../../examples/soar-options.php'),
                 true
             )));
 

@@ -178,11 +178,6 @@
         "composer-updater": "@php ./composer-updater --highest-php-binary=/opt/homebrew/opt/php@8.4/bin/php --except-packages=pestphp/pest-plugin-laravel --ansi",
         "composer-updater-dry-run": "@composer-updater --dry-run",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
-        "dump-soar": [
-            "@dump-soar-php-config",
-            "@dump-soar-yaml-config"
-        ],
-        "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPhpConfig",
         "dump-soar-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
         "facade-lint": "@facade-update --lint",
         "facade-update": [

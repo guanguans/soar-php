@@ -50,7 +50,7 @@ $soar = Soar::create();
 
 /**
  * Create a custom soar instance
- * Options @see examples/soar.options.example.php
+ * Options @see examples/soar-options-example.php
  */
 $soar = Soar::create(
     [

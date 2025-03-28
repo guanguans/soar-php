@@ -50,7 +50,7 @@ $soar = Soar::create();
 
 /**
  * 创建自定义 soar 实例
- * 选项 @see examples/soar.options.example.php
+ * 选项 @see examples/soar-options-example.php
  */
 $soar = Soar::create(
     [

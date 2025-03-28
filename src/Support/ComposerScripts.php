@@ -31,67 +31,13 @@ final class ComposerScripts
      * @noinspection PhpUnused
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
-     * @throws \JsonException
-     */
-    public static function dumpSoarPhpConfig(Event $event): int
-    {
-        self::requireAutoload($event);
-
-        $prefix = <<<'PHP'
-            <?php
-
-            declare(strict_types=1);
-
-            /**
-             * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
-             *
-             * For the full copyright and license information, please view
-             * the LICENSE file that was distributed with this source code.
-             *
-             * @see https://github.com/guanguans/soar-php
-             */
-
-            // +----------------------------------------------------------------------+//
-            // |              请参考 @see https://github.com/XiaoMi/soar               |//
-            // +----------------------------------------------------------------------+//
-
-            return [
-            PHP;
-
-        $suffix = '];'.\PHP_EOL;
-
-        $code = array_reduce(self::resolveSoarHelp()->all(), static function (string $code, array $options): string {
-            null === $options['default'] and $options['default'] = 'null';
-            $options['default'] = \is_string($options['default']) ? $options['default'] : json_encode($options['default'], \JSON_THROW_ON_ERROR);
-
-            $item = <<<PHP
-                    /**
-                     * {$options['description']}.
-                     */
-                    '{$options['name']}' => {$options['default']},
-
-                PHP;
-
-            return $code.\PHP_EOL.$item;
-        }, '');
-
-        file_put_contents(__DIR__.'/../../examples/soar.options.full.php', $prefix.$code.$suffix);
-        $event->getIO()->write('<info>操作成功</info>');
-
-        return 0;
-    }
-
-    /**
-     * @noinspection PhpUnused
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public static function dumpSoarYamlConfig(Event $event): int
     {
         self::requireAutoload($event);
 
         file_put_contents(
-            __DIR__.'/../../examples/soar.options.example.yaml',
+            __DIR__.'/../../examples/soar-options.yaml',
             Yaml::dump(input: self::resolveSoarConfig()->all(), indent: 2)
         );
 

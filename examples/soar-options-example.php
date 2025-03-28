@@ -48,7 +48,7 @@ return [
     /**
      * Config file path.
      */
-    '-config' => __DIR__.'/soar.options.example.yaml',
+    '-config' => __DIR__.'/soar-options.yaml',
 
     /**
      * Explain, 是否开启Explain执行计划分析 (default true).
