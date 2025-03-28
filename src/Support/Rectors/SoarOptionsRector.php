@@ -95,6 +95,17 @@ final class SoarOptionsRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $soarHelp = ComposerScripts::resolveSoarHelp();
+
+        /**
+         * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+         *
+         * @var array{
+         *     name: string,
+         *     type: string,
+         *     default: string|null,
+         *     description: string,
+         * }|null $help
+         */
         $help = $soarHelp->get($this->valueResolver->getValue($node->key));
 
         if (!$help) {

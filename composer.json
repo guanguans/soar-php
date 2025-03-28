@@ -156,14 +156,15 @@
         "checks": [
             "@composer-normalize",
             "@composer-validate",
+            "@dump-soar-yaml-config",
             "@json-lint",
             "@md-lint",
             "@yaml-lint",
             "@style-lint",
+            "@composer-dependency-analyser",
             "@test",
             "@phpstan",
-            "@rector-dry-run",
-            "@composer-dependency-analyser"
+            "@rector-dry-run"
         ],
         "class-leak": "@php ./vendor/bin/class-leak --ansi -v",
         "class-leak-check": "@class-leak check ./config ./src --skip-suffix=Pipe --skip-path=Support/Traits --skip-path=Channels --skip-type=\\Guanguans\\LaravelExceptionNotify\\Contracts\\Channel --skip-type=\\Guanguans\\LaravelExceptionNotify\\Contracts\\Collector --skip-type=Rector\\Rector\\AbstractRector",
@@ -178,6 +179,14 @@
         "composer-updater": "@php ./composer-updater --highest-php-binary=/opt/homebrew/opt/php@8.4/bin/php --except-packages=pestphp/pest-plugin-laravel --ansi",
         "composer-updater-dry-run": "@composer-updater --dry-run",
         "composer-validate": "@composer validate --check-lock --strict --ansi -v",
+        "dump-soar-config": [
+            "@dump-soar-yaml-config",
+            "@dump-soar-php-config"
+        ],
+        "dump-soar-php-config": [
+            "@rector-soar-options",
+            "@style-fix"
+        ],
         "dump-soar-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
         "facade-lint": "@facade-update --lint",
         "facade-update": [

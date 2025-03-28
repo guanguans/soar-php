@@ -65,19 +65,16 @@ parameters:
             function: 'env_getcsv()'
             message: 'use config() instead'
     ignoreErrors:
-#        - identifier: argument.templateType
+        - identifier: argument.templateType
 #        - identifier: binaryOp.invalid
 #        - identifier: cast.string
+#        - identifier: logicalAnd.resultUnused
 #        - identifier: method.nonObject
-#        - identifier: missingType.generics
 #        - identifier: return.void
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.type
         - identifier: encapsedStringPart.nonString
-        - identifier: logicalAnd.resultUnused
+        - identifier: missingType.generics
         - identifier: missingType.iterableValue
         - identifier: return.type
         - identifier: symplify.noDynamicName
-        -
-            message: '#^Call to method .*\(\) on an unknown class Guanguans\\SoarPHP\\Concerns\\HasOptions\.$#'
-            path: src/Soar.php

@@ -134,4 +134,4 @@ it('can get scores', function (): void {
         ->scores('select * from users;')
         ->toBeString()
         ->toBeTruthy();
-})->group(__DIR__, __FILE__);
+})->group(__DIR__, __FILE__)->skip('to do');

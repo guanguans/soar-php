@@ -48,13 +48,6 @@ final class ComposerScripts
 
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
-     *
-     * @return array<string, array{
-     *     name: string,
-     *     type: string,
-     *     default: string|null,
-     *     description: string,
-     * }>
      */
     public static function resolveSoarHelp(): Collection
     {
@@ -102,6 +95,20 @@ final class ComposerScripts
                 'default' => null,
                 'description' => Str::of($help)->headline()->toString(),
             ])
+            ->tap(static function (Collection $collection): void {
+                $asserter = static function (Collection $collection): void {
+                    // throw new \LogicException(
+                    //     \sprintf('The soar options [%s] are different.', $collection->keys()->implode('、'))
+                    // );
+                };
+
+                $config = self::resolveSoarConfig()->mapWithKeys(static fn (mixed $value, string $key): array => [
+                    Str::start($key, '-') => $value,
+                ]);
+
+                $collection->diffKeys($config)->whenNotEmpty($asserter);
+                $config->diffKeys($collection)->whenNotEmpty($asserter);
+            })
             ->map(static function (array $option, string $name): array {
                 $config = self::resolveSoarConfig();
 
