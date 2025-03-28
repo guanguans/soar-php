@@ -181,8 +181,8 @@
             "@dump-soar-php-config",
             "@dump-soar-yaml-config"
         ],
-        "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarConfig",
-        "dump-soar-yaml-config": "./bin/soar.darwin-amd64 -print-config -verbose > examples/soar.options.example.yaml",
+        "dump-soar-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPhpConfig",
+        "dump-soar-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
         "facade-lint": "@facade-update --lint",
         "facade-update": [
             "@putenvs",

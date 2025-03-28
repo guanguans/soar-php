@@ -85,7 +85,15 @@ final class HasOptionsDocCommentRector extends AbstractRector
             return null;
         }
 
-        $options = ComposerScripts::resolveSoarOptions();
+        /**
+         * @var array<string, array{
+         *     name: string,
+         *     type: string,
+         *     default: string|null,
+         *     description: string,
+         * }> $options
+         */
+        $options = ComposerScripts::resolveSoarHelp()->all();
         $phpDocInfo = $this->phpDocInfoFactory->createEmpty($node);
 
         foreach (

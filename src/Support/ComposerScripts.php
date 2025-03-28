@@ -30,9 +30,9 @@ final class ComposerScripts
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public static function dumpSoarConfig(Event $event): int
+    public static function dumpSoarPhpConfig(Event $event): int
     {
-        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
+        self::requireAutoload($event);
 
         $prefix = <<<'PHP'
             <?php
@@ -57,7 +57,7 @@ final class ComposerScripts
 
         $suffix = '];'.\PHP_EOL;
 
-        $code = array_reduce(self::resolveSoarOptions(), static function (string $code, array $options): string {
+        $code = array_reduce(self::resolveSoarHelp()->all(), static function (string $code, array $options): string {
             null === $options['default'] and $options['default'] = 'null';
             $options['default'] = \is_string($options['default']) ? $options['default'] : json_encode($options['default'], \JSON_THROW_ON_ERROR);
 
@@ -79,6 +79,25 @@ final class ComposerScripts
     }
 
     /**
+     * @noinspection PhpUnused
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    public static function dumpSoarYamlConfig(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        file_put_contents(
+            __DIR__.'/../../examples/soar.options.example.yaml',
+            Yaml::dump(input: self::resolveSoarConfig()->all(), indent: 2)
+        );
+
+        $event->getIO()->write('<info>操作成功</info>');
+
+        return 0;
+    }
+
+    /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      *
      * @return array<string, array{
@@ -88,15 +107,9 @@ final class ComposerScripts
      *     description: string,
      * }>
      */
-    public static function resolveSoarOptions(): array
+    public static function resolveSoarHelp(): Collection
     {
-        // collect(Yaml::parse(Soar::create()->setPrintConfig(true)->run()))
-        //     ->tap(function (Collection $collection): void {
-        //         file_put_contents(__DIR__.'/../../examples/soar.options.example.yaml', Yaml::dump($collection->all(), indent: 2));
-        //     })
-        //     ->dd();
-
-        return Str::of(Soar::create()->help())
+        return Str::of(self::resolveSoarHelpContent())
             ->explode(\PHP_EOL)
             ->filter(static fn (string $option): bool => str_starts_with($option, ' '))
             ->map(static fn (string $option): string => trim($option))
@@ -134,12 +147,45 @@ final class ComposerScripts
                 },
                 collect()
             )
-            ->put('help', [
-                'name' => 'help',
+            ->put($help = '-help', [
+                'name' => $help,
                 'type' => 'bool',
                 'default' => null,
-                'description' => 'Help',
+                'description' => Str::of($help)->headline()->toString(),
             ])
-            ->all();
+            ->map(static function (array $option, string $name): array {
+                $config = self::resolveSoarConfig();
+
+                $option['default'] = $config->has($snakedName = Str::of($name)->ltrim('-')->snake('-')->toString())
+                    ? $config->get($snakedName)
+                    : $config->get(Str::of($name)->ltrim('-')->snake()->toString(), $option['default']);
+
+                return $option;
+            });
+    }
+
+    private static function requireAutoload(Event $event): void
+    {
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
+    }
+
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    private static function resolveSoarConfig(): Collection
+    {
+        static $config;
+
+        return $config ??= collect(Yaml::parse(Soar::create()->setPrintConfig(true)->run()));
+    }
+
+    /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    private static function resolveSoarHelpContent(): string
+    {
+        static $help;
+
+        return $help ??= Soar::create()->help();
     }
 }
