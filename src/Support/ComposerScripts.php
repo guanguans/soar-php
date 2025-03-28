@@ -18,6 +18,8 @@ use Guanguans\SoarPHP\Soar;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Rector\Config\RectorConfig;
+use Rector\DependencyInjection\LazyContainerFactory;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -29,6 +31,7 @@ final class ComposerScripts
      * @noinspection PhpUnused
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     * @throws \JsonException
      */
     public static function dumpSoarPhpConfig(Event $event): int
     {
@@ -162,6 +165,11 @@ final class ComposerScripts
 
                 return $option;
             });
+    }
+
+    public static function makeRectorConfig(): RectorConfig
+    {
+        return (new LazyContainerFactory)->create();
     }
 
     private static function requireAutoload(Event $event): void
