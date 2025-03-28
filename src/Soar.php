@@ -22,7 +22,7 @@ use Guanguans\SoarPHP\Concerns\Makeable;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
 
-class Soar implements Contracts\Soar
+class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
 {
     use ConcreteMagic;
     use ConcreteScores;

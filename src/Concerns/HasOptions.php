@@ -515,6 +515,38 @@ trait HasOptions
     }
 
     /**
+     * @param string $offset
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        return isset($this->options[$offset]);
+    }
+
+    /**
+     * @param string $offset
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->options[$offset];
+    }
+
+    /**
+     * @param string $offset
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->options[$offset] = $value;
+    }
+
+    /**
+     * @param string $offset
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->options[$offset]);
+    }
+
+    /**
      * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
