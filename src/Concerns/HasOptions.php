@@ -473,7 +473,6 @@ trait HasOptions
     }
 
     /**
-     * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function getNormalizedOptions(): array
@@ -482,7 +481,6 @@ trait HasOptions
     }
 
     /**
-     * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function normalizeOptions(array $options): array
@@ -499,7 +497,6 @@ trait HasOptions
     }
 
     /**
-     * @throws \JsonException
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     protected function normalizeOption(string $name, mixed $value): string
@@ -516,7 +513,9 @@ trait HasOptions
     }
 
     /**
-     * @throws \JsonException
+     * @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpDocMissingThrowsInspection
+     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     private function normalizeValue(mixed $value): ?string

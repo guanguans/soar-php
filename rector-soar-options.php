@@ -16,7 +16,9 @@ declare(strict_types=1);
  */
 
 use Guanguans\SoarPHP\Support\ComposerScripts;
+use Guanguans\SoarPHP\Support\Rectors\SimplifyArrayKeyRector;
 use Guanguans\SoarPHP\Support\Rectors\SoarOptionsRector;
+use Nette\PhpGenerator\Dumper;
 use Rector\Config\RectorConfig;
 use Rector\ValueObject\PhpVersion;
 
@@ -43,7 +45,8 @@ file_put_contents(
 
             return %s;
             PHP,
-        var_export(ComposerScripts::resolveSoarHelp()->map(static fn (array $help): mixed => $help['default'])->all(), true)
+        var_export(ComposerScripts::resolveSoarHelp()->map(static fn (array $help): mixed => $help['default'])->all(), true),
+        // (new Dumper)->dump(ComposerScripts::resolveSoarHelp()->map(static fn (array $help): mixed => $help['default'])->all()),
     )
 );
 
@@ -56,5 +59,6 @@ return RectorConfig::configure()
     // ->withImportNames(importNames: false)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
     ->withRules([
+        // SimplifyArrayKeyRector::class,
         SoarOptionsRector::class,
     ]);
