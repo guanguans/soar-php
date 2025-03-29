@@ -488,7 +488,7 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function normalizeOptions(array $options): array
+    private function normalizeOptions(array $options): array
     {
         return array_reduce_with_keys(
             $options,
@@ -504,7 +504,7 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    protected function normalizeOption(string $name, mixed $value): string
+    private function normalizeOption(string $name, mixed $value): string
     {
         if (
             \is_array($value)
