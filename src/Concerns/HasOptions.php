@@ -394,6 +394,11 @@ trait HasOptions
         return $this->options;
     }
 
+    public function getDelimiter(string $default = ';'): string
+    {
+        return $this->options['-delimiter'] ?? $default;
+    }
+
     public function getOption(string $name, mixed $default = null): mixed
     {
         return $this->options[$name] ?? $default;

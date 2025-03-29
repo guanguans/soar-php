@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 use Composer\Autoload\ClassLoader;
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
-use Guanguans\SoarPHP\Support\Rectors\HasOptionsDocCommentRector;
-use Guanguans\SoarPHP\Support\Rectors\ToInternalExceptionRector;
+use Guanguans\SoarPHP\Support\Rectors\AddHasOptionsDocCommentRector;
+use Guanguans\SoarPHP\Support\Rectors\TransformToInternalExceptionRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
@@ -97,8 +97,8 @@ return RectorConfig::configure()
         SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
-        HasOptionsDocCommentRector::class,
-        ToInternalExceptionRector::class,
+        AddHasOptionsDocCommentRector::class,
+        TransformToInternalExceptionRector::class,
     ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
         'codeCoverageIgnore',

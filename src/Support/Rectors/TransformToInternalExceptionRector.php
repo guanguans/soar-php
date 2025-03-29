@@ -28,7 +28,7 @@ use Webmozart\Assert\Assert;
 /**
  * @internal
  */
-final class ToInternalExceptionRector extends AbstractRector implements ConfigurableRectorInterface
+final class TransformToInternalExceptionRector extends AbstractRector implements ConfigurableRectorInterface
 {
     private array $except = [];
 
@@ -39,7 +39,7 @@ final class ToInternalExceptionRector extends AbstractRector implements Configur
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'To internal exception',
+            'Transform to internal exception',
             [
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'

@@ -27,7 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @internal
  */
-final class SimplifyArrayKeyRector extends AbstractRector
+final class SimplifyListIndexRector extends AbstractRector
 {
     public function __construct(
         private ValueResolver $valueResolver
@@ -39,7 +39,7 @@ final class SimplifyArrayKeyRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Simplify array key',
+            'Simplify list index',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -87,34 +87,35 @@ final class SimplifyArrayKeyRector extends AbstractRector
             $key = $this->valueResolver->getValue($expr, true) => $key,
         ]);
 
-        $arrayIsListFunction = static function (array $array): bool {
-            if (\function_exists('array_is_list')) {
-                return array_is_list($array);
-            }
-
-            if ([] === $array) {
-                return true;
-            }
-
-            $current_key = 0;
-
-            foreach (array_keys($array) as $key) {
-                if ($key !== $current_key) {
-                    return false;
-                }
-
-                ++$current_key;
-            }
-
-            return true;
-        };
-
-        if ($keyValues->count() !== $keys->count() || !$arrayIsListFunction($keyValues->all())) {
+        if ($keyValues->count() !== $keys->count() || !$this->isList($keyValues->all())) {
             return null;
         }
 
         collect($node->items)->each(static fn (ArrayItem $arrayItem): mixed => $arrayItem->key = null);
 
         return $node;
+    }
+
+    private function isList(array $array): bool
+    {
+        if (\function_exists('array_is_list')) {
+            return array_is_list($array);
+        }
+
+        if ([] === $array) {
+            return true;
+        }
+
+        $current_key = 0;
+
+        foreach (array_keys($array) as $key) {
+            if ($key !== $current_key) {
+                return false;
+            }
+
+            ++$current_key;
+        }
+
+        return true;
     }
 }

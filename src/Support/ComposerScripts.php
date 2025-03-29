@@ -120,6 +120,9 @@ final class ComposerScripts
             });
     }
 
+    /**
+     * @noinspection PhpUnused
+     */
     public static function makeRectorConfig(): RectorConfig
     {
         return (new LazyContainerFactory)->create();

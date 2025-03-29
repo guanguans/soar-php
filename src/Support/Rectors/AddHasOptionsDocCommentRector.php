@@ -31,7 +31,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @internal
  */
-final class HasOptionsDocCommentRector extends AbstractRector
+final class AddHasOptionsDocCommentRector extends AbstractRector
 {
     public function __construct(
         private DocBlockUpdater $docBlockUpdater,
@@ -44,7 +44,7 @@ final class HasOptionsDocCommentRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Has options doc comment',
+            'Add has options doc comment',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
