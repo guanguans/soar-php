@@ -57,8 +57,8 @@ it('can only dsn', function (): void {
 
 it('can set option', function (): void {
     expect(Soar::create())
-        ->setOption($name = 'foo', $str = 'bar')->getOption($name)->toBe($str)
-        ->setOption(
+        ->withOption($name = 'foo', $str = 'bar')->getOption($name)->toBe($str)
+        ->withOption(
             $name = '-online-dsn',
             $arr = [
                 'host' => '192.168.10.10',
@@ -70,7 +70,7 @@ it('can set option', function (): void {
                 'options' => [],
             ]
         )->getOption($name)->toBe($arr)
-        ->setOption($name = '-foo', $arr = ['a', 'b', 'c'])->getOption($name)->toBe($arr);
+        ->withOption($name = '-foo', $arr = ['a', 'b', 'c'])->getOption($name)->toBe($arr);
 })->group(__DIR__, __FILE__);
 
 it('can merge option', function (): void {

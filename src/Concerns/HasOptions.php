@@ -97,6 +97,82 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar setUniqueKeyPrefix(string $uniqueKeyPrefix) @description UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar setVerbose(bool $verbose) @description Verbose
  * @method \Guanguans\SoarPHP\Soar setVersion(null|bool $version) @description Print version info
+ * @method \Guanguans\SoarPHP\Soar withTestDsn(array|string $testDsn) @description TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method \Guanguans\SoarPHP\Soar withOnlineDsn(array|string $onlineDsn) @description OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method \Guanguans\SoarPHP\Soar withBlacklist(string $blacklist) @description 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
+ * @method \Guanguans\SoarPHP\Soar withConfig(null|string $config) @description Config file path
+ * @method \Guanguans\SoarPHP\Soar withExplain(bool $explain) @description Explain, 是否开启Explain执行计划分析 (default true)
+ * @method \Guanguans\SoarPHP\Soar withIgnoreRules(array|string $ignoreRules) @description IgnoreRules, 忽略的优化建议规则 (default "COL.011")
+ * @method \Guanguans\SoarPHP\Soar withLogLevel(int $logLevel) @description LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
+ * @method \Guanguans\SoarPHP\Soar withLogOutput(string $logOutput) @description LogOutput, 日志输出位置 (default "soar.log")
+ * @method \Guanguans\SoarPHP\Soar withReportType(string $reportType) @description ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
+ * @method \Guanguans\SoarPHP\Soar withAllowCharsets(array|string $allowCharsets) @description AllowCharsets (default "utf8,utf8mb4")
+ * @method \Guanguans\SoarPHP\Soar withAllowCollates(array|string $allowCollates) @description AllowCollates
+ * @method \Guanguans\SoarPHP\Soar withAllowDropIndex(bool $allowDropIndex) @description AllowDropIndex, 允许输出删除重复索引的建议
+ * @method \Guanguans\SoarPHP\Soar withAllowEngines(array|string $allowEngines) @description AllowEngines (default "innodb")
+ * @method \Guanguans\SoarPHP\Soar withAllowOnlineAsTest(bool $allowOnlineAsTest) @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
+ * @method \Guanguans\SoarPHP\Soar withCheckConfig(null|bool $checkConfig) @description Check configs
+ * @method \Guanguans\SoarPHP\Soar withCleanupTestDatabase(bool $cleanupTestDatabase) @description 单次运行清理历史1小时前残余的测试库。
+ * @method \Guanguans\SoarPHP\Soar withColumnNotAllowType(array|string $columnNotAllowType) @description ColumnNotAllowType (default "boolean")
+ * @method \Guanguans\SoarPHP\Soar withDelimiter(string $delimiter) @description Delimiter, SQL分隔符 (default ";")
+ * @method \Guanguans\SoarPHP\Soar withDropTestTemporary(bool $dropTestTemporary) @description DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
+ * @method \Guanguans\SoarPHP\Soar withDryRun(bool $dryRun) @description 是否在预演环境执行 (default true)
+ * @method \Guanguans\SoarPHP\Soar withExplainFormat(string $explainFormat) @description ExplainFormat [json, traditional] (default "traditional")
+ * @method \Guanguans\SoarPHP\Soar withExplainMaxFiltered(float|int $explainMaxFiltered) @description ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
+ * @method \Guanguans\SoarPHP\Soar withExplainMaxKeys(int $explainMaxKeys) @description ExplainMaxKeyLength, 最大key_len (default 3)
+ * @method \Guanguans\SoarPHP\Soar withExplainMaxRows(int $explainMaxRows) @description ExplainMaxRows, 最大扫描行数警告 (default 10000)
+ * @method \Guanguans\SoarPHP\Soar withExplainMinKeys(int $explainMinKeys) @description ExplainMinPossibleKeys, 最小possible_keys警告
+ * @method \Guanguans\SoarPHP\Soar withExplainSqlReportType(string $explainSqlReportType) @description ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
+ * @method \Guanguans\SoarPHP\Soar withExplainType(string $explainType) @description ExplainType [extended, partitions, traditional] (default "extended")
+ * @method \Guanguans\SoarPHP\Soar withExplainWarnAccessType(array|string $explainWarnAccessType) @description ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
+ * @method \Guanguans\SoarPHP\Soar withExplainWarnExtra(array|string $explainWarnExtra) @description ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
+ * @method \Guanguans\SoarPHP\Soar withExplainWarnScalability(array|string $explainWarnScalability) @description ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
+ * @method \Guanguans\SoarPHP\Soar withExplainWarnSelectType(array|string $explainWarnSelectType) @description ExplainWarnSelectType, 哪些select_type不建议使用
+ * @method \Guanguans\SoarPHP\Soar withHelp(null|bool $help) @description Help
+ * @method \Guanguans\SoarPHP\Soar withIndexPrefix(string $indexPrefix) @description IdxPrefix (default "idx_")
+ * @method \Guanguans\SoarPHP\Soar withListHeuristicRules(bool $listHeuristicRules) @description ListHeuristicRules, 打印支持的评审规则列表
+ * @method \Guanguans\SoarPHP\Soar withListReportTypes(bool $listReportTypes) @description ListReportTypes, 打印支持的报告输出类型
+ * @method \Guanguans\SoarPHP\Soar withListRewriteRules(bool $listRewriteRules) @description ListRewriteRules, 打印支持的重写规则列表
+ * @method \Guanguans\SoarPHP\Soar withListTestSqls(bool $listTestSqls) @description ListTestSqls, 打印测试case用于测试
+ * @method \Guanguans\SoarPHP\Soar withLogErrStacks(null|bool $logErrStacks) @description log stack traces for errors
+ * @method \Guanguans\SoarPHP\Soar withLogRotateMaxSize(int|string $logRotateMaxSize) @description size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
+ * @method \Guanguans\SoarPHP\Soar withMarkdownExtensions(int $markdownExtensions) @description MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
+ * @method \Guanguans\SoarPHP\Soar withMarkdownHtmlFlags(int $markdownHtmlFlags) @description MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
+ * @method \Guanguans\SoarPHP\Soar withMaxColumnCount(int $maxColumnCount) @description MaxColCount, 单表允许的最大列数 (default 40)
+ * @method \Guanguans\SoarPHP\Soar withMaxDistinctCount(int $maxDistinctCount) @description MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
+ * @method \Guanguans\SoarPHP\Soar withMaxGroupByColsCount(int $maxGroupByColsCount) @description MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
+ * @method \Guanguans\SoarPHP\Soar withMaxInCount(int $maxInCount) @description MaxInCount, IN()最大数量 (default 10)
+ * @method \Guanguans\SoarPHP\Soar withMaxIndexBytes(int $maxIndexBytes) @description MaxIdxBytes, 索引总长度限制 (default 3072)
+ * @method \Guanguans\SoarPHP\Soar withMaxIndexBytesPercolumn(int $maxIndexBytesPercolumn) @description MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
+ * @method \Guanguans\SoarPHP\Soar withMaxIndexColsCount(int $maxIndexColsCount) @description MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
+ * @method \Guanguans\SoarPHP\Soar withMaxIndexCount(int $maxIndexCount) @description MaxIdxCount, 单表最大索引个数 (default 10)
+ * @method \Guanguans\SoarPHP\Soar withMaxJoinTableCount(int $maxJoinTableCount) @description MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
+ * @method \Guanguans\SoarPHP\Soar withMaxPrettySqlLength(int $maxPrettySqlLength) @description MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
+ * @method \Guanguans\SoarPHP\Soar withMaxQueryCost(int $maxQueryCost) @description MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
+ * @method \Guanguans\SoarPHP\Soar withMaxSubqueryDepth(int $maxSubqueryDepth) @description MaxSubqueryDepth (default 5)
+ * @method \Guanguans\SoarPHP\Soar withMaxTextColsCount(int $maxTextColsCount) @description MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
+ * @method \Guanguans\SoarPHP\Soar withMaxTotalRows(int $maxTotalRows) @description MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
+ * @method \Guanguans\SoarPHP\Soar withMaxValueCount(int $maxValueCount) @description MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
+ * @method \Guanguans\SoarPHP\Soar withMaxVarcharLength(int $maxVarcharLength) @description MaxVarcharLength (default 1024)
+ * @method \Guanguans\SoarPHP\Soar withMinCardinality(float|int $minCardinality) @description MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
+ * @method \Guanguans\SoarPHP\Soar withOnlySyntaxCheck(bool $onlySyntaxCheck) @description OnlySyntaxCheck, 只做语法检查不输出优化建议
+ * @method \Guanguans\SoarPHP\Soar withPrintConfig(null|bool $printConfig) @description Print configs
+ * @method \Guanguans\SoarPHP\Soar withProfiling(bool $profiling) @description Profiling, 开启数据采样的情况下在测试环境执行Profile
+ * @method \Guanguans\SoarPHP\Soar withQuery(string $query) @description 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
+ * @method \Guanguans\SoarPHP\Soar withReportCss(string $reportCss) @description ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
+ * @method \Guanguans\SoarPHP\Soar withReportJavascript(string $reportJavascript) @description ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
+ * @method \Guanguans\SoarPHP\Soar withReportTitle(string $reportTitle) @description ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
+ * @method \Guanguans\SoarPHP\Soar withRewriteRules(array|string $rewriteRules) @description RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
+ * @method \Guanguans\SoarPHP\Soar withSampling(bool $sampling) @description Sampling, 数据采样开关
+ * @method \Guanguans\SoarPHP\Soar withSamplingCondition(string $samplingCondition) @description SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
+ * @method \Guanguans\SoarPHP\Soar withSamplingStatisticTarget(int $samplingStatisticTarget) @description SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
+ * @method \Guanguans\SoarPHP\Soar withShowLastQueryCost(bool $showLastQueryCost) @description ShowLastQueryCost
+ * @method \Guanguans\SoarPHP\Soar withShowWarnings(bool $showWarnings) @description ShowWarnings
+ * @method \Guanguans\SoarPHP\Soar withSpaghettiQueryLength(int $spaghettiQueryLength) @description SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
+ * @method \Guanguans\SoarPHP\Soar withTrace(bool $trace) @description Trace, 开启数据采样的情况下在测试环境执行Trace
+ * @method \Guanguans\SoarPHP\Soar withUniqueKeyPrefix(string $uniqueKeyPrefix) @description UkPrefix (default "uk_")
+ * @method \Guanguans\SoarPHP\Soar withVerbose(bool $verbose) @description Verbose
+ * @method \Guanguans\SoarPHP\Soar withVersion(null|bool $version) @description Print version info
  * @method \Guanguans\SoarPHP\Soar onlyTestDsn() @description TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyOnlineDsn() @description OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyBlacklist() @description 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
@@ -262,7 +338,7 @@ trait HasOptions
      */
     public function __call(string $method, array $arguments): mixed
     {
-        foreach (['set', 'only', 'except'] as $prefix) {
+        foreach (['set', 'with', 'only', 'except'] as $prefix) {
             if (str_starts_with($method, $prefix)) {
                 $name = '-'.str_snake(substr($method, \strlen($prefix)), '-');
                 $actionMethod = $prefix.'Option';
@@ -279,6 +355,11 @@ trait HasOptions
         return $this->setOptions([]);
     }
 
+    public function setOption(string $name, mixed $value): self
+    {
+        return $this->setOptions([$name => $value]);
+    }
+
     /**
      * @param array<string, mixed> $options
      */
@@ -289,11 +370,9 @@ trait HasOptions
         return $this;
     }
 
-    public function setOption(string $name, mixed $value): self
+    public function withOption(string $name, mixed $value): self
     {
-        $this->options[$name] = $value;
-
-        return $this;
+        return $this->withOptions([$name => $value]);
     }
 
     /**
@@ -306,11 +385,14 @@ trait HasOptions
         return $this;
     }
 
-    public function withOption(string $name, mixed $value): self
+    public function getDelimiter(string $default = ';'): string
     {
-        $this->withOptions([$name => $value]);
+        return $this->getOption('-delimiter', $default);
+    }
 
-        return $this;
+    public function getOption(string $name, mixed $default = null): mixed
+    {
+        return $this->getOptions()[$name] ?? $default;
     }
 
     public function getOptions(): array
@@ -318,19 +400,16 @@ trait HasOptions
         return $this->options;
     }
 
-    public function getDelimiter(string $default = ';'): string
-    {
-        return $this->options['-delimiter'] ?? $default;
-    }
-
-    public function getOption(string $name, mixed $default = null): mixed
-    {
-        return $this->options[$name] ?? $default;
-    }
-
     public function onlyDsns(): self
     {
         $this->onlyOptions(['-test-dsn', '-online-dsn']);
+
+        return $this;
+    }
+
+    public function onlyOption(string $name): self
+    {
+        $this->onlyOptions([$name]);
 
         return $this;
     }
@@ -346,9 +425,9 @@ trait HasOptions
         return $this;
     }
 
-    public function onlyOption(string $name): self
+    public function exceptOption(string $name): self
     {
-        $this->onlyOptions([$name]);
+        $this->exceptOptions([$name]);
 
         return $this;
     }
@@ -358,13 +437,6 @@ trait HasOptions
         foreach ($names as $name) {
             unset($this->options[$name]);
         }
-
-        return $this;
-    }
-
-    public function exceptOption(string $name): self
-    {
-        $this->exceptOptions([$name]);
 
         return $this;
     }
