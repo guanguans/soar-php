@@ -40,7 +40,7 @@ trait ConcreteScores
      */
     public function jsonScores(array|string $sqls): string
     {
-        return $this->setReportType('json')->scores($sqls);
+        return $this->withReportType('json')->scores($sqls);
     }
 
     /**
@@ -50,7 +50,7 @@ trait ConcreteScores
      */
     public function htmlScores(array|string $sqls): string
     {
-        return $this->setReportType('html')->scores($sqls);
+        return $this->withReportType('html')->scores($sqls);
     }
 
     /**
@@ -60,7 +60,7 @@ trait ConcreteScores
      */
     public function markdownScores(array|string $sqls): string
     {
-        return $this->setReportType('markdown')->scores($sqls);
+        return $this->withReportType('markdown')->scores($sqls);
     }
 
     /**
@@ -74,6 +74,6 @@ trait ConcreteScores
             $sqls = implode($this->getDelimiter(), $sqls);
         }
 
-        return $this->clone()->setQuery($sqls)->run();
+        return $this->clone()->withQuery($sqls)->run();
     }
 }

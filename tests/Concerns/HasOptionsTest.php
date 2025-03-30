@@ -55,7 +55,7 @@ it('can only dsn', function (): void {
         ->getOption($name2)->toBeNull();
 })->group(__DIR__, __FILE__);
 
-it('can set option', function (): void {
+it('can with option', function (): void {
     expect(Soar::create())
         ->withOption($name = 'foo', $str = 'bar')->getOption($name)->toBe($str)
         ->withOption(
@@ -94,9 +94,9 @@ it('can call option methods via magic call', function (): void {
     // $prefixes = ['add', 'except', 'only', 'set', 'with', 'getNormalized', 'get'];
     expect(Soar::create())
         // ->addVersion($val = 'version')->getVersion()->toBe($val)
-        ->setVersion($val = 'version')->exceptVersion()->getVersionc()->toBeNull()
+        ->withVersion($val = 'version')->exceptVersion()->getVersionc()->toBeNull()
         ->onlyVersion()->getVersion()->toBeNull()
-        ->setVersion($val)->getVersion()->toBe($val)
+        ->withVersion($val)->getVersion()->toBe($val)
         ->withVersion($val)->getVersion()->toBe($val);
 })->group(__DIR__, __FILE__)->skip();
 

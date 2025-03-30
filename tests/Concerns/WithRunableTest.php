@@ -27,7 +27,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 it('will throw ProcessFailedException when sqls is invalid sql', function (): void {
-    Soar::create()->setOnlySyntaxCheck(true)->setQuery('invalid sql')->run();
+    Soar::create()->withOnlySyntaxCheck(true)->withQuery('invalid sql')->run();
 })
     ->group(__DIR__, __FILE__)
     ->throws(ProcessFailedException::class, 'invalid sql');
@@ -46,7 +46,7 @@ it('will throw ProcessFailedException when sudo password is empty', function ():
         {
             return true;
         }
-    })->setSudoPassword('foo')->setQuery('select bar;')->run();
+    })->setSudoPassword('foo')->withQuery('select bar;')->run();
 })
     ->group(__DIR__, __FILE__)
     ->throws(

@@ -1,4 +1,4 @@
-# total 3 errors
+# total 4 errors
 includes:
     - disallowed.function.neon
     - new.static.neon

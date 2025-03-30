@@ -44,7 +44,7 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
      */
     public function help(): string
     {
-        return $this->clone()->setHelp(true)->onlyHelp()->run();
+        return $this->clone()->setHelp(true)->run();
     }
 
     /**
@@ -52,7 +52,7 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
      */
     public function version(): string
     {
-        return $this->clone()->setVersion(true)->onlyVersion()->run();
+        return $this->clone()->setVersion(true)->run();
     }
 
     public function clone(): self
