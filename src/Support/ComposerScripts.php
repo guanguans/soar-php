@@ -116,6 +116,29 @@ final class ComposerScripts
                     ? $config->get($snakedName)
                     : $config->get(Str::of($name)->ltrim('-')->snake()->toString(), $option['default']);
 
+                $option['type'] = collect([$option['type'], \gettype($option['default'])])
+                    ->map(static fn (string $type): string => match ($type = strtolower($type)) {
+                        'integer' => 'int',
+                        'boolean' => 'bool',
+                        'double' => 'float',
+                        'resource (closed)' => 'resource',
+                        'unknown type' => 'mixed',
+                        default => $type,
+                    })
+                    ->unique()
+                    ->sort(static function (string $a, string $b): int {
+                        if ('null' !== $a && 'null' === $b) {
+                            return 1;
+                        }
+
+                        if ('null' === $a && 'null' !== $b) {
+                            return -1;
+                        }
+
+                        return strcasecmp(ltrim($a, '\\'), ltrim($b, '\\'));
+                    })
+                    ->implode('|');
+
                 return $option;
             })
             ->tap(static function () use (&$rules): void {
