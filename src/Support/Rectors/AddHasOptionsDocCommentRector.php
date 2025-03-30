@@ -54,9 +54,9 @@ final class AddHasOptionsDocCommentRector extends AbstractRector
                         CODE_SAMPLE,
                     <<<'CODE_SAMPLE'
                         /**
-                         * @method self exceptVerbose() @description Verbose
-                         * @method self exceptVersion() @description Print version info
-                         * @method self exceptHelp() @description Help
+                         * @method \Guanguans\SoarPHP\Soar exceptVerbose() @description Verbose
+                         * @method \Guanguans\SoarPHP\Soar exceptVersion() @description Print version info
+                         * @method \Guanguans\SoarPHP\Soar exceptHelp() @description Help
                          *
                          * @mixin \Guanguans\SoarPHP\Soar
                          */

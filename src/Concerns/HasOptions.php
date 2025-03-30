@@ -502,15 +502,7 @@ trait HasOptions
      */
     private function normalizeOption(string $name, mixed $value): string
     {
-        if (
-            \is_array($value)
-            && !($value['disable'] ?? false)
-            && \in_array($name, ['-test-dsn', '-online-dsn'], true)
-        ) {
-            $value = "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
-        }
-
-        return null === ($value = $this->normalizeValue($value)) ? $name : "$name=$value";
+        return null === ($value = $this->normalizeValue($name, $value)) ? $name : "$name=$value";
     }
 
     /**
@@ -519,7 +511,7 @@ trait HasOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeValue(mixed $value): ?string
+    private function normalizeValue(string $name, mixed $value): ?string
     {
         if (\is_string($value) || null === $value) {
             return $value;
@@ -530,7 +522,7 @@ trait HasOptions
         }
 
         if (\is_callable($value)) {
-            return $this->normalizeValue($value($this));
+            return $this->normalizeValue($name, $value($this));
         }
 
         if (\is_object($value) && method_exists($value, '__toString')) {
@@ -538,15 +530,17 @@ trait HasOptions
         }
 
         if (!\is_array($value)) {
-            throw new InvalidOptionException(\sprintf('Invalid option type [%s].', \gettype($value)));
+            throw new InvalidOptionException(\sprintf('Invalid option [%s] type [%s].', $name, \gettype($value)));
         }
 
-        return implode(
-            ',',
-            array_filter(
-                array_map(fn (mixed $val): ?string => $this->normalizeValue($val), $value),
-                static fn (?string $v): bool => null !== $v
-            )
-        );
+        if (!($value['disable'] ?? false) && \in_array($name, ['-test-dsn', '-online-dsn'], true)) {
+            /**
+             * @see https://github.com/spatie/url
+             * @see https://github.com/thephpleague/uri
+             */
+            return "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
+        }
+
+        return implode(',', array_map(fn (mixed $val): ?string => $this->normalizeValue($name, $val), $value));
     }
 }
