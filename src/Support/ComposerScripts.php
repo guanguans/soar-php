@@ -117,6 +117,24 @@ final class ComposerScripts
                     : $config->get(Str::of($name)->ltrim('-')->snake()->toString(), $option['default']);
 
                 return $option;
+            })
+            ->tap(static function () use (&$rules): void {
+                $rules = array_keys(require __DIR__.'/../../examples/soar-options-example.php');
+            })
+            ->sortKeysUsing(static function (string $a, string $b) use ($rules): int {
+                if (!\in_array($a, $rules, true) && \in_array($b, $rules, true)) {
+                    return 1;
+                }
+
+                if (\in_array($a, $rules, true) && !\in_array($b, $rules, true)) {
+                    return -1;
+                }
+
+                if (\in_array($a, $rules, true) && \in_array($b, $rules, true)) {
+                    return array_search($a, $rules, true) <=> array_search($b, $rules, true);
+                }
+
+                return strcmp($a, $b);
             });
     }
 

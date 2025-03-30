@@ -17,6 +17,95 @@ declare(strict_types=1);
 
 return [
     /**
+     * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+     */
+    '-test-dsn' => [
+        'user' => '',
+        'password' => '********',
+        'net' => 'tcp',
+        'addr' => '127.0.0.1:3306',
+        'schema' => 'information_schema',
+        'charset' => 'utf8',
+        'collation' => 'utf8mb4_general_ci',
+        'loc' => 'UTC',
+        'tls' => '',
+        'server-public-key' => '',
+        'max-allowed-packet' => 4194304,
+        'params' => [
+            'charset' => 'utf8',
+        ],
+        'timeout' => '3s',
+        'read-timeout' => '0s',
+        'write-timeout' => '0s',
+        'allow-native-passwords' => true,
+        'allow-old-passwords' => false,
+        'disable' => false,
+    ],
+
+    /**
+     * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+     */
+    '-online-dsn' => [
+        'user' => '',
+        'password' => '********',
+        'net' => 'tcp',
+        'addr' => '127.0.0.1:3306',
+        'schema' => 'information_schema',
+        'charset' => 'utf8',
+        'collation' => 'utf8mb4_general_ci',
+        'loc' => 'UTC',
+        'tls' => '',
+        'server-public-key' => '',
+        'max-allowed-packet' => 4194304,
+        'params' => [
+            'charset' => 'utf8',
+        ],
+        'timeout' => '3s',
+        'read-timeout' => '0s',
+        'write-timeout' => '0s',
+        'allow-native-passwords' => true,
+        'allow-old-passwords' => false,
+        'disable' => false,
+    ],
+
+    /**
+     * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则.
+     */
+    '-blacklist' => '',
+
+    /**
+     * Config file path.
+     */
+    '-config' => null,
+
+    /**
+     * Explain, 是否开启Explain执行计划分析 (default true).
+     */
+    '-explain' => true,
+
+    /**
+     * IgnoreRules, 忽略的优化建议规则 (default "COL.011").
+     */
+    '-ignore-rules' => [
+        0 => 'COL.011',
+    ],
+
+    /**
+     * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3).
+     */
+    '-log-level' => 3,
+
+    /**
+     * LogOutput, 日志输出位置 (default "soar.log").
+     */
+    '-log-output' => '/Users/yaozm/Documents/develop/soar-php/bin/soar.log',
+
+    /**
+     * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown").
+     */
+    '-report-type' => 'markdown',
+
+    /**
      * AllowCharsets (default "utf8,utf8mb4").
      */
     '-allow-charsets' => [
@@ -48,11 +137,6 @@ return [
     '-allow-online-as-test' => false,
 
     /**
-     * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则.
-     */
-    '-blacklist' => '',
-
-    /**
      * Check configs.
      */
     '-check-config' => null,
@@ -70,11 +154,6 @@ return [
     ],
 
     /**
-     * Config file path.
-     */
-    '-config' => null,
-
-    /**
      * Delimiter, SQL分隔符 (default ";").
      */
     '-delimiter' => ';',
@@ -88,11 +167,6 @@ return [
      * 是否在预演环境执行 (default true).
      */
     '-dry-run' => true,
-
-    /**
-     * Explain, 是否开启Explain执行计划分析 (default true).
-     */
-    '-explain' => true,
 
     /**
      * ExplainFormat [json, traditional] (default "traditional").
@@ -159,11 +233,9 @@ return [
     ],
 
     /**
-     * IgnoreRules, 忽略的优化建议规则 (default "COL.011").
+     * Help.
      */
-    '-ignore-rules' => [
-        0 => 'COL.011',
-    ],
+    '-help' => null,
 
     /**
      * IdxPrefix (default "idx_").
@@ -189,16 +261,6 @@ return [
      * ListTestSqls, 打印测试case用于测试.
      */
     '-list-test-sqls' => false,
-
-    /**
-     * LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3).
-     */
-    '-log-level' => 3,
-
-    /**
-     * LogOutput, 日志输出位置 (default "soar.log").
-     */
-    '-log-output' => '/Users/yaozm/Documents/develop/soar-php/bin/soar.log',
 
     /**
      * log stack traces for errors.
@@ -306,32 +368,6 @@ return [
     '-min-cardinality' => 0,
 
     /**
-     * OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
-     */
-    '-online-dsn' => [
-        'user' => '',
-        'password' => '********',
-        'net' => 'tcp',
-        'addr' => '127.0.0.1:3306',
-        'schema' => 'information_schema',
-        'charset' => 'utf8',
-        'collation' => 'utf8mb4_general_ci',
-        'loc' => 'UTC',
-        'tls' => '',
-        'server-public-key' => '',
-        'max-allowed-packet' => 4194304,
-        'params' => [
-            'charset' => 'utf8',
-        ],
-        'timeout' => '3s',
-        'read-timeout' => '0s',
-        'write-timeout' => '0s',
-        'allow-native-passwords' => true,
-        'allow-old-passwords' => false,
-        'disable' => false,
-    ],
-
-    /**
      * OnlySyntaxCheck, 只做语法检查不输出优化建议.
      */
     '-only-syntax-check' => false,
@@ -365,11 +401,6 @@ return [
      * ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告").
      */
     '-report-title' => 'SQL优化分析报告',
-
-    /**
-     * ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown").
-     */
-    '-report-type' => 'markdown',
 
     /**
      * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar").
@@ -416,32 +447,6 @@ return [
     '-spaghetti-query-length' => 2048,
 
     /**
-     * TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
-     */
-    '-test-dsn' => [
-        'user' => '',
-        'password' => '********',
-        'net' => 'tcp',
-        'addr' => '127.0.0.1:3306',
-        'schema' => 'information_schema',
-        'charset' => 'utf8',
-        'collation' => 'utf8mb4_general_ci',
-        'loc' => 'UTC',
-        'tls' => '',
-        'server-public-key' => '',
-        'max-allowed-packet' => 4194304,
-        'params' => [
-            'charset' => 'utf8',
-        ],
-        'timeout' => '3s',
-        'read-timeout' => '0s',
-        'write-timeout' => '0s',
-        'allow-native-passwords' => true,
-        'allow-old-passwords' => false,
-        'disable' => false,
-    ],
-
-    /**
      * Trace, 开启数据采样的情况下在测试环境执行Trace.
      */
     '-trace' => false,
@@ -460,9 +465,4 @@ return [
      * Print version info.
      */
     '-version' => null,
-
-    /**
-     * Help.
-     */
-    '-help' => null,
 ];
