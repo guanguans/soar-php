@@ -113,9 +113,12 @@ it('can normalize options', function (): void {
             '-verbose' => true,
             '-test-dsn' => [
                 'host' => 'you_host',
+                'addr' => 'you_host',
                 'port' => 'you_port',
                 'dbname' => 'you_dbname',
+                'schema' => 'you_dbname',
                 'username' => 'you_username',
+                'user' => 'you_username',
                 'password' => 'you_password',
                 'disable' => false,
             ],

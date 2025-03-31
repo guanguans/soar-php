@@ -23,6 +23,7 @@ use function Guanguans\SoarPHP\Support\str_snake;
 /**
  * @method \Guanguans\SoarPHP\Soar setTestDsn(array|string $testDsn) @description TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar setOnlineDsn(array|string $onlineDsn) @description OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method \Guanguans\SoarPHP\Soar setAllowOnlineAsTest(bool $allowOnlineAsTest) @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar setBlacklist(string $blacklist) @description 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar setConfig(null|string $config) @description Config file path
  * @method \Guanguans\SoarPHP\Soar setExplain(bool $explain) @description Explain, 是否开启Explain执行计划分析 (default true)
@@ -34,7 +35,6 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar setAllowCollates(array|string $allowCollates) @description AllowCollates
  * @method \Guanguans\SoarPHP\Soar setAllowDropIndex(bool $allowDropIndex) @description AllowDropIndex, 允许输出删除重复索引的建议
  * @method \Guanguans\SoarPHP\Soar setAllowEngines(array|string $allowEngines) @description AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar setAllowOnlineAsTest(bool $allowOnlineAsTest) @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar setCheckConfig(null|bool $checkConfig) @description Check configs
  * @method \Guanguans\SoarPHP\Soar setCleanupTestDatabase(bool $cleanupTestDatabase) @description 单次运行清理历史1小时前残余的测试库。
  * @method \Guanguans\SoarPHP\Soar setColumnNotAllowType(array|string $columnNotAllowType) @description ColumnNotAllowType (default "boolean")
@@ -99,6 +99,7 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar setVersion(null|bool $version) @description Print version info
  * @method \Guanguans\SoarPHP\Soar withTestDsn(array|string $testDsn) @description TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar withOnlineDsn(array|string $onlineDsn) @description OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method \Guanguans\SoarPHP\Soar withAllowOnlineAsTest(bool $allowOnlineAsTest) @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar withBlacklist(string $blacklist) @description 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar withConfig(null|string $config) @description Config file path
  * @method \Guanguans\SoarPHP\Soar withExplain(bool $explain) @description Explain, 是否开启Explain执行计划分析 (default true)
@@ -110,7 +111,6 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar withAllowCollates(array|string $allowCollates) @description AllowCollates
  * @method \Guanguans\SoarPHP\Soar withAllowDropIndex(bool $allowDropIndex) @description AllowDropIndex, 允许输出删除重复索引的建议
  * @method \Guanguans\SoarPHP\Soar withAllowEngines(array|string $allowEngines) @description AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar withAllowOnlineAsTest(bool $allowOnlineAsTest) @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar withCheckConfig(null|bool $checkConfig) @description Check configs
  * @method \Guanguans\SoarPHP\Soar withCleanupTestDatabase(bool $cleanupTestDatabase) @description 单次运行清理历史1小时前残余的测试库。
  * @method \Guanguans\SoarPHP\Soar withColumnNotAllowType(array|string $columnNotAllowType) @description ColumnNotAllowType (default "boolean")
@@ -175,6 +175,7 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar withVersion(null|bool $version) @description Print version info
  * @method \Guanguans\SoarPHP\Soar onlyTestDsn() @description TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyOnlineDsn() @description OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method \Guanguans\SoarPHP\Soar onlyAllowOnlineAsTest() @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar onlyBlacklist() @description 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar onlyConfig() @description Config file path
  * @method \Guanguans\SoarPHP\Soar onlyExplain() @description Explain, 是否开启Explain执行计划分析 (default true)
@@ -186,7 +187,6 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar onlyAllowCollates() @description AllowCollates
  * @method \Guanguans\SoarPHP\Soar onlyAllowDropIndex() @description AllowDropIndex, 允许输出删除重复索引的建议
  * @method \Guanguans\SoarPHP\Soar onlyAllowEngines() @description AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar onlyAllowOnlineAsTest() @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar onlyCheckConfig() @description Check configs
  * @method \Guanguans\SoarPHP\Soar onlyCleanupTestDatabase() @description 单次运行清理历史1小时前残余的测试库。
  * @method \Guanguans\SoarPHP\Soar onlyColumnNotAllowType() @description ColumnNotAllowType (default "boolean")
@@ -251,6 +251,7 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar onlyVersion() @description Print version info
  * @method \Guanguans\SoarPHP\Soar exceptTestDsn() @description TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar exceptOnlineDsn() @description OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method \Guanguans\SoarPHP\Soar exceptAllowOnlineAsTest() @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar exceptBlacklist() @description 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
  * @method \Guanguans\SoarPHP\Soar exceptConfig() @description Config file path
  * @method \Guanguans\SoarPHP\Soar exceptExplain() @description Explain, 是否开启Explain执行计划分析 (default true)
@@ -262,7 +263,6 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar exceptAllowCollates() @description AllowCollates
  * @method \Guanguans\SoarPHP\Soar exceptAllowDropIndex() @description AllowDropIndex, 允许输出删除重复索引的建议
  * @method \Guanguans\SoarPHP\Soar exceptAllowEngines() @description AllowEngines (default "innodb")
- * @method \Guanguans\SoarPHP\Soar exceptAllowOnlineAsTest() @description AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar exceptCheckConfig() @description Check configs
  * @method \Guanguans\SoarPHP\Soar exceptCleanupTestDatabase() @description 单次运行清理历史1小时前残余的测试库。
  * @method \Guanguans\SoarPHP\Soar exceptColumnNotAllowType() @description ColumnNotAllowType (default "boolean")
@@ -502,7 +502,7 @@ trait HasOptions
      */
     private function normalizeOption(string $name, mixed $value): string
     {
-        return null === ($value = $this->normalizeValue($name, $value)) ? $name : "$name=$value";
+        return null === ($normalizedValue = $this->normalizeValue($name, $value)) ? $name : "$name=$normalizedValue";
     }
 
     /**
@@ -533,14 +533,55 @@ trait HasOptions
             throw new InvalidOptionException(\sprintf('Invalid option [%s] type [%s].', $name, \gettype($value)));
         }
 
-        if (!($value['disable'] ?? false) && \in_array($name, ['-test-dsn', '-online-dsn'], true)) {
-            /**
-             * @see https://github.com/spatie/url
-             * @see https://github.com/thephpleague/uri
-             */
-            return "{$value['username']}:{$value['password']}@{$value['host']}:{$value['port']}/{$value['dbname']}";
+        if (\in_array($name, ['-test-dsn', '-online-dsn'], true)) {
+            return $this->normalizeDsn($name, $value);
         }
 
         return implode(',', array_map(fn (mixed $val): ?string => $this->normalizeValue($name, $val), $value));
+    }
+
+    /**
+     * @see https://github.com/XiaoMi/soar/blob/master/doc/config.md
+     * @see https://github.com/XiaoMi/soar/blob/dev/common/config.go#L296-L333
+     * @see https://github.com/XiaoMi/soar/blob/dev/common/config.go#L446-L453
+     * @see https://github.com/go-sql-driver/mysql/blob/master/dsn.go#L397-L475
+     * @see https://github.com/spatie/url
+     * @see https://github.com/thephpleague/uri
+     *
+     * ```
+     * user:password@addr/dbname?param1=value1&paramN=valueN
+     * ```
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    private function normalizeDsn(string $name, array $value): ?string
+    {
+        $value += $default = [
+            // 'user' => '',
+            // 'password' => '',
+            // 'addr' => '127.0.0.1:3306',
+            // 'schema' => 'dbname',
+            'disable' => false,
+        ];
+
+        if ($value['disable']) {
+            return null;
+        }
+
+        foreach ($required = ['user', 'password', 'addr', 'schema'] as $key) {
+            if (!isset($value[$key])) {
+                throw new InvalidOptionException("The option [$name.$key] is required.");
+            }
+        }
+
+        $url = "{$value['user']}:{$value['password']}@{$value['addr']}/{$value['schema']}";
+
+        $query = urldecode(http_build_query(array_filter(
+            $value,
+            static fn (string $key): bool => !\in_array($key, [...$required, ...array_keys($default)], true),
+            \ARRAY_FILTER_USE_KEY
+        )));
+
+        return $query ? "$url?$query" : $url;
     }
 }

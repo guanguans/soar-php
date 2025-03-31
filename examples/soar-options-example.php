@@ -41,6 +41,11 @@ return [
     ],
 
     /**
+     * AllowOnlineAsTest, 允许线上环境也可以当作测试环境.
+     */
+    '-allow-online-as-test' => false,
+
+    /**
      * 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则.
      */
     '-blacklist' => __DIR__.'/soar.blacklist.example',
