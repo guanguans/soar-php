@@ -17,7 +17,6 @@ namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\BadMethodCallException;
 use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
-use function Guanguans\SoarPHP\Support\array_reduce_with_keys;
 use function Guanguans\SoarPHP\Support\str_snake;
 
 /**
@@ -482,19 +481,19 @@ trait HasOptions
     }
 
     /**
+     * @param array<string, mixed> $options
+     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     private function normalizeOptions(array $options): array
     {
-        return array_reduce_with_keys(
-            $options,
-            function (array $normalizedOptions, mixed $value, string $name): array {
-                $normalizedOptions[$name] = $this->normalizeOption($name, $value);
+        $normalizedOptions = [];
 
-                return $normalizedOptions;
-            },
-            []
-        );
+        foreach ($options as $name => $value) {
+            $normalizedOptions[$name] = $this->normalizeOption($name, $value);
+        }
+
+        return $normalizedOptions;
     }
 
     /**
@@ -502,7 +501,9 @@ trait HasOptions
      */
     private function normalizeOption(string $name, mixed $value): string
     {
-        return null === ($normalizedValue = $this->normalizeValue($name, $value)) ? $name : "$name=$normalizedValue";
+        $normalizedValue = $this->normalizeValue($name, $value);
+
+        return null === $normalizedValue ? $name : "$name=$normalizedValue";
     }
 
     /**
@@ -554,9 +555,9 @@ trait HasOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeDsn(string $name, array $value): ?string
+    private function normalizeDsn(string $name, array $dsn): ?string
     {
-        $value += $default = [
+        $dsn += $default = [
             // 'user' => '',
             // 'password' => '',
             // 'addr' => '127.0.0.1:3306',
@@ -564,20 +565,20 @@ trait HasOptions
             'disable' => false,
         ];
 
-        if ($value['disable']) {
+        if ($dsn['disable']) {
             return null;
         }
 
         foreach ($required = ['user', 'password', 'addr', 'schema'] as $key) {
-            if (!isset($value[$key])) {
+            if (!isset($dsn[$key])) {
                 throw new InvalidOptionException("The option [$name.$key] is required.");
             }
         }
 
-        $url = "{$value['user']}:{$value['password']}@{$value['addr']}/{$value['schema']}";
+        $url = "{$dsn['user']}:{$dsn['password']}@{$dsn['addr']}/{$dsn['schema']}";
 
         $query = urldecode(http_build_query(array_filter(
-            $value,
+            $dsn,
             static fn (string $key): bool => !\in_array($key, [...$required, ...array_keys($default)], true),
             \ARRAY_FILTER_USE_KEY
         )));

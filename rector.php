@@ -115,7 +115,6 @@ return RectorConfig::configure()
             'test' => 'it',
         ] + array_reduce(
             [
-                'array_reduce_with_keys',
                 'escape_argument',
                 'str_snake',
             ],
