@@ -9,7 +9,6 @@
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection SqlNoDataSourceInspection */
 /** @noinspection SqlResolve */
 
 declare(strict_types=1);
