@@ -102,3 +102,17 @@ function fake(string $locale = Factory::DEFAULT_LOCALE): Generator
 {
     return Factory::create($locale);
 }
+
+function soar_options(): array
+{
+    static $options;
+
+    return $options ??= require __DIR__.'/../examples/soar-options.php';
+}
+
+function soar_options_example(): array
+{
+    static $options;
+
+    return $options ??= require __DIR__.'/../examples/soar-options-example.php';
+}

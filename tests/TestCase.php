@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHPTests;
 
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use phpmock\phpunit\PHPMock;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
@@ -32,6 +33,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 {
     use Faker;
     use MatchesSnapshots;
+    use MockeryPHPUnitIntegration;
     use PHPMock;
     use VarDumperTestTrait;
 
@@ -59,12 +61,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function tearDown(): void
     {
         $this->finish();
-
-        if ($container = \Mockery::getContainer()) {
-            $this->addToAssertionCount($container->mockery_getExpectationCount());
-        }
-
-        \Mockery::close();
+        $this->closeMockery();
     }
 
     /**

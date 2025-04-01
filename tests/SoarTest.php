@@ -19,12 +19,20 @@ declare(strict_types=1);
 
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
+use Illuminate\Support\Str;
+use function Spatie\Snapshots\assertMatchesTextSnapshot;
 
 it('can get help', function (): void {
     expect(Soar::create())->help()->toContain('-version');
 })
     ->group(__DIR__, __FILE__)
-    ->skip(OS::isWindows(), 'This test is skipped. Because is not supported in windows.');
+    ->skip(OS::isWindows(), 'The help option of Soar is not supported on Windows.');
+
+it('can get help snapshot', function (): void {
+    assertMatchesTextSnapshot(
+        Str::of(Soar::create()->help())->replace(Soar::create()->getSoarBinary(), 'soar-binary')->toString()
+    );
+})->group(__DIR__, __FILE__)->skip(OS::isWindows());
 
 it('can get version', function (): void {
     expect(Soar::create())->version()->toContain(
@@ -34,3 +42,7 @@ it('can get version', function (): void {
         'GitDirty:       12',
     );
 })->group(__DIR__, __FILE__);
+
+it('can get version snapshot', function (): void {
+    assertMatchesTextSnapshot(Soar::create()->version());
+})->group(__DIR__, __FILE__)->skip(OS::isWindows());
