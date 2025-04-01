@@ -8,6 +8,75 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.0"></a>
+## [6.0.0] - 2025-04-01
+### Bug Fixes
+- Update Composer scripts and remove documentation clutter
+- **ConcreteMagic:** Correct static instantiation in __set_state
+- **concerns:** Use JSON_THROW_ON_ERROR in arrayScores method
+- **tests:** Refine parameter checks and improve code clarity
+
+### Build
+- **dependencies:** Refactor dependency exclusions and requirements
+
+### CI
+- **baselines:** Add new baseline files for error tracking
+- **composer:** Update dev-master branch alias to 6.x-dev
+- **config:** Remove disallowed.function.neon and clean loader
+- **config:** Update .gitattributes and remove psalm workflow
+- **issue-template:** Add bug report and config templates
+- **workflows:** Upgrade PHP version to 8.0 in workflows and docs
+
+### Code Refactoring
+- Remove array_reduce_with_keys function and simplify code
+- Remove unused escape_argument function calls
+- Replace str_camel with IlluminateSupportStr methods
+- Replace setReportType with withReportType methods
+- Rename and update rector classes for clarity
+- **Concerns:** Simplify __call method options handling
+- **HasOptions:** Rename remove methods to except
+- **HasOptions:** Rename parameter in magic __call method
+- **HasOptions:** Rename 'withOptions' to 'mergeOptions'
+- **HasOptions:** Simplify DSN construction logic
+- **HasOptions:** Rename key to name in option methods
+- **OS:** Simplify OS class methods and remove stale properties
+- **WithRunable:** Simplify type hints in run methods
+- **WithRunable:** Simplify process creation logic
+- **WithRunable:** Simplify run and createProcess methods
+- **composer:** Update PHP and package requirements
+- **concerns:** Simplify process handling in WithRunable trait
+- **option-management:** Remove add option methods
+- **options:** Rename merge methods to with for clarity
+- **options:** Improve option normalization logic
+- **options:** Simplify normalization of options handling
+- **options:** Enhance configuration structure and defaults
+- **options:** Improve delimiter handling in scores method
+- **options:** Change methods to private visibility
+- **support:** Rename dump scripts and improve config handling
+- **tests:** Remove obsolete options.full.php reference
+
+### Docs
+- **README:** Update version option methods in examples
+
+### Features
+- **HasOptions:** Add addr construction for DSN missing addr
+- **HasOptions:** Add HasOptionsDocCommentRector for generating doc comments
+- **HasOptions:** Add flushOptions method to reset options
+- **config:** Add soar options configuration and scripts
+- **hasOptions:** Implement ArrayAccess methods for options
+- **rectors:** Add SimplifyArrayKeyRector for array key simplification
+
+### Performance Improvements
+- **core:** Upgrade PHPStan level and type hints in codebase
+
+### Tests
+- **HasOptions:** Refactor option tests and add new cases
+- **HasSoarBinary:** Add tests for invalid binary file scenarios
+- **WithRunnableTest:** Improve error message and refactor tests
+- **tests:** Add snapshot assertion for version output
+- **tests:** Add static analysis suppressions in test files
+
+
 <a name="5.1.1"></a>
 ## [5.1.1] - 2025-03-24
 ### Build
@@ -595,7 +664,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/5.1.1...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.0...HEAD
+[6.0.0]: https://github.com/guanguans/soar-php/compare/5.1.1...6.0.0
 [5.1.1]: https://github.com/guanguans/soar-php/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/guanguans/soar-php/compare/5.0.3...5.1.0
 [5.0.3]: https://github.com/guanguans/soar-php/compare/5.0.2...5.0.3
