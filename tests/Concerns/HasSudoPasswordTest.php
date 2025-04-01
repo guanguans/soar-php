@@ -26,7 +26,3 @@ it('can set sudo password', function (): void {
         ->setSudoPassword($sudoPassword = 'foo')
         ->getSudoPassword()->toBe($sudoPassword);
 })->group(__DIR__, __FILE__);
-
-it('can get escaped sudo password', function (): void {
-    expect(fn (Soar $soar): string => $soar->getEscapedSudoPassword())->call($soar = Soar::create(), $soar)->toBeString();
-})->group(__DIR__, __FILE__)->skip();
