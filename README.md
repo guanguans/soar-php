@@ -30,7 +30,7 @@
 ## Installation
 
 ```shell
-composer require guanguans/soar-php -v
+composer require guanguans/soar-php --ansi -v
 ```
 
 ## Usage
@@ -73,11 +73,9 @@ $soar = Soar::create(
 
 // Final run: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
 $soar->clone() // Clone soar and avoid the option to manipulate the original soar.
-    ->addVersion(true) // Add -version value of the option is `true`
-    ->addVerbose(true) // Add -verbose value of the option is `true`
-    ->removeVersion()  // Remove -version option
+    ->exceptVersion()  // Except -version option
     ->setVersion(true) // Set -version value of the option is `true`
-    ->mergeVersion(true) // Merge -version value of the option is `true`
+    ->withVersion(true) // Merge -version value of the option is `true`
     ->onlyVersion() // Only keep -version option
     ->dump() // Dump debug information
     ->run(); // Run

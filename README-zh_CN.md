@@ -30,7 +30,7 @@
 ## 安装
 
 ```shell
-composer require guanguans/soar-php -v
+composer require guanguans/soar-php --ansi -v
 ```
 
 ## 使用
@@ -73,11 +73,9 @@ $soar = Soar::create(
 
 // 最终运行: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
 $soar->clone() // 克隆 soar，避免操作原始 soar 的选项。
-    ->addVersion(true) // 添加 -version 选项的值为 `true`
-    ->addVerbose(true) // 添加 -verbose 选项的值为 `true`
-    ->removeVersion()  // 移除 -version 选项
+    ->exceptVersion()  // 排除 -version 选项
     ->setVersion(true) // 设置 -version 选项的值为 `true`
-    ->mergeVersion(true) // 合并 -version 选项的值为 `true`
+    ->withVersion(true) // 合并 -version 选项的值为 `true`
     ->onlyVersion() // 仅保留 -version 选项
     ->dump() // 打印调试信息
     ->run(); // 运行
