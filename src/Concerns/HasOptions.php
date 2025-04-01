@@ -569,6 +569,10 @@ trait HasOptions
             return null;
         }
 
+        if (!isset($dsn['addr']) && isset($dsn['host'], $dsn['port'])) {
+            $dsn['addr'] = "{$dsn['host']}:{$dsn['port']}";
+        }
+
         foreach ($required = ['user', 'password', 'addr', 'schema'] as $key) {
             if (!isset($dsn[$key])) {
                 throw new InvalidOptionException("The option [$name.$key] is required.");
