@@ -116,3 +116,8 @@ function soar_options_example(): array
 
     return $options ??= require __DIR__.'/../examples/soar-options-example.php';
 }
+
+function running_in_github_action(): bool
+{
+    return getenv('GITHUB_ACTIONS') === 'true';
+}

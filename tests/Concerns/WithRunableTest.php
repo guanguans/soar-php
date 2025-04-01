@@ -26,19 +26,20 @@ use Guanguans\SoarPHP\Soar;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-it('will throw ProcessFailedException when sqls is invalid sql', function (): void {
+it('will throw ProcessFailedException when is a invalid sql', function (): void {
     Soar::create()->withOnlySyntaxCheck(true)->withQuery('invalid sql')->run();
-})
-    ->group(__DIR__, __FILE__)
-    ->throws(ProcessFailedException::class, 'invalid sql');
+})->group(__DIR__, __FILE__)->throws(ProcessFailedException::class, 'invalid sql');
 
-it('will throw ProcessFailedException when sudo password is empty', function (): void {
-    foreach ([
-        'Password:Sorry, try again',
-        'sudo: no password was provided',
-        'sudo: 1 incorrect password attempt',
-    ] as $fatalErrorMessage) {
-        $this->expectExceptionMessage($fatalErrorMessage);
+it('will throw ProcessFailedException when sudo password is error', function (): void {
+    foreach (
+        [
+            'Password:Sorry, try again.',
+            'Password:',
+            'sudo: no password was provided',
+            'sudo: 1 incorrect password attempt',
+        ] as $message
+    ) {
+        $this->expectExceptionMessage($message);
     }
 
     (new class extends Soar {
@@ -46,24 +47,25 @@ it('will throw ProcessFailedException when sudo password is empty', function ():
         {
             return true;
         }
-    })->setSudoPassword('foo')->withQuery('select bar;')->run();
+    })->setSudoPassword('foo')->help();
 })
     ->group(__DIR__, __FILE__)
-    ->throws(
-        ProcessFailedException::class,
-        'Password:Sorry, try again * sudo: no password was provided * sudo: 1 incorrect password attempt'
-    )
-    ->skip('This test is skipped. Because is not supported in github actions.');
+    ->throws(ProcessFailedException::class, implode(\PHP_EOL, [
+        'Password:Sorry, try again.',
+        'Password:',
+        'sudo: no password was provided',
+        'sudo: 1 incorrect password attempt',
+    ]))
+    ->skip(running_in_github_action());
 
 it('can run soar process with tapper', function (): void {
     expect(Soar::create())
+        ->withVersion(true)
         ->setProcessTapper(static function (Process $process): void {
-            $process->setTimeout(30);
+            $process->setTimeout(3);
         })
-        ->run(
-            static function (string $type, string $data): void {
-                dump($type, $data);
-            }
-        )
+        ->run(static function (string $type, string $line): void {
+            dump($type, $line);
+        })
         ->toBeString();
 })->group(__DIR__, __FILE__);

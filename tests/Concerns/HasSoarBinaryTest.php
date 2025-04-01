@@ -30,7 +30,4 @@ it('will throw InvalidArgumentException when set not a file', function (): void 
 
 it('will throw InvalidArgumentException when set not a executable file', function (): void {
     Soar::create()->setSoarBinary(__FILE__);
-})->group(__DIR__, __FILE__)->throws(
-    InvalidArgumentException::class,
-    'The file [/Users/yaozm/Documents/develop/soar-php/tests/Concerns/HasSoarBinaryTest.php] is not executable.'
-);
+})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, \sprintf('The file [%s] is not executable.', __FILE__));
