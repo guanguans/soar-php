@@ -45,14 +45,14 @@ require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
-// Quickly create a soar instance
-$soar = Soar::create();
+// Quickly make a soar instance
+$soar = Soar::make();
 
 /**
- * Create a custom soar instance
+ * Make a custom soar instance
  * Options @see examples/soar-options-example.php
  */
-$soar = Soar::create(
+$soar = Soar::make(
     [
         // 测试环境数据库配置.
         '-test-dsn'    => [

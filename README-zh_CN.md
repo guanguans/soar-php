@@ -46,13 +46,13 @@ require __DIR__.'/vendor/autoload.php';
 use Guanguans\SoarPHP\Soar;
 
 // 快速创建 soar 实例
-$soar = Soar::create();
+$soar = Soar::make();
 
 /**
  * 创建自定义 soar 实例
  * 选项 @see examples/soar-options-example.php
  */
-$soar = Soar::create(
+$soar = Soar::make(
     [
         // 测试环境数据库配置.
         '-test-dsn'    => [

@@ -215,7 +215,7 @@ final class ComposerScripts
     {
         static $config;
 
-        return $config ??= collect(Yaml::parse(Soar::create()->setPrintConfig(true)->run()));
+        return $config ??= collect(Yaml::parse(Soar::make()->setPrintConfig(true)->run()));
     }
 
     /**
@@ -225,6 +225,6 @@ final class ComposerScripts
     {
         static $help;
 
-        return $help ??= Soar::create()->help();
+        return $help ??= Soar::make()->help();
     }
 }

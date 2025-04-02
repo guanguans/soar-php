@@ -21,13 +21,13 @@ use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
 use Guanguans\SoarPHP\Soar;
 
 it('can get soar binary', function (): void {
-    expect(Soar::create())->getSoarBinary()->toBeFile();
+    expect(Soar::make())->getSoarBinary()->toBeFile();
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidArgumentException when set not a file', function (): void {
-    Soar::create()->setSoarBinary('soar-binary');
+    Soar::make()->setSoarBinary('soar-binary');
 })->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'The [soar-binary] is not a file.');
 
 it('will throw InvalidArgumentException when set not a executable file', function (): void {
-    Soar::create()->setSoarBinary(__FILE__);
+    Soar::make()->setSoarBinary(__FILE__);
 })->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, \sprintf('The file [%s] is not executable.', __FILE__));

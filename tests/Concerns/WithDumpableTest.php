@@ -20,5 +20,5 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 
 it('can dump self and with args', function (): void {
-    expect(Soar::create())->dump('foo')->toBeInstanceOf(Soar::class);
+    expect(Soar::make())->dump('foo')->toBeInstanceOf(Soar::class);
 })->group(__DIR__, __FILE__);

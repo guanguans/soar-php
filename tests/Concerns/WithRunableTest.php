@@ -27,7 +27,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 it('will throw ProcessFailedException when is a invalid sql', function (): void {
-    Soar::create()->withOnlySyntaxCheck(true)->withQuery('invalid sql')->run();
+    Soar::make()->withOnlySyntaxCheck(true)->withQuery('invalid sql')->run();
 })->group(__DIR__, __FILE__)->throws(ProcessFailedException::class, 'invalid sql');
 
 it('will throw ProcessFailedException when sudo password is error', function (): void {
@@ -59,7 +59,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
     ->skip(running_in_github_action());
 
 it('can run soar process with tapper', function (): void {
-    expect(Soar::create())
+    expect(Soar::make())
         ->withVersion(true)
         ->setProcessTapper(static function (Process $process): void {
             $process->setTimeout(3);

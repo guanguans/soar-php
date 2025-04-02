@@ -70,7 +70,7 @@ it('can get array scores', function (): void {
             SQLS,
     ];
 
-    expect(Soar::create())
+    expect(Soar::make())
         // ->withOptions(array_filter(
         //     soar_options(),
         //     fn (mixed $value): bool => null !== $value
@@ -93,7 +93,7 @@ it('can get array scores', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get json scores', function (): void {
-    expect(Soar::create())
+    expect(Soar::make())
         ->jsonScores('select * from foo')
         ->toBeJson()
         ->toBeTruthy()
@@ -104,7 +104,7 @@ it('can get json scores', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get html scores', function (): void {
-    expect(Soar::create())
+    expect(Soar::make())
         ->htmlScores('select * from foo')
         ->toBeString()
         ->toBeTruthy()
@@ -115,7 +115,7 @@ it('can get html scores', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get markdown scores', function (): void {
-    expect(Soar::create())
+    expect(Soar::make())
         ->markdownScores('select * from foo')
         ->toBeString()
         ->toBeTruthy()

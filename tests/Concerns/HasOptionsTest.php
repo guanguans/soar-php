@@ -23,11 +23,11 @@ use Guanguans\SoarPHP\Soar;
 
 it('will throw BadMethodCallException when call not exist method', function (): void {
     /** @noinspection PhpUndefinedMethodInspection */
-    Soar::create()->foo();
+    Soar::make()->foo();
 })->group(__DIR__, __FILE__)->throws(BadMethodCallException::class, 'foo');
 
 it('can call option methods via magic method __call', function (): void {
-    expect(Soar::create([]))
+    expect(Soar::make([]))
         ->setVersion(true)->getOption('-version')->toBeTrue()
         ->withVersion(false)->getOption('-version')->toBeFalse()
         ->withVerbose(true)->onlyVersion()->getOptions()->toHaveKey('-version')->not->toHaveKey('-verbose')
@@ -35,11 +35,11 @@ it('can call option methods via magic method __call', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can flush options', function (): void {
-    expect(Soar::create(['foo' => 'bar']))->flushOptions()->getOptions()->toBeEmpty();
+    expect(Soar::make(['foo' => 'bar']))->flushOptions()->getOptions()->toBeEmpty();
 })->group(__DIR__, __FILE__);
 
 it('can only dsn', function (): void {
-    expect(Soar::create([
+    expect(Soar::make([
         $name1 = '-test-dsn' => 'bar',
         $name2 = '-foo' => 'bar',
     ]))
@@ -50,7 +50,7 @@ it('can only dsn', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can only option', function (): void {
-    expect(Soar::create([
+    expect(Soar::make([
         $name1 = '-name1' => $val = 'val',
         $name2 = '-name2' => $val,
     ]))
@@ -61,7 +61,7 @@ it('can only option', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can except option', function (): void {
-    expect(Soar::create([
+    expect(Soar::make([
         $name = '-foo' => 'bar',
     ]))
         ->exceptOption($name)
@@ -70,7 +70,7 @@ it('can except option', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can array access', function (): void {
-    $soar = Soar::create();
+    $soar = Soar::make();
 
     $soar[$name = '-foo'] = $val = 'bar';
 
@@ -82,12 +82,12 @@ it('can array access', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidOptionException when normalize invalid option', function (): void {
-    Soar::create(['-foo' => (object) []])->run();
+    Soar::make(['-foo' => (object) []])->run();
 })->group(__DIR__, __FILE__)->throws(InvalidOptionException::class, 'object');
 
 it('can normalize options', function (): void {
     expect(fn (): array => $this->getNormalizedOptions())
-        ->call(Soar::create([
+        ->call(Soar::make([
             '-report-type' => 'json',
             '-config' => null,
             '-log-level' => 3,
@@ -159,7 +159,7 @@ it('can normalize options', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidOptionException when normalize invalid dsn', function (): void {
-    Soar::create([
+    Soar::make([
         '-test-dsn' => [
             'user' => '',
             // 'password' => '********',

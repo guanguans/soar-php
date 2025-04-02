@@ -29,7 +29,7 @@ final class SoarBench
 
     public function setUp(): void
     {
-        $this->soar = Soar::create();
+        $this->soar = Soar::make();
     }
 
     public function benchScores(): void

@@ -22,7 +22,7 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Soar;
 
 it('can set sudo password', function (): void {
-    expect(Soar::create())
+    expect(Soar::make())
         ->setSudoPassword($sudoPassword = 'foo')
         ->getSudoPassword()->toBe($sudoPassword);
 })->group(__DIR__, __FILE__);
