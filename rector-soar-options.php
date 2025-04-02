@@ -18,7 +18,6 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Support\ComposerScripts;
 use Guanguans\SoarPHP\Support\Rectors\AddSoarOptionsDocCommentRector;
 use Guanguans\SoarPHP\Support\Rectors\SimplifyListIndexRector;
-use Nette\PhpGenerator\Dumper;
 use Rector\Config\RectorConfig;
 use Rector\ValueObject\PhpVersion;
 
@@ -46,7 +45,6 @@ file_put_contents(
             return %s;
             PHP,
         var_export(ComposerScripts::resolveSoarHelp()->map(static fn (array $help): mixed => $help['default'])->all(), true),
-        // (new Dumper)->dump(ComposerScripts::resolveSoarHelp()->map(static fn (array $help): mixed => $help['default'])->all()),
     )
 );
 
@@ -60,5 +58,5 @@ return RectorConfig::configure()
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
     ->withRules([
         AddSoarOptionsDocCommentRector::class,
-        // SimplifyListIndexRector::class,
+        SimplifyListIndexRector::class,
     ]);

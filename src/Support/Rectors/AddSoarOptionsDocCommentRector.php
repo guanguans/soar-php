@@ -94,6 +94,10 @@ final class AddSoarOptionsDocCommentRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
+        if (null === $node->key) {
+            return null;
+        }
+
         $soarHelp = ComposerScripts::resolveSoarHelp();
 
         /**

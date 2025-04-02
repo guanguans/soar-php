@@ -92,7 +92,7 @@ return [
      * IgnoreRules, 忽略的优化建议规则 (default "COL.011").
      */
     '-ignore-rules' => [
-        0 => 'COL.011',
+        'COL.011',
     ],
 
     /**
@@ -114,8 +114,8 @@ return [
      * AllowCharsets (default "utf8,utf8mb4").
      */
     '-allow-charsets' => [
-        0 => 'utf8',
-        1 => 'utf8mb4',
+        'utf8',
+        'utf8mb4',
     ],
 
     /**
@@ -133,7 +133,7 @@ return [
      * AllowEngines (default "innodb").
      */
     '-allow-engines' => [
-        0 => 'innodb',
+        'innodb',
     ],
 
     /**
@@ -150,7 +150,7 @@ return [
      * ColumnNotAllowType (default "boolean").
      */
     '-column-not-allow-type' => [
-        0 => 'boolean',
+        'boolean',
     ],
 
     /**
@@ -207,29 +207,29 @@ return [
      * ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL").
      */
     '-explain-warn-access-type' => [
-        0 => 'ALL',
+        'ALL',
     ],
 
     /**
      * ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort").
      */
     '-explain-warn-extra' => [
-        0 => 'Using temporary',
-        1 => 'Using filesort',
+        'Using temporary',
+        'Using filesort',
     ],
 
     /**
      * ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)").
      */
     '-explain-warn-scalability' => [
-        0 => 'O(n)',
+        'O(n)',
     ],
 
     /**
      * ExplainWarnSelectType, 哪些select_type不建议使用.
      */
     '-explain-warn-select-type' => [
-        0 => '',
+        '',
     ],
 
     /**
@@ -406,14 +406,14 @@ return [
      * RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar").
      */
     '-rewrite-rules' => [
-        0 => 'delimiter',
-        1 => 'orderbynull',
-        2 => 'groupbyconst',
-        3 => 'dmlorderby',
-        4 => 'having',
-        5 => 'star2columns',
-        6 => 'insertcolumns',
-        7 => 'distinctstar',
+        'delimiter',
+        'orderbynull',
+        'groupbyconst',
+        'dmlorderby',
+        'having',
+        'star2columns',
+        'insertcolumns',
+        'distinctstar',
     ],
 
     /**
