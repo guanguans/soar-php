@@ -153,9 +153,11 @@
         "benchmark": "@php ./vendor/bin/phpbench run --report=aggregate --ansi -v",
         "cghooks": "@php ./vendor/bin/cghooks --ansi -v",
         "cghooks-ignore": "[ ! -f \"./vendor/bin/cghooks\" ] && exit 0 || php ./vendor/bin/cghooks --ansi -v",
+        "check-soar-binary": "Guanguans\\SoarPHP\\Support\\ComposerScripts::checkSoarBinary",
         "checks": [
             "@composer-normalize",
             "@composer-validate",
+            "@check-soar-binary",
             "@dump-soar-yaml-config",
             "@json-lint",
             "@md-lint",

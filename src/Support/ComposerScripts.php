@@ -20,6 +20,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Rector\Config\RectorConfig;
 use Rector\DependencyInjection\LazyContainerFactory;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -27,6 +30,32 @@ use Symfony\Component\Yaml\Yaml;
  */
 final class ComposerScripts
 {
+    /**
+     * @see \Composer\Util\Silencer
+     *
+     * @noinspection PhpUnused
+     */
+    public static function checkSoarBinary(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        $symfonyStyle = self::makeSymfonyStyle();
+
+        foreach ((array) glob(__DIR__.'/../../bin/soar.*-*') as $file) {
+            if (!is_executable($file)) {
+                $symfonyStyle->error("The file [$file] is not executable.");
+
+                exit(1);
+            }
+
+            $symfonyStyle->comment("<info>OK</info> $file");
+        }
+
+        $symfonyStyle->success('No errors');
+
+        return 0;
+    }
+
     /**
      * @noinspection PhpUnused
      *
@@ -41,7 +70,7 @@ final class ComposerScripts
             Yaml::dump(input: self::resolveSoarConfig()->all(), indent: 2)
         );
 
-        $event->getIO()->write('<info>操作成功</info>');
+        self::makeSymfonyStyle()->success('No errors');
 
         return 0;
     }
@@ -167,6 +196,11 @@ final class ComposerScripts
     public static function makeRectorConfig(): RectorConfig
     {
         return (new LazyContainerFactory)->create();
+    }
+
+    private static function makeSymfonyStyle(): SymfonyStyle
+    {
+        return new SymfonyStyle(new ArgvInput, new ConsoleOutput);
     }
 
     private static function requireAutoload(Event $event): void
