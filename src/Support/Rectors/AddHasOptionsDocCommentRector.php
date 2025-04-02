@@ -54,9 +54,9 @@ final class AddHasOptionsDocCommentRector extends AbstractRector
                         CODE_SAMPLE,
                     <<<'CODE_SAMPLE'
                         /**
-                         * @method \Guanguans\SoarPHP\Soar exceptVerbose() @description Verbose
-                         * @method \Guanguans\SoarPHP\Soar exceptVersion() @description Print version info
-                         * @method \Guanguans\SoarPHP\Soar exceptHelp() @description Help
+                         * @method \Guanguans\SoarPHP\Soar exceptVerbose() // Verbose
+                         * @method \Guanguans\SoarPHP\Soar exceptVersion() // Print version info
+                         * @method \Guanguans\SoarPHP\Soar exceptHelp() // Help
                          *
                          * @mixin \Guanguans\SoarPHP\Soar
                          */
@@ -98,10 +98,10 @@ final class AddHasOptionsDocCommentRector extends AbstractRector
 
         foreach (
             [
-                'set' => '\Guanguans\SoarPHP\Soar set{method}({type} ${name}) @description {description}',
-                'with' => '\Guanguans\SoarPHP\Soar with{method}({type} ${name}) @description {description}',
-                'only' => '\Guanguans\SoarPHP\Soar only{method}() @description {description}',
-                'except' => '\Guanguans\SoarPHP\Soar except{method}() @description {description}',
+                'set' => '\Guanguans\SoarPHP\Soar set{method}({type} ${name}) // {description}',
+                'with' => '\Guanguans\SoarPHP\Soar with{method}({type} ${name}) // {description}',
+                'only' => '\Guanguans\SoarPHP\Soar only{method}() // {description}',
+                'except' => '\Guanguans\SoarPHP\Soar except{method}() // {description}',
             ] as $template
         ) {
             foreach ($options as $option) {

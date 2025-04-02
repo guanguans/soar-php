@@ -1,6 +1,8 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection PhpUnused */
+/** @noinspection SqlResolve */
 
 declare(strict_types=1);
 
@@ -20,7 +22,7 @@ use PhpBench\Attributes\BeforeMethods;
 use PhpBench\Attributes\Revs;
 
 #[BeforeMethods('setUp')]
-#[Revs(100)]
+#[Revs(10)]
 final class SoarBench
 {
     private ?Soar $soar = null;
@@ -30,11 +32,6 @@ final class SoarBench
         $this->soar = Soar::create();
     }
 
-    /**
-     * @noinspection PhpUnhandledExceptionInspection
-     * @noinspection SqlNoDataSourceInspection
-     * @noinspection SqlResolve
-     */
     public function benchScores(): void
     {
         $this->soar->scores('SELECT * FROM foo;');
