@@ -8,6 +8,28 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.1"></a>
+## [6.0.1] - 2025-04-03
+### Bug Fixes
+- **AddHasOptionsDocCommentRector:** Update doc comments to use '//' for descriptions
+- **rector:** Handle null key in refactor method
+
+### Build
+- **dependencies:** Restore ext-ctype and ext-mbstring requirements
+
+### CI
+- **support:** Add checkSoarBinary script to validate executable files
+- **workflows:** Add workflow_dispatch to all workflow files
+
+### Code Refactoring
+- **core:** Replace create() with make() in multiple files
+- **options:** Rename onlyDsns method to onlyDsn
+
+### Tests
+- **fixtures:** Remove obsolete Soar.php and update .gitignore
+- **phpunit:** Update PHPUnit configuration and add HelpersTest
+
+
 <a name="6.0.0"></a>
 ## [6.0.0] - 2025-04-01
 ### Bug Fixes
@@ -664,7 +686,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.1...HEAD
+[6.0.1]: https://github.com/guanguans/soar-php/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/guanguans/soar-php/compare/5.1.1...6.0.0
 [5.1.1]: https://github.com/guanguans/soar-php/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/guanguans/soar-php/compare/5.0.3...5.1.0
