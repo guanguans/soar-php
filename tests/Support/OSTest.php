@@ -17,10 +17,20 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OS;
 
-it('can set sudo password', function (): void {
-    expect(Soar::make())
-        ->setSudoPassword($sudoPassword = 'foo')
-        ->getSudoPassword()->toBe($sudoPassword);
+it('can check OS', function (): void {
+    expect(OS::isUnix())->toBeBool()
+        ->and(OS::isWindows())->toBeBool()
+        ->and(OS::isMacOS())->toBeBool();
 })->group(__DIR__, __FILE__);
+
+it('can check arch', function (): void {
+    expect(OS::isArm())->toBeBool()
+        ->and(OS::isPPC())->toBeBool()
+        ->and(OS::isX86())->toBeBool();
+})->group(__DIR__, __FILE__);
+
+it('can get arch enum(', function (): void {
+    expect(OS::getArchEnum())->toBeString();
+})->group(__DIR__, __FILE__)->skip(OS::isWindows());
