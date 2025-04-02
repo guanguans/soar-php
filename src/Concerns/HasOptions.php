@@ -399,7 +399,7 @@ trait HasOptions
         return $this->options;
     }
 
-    public function onlyDsns(): self
+    public function onlyDsn(): self
     {
         $this->onlyOptions(['-test-dsn', '-online-dsn']);
 
@@ -561,6 +561,8 @@ trait HasOptions
             // 'user' => '',
             // 'password' => '',
             // 'addr' => '127.0.0.1:3306',
+            // 'host' => '127.0.0.1',
+            // 'port' => 3306,
             // 'schema' => 'dbname',
             'disable' => false,
         ];

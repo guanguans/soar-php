@@ -38,12 +38,12 @@ it('can flush options', function (): void {
     expect(Soar::create(['foo' => 'bar']))->flushOptions()->getOptions()->toBeEmpty();
 })->group(__DIR__, __FILE__);
 
-it('can only dsns', function (): void {
+it('can only dsn', function (): void {
     expect(Soar::create([
         $name1 = '-test-dsn' => 'bar',
         $name2 = '-foo' => 'bar',
     ]))
-        ->onlyDsns()
+        ->onlyDsn()
         ->getOptions()
         ->toHaveKey($name1)
         ->not->toHaveKey($name2);
