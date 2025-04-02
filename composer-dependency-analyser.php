@@ -33,8 +33,8 @@ return (new Configuration)
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(
         [
-            'ext-ctype',
-            'ext-mbstring',
+            // 'ext-ctype',
+            // 'ext-mbstring',
         ],
         [ErrorType::SHADOW_DEPENDENCY],
     )
