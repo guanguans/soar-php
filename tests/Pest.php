@@ -67,7 +67,9 @@ expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($th
 
 function classes(): Collection
 {
-    return collect(spl_autoload_functions())
+    static $classes;
+
+    return $classes ??= collect(spl_autoload_functions())
         ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
             $splAutoloadFunctions
                 ->firstOrFail(
@@ -107,7 +109,10 @@ function soar_options(): array
 {
     static $options;
 
-    return $options ??= require __DIR__.'/../examples/soar-options.php';
+    return $options ??= array_filter(
+        require __DIR__.'/../examples/soar-options.php',
+        fn (mixed $value): bool => null !== $value
+    );
 }
 
 function soar_options_example(): array

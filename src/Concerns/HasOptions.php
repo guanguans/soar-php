@@ -20,11 +20,11 @@ use Guanguans\SoarPHP\Exceptions\InvalidOptionException;
 use function Guanguans\SoarPHP\Support\str_snake;
 
 /**
+ * @method \Guanguans\SoarPHP\Soar setConfig(null|string $config) // Config file path
  * @method \Guanguans\SoarPHP\Soar setTestDsn(array|string $testDsn) // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar setOnlineDsn(array|string $onlineDsn) // OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar setAllowOnlineAsTest(bool $allowOnlineAsTest) // AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar setBlacklist(string $blacklist) // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar setConfig(null|string $config) // Config file path
  * @method \Guanguans\SoarPHP\Soar setExplain(bool $explain) // Explain, 是否开启Explain执行计划分析 (default true)
  * @method \Guanguans\SoarPHP\Soar setIgnoreRules(array|string $ignoreRules) // IgnoreRules, 忽略的优化建议规则 (default "COL.011")
  * @method \Guanguans\SoarPHP\Soar setLogLevel(int $logLevel) // LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
@@ -96,11 +96,11 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar setUniqueKeyPrefix(string $uniqueKeyPrefix) // UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar setVerbose(bool $verbose) // Verbose
  * @method \Guanguans\SoarPHP\Soar setVersion(null|bool $version) // Print version info
+ * @method \Guanguans\SoarPHP\Soar withConfig(null|string $config) // Config file path
  * @method \Guanguans\SoarPHP\Soar withTestDsn(array|string $testDsn) // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar withOnlineDsn(array|string $onlineDsn) // OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar withAllowOnlineAsTest(bool $allowOnlineAsTest) // AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar withBlacklist(string $blacklist) // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar withConfig(null|string $config) // Config file path
  * @method \Guanguans\SoarPHP\Soar withExplain(bool $explain) // Explain, 是否开启Explain执行计划分析 (default true)
  * @method \Guanguans\SoarPHP\Soar withIgnoreRules(array|string $ignoreRules) // IgnoreRules, 忽略的优化建议规则 (default "COL.011")
  * @method \Guanguans\SoarPHP\Soar withLogLevel(int $logLevel) // LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
@@ -172,11 +172,11 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar withUniqueKeyPrefix(string $uniqueKeyPrefix) // UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar withVerbose(bool $verbose) // Verbose
  * @method \Guanguans\SoarPHP\Soar withVersion(null|bool $version) // Print version info
+ * @method \Guanguans\SoarPHP\Soar onlyConfig() // Config file path
  * @method \Guanguans\SoarPHP\Soar onlyTestDsn() // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyOnlineDsn() // OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyAllowOnlineAsTest() // AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar onlyBlacklist() // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar onlyConfig() // Config file path
  * @method \Guanguans\SoarPHP\Soar onlyExplain() // Explain, 是否开启Explain执行计划分析 (default true)
  * @method \Guanguans\SoarPHP\Soar onlyIgnoreRules() // IgnoreRules, 忽略的优化建议规则 (default "COL.011")
  * @method \Guanguans\SoarPHP\Soar onlyLogLevel() // LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
@@ -248,11 +248,11 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar onlyUniqueKeyPrefix() // UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar onlyVerbose() // Verbose
  * @method \Guanguans\SoarPHP\Soar onlyVersion() // Print version info
+ * @method \Guanguans\SoarPHP\Soar exceptConfig() // Config file path
  * @method \Guanguans\SoarPHP\Soar exceptTestDsn() // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar exceptOnlineDsn() // OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar exceptAllowOnlineAsTest() // AllowOnlineAsTest, 允许线上环境也可以当作测试环境
  * @method \Guanguans\SoarPHP\Soar exceptBlacklist() // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
- * @method \Guanguans\SoarPHP\Soar exceptConfig() // Config file path
  * @method \Guanguans\SoarPHP\Soar exceptExplain() // Explain, 是否开启Explain执行计划分析 (default true)
  * @method \Guanguans\SoarPHP\Soar exceptIgnoreRules() // IgnoreRules, 忽略的优化建议规则 (default "COL.011")
  * @method \Guanguans\SoarPHP\Soar exceptLogLevel() // LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)

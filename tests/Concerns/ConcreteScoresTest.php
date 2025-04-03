@@ -71,11 +71,8 @@ it('can get array scores', function (): void {
     ];
 
     expect(Soar::make())
-        // ->withOptions(array_filter(
-        //     soar_options(),
-        //     fn (mixed $value): bool => null !== $value
-        // ))
-        // ->withOptions(soar_options())
+        ->withOptions(soar_options())
+        // ->withOptions(soar_options_example())
         ->arrayScores($sqls)
         ->toBeArray()
         ->toBeTruthy()
@@ -94,6 +91,8 @@ it('can get array scores', function (): void {
 
 it('can get json scores', function (): void {
     expect(Soar::make())
+        // ->withOptions(soar_options())
+        ->withOptions(soar_options_example())
         ->jsonScores('select * from foo')
         ->toBeJson()
         ->toBeTruthy()

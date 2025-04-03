@@ -55,23 +55,17 @@ final class AddSoarOptionsDocCommentRector extends AbstractRector
                         CODE_SAMPLE,
                     <<<'CODE_SAMPLE'
                         return [
-                            /**
-                             * AllowCharsets (default "utf8,utf8mb4").
-                             */
+                             // AllowCharsets (default "utf8,utf8mb4")
                             '-allow-charsets' => [
                                 0 => 'utf8',
                                 1 => 'utf8mb4',
                             ],
 
-                            /**
-                             * AllowCollates.
-                             */
+                             // AllowCollates
                             '-allow-collates' => [
                             ],
 
-                            /**
-                             * AllowDropIndex, 允许输出删除重复索引的建议.
-                             */
+                             // AllowDropIndex, 允许输出删除重复索引的建议
                             '-allow-drop-index' => false,
                         ];
                         CODE_SAMPLE,
@@ -119,9 +113,7 @@ final class AddSoarOptionsDocCommentRector extends AbstractRector
         $node->setDocComment(new Doc(
             <<<DOC_COMMENT
 
-                /**
-                 * {$help['description']}
-                 */
+                // {$help['description']}
                 DOC_COMMENT
         ));
 

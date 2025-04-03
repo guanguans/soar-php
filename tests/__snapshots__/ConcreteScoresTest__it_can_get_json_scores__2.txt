@@ -25,7 +25,7 @@
   ],
   "IndexRules": null,
   "Tables": [
-    "`information_schema`.`foo`"
+    "`you_dbname`.`foo`"
   ]
 } 
 ]

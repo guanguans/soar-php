@@ -67,7 +67,7 @@ final class ComposerScripts
 
         file_put_contents(
             __DIR__.'/../../examples/soar-options.yaml',
-            Yaml::dump(input: self::resolveSoarConfig()->all(), indent: 2)
+            Yaml::dump(self::resolveSoarConfig()->all(), 3, 2, Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE)
         );
 
         self::makeSymfonyStyle()->success('No errors');

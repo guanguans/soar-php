@@ -38,15 +38,18 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\ValueObject\PhpVersion;
 
-$classes ??= (static function (): array {
+function classes(): array
+{
+    static $classes;
+
     foreach (spl_autoload_functions() as $loader) {
         if (\is_array($loader) && $loader[0] instanceof ClassLoader) {
-            return array_keys($loader[0]->getClassMap());
+            return $classes ??= array_keys($loader[0]->getClassMap());
         }
     }
 
-    return [];
-})();
+    return $classes ??= [];
+}
 
 return RectorConfig::configure()
     ->withPaths([
@@ -137,7 +140,7 @@ return RectorConfig::configure()
                 true
             ),
             array_filter(
-                $classes,
+                classes(),
                 static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes')
                     && (new ReflectionClass($class))->isInstantiable()
             )

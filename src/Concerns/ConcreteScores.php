@@ -19,14 +19,12 @@ namespace Guanguans\SoarPHP\Concerns;
 trait ConcreteScores
 {
     /**
-     * @noinspection PhpUnhandledExceptionInspection
-     * @noinspection PhpDocMissingThrowsInspection
-     *
      * @param list<string>|string $sqls
      * @param int<1, 512> $depth
      * @param int<0, 4194304> $options
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     * @throws \JsonException
      */
     public function arrayScores(array|string $sqls, int $depth = 512, int $options = 0): array
     {
