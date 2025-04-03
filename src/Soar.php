@@ -21,6 +21,7 @@ use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\Makeable;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Concerns\WithRunable;
+use Symfony\Component\Process\Process;
 
 class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
 {
@@ -44,7 +45,11 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
      */
     public function help(): string
     {
-        return $this->clone()->setHelp(true)->run();
+        return $this->clone()->setHelp(true)->run(
+            static function (string $type, string $line) use (&$errorOutput): void {
+                Process::ERR === $type and $errorOutput .= $line;
+            }
+        ) ?: $errorOutput;
     }
 
     /**

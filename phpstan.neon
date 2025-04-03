@@ -68,12 +68,12 @@ parameters:
         - identifier: argument.templateType
 #        - identifier: binaryOp.invalid
 #        - identifier: cast.string
-#        - identifier: logicalAnd.resultUnused
 #        - identifier: method.nonObject
 #        - identifier: return.void
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.type
         - identifier: encapsedStringPart.nonString
+        - identifier: logicalAnd.resultUnused
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
         - identifier: return.type

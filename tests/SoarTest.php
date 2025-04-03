@@ -24,7 +24,7 @@ use function Spatie\Snapshots\assertMatchesTextSnapshot;
 
 it('can get help', function (): void {
     expect(Soar::make())->help()->toContain('-version');
-})->group(__DIR__, __FILE__)->skip(OS::isWindows(), 'The help option of Soar is not supported on Windows.');
+})->group(__DIR__, __FILE__);
 
 it('can get help snapshot', function (): void {
     assertMatchesTextSnapshot(
