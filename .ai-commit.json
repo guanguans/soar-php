@@ -3,6 +3,7 @@
         ":!*-lock.json",
         ":!*.lock",
         ":!*.sum",
-        ":!/baselines/*.neon"
+        ":!/baselines/*.neon",
+        ":(exclude)__snapshots__/"
     ]
 }

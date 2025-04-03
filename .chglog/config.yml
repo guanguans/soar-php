@@ -1,4 +1,7 @@
 style: github
+# https://github.com/garden-io/garden
+# https://github.com/git-chglog/git-chglog
+# https://github.com/quay/clair
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
