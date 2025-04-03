@@ -17,7 +17,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`post`"
+            "`you_dbname`.`post`"
         ]
     },
     {
@@ -70,7 +70,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`"
+            "`you_dbname`.`city`"
         ]
     },
     {
@@ -99,8 +99,8 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -121,9 +121,9 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`address`",
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`address`",
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -152,8 +152,8 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -182,8 +182,8 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -204,28 +204,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`inventory`"
-        ]
-    },
-    {
-        "ID": "C77607894B4EFCC6",
-        "Fingerprint": "drop table `users`",
-        "Score": 100,
-        "Sample": "DROP TABLE `users`",
-        "Explain": null,
-        "HeuristicRules": [
-            {
-                "Item": "SEC.003",
-                "Severity": "L0",
-                "Summary": "\u4f7f\u7528DELETE\/DROP\/TRUNCATE\u7b49\u64cd\u4f5c\u65f6\u6ce8\u610f\u5907\u4efd",
-                "Content": "\u5728\u6267\u884c\u9ad8\u5371\u64cd\u4f5c\u4e4b\u524d\u5bf9\u6570\u636e\u8fdb\u884c\u5907\u4efd\u662f\u5341\u5206\u6709\u5fc5\u8981\u7684\u3002",
-                "Case": "delete from table where col = 'condition'",
-                "Position": 0
-            }
-        ],
-        "IndexRules": null,
-        "Tables": [
-            "`information_schema`.`users`"
+            "`you_dbname`.`inventory`"
         ]
     },
     {
@@ -286,7 +265,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`users`"
+            "`you_dbname`.`users`"
         ]
     }
 ]

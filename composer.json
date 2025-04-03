@@ -1,17 +1,23 @@
 {
     "name": "guanguans/soar-php",
-    "description": "SQL optimizer and rewriter. - SQL 优化器、重写器。",
+    "description": "SQL optimizer and rewriter(assisted SQL tuning). - SQL 优化器和重写器(辅助 SQL 调优)。",
     "license": "MIT",
     "type": "library",
     "keywords": [
-        "soar",
-        "sql",
+        "debugbar",
         "mysql",
-        "sql optimizer",
-        "sql rewriter",
         "optimizer",
         "rewriter",
-        "debug"
+        "soar",
+        "sql",
+        "sql-alchemy",
+        "sql-injection",
+        "sql-optimizer",
+        "sql-query",
+        "sql-rewriter",
+        "sql-tuning",
+        "sqlalchemy",
+        "tuning"
     ],
     "authors": [
         {

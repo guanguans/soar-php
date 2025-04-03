@@ -1,9 +1,7 @@
 # soar-php
 
 > [!NOTE]
-> SQL optimizer and rewriter (assisted SQL tuning) developed based on Xiaomi's [soar](https://github.com/XiaoMi/soar).
-
-[简体中文](README-zh_CN.md) | [ENGLISH](README.md)
+> SQL optimizer and rewriter(assisted SQL tuning) based on Xiaomi's [soar](https://github.com/XiaoMi/soar) development. - 基于小米的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器和重写器(辅助 SQL 调优)。
 
 [![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
 [![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
@@ -13,13 +11,13 @@
 [![Total Downloads](https://poser.pugx.org/guanguans/soar-php/downloads)](https://packagist.org/packages/guanguans/soar-php)
 [![License](https://poser.pugx.org/guanguans/soar-php/license)](https://packagist.org/packages/guanguans/soar-php)
 
-## Requirements
+## Requirement
 
 * PHP >= 8.0
 
 ## Used in the framework
 
-- [x] Laravel - [laravel-soar](https://github.com/guanguans/laravel-soar), [laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
+- [x] Laravel - [laravel-soar](https://github.com/guanguans/laravel-soar)、[laravel-web-soar](https://github.com/huangdijia/laravel-web-soar)
 - [x] ThinkPHP - [think-soar](https://github.com/guanguans/think-soar)
 - [x] Hyperf - [hyperf-soar](https://github.com/wilbur-oo/hyperf-soar)
 - [x] Webman - [webman-soar](https://github.com/Tinywan/webman-soar)
@@ -41,53 +39,71 @@ composer require guanguans/soar-php --ansi -v
 ```php
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection SqlResolve */
+/** @noinspection SuspiciousAssignmentsInspection */
+
+declare(strict_types=1);
+
 require __DIR__.'/vendor/autoload.php';
 
 use Guanguans\SoarPHP\Soar;
 
-// Quickly make a soar instance
-$soar = Soar::make();
+$sqls = [
+    <<<'SQL'
+        SELECT
+            DATE_FORMAT (t.last_update, '%Y-%m-%d'),
+            COUNT(DISTINCT (t.city))
+        FROM
+            city t
+        WHERE
+            t.last_update > '2018-10-22 00:00:00'
+            AND t.city LIKE '%Chrome%'
+            AND t.city = 'eip'
+        GROUP BY
+            DATE_FORMAT(t.last_update, '%Y-%m-%d')
+        ORDER BY
+            DATE_FORMAT(t.last_update, '%Y-%m-%d');
+        SQL,
+    'SELECT * FROM `foo`;',
+];
 
 /**
- * Make a custom soar instance
- * Options @see examples/soar-options-example.php
+ * Examples of scoring.
  */
-$soar = Soar::make(
-    [
-        // 测试环境数据库配置.
-        '-test-dsn'    => [
-            'host'     => '127.0.0.1',
-            'port'     => '3306',
-            'dbname'   => 'laravel',
-            'username' => 'root',
-            'password' => 'root',
-            'disable'  => false,
-        ],
-        // 日志输出位置 (default "soar.log").
-        '-log-output'  => __DIR__.'/logs/soar.log',
-        // 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown").
-        '-report-type' => 'json',
-    ],
-    '自定义的 soar 路径'
-);
+$scores = Soar::make()->arrayScores($sqls);
+$scores = Soar::make()
+    ->withTestDsn([
+        'user' => 'you_user',
+        'password' => 'you_password',
+        'addr' => 'you_host:you_port',
+        // 'addr' => '127.0.0.1:3306',
+        // 'host' => 'you_host',
+        // 'port' => 'you_port',
+        'schema' => 'you_dbname',
+        'disable' => false,
+    ])
+    ->withOnlineDsn([
+        'user' => 'you_user',
+        'password' => 'you_password',
+        'addr' => 'you_host:you_port',
+        // 'addr' => '127.0.0.1:3306',
+        // 'host' => 'you_host',
+        // 'port' => 'you_port',
+        'schema' => 'you_dbname',
+        'disable' => true,
+    ])
+    ->withExplain(true) // Enable EXPLAIN
+    ->withAllowOnlineAsTest(true) // Enable index suggestions
+    ->arrayScores($sqls);
 
-// Final run: /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64 '-version=true'
-$soar->clone() // Clone soar and avoid the option to manipulate the original soar.
-    ->exceptVersion()  // Except -version option
-    ->setVersion(true) // Set -version value of the option is `true`
-    ->withVersion(true) // Merge -version value of the option is `true`
-    ->onlyVersion() // Only keep -version option
-    ->dump() // Dump debug information
-    ->run(); // Run
-```
-</details>
-
-<details>
-<summary><b>:warning: When running in a unix OS non-cli environment, may throw `Fatal error: ...Exit Code: 2(Misuse of shell builtins)...`</b></summary>
-
-```php
-// Fatal error: Uncaught Guanguans\SoarPHP\Exceptions\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64' '-report-type=json' '-query=select * from users;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1938665] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x65 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x175 in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php:36 Stack trace: #0 /Users/yaozm/Documents/develop/soar-php/test.php(163): Guanguans\SoarPHP\Soar->run() #1 /User in /Users/yaozm/Documents/develop/soar-php/src/Concerns/WithRunable.php on line 36
-$soar->setSudoPassword('your sudo password'); // Set a sudo password to run the soar command with sudo to avoid the above errors.
+/**
+ * Examples of running any soar command.
+ */
+// Final run: '/.../bin/soar.darwin-arm64' '-report-type=json' '-query=SELECT * FROM `foo`;'
+$scores = Soar::make()->withReportType('json')->withQuery($sqls[1])->dump()->run();
+// Final run: '/.../bin/soar.darwin-arm64' '-version=true'
+$version = Soar::make()->withHelp(true)->setVersion(true)->dump()->run();
 ```
 </details>
 
@@ -644,6 +660,15 @@ Usage of /Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-amd64:
 ```
 </details>
 
+<details>
+<summary><b>:warning: When running in a unix OS non-cli environment, may throw `Fatal error: ...Exit Code: 2(Misuse of shell builtins)...`</b></summary>
+
+```php
+// Fatal error: Uncaught Symfony\Component\Process\Exception\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-arm64' '-report-type=json' '-query=SELECT * FROM `foo`;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x2 addr=0x0 pc=0x104d22798] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x68 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x184 in /Users/yaozm/Documents/develop/soar-php/vendor/symfony/process/Process.php:273
+$soar->setSudoPassword('your sudo password'); // Set a sudo password to run the soar command with sudo to avoid the above errors.
+```
+</details>
+
 ## Testing
 
 ```bash
@@ -661,6 +686,11 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 ## Security Vulnerabilities
 
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+* [guanguans](https://github.com/guanguans)
+* [All Contributors](../../contributors)
 
 ## Contributors ✨
 

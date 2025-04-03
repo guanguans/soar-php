@@ -17,7 +17,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`post`"
+            "`you_dbname`.`post`"
         ]
     },
     {
@@ -70,7 +70,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`"
+            "`you_dbname`.`city`"
         ]
     },
     {
@@ -99,8 +99,8 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -121,9 +121,9 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`address`",
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`address`",
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -152,8 +152,8 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -182,8 +182,8 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`city`",
-            "`information_schema`.`country`"
+            "`you_dbname`.`city`",
+            "`you_dbname`.`country`"
         ]
     },
     {
@@ -204,28 +204,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`inventory`"
-        ]
-    },
-    {
-        "ID": "C77607894B4EFCC6",
-        "Fingerprint": "drop table `users`",
-        "Score": 100,
-        "Sample": "DROP TABLE `users`",
-        "Explain": null,
-        "HeuristicRules": [
-            {
-                "Item": "SEC.003",
-                "Severity": "L0",
-                "Summary": "使用DELETE/DROP/TRUNCATE等操作时注意备份",
-                "Content": "在执行高危操作之前对数据进行备份是十分有必要的。",
-                "Case": "delete from table where col = 'condition'",
-                "Position": 0
-            }
-        ],
-        "IndexRules": null,
-        "Tables": [
-            "`information_schema`.`users`"
+            "`you_dbname`.`inventory`"
         ]
     },
     {
@@ -286,7 +265,7 @@
         ],
         "IndexRules": null,
         "Tables": [
-            "`information_schema`.`users`"
+            "`you_dbname`.`users`"
         ]
     }
 ]
