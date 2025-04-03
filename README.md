@@ -100,10 +100,17 @@ $scores = Soar::make()
 /**
  * Examples of running any soar command.
  */
-// Final run: '/.../bin/soar.darwin-arm64' '-report-type=json' '-query=SELECT * FROM `foo`;'
-$scores = Soar::make()->withReportType('json')->withQuery($sqls[1])->dump()->run();
+// Final run: '/.../bin/soar.darwin-arm64' '-report-type=fingerprint' '-query=SELECT * FROM `foo`;'
+$fingerprint = Soar::make()->withReportType('fingerprint')->withQuery($sqls[1])->dump()->run();
+
+// Final run: '/.../bin/soar.darwin-arm64' '-report-type=pretty' '-query=SELECT * FROM `foo`;'
+$pretty = Soar::make()->withReportType('pretty')->withQuery($sqls[1])->dump()->run();
+
 // Final run: '/.../bin/soar.darwin-arm64' '-version=true'
 $version = Soar::make()->withHelp(true)->setVersion(true)->dump()->run();
+
+// Final run: '/.../bin/soar.darwin-arm64' '-only-syntax-check=true' '-query=SELECT * FROM `foo`;'
+$syntaxCheck = Soar::make()->withOnlySyntaxCheck(true)->withQuery('SELECT * FRO `foo`;')->dump()->run();
 ```
 </details>
 
