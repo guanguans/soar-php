@@ -36,8 +36,8 @@ it('can get version', function (): void {
     expect(Soar::make())->version()->toContain(
         'Version: 2023-12-15 17:13:07 +0800 0.11.0-148-g5ed8574',
         'Branch: dev',
-        'Compile: 2024-01-16 15:35:51 +0800 by go version go1.21.5',
-        'GitDirty:       12',
+        'Compile: 2025-04-03 21:22:31 +0800 by go version go1.24.1 darwin/arm64',
+        'GitDirty:        0',
     );
 })->group(__DIR__, __FILE__);
 
