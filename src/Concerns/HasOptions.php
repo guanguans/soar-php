@@ -561,8 +561,8 @@ trait HasOptions
             // 'user' => '',
             // 'password' => '',
             // 'addr' => '127.0.0.1:3306',
-            // 'host' => '127.0.0.1',
-            // 'port' => 3306,
+            'host' => '127.0.0.1',
+            'port' => 3306,
             // 'schema' => 'dbname',
             'disable' => false,
         ];
@@ -571,7 +571,7 @@ trait HasOptions
             return null;
         }
 
-        if (!isset($dsn['addr']) && isset($dsn['host'], $dsn['port'])) {
+        if (!isset($dsn['addr'])) {
             $dsn['addr'] = "{$dsn['host']}:{$dsn['port']}";
         }
 

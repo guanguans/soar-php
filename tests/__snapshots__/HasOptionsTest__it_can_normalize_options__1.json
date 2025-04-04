@@ -1,6 +1,6 @@
 {
     "-config": "-config",
-    "-test-dsn": "-test-dsn=you_user:you_password@you_host:you_port\/you_dbname?host=you_host&port=you_port",
+    "-test-dsn": "-test-dsn=you_user:you_password@you_host:you_port\/you_dbname",
     "-online-dsn": "-online-dsn=:********@127.0.0.1:3306\/information_schema?net=tcp&charset=utf8&collation=utf8mb4_general_ci&loc=UTC&tls=&server-public-key=&max-allowed-packet=4194304&params[charset]=utf8&timeout=3s&read-timeout=0s&write-timeout=0s&allow-native-passwords=1&allow-old-passwords=0",
     "-allow-online-as-test": "-allow-online-as-test=false",
     "-blacklist": "-blacklist=",

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHPTests\Concerns;
 
 use Guanguans\SoarPHP\Soar;
+use Guanguans\SoarPHP\Support\OS;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -45,7 +46,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
     (new class extends Soar {
         protected function shouldApplySudoPassword(): bool
         {
-            return true;
+            return OS::isUnix();
         }
     })->setSudoPassword('foo')->help();
 })

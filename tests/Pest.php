@@ -105,6 +105,11 @@ function fake(string $locale = Factory::DEFAULT_LOCALE): Generator
     return Factory::create($locale);
 }
 
+function running_in_github_action(): bool
+{
+    return getenv('GITHUB_ACTIONS') === 'true';
+}
+
 function soar_options(): array
 {
     static $options;
@@ -120,9 +125,4 @@ function soar_options_example(): array
     static $options;
 
     return $options ??= require __DIR__.'/../examples/soar-options-example.php';
-}
-
-function running_in_github_action(): bool
-{
-    return getenv('GITHUB_ACTIONS') === 'true';
 }
