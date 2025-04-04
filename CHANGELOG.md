@@ -8,6 +8,20 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.3"></a>
+## [6.0.3] - 2025-04-04
+### Bug Fixes
+- **options:** Correct host and port handling in DSN normalization ([55e707b](https://github.com/guanguans/soar-php/commit/55e707b))
+- **tests:** Correct option normalization and query syntax ([cda80f6](https://github.com/guanguans/soar-php/commit/cda80f6))
+
+### Code Refactoring
+- **scripts:** Rename dump-soar-yaml-config to dump-soar-config ([43c72cf](https://github.com/guanguans/soar-php/commit/43c72cf))
+- **tests:** Update version and compilation details ([aa3dc02](https://github.com/guanguans/soar-php/commit/aa3dc02))
+
+### Docs
+- **README:** Update example commands for Soar usage ([b66dee3](https://github.com/guanguans/soar-php/commit/b66dee3))
+
+
 <a name="6.0.2"></a>
 ## [6.0.2] - 2025-04-03
 ### Bug Fixes
@@ -697,7 +711,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.3...HEAD
+[6.0.3]: https://github.com/guanguans/soar-php/compare/6.0.2...6.0.3
 [6.0.2]: https://github.com/guanguans/soar-php/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/guanguans/soar-php/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/guanguans/soar-php/compare/5.1.1...6.0.0
