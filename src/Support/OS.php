@@ -43,7 +43,7 @@ class OS
 
     public static function isMacOS(): bool
     {
-        return str_contains(\php_uname('s'), 'Darwin');
+        return str_contains(php_uname('s'), 'Darwin');
     }
 
     public static function isArm(): bool
@@ -78,6 +78,6 @@ class OS
 
     public static function getArch(): string
     {
-        return \php_uname('m');
+        return php_uname('m');
     }
 }

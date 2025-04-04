@@ -164,7 +164,7 @@
             "@composer-normalize",
             "@composer-validate",
             "@check-soar-binary",
-            "@dump-soar-yaml-config",
+            "@dump-soar-config",
             "@json-lint",
             "@md-lint",
             "@yaml-lint",
@@ -191,7 +191,9 @@
             "@dump-soar-yaml-config",
             "@dump-soar-php-config"
         ],
+        "dump-soar-original-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
         "dump-soar-php-config": [
+            "@dump-soar-original-php-config",
             "@rector-soar-options",
             "@style-fix"
         ],

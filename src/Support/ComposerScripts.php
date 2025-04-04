@@ -76,6 +76,48 @@ final class ComposerScripts
     }
 
     /**
+     * @noinspection PhpUnused
+     * @noinspection DebugFunctionUsageInspection
+     *
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     */
+    public static function dumpSoarPHPConfig(Event $event): int
+    {
+        self::requireAutoload($event);
+
+        file_put_contents(
+            __DIR__.'/../../examples/soar-options.php',
+            \sprintf(
+                <<<'PHP'
+                    <?php
+
+                    declare(strict_types=1);
+
+                    /**
+                     * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>
+                     *
+                     * For the full copyright and license information, please view
+                     * the LICENSE file that was distributed with this source code.
+                     *
+                     * @see https://github.com/guanguans/soar-php
+                     */
+
+                    // +----------------------------------------------------------------------+//
+                    // |              请参考 @see https://github.com/XiaoMi/soar               |//
+                    // +----------------------------------------------------------------------+//
+
+                    return %s;
+                    PHP,
+                var_export(self::resolveSoarHelp()->map(static fn (array $help): mixed => $help['default'])->all(), true),
+            )
+        );
+
+        self::makeSymfonyStyle()->success('No errors');
+
+        return 0;
+    }
+
+    /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public static function resolveSoarHelp(): Collection
