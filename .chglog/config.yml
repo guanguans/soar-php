@@ -2,6 +2,8 @@ style: github
 # https://github.com/garden-io/garden
 # https://github.com/git-chglog/git-chglog
 # https://github.com/quay/clair
+# https://github.com/muzilib/commit-template-idea-plugin/blob/main/src/main/resources/i18n/data_en_US.properties#L22
+# https://github.com/fobgochod/git-commit-message-format/blob/main/src/main/resources/messages/GitBundle.properties#L37
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
@@ -23,12 +25,16 @@ options:
         - test
   commit_groups:
     title_maps:
+      build: Builds
       chore: Chores
-      ci: CI
+      ci: Continuous Integrations
+      docs: Documents
       feat: Features
       fix: Bug Fixes
       perf: Performance Improvements
-      refactor: Code Refactoring
+      refactor: Code Refactorings
+      revert: Reverts
+      style: Styles
       test: Tests
   header:
     pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
