@@ -109,7 +109,7 @@ $pretty = Soar::make()->withReportType('pretty')->withQuery($sqls[1])->dump()->r
 // Final run: '/.../bin/soar.darwin-arm64' '-version=true'
 $version = Soar::make()->withHelp(true)->setVersion(true)->dump()->run();
 
-// Final run: '/.../bin/soar.darwin-arm64' '-only-syntax-check=true' '-query=SELECT * FROM `foo`;'
+// Final run: '/.../bin/soar.darwin-arm64' '-only-syntax-check=true' '-query=SELECT * FRO `foo`;'
 $syntaxCheck = Soar::make()->withOnlySyntaxCheck(true)->withQuery('SELECT * FRO `foo`;')->dump()->run();
 ```
 </details>

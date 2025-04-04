@@ -86,88 +86,44 @@ it('will throw InvalidOptionException when normalize invalid option', function (
 })->group(__DIR__, __FILE__)->throws(InvalidOptionException::class, 'object');
 
 it('can normalize options', function (): void {
-    expect(fn (): array => $this->getNormalizedOptions())
-        ->call(Soar::make([
-            '-report-type' => 'json',
-            '-config' => null,
-            '-log-level' => 3,
-            '-allow-online-as-test' => false,
-            '-explain' => new class {
-                public function __invoke(): bool
-                {
-                    return true;
-                }
-            },
-            '-explain-format' => new class {
-                public function __toString(): string
-                {
-                    return 'traditional';
-                }
-            },
-            '-allow-charsets' => [
-                'utf8',
-                'utf8mb4',
-            ],
-            '-test-dsn' => [
-                'user' => '',
-                'password' => '********',
-                'net' => 'tcp',
-                // 'addr' => '127.0.0.1:3306',
-                'host' => '127.0.0.1',
-                'port' => 3306,
-                'schema' => 'information_schema',
-                'charset' => 'utf8',
-                'collation' => 'utf8mb4_general_ci',
-                'loc' => 'UTC',
-                'tls' => '',
-                'server-public-key' => '',
-                'max-allowed-packet' => 4194304,
-                'params' => [
-                    'charset' => 'utf8',
+    $this->assertMatchesJsonSnapshot(
+        (fn (): array => $this->getNormalizedOptions())->call(Soar::make(
+            array_merge(require __DIR__.'/../../examples/soar-options.php', [
+                '-explain-format' => new class {
+                    public function __invoke(): string
+                    {
+                        return 'traditional';
+                    }
+                },
+                '-explain-type' => new class {
+                    public function __toString(): string
+                    {
+                        return 'extended';
+                    }
+                },
+                '-test-dsn' => [
+                    'user' => 'you_user',
+                    'password' => 'you_password',
+                    // 'addr' => '127.0.0.1:3306',
+                    'host' => 'you_host',
+                    'port' => 'you_port',
+                    'schema' => 'you_dbname',
+                    'disable' => false,
                 ],
-                'timeout' => '3s',
-                'read-timeout' => '0s',
-                'write-timeout' => '0s',
-                'allow-native-passwords' => true,
-                'allow-old-passwords' => false,
-                'disable' => false,
-            ],
-            '-online-dsn' => [
-                'user' => '',
-                'password' => '********',
-                'net' => 'tcp',
-                'addr' => '127.0.0.1:3306',
-                'schema' => 'information_schema',
-                'charset' => 'utf8',
-                'collation' => 'utf8mb4_general_ci',
-                'loc' => 'UTC',
-                'tls' => '',
-                'server-public-key' => '',
-                'max-allowed-packet' => 4194304,
-                'params' => [
-                    'charset' => 'utf8',
-                ],
-                'timeout' => '3s',
-                'read-timeout' => '0s',
-                'write-timeout' => '0s',
-                'allow-native-passwords' => true,
-                'allow-old-passwords' => false,
-                'disable' => true,
-            ],
-        ]))
-        ->toBeArray();
+            ])
+        ))
+    );
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidOptionException when normalize invalid dsn', function (): void {
     Soar::make([
         '-test-dsn' => [
-            'user' => '',
-            // 'password' => '********',
-            'net' => 'tcp',
-            'addr' => '127.0.0.1:3306',
-            'host' => '127.0.0.1',
-            'port' => 3306,
-            'schema' => 'information_schema',
+            'user' => 'you_user',
+            // 'password' => 'you_password',
+            // 'addr' => '127.0.0.1:3306',
+            'host' => 'you_host',
+            'port' => 'you_port',
+            'schema' => 'you_dbname',
             'disable' => false,
         ],
     ])->run();
