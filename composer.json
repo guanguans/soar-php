@@ -194,8 +194,8 @@
         "dump-soar-original-php-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
         "dump-soar-php-config": [
             "@dump-soar-original-php-config",
-            "@rector-soar-options",
-            "@style-fix"
+            "@rector-soar-options --no-diffs",
+            "@style-fix --quiet"
         ],
         "dump-soar-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
         "facade-lint": "@facade-update --lint",

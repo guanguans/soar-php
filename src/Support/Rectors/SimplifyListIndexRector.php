@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Support\Rectors;
 
+use Illuminate\Support\Collection;
 use PhpParser\Node;
-use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\Int_;
@@ -73,25 +73,29 @@ final class SimplifyListIndexRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        $keys = collect($node->items)->pluck('key');
+        $keys = collect($node->items)
+            ->pluck('key')
+            ->map(fn (?Expr $expr): mixed => $expr instanceof Expr ? $this->valueResolver->getValue($expr) : null);
 
+        /** @noinspection NullPointerExceptionInspection */
         if (
-            $keys
-                ->filter(static fn (?Expr $expr): bool => !$expr instanceof Int_)
-                ->isNotEmpty()
+            $keys->filter(static fn (mixed $key): bool => null !== $key && !\is_int($key))->isNotEmpty()
+            || !$this->isList(
+                $keys->reduce(
+                    static fn (Collection $carry, ?int $key): Collection => $carry->put(
+                        $key ?? ($carry->isEmpty() ? 0 : $carry->keys()->sortDesc(\SORT_NUMERIC)->first() + 1),
+                        $key
+                    ),
+                    collect()
+                )->all()
+            )
         ) {
             return null;
         }
 
-        $keyValues = $keys->mapWithKeys(fn (?Expr $expr): array => [
-            $key = $this->valueResolver->getValue($expr, true) => $key,
-        ]);
-
-        if ($keyValues->count() !== $keys->count() || !$this->isList($keyValues->all())) {
-            return null;
+        foreach ($node->items as $item) {
+            $item->key instanceof Int_ and $item->key = null;
         }
-
-        collect($node->items)->each(static fn (ArrayItem $arrayItem): mixed => $arrayItem->key = null);
 
         return $node;
     }
