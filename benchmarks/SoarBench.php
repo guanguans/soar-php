@@ -1,6 +1,5 @@
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection PhpUnused */
 /** @noinspection SqlResolve */
 

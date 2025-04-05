@@ -1,7 +1,7 @@
 {
   "files": [
     "README.md",
-    "README-EN.md"
+    "README-zh_CN.md"
   ],
   "imageSize": 100,
   "commit": false,
@@ -10,7 +10,7 @@
       "login": "kamly",
       "name": "kamly",
       "avatar_url": "https://avatars2.githubusercontent.com/u/15706085?v=4",
-      "profile": "http://blog.charmingkamly.cn",
+      "profile": "https://github.com/kamly",
       "contributions": [
         "bug"
       ]
@@ -19,7 +19,7 @@
       "login": "leslieeilsel",
       "name": "Leslie Lau",
       "avatar_url": "https://avatars1.githubusercontent.com/u/25165449?v=4",
-      "profile": "http://leslieeilsel.com/",
+      "profile": "https://github.com/leslieeilsel",
       "contributions": [
         "bug"
       ]
