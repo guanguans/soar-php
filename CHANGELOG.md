@@ -8,17 +8,33 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.0.4"></a>
+## [6.0.4] - 2025-04-05
+### Bug Fixes
+- **SimplifyListIndexRector:** Refactor key handling logic ([8b9ec75](https://github.com/guanguans/soar-php/commit/8b9ec75))
+
+### Builds
+- **composer.json:** Update composer command aliases ([8fdce34](https://github.com/guanguans/soar-php/commit/8fdce34))
+
+### Continuous Integrations
+- **config:** Update changelog configuration options ([aaffea5](https://github.com/guanguans/soar-php/commit/aaffea5))
+- **workflow:** Add secrets check workflow ([82849c9](https://github.com/guanguans/soar-php/commit/82849c9))
+
+### Documents
+- **readme:** Remove soar help section from README ([7e8e07a](https://github.com/guanguans/soar-php/commit/7e8e07a))
+
+
 <a name="6.0.3"></a>
 ## [6.0.3] - 2025-04-04
 ### Bug Fixes
 - **options:** Correct host and port handling in DSN normalization ([55e707b](https://github.com/guanguans/soar-php/commit/55e707b))
 - **tests:** Correct option normalization and query syntax ([cda80f6](https://github.com/guanguans/soar-php/commit/cda80f6))
 
-### Code Refactoring
+### Code Refactorings
 - **scripts:** Rename dump-soar-yaml-config to dump-soar-config ([43c72cf](https://github.com/guanguans/soar-php/commit/43c72cf))
 - **tests:** Update version and compilation details ([aa3dc02](https://github.com/guanguans/soar-php/commit/aa3dc02))
 
-### Docs
+### Documents
 - **README:** Update example commands for Soar usage ([b66dee3](https://github.com/guanguans/soar-php/commit/b66dee3))
 
 
@@ -28,7 +44,7 @@ All notable changes to this project will be documented in this file.
 - **Soar:** Improve error handling in help method ([6b65893](https://github.com/guanguans/soar-php/commit/6b65893))
 - **config:** Update database configuration and add parameters ([675eadf](https://github.com/guanguans/soar-php/commit/675eadf))
 
-### Docs
+### Documents
 - **README:** Update description and translation accuracy ([0f1c0a4](https://github.com/guanguans/soar-php/commit/0f1c0a4))
 - **changelog:** Enhance changelog template formatting ([384081d](https://github.com/guanguans/soar-php/commit/384081d))
 
@@ -39,16 +55,16 @@ All notable changes to this project will be documented in this file.
 - **AddHasOptionsDocCommentRector:** Update doc comments to use '//' for descriptions ([b2931b9](https://github.com/guanguans/soar-php/commit/b2931b9))
 - **rector:** Handle null key in refactor method ([c42d81a](https://github.com/guanguans/soar-php/commit/c42d81a))
 
-### Build
+### Builds
 - **dependencies:** Restore ext-ctype and ext-mbstring requirements ([9c109ea](https://github.com/guanguans/soar-php/commit/9c109ea))
 
-### CI
-- **support:** Add checkSoarBinary script to validate executable files ([904933d](https://github.com/guanguans/soar-php/commit/904933d))
-- **workflows:** Add workflow_dispatch to all workflow files ([d5817f2](https://github.com/guanguans/soar-php/commit/d5817f2))
-
-### Code Refactoring
+### Code Refactorings
 - **core:** Replace create() with make() in multiple files ([f3ea1d2](https://github.com/guanguans/soar-php/commit/f3ea1d2))
 - **options:** Rename onlyDsns method to onlyDsn ([a459b8e](https://github.com/guanguans/soar-php/commit/a459b8e))
+
+### Continuous Integrations
+- **support:** Add checkSoarBinary script to validate executable files ([904933d](https://github.com/guanguans/soar-php/commit/904933d))
+- **workflows:** Add workflow_dispatch to all workflow files ([d5817f2](https://github.com/guanguans/soar-php/commit/d5817f2))
 
 ### Tests
 - **fixtures:** Remove obsolete Soar.php and update .gitignore ([26d8c9b](https://github.com/guanguans/soar-php/commit/26d8c9b))
@@ -63,18 +79,10 @@ All notable changes to this project will be documented in this file.
 - **concerns:** Use JSON_THROW_ON_ERROR in arrayScores method ([3c094a0](https://github.com/guanguans/soar-php/commit/3c094a0))
 - **tests:** Refine parameter checks and improve code clarity ([8e1a1d6](https://github.com/guanguans/soar-php/commit/8e1a1d6))
 
-### Build
+### Builds
 - **dependencies:** Refactor dependency exclusions and requirements ([a99bc4d](https://github.com/guanguans/soar-php/commit/a99bc4d))
 
-### CI
-- **baselines:** Add new baseline files for error tracking ([52e5932](https://github.com/guanguans/soar-php/commit/52e5932))
-- **composer:** Update dev-master branch alias to 6.x-dev ([8ab10ef](https://github.com/guanguans/soar-php/commit/8ab10ef))
-- **config:** Remove disallowed.function.neon and clean loader ([3203690](https://github.com/guanguans/soar-php/commit/3203690))
-- **config:** Update .gitattributes and remove psalm workflow ([85a6069](https://github.com/guanguans/soar-php/commit/85a6069))
-- **issue-template:** Add bug report and config templates ([be6ac88](https://github.com/guanguans/soar-php/commit/be6ac88))
-- **workflows:** Upgrade PHP version to 8.0 in workflows and docs ([0af6eaa](https://github.com/guanguans/soar-php/commit/0af6eaa))
-
-### Code Refactoring
+### Code Refactorings
 - Remove array_reduce_with_keys function and simplify code ([786aeb2](https://github.com/guanguans/soar-php/commit/786aeb2))
 - Remove unused escape_argument function calls ([62beb5e](https://github.com/guanguans/soar-php/commit/62beb5e))
 - Replace str_camel with IlluminateSupportStr methods ([4e5257e](https://github.com/guanguans/soar-php/commit/4e5257e))
@@ -102,7 +110,15 @@ All notable changes to this project will be documented in this file.
 - **support:** Rename dump scripts and improve config handling ([5a80f62](https://github.com/guanguans/soar-php/commit/5a80f62))
 - **tests:** Remove obsolete options.full.php reference ([ccf4123](https://github.com/guanguans/soar-php/commit/ccf4123))
 
-### Docs
+### Continuous Integrations
+- **baselines:** Add new baseline files for error tracking ([52e5932](https://github.com/guanguans/soar-php/commit/52e5932))
+- **composer:** Update dev-master branch alias to 6.x-dev ([8ab10ef](https://github.com/guanguans/soar-php/commit/8ab10ef))
+- **config:** Remove disallowed.function.neon and clean loader ([3203690](https://github.com/guanguans/soar-php/commit/3203690))
+- **config:** Update .gitattributes and remove psalm workflow ([85a6069](https://github.com/guanguans/soar-php/commit/85a6069))
+- **issue-template:** Add bug report and config templates ([be6ac88](https://github.com/guanguans/soar-php/commit/be6ac88))
+- **workflows:** Upgrade PHP version to 8.0 in workflows and docs ([0af6eaa](https://github.com/guanguans/soar-php/commit/0af6eaa))
+
+### Documents
 - **README:** Update version option methods in examples ([4c36da5](https://github.com/guanguans/soar-php/commit/4c36da5))
 
 ### Features
@@ -126,13 +142,13 @@ All notable changes to this project will be documented in this file.
 
 <a name="5.1.1"></a>
 ## [5.1.1] - 2025-03-24
-### Build
+### Builds
 - **dependencies:** Update PHP dependencies in composer.json ([b2b39b9](https://github.com/guanguans/soar-php/commit/b2b39b9))
 
 
 <a name="5.1.0"></a>
 ## [5.1.0] - 2025-02-05
-### Build
+### Builds
 - **dependencies:** Upgrade phpstan-disallowed-calls and psalm ([425c45a](https://github.com/guanguans/soar-php/commit/425c45a))
 
 ### Features
@@ -144,16 +160,16 @@ All notable changes to this project will be documented in this file.
 
 <a name="5.0.3"></a>
 ## [5.0.3] - 2025-01-16
-### Code Refactoring
+### Code Refactorings
 - **WithRunable:** Simplify sudo password handling ([4d2a7ca](https://github.com/guanguans/soar-php/commit/4d2a7ca))
 
-### Docs
+### Documents
 - **README:** Update badges for CI and versioning ([4af0217](https://github.com/guanguans/soar-php/commit/4af0217))
 
 
 <a name="5.0.2"></a>
 ## [5.0.2] - 2025-01-16
-### CI
+### Continuous Integrations
 - **formatting:** Fix formatting issues in .php-cs-fixer.php, examples/soar.options.docblock.php, and src/Support/ComposerScript.php ([cb13eec](https://github.com/guanguans/soar-php/commit/cb13eec))
 
 ### Performance Improvements
@@ -162,11 +178,11 @@ All notable changes to this project will be documented in this file.
 
 <a name="5.0.1"></a>
 ## [5.0.1] - 2025-01-16
-### CI
-- **composer-updater:** Fix PHPStan errors and update dependencies ([d34f96f](https://github.com/guanguans/soar-php/commit/d34f96f))
-
-### Code Refactoring
+### Code Refactorings
 - **escape-arg:** Refactor EscapeArg class ([4b13e60](https://github.com/guanguans/soar-php/commit/4b13e60))
+
+### Continuous Integrations
+- **composer-updater:** Fix PHPStan errors and update dependencies ([d34f96f](https://github.com/guanguans/soar-php/commit/d34f96f))
 
 ### Features
 - **ConcreteMagic:** add serialization and unserialization methods ([281ea2c](https://github.com/guanguans/soar-php/commit/281ea2c))
@@ -182,10 +198,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="5.0.0"></a>
 ## [5.0.0] - 2025-01-16
-### Build
+### Builds
 - Update .gitignore, add .php-cs-fixer-dist.php, and modify composer.json, phpstan.neon, phpunit.xml.dist, psalm.xml.dist, rector.php ([3ce0cde](https://github.com/guanguans/soar-php/commit/3ce0cde))
 
-### CI
+### Continuous Integrations
 - apply rector ([54e7c79](https://github.com/guanguans/soar-php/commit/54e7c79))
 - apply php-cs-fixer ([666e9ee](https://github.com/guanguans/soar-php/commit/666e9ee))
 - apply php-cs-fixer ([cb41001](https://github.com/guanguans/soar-php/commit/cb41001))
@@ -197,7 +213,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.2.6"></a>
 ## [4.2.6] - 2025-01-15
-### CI
+### Continuous Integrations
 - **composer:** Update dependencies ([8f15583](https://github.com/guanguans/soar-php/commit/8f15583))
 
 ### Pull Requests
@@ -221,10 +237,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.2.2"></a>
 ## [4.2.2] - 2024-07-16
-### Build
+### Builds
 - **composer.json:** update composer-git-hooks and rector versions ([1ea79b5](https://github.com/guanguans/soar-php/commit/1ea79b5))
 
-### CI
+### Continuous Integrations
 - **release:** Add StaticClosureRector and update rules ([7d23e06](https://github.com/guanguans/soar-php/commit/7d23e06))
 
 ### Pull Requests
@@ -239,7 +255,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.2.0"></a>
 ## [4.2.0] - 2024-04-23
-### Code Refactoring
+### Code Refactorings
 - **HasSoarBinary:** rename getDefaultSoarBinary to defaultSoarBinary ([6e66c0f](https://github.com/guanguans/soar-php/commit/6e66c0f))
 - **debug:** improve debug info handling ([ab5a04b](https://github.com/guanguans/soar-php/commit/ab5a04b))
 
@@ -258,7 +274,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.1.0"></a>
 ## [4.1.0] - 2024-02-22
-### Code Refactoring
+### Code Refactorings
 - **src:** Improve __debugInfo method ([46c38c7](https://github.com/guanguans/soar-php/commit/46c38c7))
 
 ### Pull Requests
@@ -272,7 +288,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 - **HasSudoPassword:** Update shouldApplySudoPassword condition ([4de799b](https://github.com/guanguans/soar-php/commit/4de799b))
 
-### Code Refactoring
+### Code Refactorings
 - **config:** update PHPUnit set and add new rule ([56fea1d](https://github.com/guanguans/soar-php/commit/56fea1d))
 
 ### Pull Requests
@@ -282,10 +298,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.0.2"></a>
 ## [4.0.2] - 2024-01-16
-### Code Refactoring
+### Code Refactorings
 - **concerns:** improve magic methods ([361cc04](https://github.com/guanguans/soar-php/commit/361cc04))
 
-### Docs
+### Documents
 - Update README.md and README-zh_CN.md ([7f6209a](https://github.com/guanguans/soar-php/commit/7f6209a))
 
 ### Features
@@ -305,14 +321,14 @@ All notable changes to this project will be documented in this file.
 
 <a name="4.0.0"></a>
 ## [4.0.0] - 2024-01-15
-### Code Refactoring
+### Code Refactorings
 - rename SoarPath -> SoarBinary ([434846c](https://github.com/guanguans/soar-php/commit/434846c))
 - **WithRunable:** remove deprecated exec method ([5819542](https://github.com/guanguans/soar-php/commit/5819542))
 
 
 <a name="3.5.0"></a>
 ## [3.5.0] - 2024-01-15
-### Code Refactoring
+### Code Refactorings
 - **monorepo-builder:** update release workers ([b721225](https://github.com/guanguans/soar-php/commit/b721225))
 
 ### Pull Requests
@@ -327,7 +343,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 - **HasOptions:** handle callable values in normalizeOption ([2a4215d](https://github.com/guanguans/soar-php/commit/2a4215d))
 
-### Code Refactoring
+### Code Refactorings
 - **coding-style:** remove UnSpreadOperatorRector ([e896c23](https://github.com/guanguans/soar-php/commit/e896c23))
 
 ### Pull Requests
@@ -354,7 +370,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 - **Concerns:** Fix InvalidOptionException in ConcreteMagic trait ([8377e5c](https://github.com/guanguans/soar-php/commit/8377e5c))
 
-### Code Refactoring
+### Code Refactorings
 - **WithRunable:** simplify process tapper logic ([df9f828](https://github.com/guanguans/soar-php/commit/df9f828))
 
 
@@ -371,7 +387,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="v3.3.4"></a>
 ## [v3.3.4] - 2023-07-16
-### Code Refactoring
+### Code Refactorings
 - **HasOptions:** update onlyOptions method ([a7ce8a3](https://github.com/guanguans/soar-php/commit/a7ce8a3))
 
 
@@ -380,7 +396,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 - **HasSoarPath:** Add getEscapedSoarPath method ([ec38dfe](https://github.com/guanguans/soar-php/commit/ec38dfe))
 
-### Code Refactoring
+### Code Refactorings
 - **HasOptions:** change access modifiers of methods ([22bf483](https://github.com/guanguans/soar-php/commit/22bf483))
 - **HasOptions:** rename method getSerializedEscapedNormalizedOptions to getHydratedEscapedNormalizedOptions ([b2b10b7](https://github.com/guanguans/soar-php/commit/b2b10b7))
 
@@ -393,17 +409,17 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 - **workflows:** update php-cs-fixer workflow ([e6fd9f6](https://github.com/guanguans/soar-php/commit/e6fd9f6))
 
-### Code Refactoring
+### Code Refactorings
 - **HasOptions:** update getSerializedEscapedNormalizedOptions method ([231149d](https://github.com/guanguans/soar-php/commit/231149d))
 - **rector:** remove unused imports and update rules ([37513d6](https://github.com/guanguans/soar-php/commit/37513d6))
 
 
 <a name="v3.3.1"></a>
 ## [v3.3.1] - 2023-07-14
-### Code Refactoring
+### Code Refactorings
 - **HasSudoPassword:** improve escaping of sudo password ([89fff21](https://github.com/guanguans/soar-php/commit/89fff21))
 
-### Docs
+### Documents
 - **README.md:** add section for fatal error and its fix ([55def24](https://github.com/guanguans/soar-php/commit/55def24))
 
 ### Features
@@ -412,7 +428,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="v3.3.0"></a>
 ## [v3.3.0] - 2023-07-14
-### Code Refactoring
+### Code Refactorings
 - **concerns:** update getEscapeSudoPassword method ([9ba70bc](https://github.com/guanguans/soar-php/commit/9ba70bc))
 - **concerns:** update shouldApplySudoPassword logic ([d205948](https://github.com/guanguans/soar-php/commit/d205948))
 - **sudo:** move sudo password related methods to trait ([c7daecd](https://github.com/guanguans/soar-php/commit/c7daecd))
@@ -594,7 +610,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="v2.2.4"></a>
 ## [v2.2.4] - 2021-09-27
-### Docs
+### Documents
 - update .all-contributorsrc [skip ci] ([d382662](https://github.com/guanguans/soar-php/commit/d382662))
 - update README-EN.md [skip ci] ([d6f4a1b](https://github.com/guanguans/soar-php/commit/d6f4a1b))
 - update README.md [skip ci] ([721c5f9](https://github.com/guanguans/soar-php/commit/721c5f9))
@@ -624,10 +640,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="v2.1.1"></a>
 ## [v2.1.1] - 2021-04-29
-### Build
+### Builds
 - Update composer.json ([c54227e](https://github.com/guanguans/soar-php/commit/c54227e))
 
-### Docs
+### Documents
 - Update README.md ([1b8a238](https://github.com/guanguans/soar-php/commit/1b8a238))
 - Update README.md ([808d67a](https://github.com/guanguans/soar-php/commit/808d67a))
 
@@ -638,10 +654,10 @@ All notable changes to this project will be documented in this file.
 
 <a name="v2.1.0"></a>
 ## [v2.1.0] - 2021-04-25
-### CI
+### Continuous Integrations
 - Add php-cs-fixer、psalm、cghooks ([1ba0932](https://github.com/guanguans/soar-php/commit/1ba0932))
 
-### Docs
+### Documents
 - Update README.md ([2429522](https://github.com/guanguans/soar-php/commit/2429522))
 
 ### Tests
@@ -672,7 +688,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="v2.0.0"></a>
 ## [v2.0.0] - 2020-01-21
-### Docs
+### Documents
 - add huangdijia as a contributor ([#15](https://github.com/guanguans/soar-php/issues/15)) ([2f67ceb](https://github.com/guanguans/soar-php/commit/2f67ceb))
 - update .all-contributorsrc ([d9ac7ca](https://github.com/guanguans/soar-php/commit/d9ac7ca))
 - update README-EN.md ([f9050b3](https://github.com/guanguans/soar-php/commit/f9050b3))
@@ -687,7 +703,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="v1.1.3"></a>
 ## [v1.1.3] - 2019-08-24
-### Docs
+### Documents
 - add leslieeilsel as a contributor ([#11](https://github.com/guanguans/soar-php/issues/11)) ([7ff8f98](https://github.com/guanguans/soar-php/commit/7ff8f98))
 - update .all-contributorsrc ([cd44ca8](https://github.com/guanguans/soar-php/commit/cd44ca8))
 - update README.md ([03cd69c](https://github.com/guanguans/soar-php/commit/03cd69c))
@@ -711,7 +727,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.3...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/6.0.4...HEAD
+[6.0.4]: https://github.com/guanguans/soar-php/compare/6.0.3...6.0.4
 [6.0.3]: https://github.com/guanguans/soar-php/compare/6.0.2...6.0.3
 [6.0.2]: https://github.com/guanguans/soar-php/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/guanguans/soar-php/compare/6.0.0...6.0.1
