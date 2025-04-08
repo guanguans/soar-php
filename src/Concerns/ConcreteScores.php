@@ -62,6 +62,8 @@ trait ConcreteScores
     }
 
     /**
+     * @todo  $sqls -> $queries
+     *
      * @param list<string>|string $sqls
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
