@@ -43,7 +43,7 @@ trait HasSoarBinary
         return $this;
     }
 
-    protected function defaultSoarBinary(): string
+    public function defaultSoarBinary(): string
     {
         if (OS::isWindows()) {
             return __DIR__.'/../../bin/soar.windows-amd64';

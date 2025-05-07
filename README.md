@@ -28,7 +28,7 @@
 ## Installation
 
 ```shell
-composer require guanguans/soar-php --ansi -v
+composer require guanguans/soar-php --prefer-source --ansi -v
 ```
 
 ## Usage
