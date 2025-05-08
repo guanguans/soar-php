@@ -17,6 +17,7 @@ use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\ComposerScripts;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Trait_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
@@ -100,14 +101,20 @@ final class AddHasOptionsDocCommentRector extends AbstractRector
             [
                 'set' => '\Guanguans\SoarPHP\Soar set{method}({type} ${name}) // {description}',
                 'with' => '\Guanguans\SoarPHP\Soar with{method}({type} ${name}) // {description}',
+                'get' => '{type} get{method}(mixed $default = null) // {description}',
                 'only' => '\Guanguans\SoarPHP\Soar only{method}() // {description}',
                 'except' => '\Guanguans\SoarPHP\Soar except{method}() // {description}',
-            ] as $template
+            ] as $action => $template
         ) {
             foreach ($options as $option) {
                 $replacer = [
                     '{method}' => Str::studly($option['name']),
-                    '{type}' => $option['type'],
+                    '{type}' => str($option['type'])
+                        ->when(
+                            'get' === $action,
+                            static fn (Stringable $stringable): Stringable => $stringable->start('null|')
+                        )
+                        ->toString(),
                     '{name}' => Str::camel($option['name']),
                     '{description}' => $option['description'],
                 ];

@@ -1,13 +1,8 @@
-# total 2 errors
+# total 1 error
 
 parameters:
     ignoreErrors:
         -
             message: '#^Parameters should have "array" types as the only types passed to this method$#'
-            count: 1
-            path: ../src/Soar.php
-
-        -
-            message: '#^Parameters should have "string\|string\|null" types as the only types passed to this method$#'
             count: 1
             path: ../src/Soar.php

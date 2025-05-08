@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection LongLine */
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 
 declare(strict_types=1);
@@ -172,6 +173,82 @@ use function Guanguans\SoarPHP\Support\str_snake;
  * @method \Guanguans\SoarPHP\Soar withUniqueKeyPrefix(string $uniqueKeyPrefix) // UkPrefix (default "uk_")
  * @method \Guanguans\SoarPHP\Soar withVerbose(bool $verbose) // Verbose
  * @method \Guanguans\SoarPHP\Soar withVersion(null|bool $version) // Print version info
+ * @method null|string getConfig(mixed $default = null) // Config file path
+ * @method null|array|string getTestDsn(mixed $default = null) // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method null|array|string getOnlineDsn(mixed $default = null) // OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
+ * @method null|bool getAllowOnlineAsTest(mixed $default = null) // AllowOnlineAsTest, 允许线上环境也可以当作测试环境
+ * @method null|string getBlacklist(mixed $default = null) // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
+ * @method null|bool getExplain(mixed $default = null) // Explain, 是否开启Explain执行计划分析 (default true)
+ * @method null|array|string getIgnoreRules(mixed $default = null) // IgnoreRules, 忽略的优化建议规则 (default "COL.011")
+ * @method null|int getLogLevel(mixed $default = null) // LogLevel, 日志级别, [0:Emergency, 1:Alert, 2:Critical, 3:Error, 4:Warning, 5:Notice, 6:Informational, 7:Debug] (default 3)
+ * @method null|string getLogOutput(mixed $default = null) // LogOutput, 日志输出位置 (default "soar.log")
+ * @method null|string getReportType(mixed $default = null) // ReportType, 优化建议输出格式，目前支持: json, text, markdown, html等 (default "markdown")
+ * @method null|array|string getAllowCharsets(mixed $default = null) // AllowCharsets (default "utf8,utf8mb4")
+ * @method null|array|string getAllowCollates(mixed $default = null) // AllowCollates
+ * @method null|bool getAllowDropIndex(mixed $default = null) // AllowDropIndex, 允许输出删除重复索引的建议
+ * @method null|array|string getAllowEngines(mixed $default = null) // AllowEngines (default "innodb")
+ * @method null|bool getCheckConfig(mixed $default = null) // Check configs
+ * @method null|bool getCleanupTestDatabase(mixed $default = null) // 单次运行清理历史1小时前残余的测试库。
+ * @method null|array|string getColumnNotAllowType(mixed $default = null) // ColumnNotAllowType (default "boolean")
+ * @method null|string getDelimiter(mixed $default = null) // Delimiter, SQL分隔符 (default ";")
+ * @method null|bool getDropTestTemporary(mixed $default = null) // DropTestTemporary, 是否清理测试环境产生的临时库表 (default true)
+ * @method null|bool getDryRun(mixed $default = null) // 是否在预演环境执行 (default true)
+ * @method null|string getExplainFormat(mixed $default = null) // ExplainFormat [json, traditional] (default "traditional")
+ * @method null|float|int getExplainMaxFiltered(mixed $default = null) // ExplainMaxFiltered, filtered大于该配置给出警告 (default 100)
+ * @method null|int getExplainMaxKeys(mixed $default = null) // ExplainMaxKeyLength, 最大key_len (default 3)
+ * @method null|int getExplainMaxRows(mixed $default = null) // ExplainMaxRows, 最大扫描行数警告 (default 10000)
+ * @method null|int getExplainMinKeys(mixed $default = null) // ExplainMinPossibleKeys, 最小possible_keys警告
+ * @method null|string getExplainSqlReportType(mixed $default = null) // ExplainSQLReportType [pretty, sample, fingerprint] (default "pretty")
+ * @method null|string getExplainType(mixed $default = null) // ExplainType [extended, partitions, traditional] (default "extended")
+ * @method null|array|string getExplainWarnAccessType(mixed $default = null) // ExplainWarnAccessType, 哪些access type不建议使用 (default "ALL")
+ * @method null|array|string getExplainWarnExtra(mixed $default = null) // ExplainWarnExtra, 哪些extra信息会给警告 (default "Using temporary,Using filesort")
+ * @method null|array|string getExplainWarnScalability(mixed $default = null) // ExplainWarnScalability, 复杂度警告名单, 支持O(n),O(log n),O(1),O(?) (default "O(n)")
+ * @method null|array|string getExplainWarnSelectType(mixed $default = null) // ExplainWarnSelectType, 哪些select_type不建议使用
+ * @method null|bool getHelp(mixed $default = null) // Help
+ * @method null|string getIndexPrefix(mixed $default = null) // IdxPrefix (default "idx_")
+ * @method null|bool getListHeuristicRules(mixed $default = null) // ListHeuristicRules, 打印支持的评审规则列表
+ * @method null|bool getListReportTypes(mixed $default = null) // ListReportTypes, 打印支持的报告输出类型
+ * @method null|bool getListRewriteRules(mixed $default = null) // ListRewriteRules, 打印支持的重写规则列表
+ * @method null|bool getListTestSqls(mixed $default = null) // ListTestSqls, 打印测试case用于测试
+ * @method null|bool getLogErrStacks(mixed $default = null) // log stack traces for errors
+ * @method null|int|string getLogRotateMaxSize(mixed $default = null) // size in bytes at which logs are rotated (glog.MaxSize) (default 1887436800)
+ * @method null|int getMarkdownExtensions(mixed $default = null) // MarkdownExtensions, markdown 转 html支持的扩展包, 参考blackfriday (default 94)
+ * @method null|int getMarkdownHtmlFlags(mixed $default = null) // MarkdownHTMLFlags, markdown 转 html 支持的 flag, 参考blackfriday
+ * @method null|int getMaxColumnCount(mixed $default = null) // MaxColCount, 单表允许的最大列数 (default 40)
+ * @method null|int getMaxDistinctCount(mixed $default = null) // MaxDistinctCount, 单条 SQL 中 Distinct 的最大数量 (default 5)
+ * @method null|int getMaxGroupByColsCount(mixed $default = null) // MaxGroupByColsCount, 单条 SQL 中 GroupBy 包含列的最大数量 (default 5)
+ * @method null|int getMaxInCount(mixed $default = null) // MaxInCount, IN()最大数量 (default 10)
+ * @method null|int getMaxIndexBytes(mixed $default = null) // MaxIdxBytes, 索引总长度限制 (default 3072)
+ * @method null|int getMaxIndexBytesPercolumn(mixed $default = null) // MaxIdxBytesPerColumn, 索引中单列最大字节数 (default 767)
+ * @method null|int getMaxIndexColsCount(mixed $default = null) // MaxIdxColsCount, 复合索引中包含列的最大数量 (default 5)
+ * @method null|int getMaxIndexCount(mixed $default = null) // MaxIdxCount, 单表最大索引个数 (default 10)
+ * @method null|int getMaxJoinTableCount(mixed $default = null) // MaxJoinTableCount, 单条 SQL 中 JOIN 表的最大数量 (default 5)
+ * @method null|int getMaxPrettySqlLength(mixed $default = null) // MaxPrettySQLLength, 超出该长度的SQL会转换成指纹输出 (default 1024)
+ * @method null|int getMaxQueryCost(mixed $default = null) // MaxQueryCost, last_query_cost 超过该值时将给予警告 (default 9999)
+ * @method null|int getMaxSubqueryDepth(mixed $default = null) // MaxSubqueryDepth (default 5)
+ * @method null|int getMaxTextColsCount(mixed $default = null) // MaxTextColsCount, 表中含有的 text/blob 列的最大数量 (default 2)
+ * @method null|int getMaxTotalRows(mixed $default = null) // MaxTotalRows, 计算散粒度时，当数据行数大于MaxTotalRows即开启数据库保护模式，不计算散粒度 (default 9999999)
+ * @method null|int getMaxValueCount(mixed $default = null) // MaxValueCount, INSERT/REPLACE 单次批量写入允许的行数 (default 100)
+ * @method null|int getMaxVarcharLength(mixed $default = null) // MaxVarcharLength (default 1024)
+ * @method null|float|int getMinCardinality(mixed $default = null) // MinCardinality，索引列散粒度最低阈值，散粒度低于该值的列不添加索引，建议范围0.0 ~ 100.0
+ * @method null|bool getOnlySyntaxCheck(mixed $default = null) // OnlySyntaxCheck, 只做语法检查不输出优化建议
+ * @method null|bool getPrintConfig(mixed $default = null) // Print configs
+ * @method null|bool getProfiling(mixed $default = null) // Profiling, 开启数据采样的情况下在测试环境执行Profile
+ * @method null|string getQuery(mixed $default = null) // 待评审的 SQL 或 SQL 文件，如 SQL 中包含特殊字符建议使用文件名。
+ * @method null|string getReportCss(mixed $default = null) // ReportCSS, 当 ReportType 为 html 格式时使用的 css 风格，如不指定会提供一个默认风格。CSS可以是本地文件，也可以是一个URL
+ * @method null|string getReportJavascript(mixed $default = null) // ReportJavascript, 当 ReportType 为 html 格式时使用的javascript脚本，如不指定默认会加载SQL pretty 使用的 javascript。像CSS一样可以是本地文件，也可以是一个URL
+ * @method null|string getReportTitle(mixed $default = null) // ReportTitle, 当 ReportType 为 html 格式时，HTML 的 title (default "SQL优化分析报告")
+ * @method null|array|string getRewriteRules(mixed $default = null) // RewriteRules, 生效的重写规则 (default "delimiter,orderbynull,groupbyconst,dmlorderby,having,star2columns,insertcolumns,distinctstar")
+ * @method null|bool getSampling(mixed $default = null) // Sampling, 数据采样开关
+ * @method null|string getSamplingCondition(mixed $default = null) // SamplingCondition, 数据采样条件，如： WHERE xxx LIMIT xxx
+ * @method null|int getSamplingStatisticTarget(mixed $default = null) // SamplingStatisticTarget, 数据采样因子，对应 PostgreSQL 的 default_statistics_target (default 100)
+ * @method null|bool getShowLastQueryCost(mixed $default = null) // ShowLastQueryCost
+ * @method null|bool getShowWarnings(mixed $default = null) // ShowWarnings
+ * @method null|int getSpaghettiQueryLength(mixed $default = null) // SpaghettiQueryLength, SQL最大长度警告，超过该长度会给警告 (default 2048)
+ * @method null|bool getTrace(mixed $default = null) // Trace, 开启数据采样的情况下在测试环境执行Trace
+ * @method null|string getUniqueKeyPrefix(mixed $default = null) // UkPrefix (default "uk_")
+ * @method null|bool getVerbose(mixed $default = null) // Verbose
+ * @method null|bool getVersion(mixed $default = null) // Print version info
  * @method \Guanguans\SoarPHP\Soar onlyConfig() // Config file path
  * @method \Guanguans\SoarPHP\Soar onlyTestDsn() // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
  * @method \Guanguans\SoarPHP\Soar onlyOnlineDsn() // OnlineDSN, 线上环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
@@ -337,7 +414,7 @@ trait HasOptions
      */
     public function __call(string $method, array $arguments): mixed
     {
-        foreach (['set', 'with', 'only', 'except'] as $prefix) {
+        foreach (['set', 'with', 'get', 'only', 'except'] as $prefix) {
             if (str_starts_with($method, $prefix)) {
                 $name = '-'.str_snake(substr($method, \strlen($prefix)), '-');
                 $actionMethod = $prefix.'Option';
@@ -382,11 +459,6 @@ trait HasOptions
         $this->options = array_merge($this->options, $options);
 
         return $this;
-    }
-
-    public function getDelimiter(string $default = ';'): string
-    {
-        return $this->getOption('-delimiter', $default);
     }
 
     public function getOption(string $name, mixed $default = null): mixed

@@ -71,7 +71,7 @@ trait ConcreteScores
     public function scores(array|string $sqls): string
     {
         if (\is_array($sqls)) {
-            $sqls = implode($this->getDelimiter(), $sqls);
+            $sqls = implode($this->getDelimiter(';'), $sqls);
         }
 
         return $this->clone()->withQuery($sqls)->run();

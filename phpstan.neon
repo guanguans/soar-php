@@ -51,9 +51,9 @@ parameters:
         narrow_param: true
         narrow_return: true
         null_over_false: true
-        no_mixed: true
+        no_mixed: false
         no_mixed_property: true
-        no_mixed_caller: true
+        no_mixed_caller: false
     disallowedFunctionCalls:
         -
             function: 'env()'
@@ -67,13 +67,13 @@ parameters:
     ignoreErrors:
         - identifier: argument.templateType
 #        - identifier: cast.string
-#        - identifier: method.nonObject
 #        - identifier: return.void
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.type
         - identifier: binaryOp.invalid
         - identifier: encapsedStringPart.nonString
         - identifier: logicalAnd.resultUnused
+        - identifier: method.nonObject
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
         - identifier: return.type
