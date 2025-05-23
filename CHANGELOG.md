@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.2.0"></a>
+## [6.2.0] - 2025-05-23
+### ✨ Features
+- **soar:** Add callback parameter to scores, help, and version ([2cbad1e](https://github.com/guanguans/soar-php/commit/2cbad1e))
+
+### Pull Requests
+- Merge pull request [#174](https://github.com/guanguans/soar-php/issues/174) from guanguans/dependabot/github_actions/dependabot/fetch-metadata-2.4.0
+
+
 <a name="6.1.0"></a>
 ## [6.1.0] - 2025-05-08
 ### ✨ Features
@@ -744,7 +753,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/6.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/6.2.0...HEAD
+[6.2.0]: https://github.com/guanguans/soar-php/compare/6.1.0...6.2.0
 [6.1.0]: https://github.com/guanguans/soar-php/compare/6.0.4...6.1.0
 [6.0.4]: https://github.com/guanguans/soar-php/compare/6.0.3...6.0.4
 [6.0.3]: https://github.com/guanguans/soar-php/compare/6.0.2...6.0.3
