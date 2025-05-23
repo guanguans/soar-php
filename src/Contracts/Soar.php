@@ -22,10 +22,17 @@ interface Soar
 
     /**
      * @param list<string>|string $sqls
+     * @param null|callable(string, string): void $callback
      */
-    public function scores(array|string $sqls): string;
+    public function scores(array|string $sqls, ?callable $callback = null): string;
 
-    public function help(): string;
+    /**
+     * @param null|callable(string, string): void $callback
+     */
+    public function help(?callable $callback = null): string;
 
-    public function version(): string;
+    /**
+     * @param null|callable(string, string): void $callback
+     */
+    public function version(?callable $callback = null): string;
 }

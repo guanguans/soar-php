@@ -43,11 +43,12 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function help(): string
+    public function help(?callable $callback = null): string
     {
         return $this->clone()->setHelp(true)->run(
-            static function (string $type, string $line) use (&$errorOutput): void {
+            static function (string $type, string $line) use (&$errorOutput, $callback): void {
                 Process::ERR === $type and $errorOutput .= $line;
+                $callback and $callback($type, $line);
             }
         ) ?: $errorOutput;
     }
@@ -55,9 +56,9 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function version(): string
+    public function version(?callable $callback = null): string
     {
-        return $this->clone()->setVersion(true)->run();
+        return $this->clone()->setVersion(true)->run($callback);
     }
 
     public function clone(): self

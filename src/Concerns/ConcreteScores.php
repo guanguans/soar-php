@@ -68,12 +68,12 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function scores(array|string $sqls): string
+    public function scores(array|string $sqls, ?callable $callback = null): string
     {
         if (\is_array($sqls)) {
             $sqls = implode($this->getDelimiter(';'), $sqls);
         }
 
-        return $this->clone()->withQuery($sqls)->run();
+        return $this->clone()->withQuery($sqls)->run($callback);
     }
 }
