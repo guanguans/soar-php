@@ -8,6 +8,22 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="6.3.0"></a>
+## [6.3.0] - 2025-11-21
+### 💅 Code Refactorings
+- **docs:** Improve PHPDoc comments and code style ([ff744b1](https://github.com/guanguans/soar-php/commit/ff744b1))
+
+### 📦 Builds
+- **deps:** update development dependencies in composer.json ([5eccbb7](https://github.com/guanguans/soar-php/commit/5eccbb7))
+
+### Pull Requests
+- Merge pull request [#180](https://github.com/guanguans/soar-php/issues/180) from guanguans/dependabot/github_actions/stefanzweifel/git-auto-commit-action-7
+- Merge pull request [#181](https://github.com/guanguans/soar-php/issues/181) from guanguans/dependabot/github_actions/actions/setup-node-6
+- Merge pull request [#182](https://github.com/guanguans/soar-php/issues/182) from guanguans/dependabot/github_actions/actions/checkout-6
+- Merge pull request [#176](https://github.com/guanguans/soar-php/issues/176) from guanguans/dependabot/github_actions/actions/checkout-5
+- Merge pull request [#175](https://github.com/guanguans/soar-php/issues/175) from guanguans/dependabot/github_actions/stefanzweifel/git-auto-commit-action-6
+
+
 <a name="6.2.0"></a>
 ## [6.2.0] - 2025-05-23
 ### ✨ Features
@@ -753,7 +769,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/6.2.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/6.3.0...HEAD
+[6.3.0]: https://github.com/guanguans/soar-php/compare/6.2.0...6.3.0
 [6.2.0]: https://github.com/guanguans/soar-php/compare/6.1.0...6.2.0
 [6.1.0]: https://github.com/guanguans/soar-php/compare/6.0.4...6.1.0
 [6.0.4]: https://github.com/guanguans/soar-php/compare/6.0.3...6.0.4
