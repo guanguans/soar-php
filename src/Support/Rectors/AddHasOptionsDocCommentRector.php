@@ -90,7 +90,7 @@ final class AddHasOptionsDocCommentRector extends AbstractRector
          * @var array<string, array{
          *     name: string,
          *     type: string,
-         *     default: string|null,
+         *     default: null|string,
          *     description: string,
          * }> $options
          */

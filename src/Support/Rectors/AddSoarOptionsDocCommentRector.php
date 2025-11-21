@@ -97,12 +97,12 @@ final class AddSoarOptionsDocCommentRector extends AbstractRector
         /**
          * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
          *
-         * @var array{
+         * @var null|array{
          *     name: string,
          *     type: string,
-         *     default: string|null,
+         *     default: null|string,
          *     description: string,
-         * }|null $help
+         * } $help
          */
         $help = $soarHelp->get($this->valueResolver->getValue($node->key));
 

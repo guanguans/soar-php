@@ -503,6 +503,9 @@ trait HasOptions
         return $this;
     }
 
+    /**
+     * @param list<string> $names
+     */
     public function exceptOptions(array $names): self
     {
         foreach ($names as $name) {
