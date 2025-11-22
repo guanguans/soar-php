@@ -35,10 +35,9 @@ final class ComposerScripts
      *
      * @noinspection PhpUnused
      */
-    public static function checkSoarBinary(Event $event): int
+    public static function checkSoarBinary(): int
     {
-        self::requireAutoload($event);
-
+        // self::requireAutoload($event);
         $symfonyStyle = self::makeSymfonyStyle();
 
         foreach ((array) glob(__DIR__.'/../../bin/soar.*-*') as $file) {

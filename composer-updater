@@ -15,6 +15,7 @@ declare(strict_types=1);
 use Composer\InstalledVersions;
 use Illuminate\Support\Str;
 use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -50,7 +51,7 @@ $status = (new SingleCommandApplication)
             $input->getOption('except-dependency-versions'),
             $input->getOption('dry-run'),
             new SymfonyStyle($input, $output),
-            new Differ,
+            new Differ(new UnifiedDiffOutputBuilder("--- Original\n+++ New\n", true)),
         ) {
             private string $composerJsonPath;
             private string $composerJsonContents;
@@ -74,7 +75,6 @@ $status = (new SingleCommandApplication)
                 ?SymfonyStyle $symfonyStyle = null,
                 ?Differ $differ = null
             ) {
-                error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_WARNING);
                 assert_options(\ASSERT_BAIL, 1);
                 \assert((bool) $composerJsonPath);
 
@@ -82,18 +82,10 @@ $status = (new SingleCommandApplication)
                 $this->composerJsonContents = file_get_contents($composerJsonPath);
                 $this->highestComposerBinary = $this->getComposerBinary($composerBinary, $highestPhpBinary);
                 $this->composerBinary = $this->getComposerBinary($composerBinary);
-                $this->exceptPackages = array_merge([
-                    'php',
-                    'ext-*',
-                ], $exceptPackages);
-                $this->exceptDependencyVersions = array_merge([
-                    '\*',
-                    '*-*',
-                    '*@*',
-                    // '*|*',
-                ], $exceptDependencyVersions);
+                $this->exceptPackages = ['ext-*', 'php', 'psr/*', ...$exceptPackages];
+                $this->exceptDependencyVersions = ['\*', '*-*', '*@*', ...$exceptDependencyVersions];
                 $this->symfonyStyle = $symfonyStyle ?? new SymfonyStyle(new ArgvInput, new ConsoleOutput);
-                $this->differ = $differ ?? new Differ;
+                $this->differ = $differ ?? new Differ(new UnifiedDiffOutputBuilder("--- Original\n+++ New\n", true));
             }
 
             /**
@@ -174,11 +166,10 @@ $status = (new SingleCommandApplication)
                     }
 
                     foreach ($value as $package => &$dependencyVersion) {
-                        if (Str::is($this->exceptPackages, $package)) {
-                            continue;
-                        }
-
-                        if (Str::is($this->exceptDependencyVersions, $dependencyVersion)) {
+                        if (
+                            Str::is($this->exceptPackages, $package)
+                            || Str::is($this->exceptDependencyVersions, $dependencyVersion)
+                        ) {
                             continue;
                         }
 
@@ -206,7 +197,7 @@ $status = (new SingleCommandApplication)
                             $output = $this
                                 ->mustRunCommand("$this->highestComposerBinary outdated --format=json --direct --ansi")
                                 ->getOutput(),
-                            strpos($output, '{'.\PHP_EOL)
+                            (int) strpos($output, '{'.\PHP_EOL)
                         ),
                         true,
                         512,
@@ -237,8 +228,8 @@ $status = (new SingleCommandApplication)
             {
                 return \sprintf(
                     '%s %s',
-                    $phpBinary ?? (new PhpExecutableFinder)->find(),
-                    $composerBinary ?? (new ExecutableFinder)->find('composer')
+                    escapeshellarg($phpBinary ?? (new PhpExecutableFinder)->find()),
+                    escapeshellarg((string) ($composerBinary ?? (new ExecutableFinder)->find('composer')))
                 );
             }
 
@@ -252,7 +243,7 @@ $status = (new SingleCommandApplication)
                 ?string $cwd = null,
                 ?array $env = null,
                 mixed $input = null,
-                ?float $timeout = 300
+                ?float $timeout = 600
             ): Process {
                 $additionalOptions = [
                     '--no-interaction',
@@ -260,6 +251,8 @@ $status = (new SingleCommandApplication)
                     '--no-scripts',
                     '--ansi',
                 ];
+
+                $cwd ??= \dirname($this->composerJsonPath);
 
                 $process = \is_string($command)
                     ? Process::fromShellCommandline(\sprintf("$command %s", implode(' ', $additionalOptions)), $cwd, $env, $input, $timeout)
@@ -287,27 +280,14 @@ $status = (new SingleCommandApplication)
 
             private function formatDiff(string $diff): string
             {
-                $lines = explode(
-                    "\n",
-                    $diff,
-                );
-
-                $formatted = array_map(static fn (string $line): string => preg_replace(
-                    [
-                        '/^(\+.*)$/',
-                        '/^(-.*)$/',
-                    ],
-                    [
-                        '<fg=green>$1</>',
-                        '<fg=red>$1</>',
-                    ],
-                    $line,
-                ), $lines);
-
-                return implode(
-                    "\n",
-                    $formatted,
-                );
+                return implode(\PHP_EOL, array_map(
+                    static fn (string $line): string => preg_replace(
+                        ['/^(\+.*)$/', '/^(-.*)$/'],
+                        ['<fg=green>$1</>', '<fg=red>$1</>'],
+                        $line,
+                    ),
+                    explode(\PHP_EOL, $diff)
+                ));
             }
         })();
     })

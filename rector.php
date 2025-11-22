@@ -30,6 +30,7 @@ use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector;
+use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
@@ -147,6 +148,7 @@ return RectorConfig::configure()
         )
     )
     ->withSkip([
+        ChangeOrIfContinueToMultiContinueRector::class,
         DowngradeArraySpreadRector::class,
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
