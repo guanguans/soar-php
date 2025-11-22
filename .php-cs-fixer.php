@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnusedAliasInspection */
+
 declare(strict_types=1);
 
 /**
@@ -19,25 +21,42 @@ use Ergebnis\License\Year;
 use Ergebnis\PhpCsFixer\Config\Factory;
 use Ergebnis\PhpCsFixer\Config\Fixers;
 use Ergebnis\PhpCsFixer\Config\Rules;
-use Ergebnis\PhpCsFixer\Config\RuleSet\Php80;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php81;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixerCustomFixers\Fixer\AbstractFixer;
 
-$license = MIT::text(
-    __DIR__.'/LICENSE',
-    Range::since(
-        Year::fromString('2019'),
-        new DateTimeZone('Asia/Shanghai'),
-    ),
-    Holder::fromString('guanguans<ityaozm@gmail.com>'),
-    Url::fromString('https://github.com/guanguans/soar-php'),
-);
+require __DIR__.'/vendor/autoload.php';
 
-$license->save();
+// putenv('PHP_CS_FIXER_ENFORCE_CACHE=1');
+// putenv('PHP_CS_FIXER_IGNORE_ENV=1');
+putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+putenv('PHP_CS_FIXER_NON_MONOLITHIC=1');
+putenv('PHP_CS_FIXER_PARALLEL=1');
 
-$ruleSet = Php80::create()
-    ->withHeader($license->header())
+return Factory::fromRuleSet(Php81::create()
+    ->withHeader(
+        (static function (): string {
+            $license = MIT::text(
+                __DIR__.'/LICENSE',
+                Range::since(
+                    Year::fromString('2019'),
+                    new DateTimeZone('Asia/Shanghai'),
+                ),
+                Holder::fromString('guanguans<ityaozm@gmail.com>'),
+                Url::fromString('https://github.com/guanguans/soar-php'),
+            );
+
+            $license->save();
+
+            return $license->header();
+        })()
+    )
+    ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(
+        iterator_to_array(new PhpCsFixerCustomFixers\Fixers),
+        static fn (AbstractFixer $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
+            && !\array_key_exists($fixer->getName(), Php81::create()->rules()->toArray())
+    )))
     ->withRules(Rules::fromArray([
         // '@auto' => true,
         // '@auto:risky' => true,
@@ -47,9 +66,9 @@ $ruleSet = Php80::create()
         // '@DoctrineAnnotation' => true,
         // '@PHP7x4Migration' => true,
         // '@PHP7x4Migration:risky' => true,
-        '@PHP8x0Migration' => true,
-        '@PHP8x0Migration:risky' => true,
-        // '@PHP8x1Migration' => true,
+        // '@PHP8x0Migration' => true,
+        // '@PHP8x0Migration:risky' => true,
+        '@PHP8x1Migration' => true,
         // '@PHP8x1Migration:risky' => true,
         // '@PHP8x2Migration' => true,
         // '@PHP8x2Migration:risky' => true,
@@ -63,7 +82,9 @@ $ruleSet = Php80::create()
         // '@PhpCsFixer:risky' => true,
         // '@PHPUnit8x4Migration:risky' => true,
         // '@PHPUnit9x1Migration:risky' => true,
-        // '@PHPUnit10x0Migration:risky' => true,
+        '@PHPUnit10x0Migration:risky' => true,
+    ]))
+    ->withRules(Rules::fromArray([
         'attribute_empty_parentheses' => [
             'use_parentheses' => false,
         ],
@@ -260,41 +281,34 @@ $ruleSet = Php80::create()
         ],
         'static_lambda' => false, // pest
         'static_private_method' => false,
-    ]));
-
-$ruleSet->withCustomFixers(Fixers::fromFixers(
-    ...array_filter(
-        iterator_to_array(new PhpCsFixerCustomFixers\Fixers),
-        static fn (AbstractFixer $fixer): bool => !$fixer instanceof DeprecatedFixerInterface
-            && !\array_key_exists($fixer->getName(), $ruleSet->rules()->toArray())
-    )
-));
-
-return Factory::fromRuleSet($ruleSet)
+    ])))
+    ->setUsingCache(true)
+    ->setCacheFile(__DIR__.'/.build/php-cs-fixer/.php-cs-fixer.cache')
+    ->setUnsupportedPhpVersionAllowed(true)
     ->setFinder(
+        /**
+         * @see https://github.com/laravel/pint/blob/main/app/Commands/DefaultCommand.php
+         * @see https://github.com/laravel/pint/blob/main/app/Factories/ConfigurationFactory.php
+         * @see https://github.com/laravel/pint/blob/main/app/Repositories/ConfigurationJsonRepository.php
+         */
         Finder::create()
-            ->in([
-                __DIR__.'/benchmarks/',
-                __DIR__.'/examples/',
-                __DIR__.'/src/',
-                __DIR__.'/tests/',
-            ])
+            ->in(__DIR__)
             ->exclude([
-                '__snapshots__',
-                'Fixtures',
+                '__snapshots__/',
+                'Fixtures/',
+                'vendor-bin/',
             ])
+            ->notPath([
+                // '/lang\/.*\.json$/',
+            ])
+            ->notName([
+                '/\.blade\.php$/',
+            ])
+            ->ignoreDotFiles(false)
+            ->ignoreUnreadableDirs(false)
+            ->ignoreVCS(true)
+            ->ignoreVCSIgnored(true)
             ->append([
-                ...array_filter(
-                    glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
-                    static fn (string $filename): bool => !\in_array($filename, [
-                        __DIR__.'/.phpstorm.meta.php',
-                        // __DIR__.'/_ide_helper.php',
-                        __DIR__.'/_ide_helper_models.php',
-                    ], true)
-                ),
                 __DIR__.'/composer-updater',
             ])
-    )
-    ->setRiskyAllowed(true)
-    ->setUsingCache(true)
-    ->setCacheFile(__DIR__.'/.build/php-cs-fixer/.php-cs-fixer.cache');
+    );

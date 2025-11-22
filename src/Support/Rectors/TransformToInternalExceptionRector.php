@@ -107,7 +107,7 @@ final class TransformToInternalExceptionRector extends AbstractRector implements
         $file = __DIR__."/../../Exceptions/{$name->getLast()}.php";
 
         /** @noinspection MkdirRaceConditionInspection */
-        is_dir($dir = \dirname($file)) or mkdir($dir, 0755, true);
+        is_dir($dir = \dirname($file)) or mkdir($dir, 0o755, true);
 
         file_put_contents(
             $file,
