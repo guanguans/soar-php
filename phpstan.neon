@@ -71,7 +71,7 @@ parameters:
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.type
         - identifier: binaryOp.invalid
-        - identifier: encapsedStringPart.nonString
+#        - identifier: encapsedStringPart.nonString
         - identifier: logicalAnd.resultUnused
         - identifier: method.nonObject
         - identifier: missingType.generics

@@ -25,6 +25,8 @@ trait ConcreteScores
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      * @throws \JsonException
+     *
+     * @return list<array<string, mixed>>
      */
     public function arrayScores(array|string $sqls, int $depth = 512, int $options = 0): array
     {

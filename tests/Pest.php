@@ -3,13 +3,13 @@
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
-
 /** @noinspection PhpInconsistentReturnPointsInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMultipleClassDeclarationsInspection */
-
 declare(strict_types=1);
 
 /**
@@ -21,10 +21,8 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Composer\Autoload\ClassLoader;
 use Faker\Factory;
 use Guanguans\SoarPHPTests\TestCase;
-use Illuminate\Support\Collection;
 use Pest\Expectation;
 
 uses(TestCase::class)
@@ -64,21 +62,6 @@ expect()->extend('toBetween', fn (int $min, int $max): Expectation => expect($th
 | global functions to help you to reduce the number of lines of code in your test files.
 |
  */
-
-function classes(): Collection
-{
-    static $classes;
-
-    return $classes ??= collect(spl_autoload_functions())
-        ->pipe(static fn (Collection $splAutoloadFunctions): Collection => collect(
-            $splAutoloadFunctions
-                ->firstOrFail(
-                    static fn (mixed $loader): bool => \is_array($loader) && $loader[0] instanceof ClassLoader
-                )[0]
-                ->getClassMap()
-        ))
-        ->keys();
-}
 
 /**
  * @throws ReflectionException

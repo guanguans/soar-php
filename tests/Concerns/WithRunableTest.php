@@ -3,12 +3,12 @@
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
-
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
-
 declare(strict_types=1);
 
 /**
@@ -19,8 +19,6 @@ declare(strict_types=1);
  *
  * @see https://github.com/guanguans/soar-php
  */
-
-namespace Guanguans\SoarPHPTests\Concerns;
 
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;

@@ -47,10 +47,10 @@ trait WithRunable
 
         $process = $this->shouldApplySudoPassword()
             ? new Process(
-                command: array_merge(['sudo', '-S', $this->soarBinary], $normalizedOptions),
+                command: ['sudo', '-S', $this->soarBinary, ...$normalizedOptions],
                 input: $this->getSudoPassword()
             )
-            : new Process(array_merge([$this->soarBinary], $normalizedOptions));
+            : new Process([$this->soarBinary, ...$normalizedOptions]);
 
         if (\is_callable($this->processTapper)) {
             ($this->processTapper)($process);

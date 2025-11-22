@@ -3,11 +3,11 @@
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
-
 /** @noinspection DebugFunctionUsageInspection */
-
 declare(strict_types=1);
 
 /**

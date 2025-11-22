@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-namespace Guanguans\PackageSkeleton\Tests\Benchmark;
+namespace Guanguans\SoarPHPBenchmarks;
 
 use Guanguans\SoarPHP\Soar;
 use PhpBench\Attributes\BeforeMethods;

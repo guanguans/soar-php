@@ -94,6 +94,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Guanguans\\SoarPHPBenchmarks\\": "benchmarks/",
             "Guanguans\\SoarPHPTests\\": "tests/"
         }
     },

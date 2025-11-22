@@ -24,7 +24,7 @@ return RectorConfig::configure()
     ->withPaths([
         __DIR__.'/examples/soar-options.php',
     ])
-    ->withPhpVersion(PhpVersion::PHP_80)
+    ->withPhpVersion(PhpVersion::PHP_81)
     ->withoutParallel()
     // ->withImportNames(importNames: false)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)

@@ -35,8 +35,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddHasOptionsDocCommentRector extends AbstractRector
 {
     public function __construct(
-        private DocBlockUpdater $docBlockUpdater,
-        private PhpDocInfoFactory $phpDocInfoFactory
+        private readonly DocBlockUpdater $docBlockUpdater,
+        private readonly PhpDocInfoFactory $phpDocInfoFactory
     ) {}
 
     /**

@@ -3,9 +3,10 @@
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
-
 declare(strict_types=1);
 
 /**
@@ -86,31 +87,30 @@ it('will throw InvalidOptionException when normalize invalid option', function (
 })->group(__DIR__, __FILE__)->throws(InvalidOptionException::class, 'object');
 
 it('can normalize options', function (): void {
-    $normalizedOptions = (fn (): array => $this->getNormalizedOptions())->call(Soar::make(
-        array_merge(require __DIR__.'/../../examples/soar-options.php', [
-            '-explain-format' => new class {
-                public function __invoke(): string
-                {
-                    return 'traditional';
-                }
-            },
-            '-explain-type' => new class {
-                public function __toString(): string
-                {
-                    return 'extended';
-                }
-            },
-            '-test-dsn' => [
-                'user' => 'you_user',
-                'password' => 'you_password',
-                // 'addr' => '127.0.0.1:3306',
-                'host' => 'you_host',
-                'port' => 'you_port',
-                'schema' => 'you_dbname',
-                'disable' => false,
-            ],
-        ])
-    ));
+    $normalizedOptions = (fn (): array => $this->getNormalizedOptions())->call(Soar::make([
+        ...require __DIR__.'/../../examples/soar-options.php',
+        '-explain-format' => new class {
+            public function __invoke(): string
+            {
+                return 'traditional';
+            }
+        },
+        '-explain-type' => new class {
+            public function __toString(): string
+            {
+                return 'extended';
+            }
+        },
+        '-test-dsn' => [
+            'user' => 'you_user',
+            'password' => 'you_password',
+            // 'addr' => '127.0.0.1:3306',
+            'host' => 'you_host',
+            'port' => 'you_port',
+            'schema' => 'you_dbname',
+            'disable' => false,
+        ],
+    ]));
 
     expect($normalizedOptions)->each->toBeString();
     $this->assertMatchesJsonSnapshot($normalizedOptions);

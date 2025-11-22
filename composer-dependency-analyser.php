@@ -39,6 +39,11 @@ return (new Configuration)
         [ErrorType::SHADOW_DEPENDENCY],
     )
     ->ignoreErrorsOnPackageAndPath(
+        'illuminate/collections',
+        __DIR__.'/src/Support/helpers.php',
+        [ErrorType::SHADOW_DEPENDENCY]
+    )
+    ->ignoreErrorsOnPackageAndPath(
         'symfony/var-dumper',
         __DIR__.'/src/Concerns/WithDumpable.php',
         [ErrorType::DEV_DEPENDENCY_IN_PROD]

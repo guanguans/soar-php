@@ -3,9 +3,10 @@
 /** @noinspection AnonymousFunctionStaticInspection */
 /** @noinspection NullPointerExceptionInspection */
 /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+/** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
-
 declare(strict_types=1);
 
 /**
@@ -30,7 +31,6 @@ use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 #[Small]
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    use Faker;
     use MatchesSnapshots;
     use MockeryPHPUnitIntegration;
     use PHPMock;

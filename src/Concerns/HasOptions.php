@@ -456,7 +456,7 @@ trait HasOptions
      */
     public function withOptions(array $options): self
     {
-        $this->options = array_merge($this->options, $options);
+        $this->options = [...$this->options, ...$options];
 
         return $this;
     }
@@ -627,6 +627,8 @@ trait HasOptions
      * ```
      * user:password@addr/dbname?param1=value1&paramN=valueN
      * ```
+     *
+     * @param array<string, scalar> $dsn
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */

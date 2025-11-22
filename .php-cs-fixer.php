@@ -37,7 +37,7 @@ putenv('PHP_CS_FIXER_PARALLEL=1');
 return Factory::fromRuleSet(Php81::create()
     ->withHeader(
         (static function (): string {
-            $license = MIT::text(
+            $mit = MIT::text(
                 __DIR__.'/LICENSE',
                 Range::since(
                     Year::fromString('2019'),
@@ -47,9 +47,9 @@ return Factory::fromRuleSet(Php81::create()
                 Url::fromString('https://github.com/guanguans/soar-php'),
             );
 
-            $license->save();
+            $mit->save();
 
-            return $license->header();
+            return $mit->header();
         })()
     )
     ->withCustomFixers(Fixers::fromFixers(...$phpCsFixerCustomFixers = array_filter(

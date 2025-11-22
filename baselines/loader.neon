@@ -1,5 +1,7 @@
-# total 3 errors
+# total 4 errors
+
 includes:
+    - callable.nonCallable.neon
     - disallowed.function.neon
     - new.static.neon
     - typePerfect.narrowPublicClassMethodParamType.neon

@@ -28,9 +28,10 @@ trait ConcreteMagic
     //     $this->setOptions($this->options);
     //     $this->setSoarBinary($this->soarBinary);
     // }
-
     /**
      * @since PHP 7.4.0
+     *
+     * @return array<string, mixed>
      */
     public function __serialize(): array
     {
@@ -42,6 +43,8 @@ trait ConcreteMagic
 
     /**
      * @since PHP 7.4.0
+     *
+     * @param array<string, mixed> $data
      */
     public function __unserialize(array $data): void
     {
@@ -56,6 +59,8 @@ trait ConcreteMagic
 
     /**
      * @noinspection MagicMethodsValidityInspection
+     *
+     * @param array<string, mixed> $properties
      */
     public static function __set_state(array $properties): self
     {

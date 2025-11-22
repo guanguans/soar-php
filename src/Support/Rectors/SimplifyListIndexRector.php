@@ -30,7 +30,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SimplifyListIndexRector extends AbstractRector
 {
     public function __construct(
-        private ValueResolver $valueResolver
+        private readonly ValueResolver $valueResolver
     ) {}
 
     /**
