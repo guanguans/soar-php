@@ -172,6 +172,7 @@
             "@composer-dependency-analyser",
             "@test",
             "@phpstan",
+            "@rule-doc-rector-generate",
             "@rector-dry-run"
         ],
         "class-leak": "@php ./vendor/bin/class-leak --ansi -v",
@@ -271,6 +272,12 @@
         "release-minor-dry-run": "@release-minor --dry-run",
         "release-patch": "@release patch",
         "release-patch-dry-run": "@release-patch --dry-run",
+        "rule-doc": [
+            "@putenvs",
+            "$PHP82 rule-doc-generator --ansi -vv"
+        ],
+        "rule-doc-rector-generate": "@rule-doc generate src/Support/Rectors/ --output-file=src/Support/Rectors/rector-rules-overview.md --categorize=rector",
+        "rule-doc-rector-validate": "@rule-doc validate src/Support/Rectors/",
         "sk": "@php ./vendor/bin/swiss-knife --ansi -v",
         "sk-check-commented-code": "@sk check-commented-code ./config ./src --line-limit=5",
         "sk-check-conflicts": "@sk check-conflicts ./config ./src",

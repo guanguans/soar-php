@@ -19,6 +19,7 @@ use PhpParser\Node;
 use PhpParser\Node\ArrayItem;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,7 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @internal
  */
-final class AddSoarOptionsDocCommentRector extends AbstractRector
+final class AddSoarOptionsDocCommentRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function __construct(
         private readonly ValueResolver $valueResolver

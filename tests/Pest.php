@@ -30,7 +30,13 @@ uses(TestCase::class)
     ->beforeEach(function (): void {})
     ->afterEach(function (): void {})
     ->afterAll(function (): void {})
-    ->in(__DIR__, __DIR__.'/Feature', __DIR__.'/Unit');
+    ->in(
+        __DIR__,
+        __DIR__.'/Arch/',
+        __DIR__.'/Feature/',
+        __DIR__.'/Integration/',
+        __DIR__.'/Unit/'
+    );
 /*
 |--------------------------------------------------------------------------
 | Expectations
