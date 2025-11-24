@@ -4,7 +4,6 @@
   bootstrap="vendor/autoload.php"
   cacheResultFile=".build/phpunit/.phpunit.result.cache"
   colors="true"
-  verbose="true"
   xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
 >
   <!--printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"-->
@@ -18,7 +17,7 @@
   </testsuites>
   <source>
     <include>
-      <directory suffix=".php">src/</directory>
+      <directory>src/</directory>
     </include>
     <exclude>
       <directory>src/Support/Rectors/</directory>

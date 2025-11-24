@@ -48,7 +48,7 @@ return RectorConfig::configure()
         __DIR__.'/examples/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
-        __DIR__.'/composer-updater',
+        __DIR__.'/composer-bump',
     ])
     ->withRootFiles()
     ->withAutoloadPaths([
@@ -197,7 +197,7 @@ return RectorConfig::configure()
                     true
                 )
             ),
-            __DIR__.'/composer-updater',
+            __DIR__.'/composer-bump',
         ],
         NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
             __DIR__.'/src/Support/Rectors/',
@@ -208,7 +208,7 @@ return RectorConfig::configure()
             __DIR__.'/src/',
             // __DIR__.'/tests/',
             ...$rootFiles,
-            __DIR__.'/composer-updater',
+            __DIR__.'/composer-bump',
             __DIR__.'/tests/TestCase.php',
         ],
     ]);

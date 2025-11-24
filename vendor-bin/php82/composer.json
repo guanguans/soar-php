@@ -1,0 +1,6 @@
+{
+    "require-dev": {
+        "symplify/monorepo-builder": "^12.0",
+        "guanguans/monorepo-builder-worker": "^2.1"
+    }
+}

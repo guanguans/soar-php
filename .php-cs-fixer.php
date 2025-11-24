@@ -309,6 +309,6 @@ return Factory::fromRuleSet(Php81::create()
             ->ignoreVCS(true)
             ->ignoreVCSIgnored(true)
             ->append([
-                __DIR__.'/composer-updater',
+                __DIR__.'/composer-bump',
             ])
     );

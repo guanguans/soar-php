@@ -22,19 +22,18 @@ return (new Configuration)
         false
     )
     ->addPathsToExclude([
-        __DIR__.'/src/Support/Rectors/',
         __DIR__.'/src/Support/ComposerScripts.php',
+        __DIR__.'/src/Support/Rectors/',
         __DIR__.'/tests/',
     ])
     ->ignoreUnknownClasses([
-        // SensitiveParameter::class,
-        'SensitiveParameter',
+        // '\SensitiveParameter',
     ])
     /** @see \ShipMonk\ComposerDependencyAnalyser\Analyser::CORE_EXTENSIONS */
     ->ignoreErrorsOnExtensions(
         [
-            // 'ext-ctype',
-            // 'ext-mbstring',
+            'ext-ctype',
+            'ext-mbstring',
         ],
         [ErrorType::SHADOW_DEPENDENCY],
     )
@@ -42,6 +41,11 @@ return (new Configuration)
         'illuminate/collections',
         __DIR__.'/src/Support/helpers.php',
         [ErrorType::SHADOW_DEPENDENCY]
+    )
+    ->ignoreErrorsOnPackageAndPath(
+        'symfony/polyfill-php82',
+        __DIR__.'/src/Concerns/HasSudoPassword.php',
+        [ErrorType::DEV_DEPENDENCY_IN_PROD]
     )
     ->ignoreErrorsOnPackageAndPath(
         'symfony/var-dumper',
