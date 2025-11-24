@@ -1,8 +1,12 @@
 {
-    "preset": "laravel",
+    "preset": "base",
     "ignore": {
         "words": [
-            "php"
+            "php",
+            "sudo",
+            "makeable",
+            "dumpable",
+            "runable"
         ],
         "paths": []
     }

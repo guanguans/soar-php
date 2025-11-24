@@ -3,6 +3,9 @@
 .idea/
 vendor/
 
+/vendor-bin/*/*
+!/vendor-bin/*/composer.json
+
 .DS_Store
 .env
 .php-cs-fixer.cache
