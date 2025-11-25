@@ -18,16 +18,6 @@ namespace Guanguans\SoarPHP\Concerns;
  */
 trait ConcreteMagic
 {
-    // public function __sleep(): array
-    // {
-    //     return ['options', 'soarBinary'];
-    // }
-    //
-    // public function __wakeup(): void
-    // {
-    //     $this->setOptions($this->options);
-    //     $this->setSoarBinary($this->soarBinary);
-    // }
     /**
      * @since PHP 7.4.0
      *

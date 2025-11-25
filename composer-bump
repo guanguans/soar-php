@@ -35,8 +35,8 @@ $status = (new SingleCommandApplication)
     ->addOption('composer-json-path', null, InputOption::VALUE_OPTIONAL)
     ->addOption('highest-php-binary', null, InputOption::VALUE_REQUIRED)
     ->addOption('composer-binary', null, InputOption::VALUE_OPTIONAL)
-    ->addOption('except-packages', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL)
-    ->addOption('except-dependency-versions', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL)
+    ->addOption('except-package', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL)
+    ->addOption('except-dependency-version', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL)
     ->setCode(function (InputInterface $input, OutputInterface $output): void {
         assert_options(\ASSERT_BAIL, 1);
         \assert($this instanceof SingleCommandApplication);
@@ -46,8 +46,8 @@ $status = (new SingleCommandApplication)
             $input->getOption('composer-json-path') ?: __DIR__.'/composer.json',
             $input->getOption('highest-php-binary'),
             $input->getOption('composer-binary'),
-            $input->getOption('except-packages'),
-            $input->getOption('except-dependency-versions'),
+            $input->getOption('except-package'),
+            $input->getOption('except-dependency-version'),
             new SymfonyStyle($input, $output),
         ) {
             private readonly string $composerJsonPath;

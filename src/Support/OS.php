@@ -24,9 +24,9 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
  */
 class OS
 {
-    public const ARM = 'arm';
-    public const PPC = 'ppc';
-    public const X86 = 'x86';
+    private const ARM = 'arm';
+    private const PPC = 'ppc';
+    private const X86 = 'x86';
     private const RegExARM = '/(aarch*|arm*)/';
     private const RegExPPC = '/(ppc*)/';
     private const RegExX86 = '/(x86*|i386|i686)/';
