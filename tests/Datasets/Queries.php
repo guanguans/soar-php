@@ -21,9 +21,9 @@ declare(strict_types=1);
 
 namespace Guanguans\PackageSkeletonTests\Datasets;
 
-dataset('SQL statements', [
+dataset('queries', [
     [
-        <<<'SQLS'
+        <<<'QUERIES'
             SELECT * FROM `post` WHERE `name`='so"a`r';
             SELECT DATE_FORMAT(t.last_update,'%Y-%m-%d'), COUNT(DISTINCT(t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
 
@@ -51,35 +51,35 @@ dataset('SQL statements', [
             PRIMARY KEY (`id`),
             UNIQUE KEY `users_email_unique` (`email`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-            SQLS,
+            QUERIES,
     ],
     [
         [
-            // <<<'SQLS'
+            // <<<'QUERY'
             //     SELECT * FROM `post` WHERE `name`='so"a`r';
-            //     SQLS,
-            // <<<'SQLS'
+            //     QUERY,
+            // <<<'QUERY'
             //     SELECT DATE_FORMAT(t.last_update,'%Y-%m-%d'), COUNT(DISTINCT(t.city)) FROM city t WHERE t.last_update> '2018-10-22 00:00:00' AND t.city LIKE '%Chrome%' AND t.city='eip' GROUP BY DATE_FORMAT(t.last_update,'%Y-%m-%d') ORDER BY DATE_FORMAT(t.last_update,'%Y-%m-%d');
-            //     SQLS,
-            // <<<'SQLS'
+            //     QUERY,
+            // <<<'QUERY'
             //     DELETE city FROM city LEFT JOIN country ON city.country_id=country.country_id WHERE country.country IS NULL;
-            //     SQLS,
-            // <<<'SQLS'
+            //     QUERY,
+            // <<<'QUERY'
             //     UPDATE city INNER JOIN country ON city.country_id=country.country_id INNER JOIN address ON city.city_id=address.city_id SET city.city='Abha',city.last_update='2006-02-15 04:45:25',country.country='Afghanistan' WHERE city.city_id=10;
-            //     SQLS,
-            <<<'SQLS'
+            //     QUERY,
+            <<<'QUERY'
                 INSERT INTO city (country_id) SELECT country_id FROM country;
-                SQLS,
-            <<<'SQLS'
+                QUERY,
+            <<<'QUERY'
                 REPLACE INTO city (country_id) SELECT country_id FROM country;
-                SQLS,
-            <<<'SQLS'
+                QUERY,
+            <<<'QUERY'
                 ALTER TABLE inventory ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`),ADD INDEX `idx_store_film` (`store_id`,`film_id`);
-                SQLS,
-            <<<'SQLS'
+                QUERY,
+            <<<'QUERY'
                 DROP TABLE `users`;
-                SQLS,
-            <<<'SQLS'
+                QUERY,
+            <<<'QUERY'
                 CREATE TABLE `users` (
                 `id` bigint unsigned NOT NULL AUTO_INCREMENT,
                 `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -92,7 +92,7 @@ dataset('SQL statements', [
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `users_email_unique` (`email`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-                SQLS,
+                QUERY,
         ],
     ],
 ]);

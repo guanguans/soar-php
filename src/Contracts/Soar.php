@@ -21,10 +21,10 @@ interface Soar
     public function run(?callable $callback = null): string;
 
     /**
-     * @param list<string>|string $sqls
+     * @param list<string>|string $queries
      * @param null|callable(string, string): void $callback
      */
-    public function scores(array|string $sqls, ?callable $callback = null): string;
+    public function scores(array|string $queries, ?callable $callback = null): string;
 
     /**
      * @param null|callable(string, string): void $callback

@@ -19,7 +19,7 @@ namespace Guanguans\SoarPHP\Concerns;
 trait ConcreteScores
 {
     /**
-     * @param list<string>|string $sqls
+     * @param list<string>|string $queries
      * @param int<1, 512> $depth
      * @param int<0, 4194304> $options
      *
@@ -28,54 +28,52 @@ trait ConcreteScores
      *
      * @return list<array<string, mixed>>
      */
-    public function arrayScores(array|string $sqls, int $depth = 512, int $options = 0): array
+    public function arrayScores(array|string $queries, int $depth = 512, int $options = 0): array
     {
-        return json_decode($this->jsonScores($sqls), true, $depth, $options | \JSON_THROW_ON_ERROR);
+        return json_decode($this->jsonScores($queries), true, $depth, $options | \JSON_THROW_ON_ERROR);
     }
 
     /**
-     * @param list<string>|string $sqls
+     * @param list<string>|string $queries
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function jsonScores(array|string $sqls): string
+    public function jsonScores(array|string $queries): string
     {
-        return $this->withReportType('json')->scores($sqls);
+        return $this->withReportType('json')->scores($queries);
     }
 
     /**
-     * @param list<string>|string $sqls
+     * @param list<string>|string $queries
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function htmlScores(array|string $sqls): string
+    public function htmlScores(array|string $queries): string
     {
-        return $this->withReportType('html')->scores($sqls);
+        return $this->withReportType('html')->scores($queries);
     }
 
     /**
-     * @param list<string>|string $sqls
+     * @param list<string>|string $queries
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function markdownScores(array|string $sqls): string
+    public function markdownScores(array|string $queries): string
     {
-        return $this->withReportType('markdown')->scores($sqls);
+        return $this->withReportType('markdown')->scores($queries);
     }
 
     /**
-     * @todo  $sqls -> $queries
-     *
-     * @param list<string>|string $sqls
+     * @param list<string>|string $queries
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    public function scores(array|string $sqls, ?callable $callback = null): string
+    public function scores(array|string $queries, ?callable $callback = null): string
     {
-        if (\is_array($sqls)) {
-            $sqls = implode($this->getDelimiter(';'), $sqls);
+        if (\is_array($queries)) {
+            $queries = implode($this->getDelimiter(';'), $queries);
         }
 
-        return $this->clone()->withQuery($sqls)->run($callback);
+        return $this->clone()->withQuery($queries)->run($callback);
     }
 }

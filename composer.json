@@ -23,19 +23,19 @@
         {
             "name": "guanguans",
             "email": "ityaozm@gmail.com",
-            "homepage": "https://www.guanguans.cn",
+            "homepage": "https://github.com/guanguans",
             "role": "developer"
         }
     ],
-    "homepage": "https://github.com/guanguans/laravel-exception-notify",
+    "homepage": "https://github.com/guanguans/soar-php",
     "support": {
         "issues": "https://github.com/guanguans/soar-php/issues",
-        "source": "https://github.com/guanguans/soar-php"
+        "discussions": "https://github.com/guanguans/soar-php/discussions"
     },
     "funding": [
         {
             "type": "sponsors",
-            "url": "https://www.guanguans.cn/sponsors"
+            "url": "https://guanguans.github.io/sponsors"
         }
     ],
     "require": {

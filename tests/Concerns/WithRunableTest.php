@@ -25,9 +25,9 @@ use Guanguans\SoarPHP\Support\OS;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-it('will throw ProcessFailedException when is a invalid sql', function (): void {
-    Soar::make()->withOnlySyntaxCheck(true)->withQuery('invalid sql')->run();
-})->group(__DIR__, __FILE__)->throws(ProcessFailedException::class, 'invalid sql');
+it('will throw ProcessFailedException when is a invalid query', function (): void {
+    Soar::make()->withOnlySyntaxCheck(true)->withQuery('invalid query')->run();
+})->group(__DIR__, __FILE__)->throws(ProcessFailedException::class, 'invalid query');
 
 it('will throw ProcessFailedException when sudo password is error', function (): void {
     foreach (
