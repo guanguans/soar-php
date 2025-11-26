@@ -121,14 +121,14 @@ final class ComposerScripts
      */
     public static function resolveSoarHelp(): Collection
     {
-        return Str::of(self::resolveSoarHelpContent())
+        return str(self::resolveSoarHelpContent())
             ->explode(\PHP_EOL)
             ->filter(static fn (string $option): bool => str_starts_with($option, ' '))
             ->map(static fn (string $option): string => trim($option))
             ->chunk(2)
             ->reduce(
                 static function (Collection $options, Collection $option): Collection {
-                    [$name, $type] = Str::of($option->firstOrFail())
+                    [$name, $type] = (array) str($option->firstOrFail())
                         ->explode(' ')
                         ->pad(2, 'bool')
                         ->pipe(static function (Collection $collection): array {
@@ -140,7 +140,7 @@ final class ComposerScripts
                             }];
                         });
 
-                    $default = Str::of($option->last())
+                    $default = str($option->last())
                         /** @lang PhpRegExp */
                         ->match('/\\(default .*\\)/')
                         ->pipe(
@@ -163,7 +163,7 @@ final class ComposerScripts
                 'name' => $help,
                 'type' => 'bool',
                 'default' => null,
-                'description' => Str::of($help)->headline()->toString(),
+                'description' => str($help)->headline()->toString(),
             ])
             ->tap(static function (Collection $collection): void {
                 $asserter = static function (Collection $collection): void {
@@ -182,9 +182,9 @@ final class ComposerScripts
             ->map(static function (array $option, string $name): array {
                 $config = self::resolveSoarConfig();
 
-                $option['default'] = $config->has($snakedName = Str::of($name)->ltrim('-')->snake('-')->toString())
+                $option['default'] = $config->has($snakedName = str($name)->ltrim('-')->snake('-')->toString())
                     ? $config->get($snakedName)
-                    : $config->get(Str::of($name)->ltrim('-')->snake()->toString(), $option['default']);
+                    : $config->get(str($name)->ltrim('-')->snake()->toString(), $option['default']);
 
                 $option['type'] = collect([$option['type'], \gettype($option['default'])])
                     ->map(static fn (string $type): string => match ($type = strtolower($type)) {

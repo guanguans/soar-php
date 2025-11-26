@@ -21,6 +21,7 @@ use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousEx
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\SoarPHP\Contracts\Throwable;
 use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForHasOptionsRector;
+use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
@@ -39,7 +40,12 @@ use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
+use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
+use Rector\Transform\ValueObject\StaticCallToFuncCall;
 use Rector\ValueObject\PhpVersion;
+use Rector\ValueObject\Visibility;
+use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
+use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use function Guanguans\SoarPHP\Support\classes;
 
 return RectorConfig::configure()
@@ -123,11 +129,32 @@ return RectorConfig::configure()
         'phpstan-ignore-next-line',
         'psalm-suppress',
     ])
+    ->withConfiguredRule(StaticCallToFuncCallRector::class, [
+        new StaticCallToFuncCall(Str::class, 'of', 'str'),
+    ])
+    ->withConfiguredRule(
+        ChangeMethodVisibilityRector::class,
+        classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\SoarPHP'))
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
+            ->map(
+                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
+                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
+                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
+                        $reflectionClass->getName(),
+                        $reflectionMethod->getName(),
+                        Visibility::PROTECTED
+                    ))
+                    ->all()
+            )
+            ->flatten()
+            // ->dd()
+            ->all(),
+    )
     ->withConfiguredRule(
         RenameFunctionRector::class,
         [
             'Pest\Faker\fake' => 'fake',
-            'Pest\Faker\faker' => 'faker',
+            'Pest\Faker\faker' => 'fake',
             'faker' => 'fake',
             'test' => 'it',
         ] + array_reduce(

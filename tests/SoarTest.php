@@ -20,17 +20,13 @@ declare(strict_types=1);
 
 use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHP\Support\OS;
-use Illuminate\Support\Str;
-use function Spatie\Snapshots\assertMatchesTextSnapshot;
 
 it('can get help', function (): void {
     expect(Soar::make())->help()->toContain('-version');
 })->group(__DIR__, __FILE__);
 
 it('can get help snapshot', function (): void {
-    assertMatchesTextSnapshot(
-        Str::of(Soar::make()->help())->replace(Soar::make()->getSoarBinary(), 'soar-binary')->toString()
-    );
+    expect(str(Soar::make()->help())->replace(Soar::make()->getSoarBinary(), 'soar-binary'))->toMatchSnapshot();
 })->group(__DIR__, __FILE__)->skip(OS::isWindows());
 
 it('can get version', function (): void {
@@ -43,5 +39,5 @@ it('can get version', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get version snapshot', function (): void {
-    assertMatchesTextSnapshot(Soar::make()->version());
+    expect(Soar::make()->version())->toMatchSnapshot();
 })->group(__DIR__, __FILE__)->skip(OS::isWindows());

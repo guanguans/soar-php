@@ -36,6 +36,8 @@ if (!\function_exists('Guanguans\SoarPHP\Support\classes')) {
      * @noinspection RedundantDocCommentTagInspection
      * @noinspection PhpUndefinedNamespaceInspection
      *
+     * @internal
+     *
      * @param null|(callable(class-string, string): bool) $filter
      *
      * @return \Illuminate\Support\Collection<class-string, \ReflectionClass>

@@ -56,7 +56,6 @@
         "nette/utils": "^4.0",
         "pestphp/pest": "^2.36 || ^3.0 || ^4.0",
         "pestphp/pest-plugin-arch": "^2.7 || ^3.0 || ^4.0",
-        "pestphp/pest-plugin-faker": "^2.0 || ^3.0 || ^4.0",
         "pestphp/pest-plugin-profanity": "^1.7 || ^2.0 || ^3.0 || ^4.0",
         "php-mock/php-mock-phpunit": "^2.14",
         "phpbench/phpbench": "^1.4",
@@ -184,8 +183,6 @@
         ],
         "checks:optional": [
             "@putenv:xdebug-off",
-            "@composer:normalize-dry-run",
-            "@composer-dependency-analyser",
             "@class-leak:check",
             "@detect-collisions",
             "@jack:open-versions-dry-run",
@@ -209,6 +206,8 @@
         ],
         "checks:required": [
             "@putenv:xdebug-off",
+            "@composer:normalize-dry-run",
+            "@composer-dependency-analyser",
             "@php-cs-fixer:fix-dry-run",
             "@soar:check-binary",
             "@soar:dump-config",
@@ -307,6 +306,7 @@
             "@putenv:xdebug-off"
         ],
         "pest:bail": "@pest --bail",
+        "pest:compact": "@pest --compact",
         "pest:coverage": "@pest --coverage-html=.build/phpunit/ --coverage-clover=.build/phpunit/clover.xml",
         "pest:disable-coverage-ignore": "@pest --disable-coverage-ignore",
         "pest:highest": [
@@ -318,8 +318,9 @@
         "pest:migrate-configuration": "@pest --migrate-configuration",
         "pest:parallel": "@pest --parallel",
         "pest:profanity": "@pest --profanity --language=en",
+        "pest:profile": "@pest --profile",
         "pest:type-coverage": "@pest --type-coverage",
-        "pest:update-snapshots": "@pest -d --update-snapshots",
+        "pest:update-snapshots": "@pest --update-snapshots",
         "php-cs-fixer": "@php vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --ansi -v",
         "php-cs-fixer:check": "@php-cs-fixer check --show-progress=dots --diff",
         "php-cs-fixer:describe": "@php-cs-fixer describe",

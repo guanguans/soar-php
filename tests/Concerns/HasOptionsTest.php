@@ -112,8 +112,7 @@ it('can normalize options', function (): void {
         ],
     ]));
 
-    expect($normalizedOptions)->each->toBeString();
-    $this->assertMatchesJsonSnapshot($normalizedOptions);
+    expect($normalizedOptions)->toMatchSnapshot()->each->toBeString();
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidOptionException when normalize invalid dsn', function (): void {

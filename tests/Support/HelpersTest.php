@@ -18,14 +18,22 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use function Guanguans\SoarPHP\Support\classes;
 use function Guanguans\SoarPHP\Support\escape_argument;
 use function Guanguans\SoarPHP\Support\str_snake;
+
+it('can get classes', function (): void {
+    expect(classes(fn (string $class): bool => str($class)->startsWith('Illuminate\Support')))
+        ->toBeInstanceOf(Collection::class)
+        ->groupBy(fn (object $object): bool => $object instanceof ReflectionClass)
+        ->toHaveCount(2);
+})->group(__DIR__, __FILE__);
 
 it('can escape argument', function (): void {
     expect(escape_argument('foo bar baz'))->toBeString();
 })->group(__DIR__, __FILE__);
 
 it('can snake string', function (): void {
-    expect(str_snake(__FILE__))->toBe(Str::of(__FILE__)->snake()->toString());
+    expect(str_snake(__FILE__))->toBe(str(__FILE__)->snake()->toString());
 })->group(__DIR__, __FILE__);

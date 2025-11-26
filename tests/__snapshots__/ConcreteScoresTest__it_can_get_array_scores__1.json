@@ -9,8 +9,8 @@
             {
                 "Item": "COL.001",
                 "Severity": "L1",
-                "Summary": "\u4e0d\u5efa\u8bae\u4f7f\u7528 SELECT * \u7c7b\u578b\u67e5\u8be2",
-                "Content": "\u5f53\u8868\u7ed3\u6784\u53d8\u66f4\u65f6\uff0c\u4f7f\u7528 * \u901a\u914d\u7b26\u9009\u62e9\u6240\u6709\u5217\u5c06\u5bfc\u81f4\u67e5\u8be2\u7684\u542b\u4e49\u548c\u884c\u4e3a\u4f1a\u53d1\u751f\u66f4\u6539\uff0c\u53ef\u80fd\u5bfc\u81f4\u67e5\u8be2\u8fd4\u56de\u66f4\u591a\u7684\u6570\u636e\u3002",
+                "Summary": "不建议使用 SELECT * 类型查询",
+                "Content": "当表结构变更时，使用 * 通配符选择所有列将导致查询的含义和行为会发生更改，可能导致查询返回更多的数据。",
                 "Case": "select * from tbl where id=1",
                 "Position": 0
             }
@@ -30,40 +30,40 @@
             {
                 "Item": "ALI.001",
                 "Severity": "L0",
-                "Summary": "\u5efa\u8bae\u4f7f\u7528 AS \u5173\u952e\u5b57\u663e\u793a\u58f0\u660e\u4e00\u4e2a\u522b\u540d",
-                "Content": "\u5728\u5217\u6216\u8868\u522b\u540d(\u5982\"tbl AS alias\")\u4e2d, \u660e\u786e\u4f7f\u7528 AS \u5173\u952e\u5b57\u6bd4\u9690\u542b\u522b\u540d(\u5982\"tbl alias\")\u66f4\u6613\u61c2\u3002",
+                "Summary": "建议使用 AS 关键字显示声明一个别名",
+                "Content": "在列或表别名(如\"tbl AS alias\")中, 明确使用 AS 关键字比隐含别名(如\"tbl alias\")更易懂。",
                 "Case": "select name from tbl t1 where id < 1000",
                 "Position": 0
             },
             {
                 "Item": "ARG.001",
                 "Severity": "L4",
-                "Summary": "\u4e0d\u5efa\u8bae\u4f7f\u7528\u524d\u9879\u901a\u914d\u7b26\u67e5\u627e",
-                "Content": "\u4f8b\u5982 \"\uff05foo\"\uff0c\u67e5\u8be2\u53c2\u6570\u6709\u4e00\u4e2a\u524d\u9879\u901a\u914d\u7b26\u7684\u60c5\u51b5\u65e0\u6cd5\u4f7f\u7528\u5df2\u6709\u7d22\u5f15\u3002",
+                "Summary": "不建议使用前项通配符查找",
+                "Content": "例如 \"％foo\"，查询参数有一个前项通配符的情况无法使用已有索引。",
                 "Case": "select c1,c2,c3 from tbl where name like '%foo'",
                 "Position": 0
             },
             {
                 "Item": "CLA.009",
                 "Severity": "L2",
-                "Summary": "ORDER BY \u7684\u6761\u4ef6\u4e3a\u8868\u8fbe\u5f0f",
-                "Content": "\u5f53 ORDER BY \u6761\u4ef6\u4e3a\u8868\u8fbe\u5f0f\u6216\u51fd\u6570\u65f6\u4f1a\u4f7f\u7528\u5230\u4e34\u65f6\u8868\uff0c\u5982\u679c\u5728\u672a\u6307\u5b9a WHERE \u6216 WHERE \u6761\u4ef6\u8fd4\u56de\u7684\u7ed3\u679c\u96c6\u8f83\u5927\u65f6\u6027\u80fd\u4f1a\u5f88\u5dee\u3002",
+                "Summary": "ORDER BY 的条件为表达式",
+                "Content": "当 ORDER BY 条件为表达式或函数时会使用到临时表，如果在未指定 WHERE 或 WHERE 条件返回的结果集较大时性能会很差。",
                 "Case": "select description from film where title ='ACADEMY DINOSAUR' order by length-language_id;",
                 "Position": 0
             },
             {
                 "Item": "CLA.010",
                 "Severity": "L2",
-                "Summary": "GROUP BY \u7684\u6761\u4ef6\u4e3a\u8868\u8fbe\u5f0f",
-                "Content": "\u5f53 GROUP BY \u6761\u4ef6\u4e3a\u8868\u8fbe\u5f0f\u6216\u51fd\u6570\u65f6\u4f1a\u4f7f\u7528\u5230\u4e34\u65f6\u8868\uff0c\u5982\u679c\u5728\u672a\u6307\u5b9a WHERE \u6216 WHERE \u6761\u4ef6\u8fd4\u56de\u7684\u7ed3\u679c\u96c6\u8f83\u5927\u65f6\u6027\u80fd\u4f1a\u5f88\u5dee\u3002",
+                "Summary": "GROUP BY 的条件为表达式",
+                "Content": "当 GROUP BY 条件为表达式或函数时会使用到临时表，如果在未指定 WHERE 或 WHERE 条件返回的结果集较大时性能会很差。",
                 "Case": "select description from film where title ='ACADEMY DINOSAUR' GROUP BY length-language_id;",
                 "Position": 0
             },
             {
                 "Item": "KEY.008",
                 "Severity": "L4",
-                "Summary": "ORDER BY \u591a\u4e2a\u5217\u4f46\u6392\u5e8f\u65b9\u5411\u4e0d\u540c\u65f6\u53ef\u80fd\u65e0\u6cd5\u4f7f\u7528\u7d22\u5f15",
-                "Content": "\u5728 MySQL 8.0 \u4e4b\u524d\u5f53 ORDER BY \u591a\u4e2a\u5217\u6307\u5b9a\u7684\u6392\u5e8f\u65b9\u5411\u4e0d\u540c\u65f6\u5c06\u65e0\u6cd5\u4f7f\u7528\u5df2\u7ecf\u5efa\u7acb\u7684\u7d22\u5f15\u3002",
+                "Summary": "ORDER BY 多个列但排序方向不同时可能无法使用索引",
+                "Content": "在 MySQL 8.0 之前当 ORDER BY 多个列指定的排序方向不同时将无法使用已经建立的索引。",
                 "Case": "SELECT * FROM tbl ORDER BY a DESC, b ASC;",
                 "Position": 0
             }
@@ -83,16 +83,16 @@
             {
                 "Item": "JOI.007",
                 "Severity": "L4",
-                "Summary": "\u4e0d\u5efa\u8bae\u4f7f\u7528\u8054\u8868\u5220\u9664\u6216\u66f4\u65b0",
-                "Content": "\u5f53\u9700\u8981\u540c\u65f6\u5220\u9664\u6216\u66f4\u65b0\u591a\u5f20\u8868\u65f6\u5efa\u8bae\u4f7f\u7528\u7b80\u5355\u8bed\u53e5\uff0c\u4e00\u6761 SQL \u53ea\u5220\u9664\u6216\u66f4\u65b0\u4e00\u5f20\u8868\uff0c\u5c3d\u91cf\u4e0d\u8981\u5c06\u591a\u5f20\u8868\u7684\u64cd\u4f5c\u5728\u540c\u4e00\u6761\u8bed\u53e5\u3002",
+                "Summary": "不建议使用联表删除或更新",
+                "Content": "当需要同时删除或更新多张表时建议使用简单语句，一条 SQL 只删除或更新一张表，尽量不要将多张表的操作在同一条语句。",
                 "Case": "UPDATE users u LEFT JOIN hobby h ON u.id = h.uid SET u.name = 'pianoboy' WHERE h.hobby = 'piano';",
                 "Position": 0
             },
             {
                 "Item": "SEC.003",
                 "Severity": "L0",
-                "Summary": "\u4f7f\u7528DELETE\/DROP\/TRUNCATE\u7b49\u64cd\u4f5c\u65f6\u6ce8\u610f\u5907\u4efd",
-                "Content": "\u5728\u6267\u884c\u9ad8\u5371\u64cd\u4f5c\u4e4b\u524d\u5bf9\u6570\u636e\u8fdb\u884c\u5907\u4efd\u662f\u5341\u5206\u6709\u5fc5\u8981\u7684\u3002",
+                "Summary": "使用DELETE/DROP/TRUNCATE等操作时注意备份",
+                "Content": "在执行高危操作之前对数据进行备份是十分有必要的。",
                 "Case": "delete from table where col = 'condition'",
                 "Position": 0
             }
@@ -113,8 +113,8 @@
             {
                 "Item": "JOI.007",
                 "Severity": "L4",
-                "Summary": "\u4e0d\u5efa\u8bae\u4f7f\u7528\u8054\u8868\u5220\u9664\u6216\u66f4\u65b0",
-                "Content": "\u5f53\u9700\u8981\u540c\u65f6\u5220\u9664\u6216\u66f4\u65b0\u591a\u5f20\u8868\u65f6\u5efa\u8bae\u4f7f\u7528\u7b80\u5355\u8bed\u53e5\uff0c\u4e00\u6761 SQL \u53ea\u5220\u9664\u6216\u66f4\u65b0\u4e00\u5f20\u8868\uff0c\u5c3d\u91cf\u4e0d\u8981\u5c06\u591a\u5f20\u8868\u7684\u64cd\u4f5c\u5728\u540c\u4e00\u6761\u8bed\u53e5\u3002",
+                "Summary": "不建议使用联表删除或更新",
+                "Content": "当需要同时删除或更新多张表时建议使用简单语句，一条 SQL 只删除或更新一张表，尽量不要将多张表的操作在同一条语句。",
                 "Case": "UPDATE users u LEFT JOIN hobby h ON u.id = h.uid SET u.name = 'pianoboy' WHERE h.hobby = 'piano';",
                 "Position": 0
             }
@@ -136,16 +136,16 @@
             {
                 "Item": "CLA.001",
                 "Severity": "L4",
-                "Summary": "\u6700\u5916\u5c42 SELECT \u672a\u6307\u5b9a WHERE \u6761\u4ef6",
-                "Content": "SELECT \u8bed\u53e5\u6ca1\u6709 WHERE \u5b50\u53e5\uff0c\u53ef\u80fd\u68c0\u67e5\u6bd4\u9884\u671f\u66f4\u591a\u7684\u884c(\u5168\u8868\u626b\u63cf)\u3002\u5bf9\u4e8e SELECT COUNT(*) \u7c7b\u578b\u7684\u8bf7\u6c42\u5982\u679c\u4e0d\u8981\u6c42\u7cbe\u5ea6\uff0c\u5efa\u8bae\u4f7f\u7528 SHOW TABLE STATUS \u6216 EXPLAIN \u66ff\u4ee3\u3002",
+                "Summary": "最外层 SELECT 未指定 WHERE 条件",
+                "Content": "SELECT 语句没有 WHERE 子句，可能检查比预期更多的行(全表扫描)。对于 SELECT COUNT(*) 类型的请求如果不要求精度，建议使用 SHOW TABLE STATUS 或 EXPLAIN 替代。",
                 "Case": "select id from tbl",
                 "Position": 0
             },
             {
                 "Item": "LCK.001",
                 "Severity": "L3",
-                "Summary": "INSERT INTO xx SELECT \u52a0\u9501\u7c92\u5ea6\u8f83\u5927\u8bf7\u8c28\u614e",
-                "Content": "INSERT INTO xx SELECT \u52a0\u9501\u7c92\u5ea6\u8f83\u5927\u8bf7\u8c28\u614e",
+                "Summary": "INSERT INTO xx SELECT 加锁粒度较大请谨慎",
+                "Content": "INSERT INTO xx SELECT 加锁粒度较大请谨慎",
                 "Case": "INSERT INTO tbl SELECT * FROM tbl2;",
                 "Position": 0
             }
@@ -166,16 +166,16 @@
             {
                 "Item": "CLA.001",
                 "Severity": "L4",
-                "Summary": "\u6700\u5916\u5c42 SELECT \u672a\u6307\u5b9a WHERE \u6761\u4ef6",
-                "Content": "SELECT \u8bed\u53e5\u6ca1\u6709 WHERE \u5b50\u53e5\uff0c\u53ef\u80fd\u68c0\u67e5\u6bd4\u9884\u671f\u66f4\u591a\u7684\u884c(\u5168\u8868\u626b\u63cf)\u3002\u5bf9\u4e8e SELECT COUNT(*) \u7c7b\u578b\u7684\u8bf7\u6c42\u5982\u679c\u4e0d\u8981\u6c42\u7cbe\u5ea6\uff0c\u5efa\u8bae\u4f7f\u7528 SHOW TABLE STATUS \u6216 EXPLAIN \u66ff\u4ee3\u3002",
+                "Summary": "最外层 SELECT 未指定 WHERE 条件",
+                "Content": "SELECT 语句没有 WHERE 子句，可能检查比预期更多的行(全表扫描)。对于 SELECT COUNT(*) 类型的请求如果不要求精度，建议使用 SHOW TABLE STATUS 或 EXPLAIN 替代。",
                 "Case": "select id from tbl",
                 "Position": 0
             },
             {
                 "Item": "LCK.001",
                 "Severity": "L3",
-                "Summary": "INSERT INTO xx SELECT \u52a0\u9501\u7c92\u5ea6\u8f83\u5927\u8bf7\u8c28\u614e",
-                "Content": "INSERT INTO xx SELECT \u52a0\u9501\u7c92\u5ea6\u8f83\u5927\u8bf7\u8c28\u614e",
+                "Summary": "INSERT INTO xx SELECT 加锁粒度较大请谨慎",
+                "Content": "INSERT INTO xx SELECT 加锁粒度较大请谨慎",
                 "Case": "INSERT INTO tbl SELECT * FROM tbl2;",
                 "Position": 0
             }
@@ -196,8 +196,8 @@
             {
                 "Item": "KEY.004",
                 "Severity": "L0",
-                "Summary": "\u63d0\u9192\uff1a\u8bf7\u5c06\u7d22\u5f15\u5c5e\u6027\u987a\u5e8f\u4e0e\u67e5\u8be2\u5bf9\u9f50",
-                "Content": "\u5982\u679c\u4e3a\u5217\u521b\u5efa\u590d\u5408\u7d22\u5f15\uff0c\u8bf7\u786e\u4fdd\u67e5\u8be2\u5c5e\u6027\u4e0e\u7d22\u5f15\u5c5e\u6027\u7684\u987a\u5e8f\u76f8\u540c\uff0c\u4ee5\u4fbfDBMS\u5728\u5904\u7406\u67e5\u8be2\u65f6\u4f7f\u7528\u7d22\u5f15\u3002\u5982\u679c\u67e5\u8be2\u548c\u7d22\u5f15\u5c5e\u6027\u8ba2\u5355\u6ca1\u6709\u5bf9\u9f50\uff0c\u90a3\u4e48DBMS\u53ef\u80fd\u65e0\u6cd5\u5728\u67e5\u8be2\u5904\u7406\u671f\u95f4\u4f7f\u7528\u7d22\u5f15\u3002",
+                "Summary": "提醒：请将索引属性顺序与查询对齐",
+                "Content": "如果为列创建复合索引，请确保查询属性与索引属性的顺序相同，以便DBMS在处理查询时使用索引。如果查询和索引属性订单没有对齐，那么DBMS可能无法在查询处理期间使用索引。",
                 "Case": "create index idx1 on tbl (last_name,first_name)",
                 "Position": 0
             }
@@ -217,48 +217,48 @@
             {
                 "Item": "CLA.011",
                 "Severity": "L1",
-                "Summary": "\u5efa\u8bae\u4e3a\u8868\u6dfb\u52a0\u6ce8\u91ca",
-                "Content": "\u4e3a\u8868\u6dfb\u52a0\u6ce8\u91ca\u80fd\u591f\u4f7f\u5f97\u8868\u7684\u610f\u4e49\u66f4\u660e\u786e\uff0c\u4ece\u800c\u4e3a\u65e5\u540e\u7684\u7ef4\u62a4\u5e26\u6765\u6781\u5927\u7684\u4fbf\u5229\u3002",
+                "Summary": "建议为表添加注释",
+                "Content": "为表添加注释能够使得表的意义更明确，从而为日后的维护带来极大的便利。",
                 "Case": "CREATE TABLE `test1` (`ID` bigint(20) NOT NULL AUTO_INCREMENT,`c1` varchar(128) DEFAULT NULL,PRIMARY KEY (`ID`)) ENGINE=InnoDB DEFAULT CHARSET=utf8",
                 "Position": 0
             },
             {
                 "Item": "COL.004",
                 "Severity": "L1",
-                "Summary": "\u8bf7\u4e3a\u5217\u6dfb\u52a0\u9ed8\u8ba4\u503c",
-                "Content": "\u8bf7\u4e3a\u5217\u6dfb\u52a0\u9ed8\u8ba4\u503c\uff0c\u5982\u679c\u662f ALTER \u64cd\u4f5c\uff0c\u8bf7\u4e0d\u8981\u5fd8\u8bb0\u5c06\u539f\u5b57\u6bb5\u7684\u9ed8\u8ba4\u503c\u5199\u4e0a\u3002\u5b57\u6bb5\u65e0\u9ed8\u8ba4\u503c\uff0c\u5f53\u8868\u8f83\u5927\u65f6\u65e0\u6cd5\u5728\u7ebf\u53d8\u66f4\u8868\u7ed3\u6784\u3002",
+                "Summary": "请为列添加默认值",
+                "Content": "请为列添加默认值，如果是 ALTER 操作，请不要忘记将原字段的默认值写上。字段无默认值，当表较大时无法在线变更表结构。",
                 "Case": "CREATE TABLE tbl (col int) ENGINE=InnoDB;",
                 "Position": 0
             },
             {
                 "Item": "COL.005",
                 "Severity": "L1",
-                "Summary": "\u5217\u672a\u6dfb\u52a0\u6ce8\u91ca",
-                "Content": "\u5efa\u8bae\u5bf9\u8868\u4e2d\u6bcf\u4e2a\u5217\u6dfb\u52a0\u6ce8\u91ca\uff0c\u6765\u660e\u786e\u6bcf\u4e2a\u5217\u5728\u8868\u4e2d\u7684\u542b\u4e49\u53ca\u4f5c\u7528\u3002",
+                "Summary": "列未添加注释",
+                "Content": "建议对表中每个列添加注释，来明确每个列在表中的含义及作用。",
                 "Case": "CREATE TABLE tbl (col int) ENGINE=InnoDB;",
                 "Position": 0
             },
             {
                 "Item": "KWR.003",
                 "Severity": "L1",
-                "Summary": "\u4e0d\u5efa\u8bae\u4f7f\u7528\u590d\u6570\u505a\u5217\u540d\u6216\u8868\u540d",
-                "Content": "\u8868\u540d\u5e94\u8be5\u4ec5\u4ec5\u8868\u793a\u8868\u91cc\u9762\u7684\u5b9e\u4f53\u5185\u5bb9\uff0c\u4e0d\u5e94\u8be5\u8868\u793a\u5b9e\u4f53\u6570\u91cf\uff0c\u5bf9\u5e94\u4e8e DO \u7c7b\u540d\u4e5f\u662f\u5355\u6570\u5f62\u5f0f\uff0c\u7b26\u5408\u8868\u8fbe\u4e60\u60ef\u3002",
+                "Summary": "不建议使用复数做列名或表名",
+                "Content": "表名应该仅仅表示表里面的实体内容，不应该表示实体数量，对应于 DO 类名也是单数形式，符合表达习惯。",
                 "Case": "CREATE TABLE tbl ( `books` int )",
                 "Position": 0
             },
             {
                 "Item": "SEC.002",
                 "Severity": "L0",
-                "Summary": "\u4e0d\u4f7f\u7528\u660e\u6587\u5b58\u50a8\u5bc6\u7801",
-                "Content": "\u4f7f\u7528\u660e\u6587\u5b58\u50a8\u5bc6\u7801\u6216\u8005\u4f7f\u7528\u660e\u6587\u5728\u7f51\u7edc\u4e0a\u4f20\u9012\u5bc6\u7801\u90fd\u662f\u4e0d\u5b89\u5168\u7684\u3002\u5982\u679c\u653b\u51fb\u8005\u80fd\u591f\u622a\u83b7\u60a8\u7528\u6765\u63d2\u5165\u5bc6\u7801\u7684SQL\u8bed\u53e5\uff0c\u4ed6\u4eec\u5c31\u80fd\u76f4\u63a5\u8bfb\u5230\u5bc6\u7801\u3002\u53e6\u5916\uff0c\u5c06\u7528\u6237\u8f93\u5165\u7684\u5b57\u7b26\u4e32\u4ee5\u660e\u6587\u7684\u5f62\u5f0f\u63d2\u5165\u5230\u7eafSQL\u8bed\u53e5\u4e2d\uff0c\u4e5f\u4f1a\u8ba9\u653b\u51fb\u8005\u53d1\u73b0\u5b83\u3002\u5982\u679c\u60a8\u80fd\u591f\u8bfb\u53d6\u5bc6\u7801\uff0c\u9ed1\u5ba2\u4e5f\u53ef\u4ee5\u3002\u89e3\u51b3\u65b9\u6848\u662f\u4f7f\u7528\u5355\u5411\u54c8\u5e0c\u51fd\u6570\u5bf9\u539f\u59cb\u5bc6\u7801\u8fdb\u884c\u52a0\u5bc6\u7f16\u7801\u3002\u54c8\u5e0c\u662f\u6307\u5c06\u8f93\u5165\u5b57\u7b26\u4e32\u8f6c\u5316\u6210\u53e6\u4e00\u4e2a\u65b0\u7684\u3001\u4e0d\u53ef\u8bc6\u522b\u7684\u5b57\u7b26\u4e32\u7684\u51fd\u6570\u3002\u5bf9\u5bc6\u7801\u52a0\u5bc6\u8868\u8fbe\u5f0f\u52a0\u70b9\u968f\u673a\u4e32\u6765\u9632\u5fa1\u201c\u5b57\u5178\u653b\u51fb\u201d\u3002\u4e0d\u8981\u5c06\u660e\u6587\u5bc6\u7801\u8f93\u5165\u5230SQL\u67e5\u8be2\u8bed\u53e5\u4e2d\u3002\u5728\u5e94\u7528\u7a0b\u5e8f\u4ee3\u7801\u4e2d\u8ba1\u7b97\u54c8\u5e0c\u4e32\uff0c\u53ea\u5728SQL\u67e5\u8be2\u4e2d\u4f7f\u7528\u54c8\u5e0c\u4e32\u3002",
+                "Summary": "不使用明文存储密码",
+                "Content": "使用明文存储密码或者使用明文在网络上传递密码都是不安全的。如果攻击者能够截获您用来插入密码的SQL语句，他们就能直接读到密码。另外，将用户输入的字符串以明文的形式插入到纯SQL语句中，也会让攻击者发现它。如果您能够读取密码，黑客也可以。解决方案是使用单向哈希函数对原始密码进行加密编码。哈希是指将输入字符串转化成另一个新的、不可识别的字符串的函数。对密码加密表达式加点随机串来防御“字典攻击”。不要将明文密码输入到SQL查询语句中。在应用程序代码中计算哈希串，只在SQL查询中使用哈希串。",
                 "Case": "create table test(id int,name varchar(20) not null,password varchar(200)not null)",
                 "Position": 0
             },
             {
                 "Item": "STA.003",
                 "Severity": "L1",
-                "Summary": "\u7d22\u5f15\u8d77\u540d\u4e0d\u89c4\u8303",
-                "Content": "\u5efa\u8bae\u666e\u901a\u4e8c\u7ea7\u7d22\u5f15\u4ee5idx_\u4e3a\u524d\u7f00\uff0c\u552f\u4e00\u7d22\u5f15\u4ee5uk_\u4e3a\u524d\u7f00\u3002",
+                "Summary": "索引起名不规范",
+                "Content": "建议普通二级索引以idx_为前缀，唯一索引以uk_为前缀。",
                 "Case": "select col from now where type!=0",
                 "Position": 0
             }
