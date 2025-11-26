@@ -513,9 +513,11 @@ $soar->setSudoPassword('your sudo password'); // Set a sudo password to run the 
 ```
 </details>
 
-## Testing
+## Composer scripts
 
-```bash
+```shell
+composer benchmark
+composer checks:required
 composer test
 ```
 

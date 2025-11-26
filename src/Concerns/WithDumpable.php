@@ -32,7 +32,6 @@ trait WithDumpable
 
     /**
      * @noinspection ForgottenDebugOutputInspection
-     * @noinspection DebugFunctionUsageInspection
      */
     public function dump(mixed ...$args): self
     {

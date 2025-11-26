@@ -1,0 +1,8 @@
+# total 1 error
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Cognitive complexity for "Guanguans\\SoarPHP\\Support\\ComposerScripts\:\:resolveSoarHelp\(\)" is 14, keep it under 8$#'
+            count: 1
+            path: ../src/Support/ComposerScripts.php

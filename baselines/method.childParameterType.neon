@@ -1,0 +1,38 @@
+# total 10 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^Parameter \#1 \$offset \(string\) of method Guanguans\\SoarPHP\\Soar\:\:offsetExists\(\) should be contravariant with parameter \$offset \(mixed\) of method ArrayAccess\<mixed,mixed\>\:\:offsetExists\(\)$#'
+            count: 1
+            path: ../src/Soar.php
+
+        -
+            message: '#^Parameter \#1 \$offset \(string\) of method Guanguans\\SoarPHP\\Soar\:\:offsetGet\(\) should be contravariant with parameter \$offset \(mixed\) of method ArrayAccess\<mixed,mixed\>\:\:offsetGet\(\)$#'
+            count: 1
+            path: ../src/Soar.php
+
+        -
+            message: '#^Parameter \#1 \$offset \(string\) of method Guanguans\\SoarPHP\\Soar\:\:offsetSet\(\) should be contravariant with parameter \$offset \(mixed\) of method ArrayAccess\<mixed,mixed\>\:\:offsetSet\(\)$#'
+            count: 1
+            path: ../src/Soar.php
+
+        -
+            message: '#^Parameter \#1 \$offset \(string\) of method Guanguans\\SoarPHP\\Soar\:\:offsetUnset\(\) should be contravariant with parameter \$offset \(mixed\) of method ArrayAccess\<mixed,mixed\>\:\:offsetUnset\(\)$#'
+            count: 1
+            path: ../src/Soar.php
+
+        -
+            message: '#^Parameter \#1 \$node \(PhpParser\\Node\\Stmt\\Trait_\) of method Guanguans\\SoarPHP\\Support\\Rectors\\AddDocCommentForHasOptionsRector\:\:refactor\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method Rector\\Contract\\Rector\\RectorInterface\:\:refactor\(\)$#'
+            count: 2
+            path: ../src/Support/Rectors/AddDocCommentForHasOptionsRector.php
+
+        -
+            message: '#^Parameter \#1 \$node \(PhpParser\\Node\\ArrayItem\) of method Guanguans\\SoarPHP\\Support\\Rectors\\AddDocCommentForSoarOptionsRector\:\:refactor\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method Rector\\Contract\\Rector\\RectorInterface\:\:refactor\(\)$#'
+            count: 2
+            path: ../src/Support/Rectors/AddDocCommentForSoarOptionsRector.php
+
+        -
+            message: '#^Parameter \#1 \$node \(PhpParser\\Node\\Expr\\Array_\) of method Guanguans\\SoarPHP\\Support\\Rectors\\SimplifyListIndexRector\:\:refactor\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method Rector\\Contract\\Rector\\RectorInterface\:\:refactor\(\)$#'
+            count: 2
+            path: ../src/Support/Rectors/SimplifyListIndexRector.php

@@ -27,9 +27,9 @@ class OS
     private const ARM = 'arm';
     private const PPC = 'ppc';
     private const X86 = 'x86';
-    private const RegExARM = '/(aarch*|arm*)/';
-    private const RegExPPC = '/(ppc*)/';
-    private const RegExX86 = '/(x86*|i386|i686)/';
+    private const PATTERN_ARM = '/(aarch*|arm*)/';
+    private const PATTERN_PPC = '/(ppc*)/';
+    private const PATTERN_X86 = '/(x86*|i386|i686)/';
 
     public static function isUnix(): bool
     {
@@ -48,17 +48,17 @@ class OS
 
     public static function isArm(): bool
     {
-        return (bool) preg_match(self::RegExARM, self::getArch());
+        return (bool) preg_match(self::PATTERN_ARM, self::getArch());
     }
 
     public static function isPPC(): bool
     {
-        return (bool) preg_match(self::RegExPPC, self::getArch());
+        return (bool) preg_match(self::PATTERN_PPC, self::getArch());
     }
 
     public static function isX86(): bool
     {
-        return (bool) preg_match(self::RegExX86, self::getArch());
+        return (bool) preg_match(self::PATTERN_X86, self::getArch());
     }
 
     /**
@@ -69,9 +69,9 @@ class OS
         $arch = self::getArch();
 
         return match (1) {
-            preg_match(self::RegExX86, $arch) => self::X86,
-            preg_match(self::RegExPPC, $arch) => self::PPC,
-            preg_match(self::RegExARM, $arch) => self::ARM,
+            preg_match(self::PATTERN_X86, $arch) => self::X86,
+            preg_match(self::PATTERN_PPC, $arch) => self::PPC,
+            preg_match(self::PATTERN_ARM, $arch) => self::ARM,
             default => throw new RuntimeException("The [$arch] enum not found."),
         };
     }

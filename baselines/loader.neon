@@ -1,7 +1,9 @@
-# total 4 errors
+# total 15 errors
 
 includes:
     - callable.nonCallable.neon
+    - complexity.functionLike.neon
     - disallowed.function.neon
+    - method.childParameterType.neon
     - new.static.neon
     - typePerfect.narrowPublicClassMethodParamType.neon

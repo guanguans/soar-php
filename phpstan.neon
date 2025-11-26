@@ -13,15 +13,17 @@ includes:
 #    - vendor/ergebnis/phpstan-rules/rules.neon
 #    - vendor/phpstan/phpstan-strict-rules/rules.neon
 #    - vendor/roave/no-floaters/rules.neon
+#    - vendor/shipmonk/dead-code-detector/rules.neon
+#    - vendor/staabm/phpstan-todo-by/extension.neon
 
     - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
 #    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
-#    - vendor/symplify/phpstan-rules/config/naming-rules.neon
-#    - vendor/symplify/phpstan-rules/config/static-rules.neon
+    - vendor/symplify/phpstan-rules/config/naming-rules.neon
+    - vendor/symplify/phpstan-rules/config/static-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
 
 #    - vendor/symplify/phpstan-rules/config/doctrine-rules.neon
-#    - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
+    - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
 #    - vendor/symplify/phpstan-rules/config/rector-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
 
@@ -32,15 +34,29 @@ parameters:
         - vendor/composer/InstalledVersions.php
     excludePaths:
         - tests/Fixtures/
+    tmpDir: .build/phpstan/
     level: max
 #    level: 10
-    tmpDir: .build/phpstan
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 #    errorFormat: symplify
     errorFormat: friendly
     friendly:
         lineBefore: 3
         lineAfter: 3
         editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    treatPhpDocTypesAsCertain: false
+    strictRules:
+        # https://github.com/phpstan/phpstan-strict-rules
+        allRules: true
+        booleansInConditions: false
+        disallowedShortTernary: false
+    cognitive_complexity:
+        class: 42
+        function: 8
+        dependency_tree: 150
+        dependency_tree_types:
+#            # only these explicit types are checked, nothing else
+#            - Rector\Contract\Rector\RectorInterface
     type_coverage:
         declare: 100
         param_type: 100
@@ -61,20 +77,32 @@ parameters:
         -
             function: 'env_explode()'
             message: 'use config() instead'
-        -
-            function: 'env_getcsv()'
-            message: 'use config() instead'
     ignoreErrors:
-        - identifier: argument.templateType
 #        - identifier: cast.string
+#        - identifier: encapsedStringPart.nonString
+#        - identifier: logicalAnd.resultUnused
 #        - identifier: return.void
+#        - identifier: symplify.noDynamicName
 #        - identifier: typePerfect.noMixedMethodCaller
+        - identifier: argument.templateType
         - identifier: argument.type
         - identifier: binaryOp.invalid
-#        - identifier: encapsedStringPart.nonString
         - identifier: logicalAnd.resultUnused
+        - identifier: method.dynamicName
         - identifier: method.nonObject
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
         - identifier: return.type
+        - identifier: shipmonk.deadMethod
+        - identifier: symplify.explicitTraitSuffixName
+        - identifier: symplify.forbiddenExtendOfNonAbstractClass
+        - identifier: symplify.forbiddenStaticClassConstFetch
         - identifier: symplify.noDynamicName
+        - identifier: symplify.noReturnSetterMethod
+        - identifier: symplify.requireExceptionNamespace
+        -
+            identifier: symplify.explicitInterfaceSuffixName
+            path: src/Contracts/
+
+
+
