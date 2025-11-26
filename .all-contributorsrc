@@ -1,61 +1,61 @@
 {
-  "files": [
-    "README.md",
-    "README-zh_CN.md"
-  ],
-  "imageSize": 100,
-  "commit": false,
-  "contributors": [
-    {
-      "login": "kamly",
-      "name": "kamly",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/15706085?v=4",
-      "profile": "https://github.com/kamly",
-      "contributions": [
-        "bug"
-      ]
-    },
-    {
-      "login": "leslieeilsel",
-      "name": "Leslie Lau",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/25165449?v=4",
-      "profile": "https://github.com/leslieeilsel",
-      "contributions": [
-        "bug"
-      ]
-    },
-    {
-      "login": "huangdijia",
-      "name": "D.J.Hwang",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/8337659?v=4",
-      "profile": "https://github.com/huangdijia",
-      "contributions": [
-        "ideas"
-      ]
-    },
-    {
-      "login": "zhonghaibin",
-      "name": "海彬",
-      "avatar_url": "https://avatars.githubusercontent.com/u/22255693?v=4",
-      "profile": "https://github.com/zhonghaibin",
-      "contributions": [
-        "bug"
-      ]
-    },
-    {
-      "login": "Aexus",
-      "name": "imcm",
-      "avatar_url": "https://avatars.githubusercontent.com/u/3403478?v=4",
-      "profile": "https://github.com/Aexus",
-      "contributions": [
-        "ideas"
-      ]
-    }
-  ],
-  "contributorsPerLine": 7,
-  "projectName": "soar-php",
-  "projectOwner": "guanguans",
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "skipCi": true
+    "files": [
+        "README.md",
+        "README-zh_CN.md"
+    ],
+    "imageSize": 100,
+    "commit": false,
+    "contributors": [
+        {
+            "login": "kamly",
+            "name": "kamly",
+            "avatar_url": "https://avatars2.githubusercontent.com/u/15706085?v=4",
+            "profile": "https://github.com/kamly",
+            "contributions": [
+                "bug"
+            ]
+        },
+        {
+            "login": "leslieeilsel",
+            "name": "Leslie Lau",
+            "avatar_url": "https://avatars1.githubusercontent.com/u/25165449?v=4",
+            "profile": "https://github.com/leslieeilsel",
+            "contributions": [
+                "bug"
+            ]
+        },
+        {
+            "login": "huangdijia",
+            "name": "D.J.Hwang",
+            "avatar_url": "https://avatars1.githubusercontent.com/u/8337659?v=4",
+            "profile": "https://github.com/huangdijia",
+            "contributions": [
+                "ideas"
+            ]
+        },
+        {
+            "login": "zhonghaibin",
+            "name": "海彬",
+            "avatar_url": "https://avatars.githubusercontent.com/u/22255693?v=4",
+            "profile": "https://github.com/zhonghaibin",
+            "contributions": [
+                "bug"
+            ]
+        },
+        {
+            "login": "Aexus",
+            "name": "imcm",
+            "avatar_url": "https://avatars.githubusercontent.com/u/3403478?v=4",
+            "profile": "https://github.com/Aexus",
+            "contributions": [
+                "ideas"
+            ]
+        }
+    ],
+    "contributorsPerLine": 7,
+    "projectName": "soar-php",
+    "projectOwner": "guanguans",
+    "repoType": "github",
+    "repoHost": "https://github.com",
+    "skipCi": true
 }

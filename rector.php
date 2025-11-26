@@ -20,7 +20,7 @@ use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentTo
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
 use Guanguans\SoarPHP\Contracts\Throwable;
-use Guanguans\SoarPHP\Support\Rectors\AddHasOptionsDocCommentRector;
+use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForHasOptionsRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
@@ -99,7 +99,7 @@ return RectorConfig::configure()
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
         SortAssociativeArrayByKeyRector::class,
-        AddHasOptionsDocCommentRector::class,
+        AddDocCommentForHasOptionsRector::class,
     ])
     ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
         'AnonymousFunctionStaticInspection',

@@ -33,7 +33,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @internal
  */
-final class AddHasOptionsDocCommentRector extends AbstractRector implements DocumentedRuleInterface
+final class AddDocCommentForHasOptionsRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function __construct(
         private readonly DocBlockUpdater $docBlockUpdater,
@@ -46,7 +46,7 @@ final class AddHasOptionsDocCommentRector extends AbstractRector implements Docu
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Add has options doc comment',
+            'Add doc comment for has options rector',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

@@ -27,7 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @internal
  */
-final class AddSoarOptionsDocCommentRector extends AbstractRector implements DocumentedRuleInterface
+final class AddDocCommentForSoarOptionsRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function __construct(
         private readonly ValueResolver $valueResolver
@@ -39,7 +39,7 @@ final class AddSoarOptionsDocCommentRector extends AbstractRector implements Doc
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Add soar options doc comment',
+            'Add doc comment for soar options rector',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

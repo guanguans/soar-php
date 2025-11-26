@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Guanguans\SoarPHP\Support\Rectors\AddSoarOptionsDocCommentRector;
+use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForSoarOptionsRector;
 use Guanguans\SoarPHP\Support\Rectors\SimplifyListIndexRector;
 use Rector\Config\RectorConfig;
 use Rector\ValueObject\PhpVersion;
@@ -29,6 +29,6 @@ return RectorConfig::configure()
     // ->withImportNames(importNames: false)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
     ->withRules([
-        AddSoarOptionsDocCommentRector::class,
+        AddDocCommentForSoarOptionsRector::class,
         SimplifyListIndexRector::class,
     ]);

@@ -1,10 +1,10 @@
 # 3 Rules Overview
 
-## AddHasOptionsDocCommentRector
+## AddDocCommentForHasOptionsRector
 
-Add has options doc comment
+Add doc comment for has options rector
 
-- class: [`Guanguans\SoarPHP\Support\Rectors\AddHasOptionsDocCommentRector`](AddHasOptionsDocCommentRector.php)
+- class: [`Guanguans\SoarPHP\Support\Rectors\AddDocCommentForHasOptionsRector`](AddDocCommentForHasOptionsRector.php)
 
 ```diff
 +/**
@@ -21,11 +21,11 @@ Add has options doc comment
 
 <br>
 
-## AddSoarOptionsDocCommentRector
+## AddDocCommentForSoarOptionsRector
 
-Add soar options doc comment
+Add doc comment for soar options rector
 
-- class: [`Guanguans\SoarPHP\Support\Rectors\AddSoarOptionsDocCommentRector`](AddSoarOptionsDocCommentRector.php)
+- class: [`Guanguans\SoarPHP\Support\Rectors\AddDocCommentForSoarOptionsRector`](AddDocCommentForSoarOptionsRector.php)
 
 ```diff
  return [
