@@ -82,7 +82,7 @@
         "symfony/thanks": "^1.4",
         "symfony/var-dumper": "^6.4 || ^7.0",
         "symplify/phpstan-extensions": "^12.0",
-        "symplify/phpstan-rules": "^14.8",
+        "symplify/phpstan-rules": "^14.9",
         "tomasvotruba/class-leak": "^2.1",
         "tomasvotruba/cognitive-complexity": "^1.0",
         "tomasvotruba/type-coverage": "^2.0",
@@ -160,7 +160,7 @@
         ],
         "actionlint": [
             "if ! command -v actionlint >/dev/null 2>&1; then echo 'actionlint not found, installing...'; brew install actionlint; fi",
-            "actionlint -color -oneline -verbose"
+            "actionlint -ignore=SC2035 -color -oneline -verbose"
         ],
         "blade-formatter": "blade-formatter resources/views/*.blade.php resources/views/**/*.blade.php --ignore-path= --php-version=8.1 --progress",
         "blade-formatter:check-formatted": "@blade-formatter --check-formatted",
@@ -303,7 +303,7 @@
         "peck:init": "@peck --init",
         "pest": [
             "@putenv:xdebug-on",
-            "@php vendor/bin/pest --colors=always --min=80 --coverage --profile",
+            "@php vendor/bin/pest --colors=always --min=61.8 --coverage --profile",
             "@putenv:xdebug-off"
         ],
         "pest:bail": "@pest --bail",

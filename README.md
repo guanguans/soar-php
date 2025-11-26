@@ -4,7 +4,7 @@
 > SQL optimizer and rewriter(assisted SQL tuning) based on Xiaomi's [soar](https://github.com/XiaoMi/soar) development. - 基于小米的 [soar](https://github.com/XiaoMi/soar) 开发的 SQL 优化器和重写器(辅助 SQL 调优)。
 
 [![tests](https://github.com/guanguans/soar-php/actions/workflows/tests.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/tests.yml)
-[![check & fix styling](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
+[![php-cs-fixer](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/soar-php/actions/workflows/php-cs-fixer.yml)
 [![codecov](https://codecov.io/gh/guanguans/soar-php/graph/badge.svg?token=0RtgSGom4K)](https://codecov.io/gh/guanguans/soar-php)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/soar-php/v)](https://packagist.org/packages/guanguans/soar-php)
 [![GitHub release (with filter)](https://img.shields.io/github/v/release/guanguans/soar-php)](https://github.com/guanguans/soar-php/releases)

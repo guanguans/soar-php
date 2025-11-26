@@ -23,6 +23,8 @@ jobs:
           php-version: '8.1'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache composer dependencies
         uses: actions/cache@v4
@@ -34,4 +36,4 @@ jobs:
         run: composer install --no-interaction --prefer-dist --ansi -v
 
       - name: Run rector
-        run: composer rector-dry-run
+        run: composer rector:dry-run
