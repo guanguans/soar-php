@@ -22,7 +22,7 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
  * @see https://github.com/loophp/phposinfo
  * @see https://github.com/utopia-php/system
  */
-class OS
+class OsHelper
 {
     private const ARM = 'arm';
     private const PPC = 'ppc';

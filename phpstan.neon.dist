@@ -35,11 +35,10 @@ parameters:
     excludePaths:
         - tests/Fixtures/
     tmpDir: .build/phpstan/
+    phpVersion: 80100
     level: max
-#    level: 10
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
-#    errorFormat: symplify
-    errorFormat: friendly
+#    errorFormat: friendly
     friendly:
         lineBefore: 3
         lineAfter: 3
@@ -88,6 +87,7 @@ parameters:
         - identifier: argument.type
         - identifier: binaryOp.invalid
         - identifier: logicalAnd.resultUnused
+        - identifier: method.childParameterType
         - identifier: method.dynamicName
         - identifier: method.nonObject
         - identifier: missingType.generics
@@ -103,6 +103,3 @@ parameters:
         -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/
-
-
-

@@ -80,8 +80,8 @@ if (!\function_exists('Guanguans\SoarPHP\Support\str_snake')) {
         }
 
         if (!ctype_lower($value)) {
-            $value = preg_replace('/\s+/u', '', ucwords($value));
-            $value = mb_strtolower((string) preg_replace('/(.)(?=[A-Z])/u', '$1'.$delimiter, (string) $value), 'UTF-8');
+            $value = (string) preg_replace('/\s+/u', '', ucwords($value));
+            $value = mb_strtolower((string) preg_replace('/(.)(?=[A-Z])/u', '$1'.$delimiter, $value), 'UTF-8');
         }
 
         return $snakeCache[$key][$delimiter] = $value;

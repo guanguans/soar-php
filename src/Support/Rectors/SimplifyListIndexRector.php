@@ -111,14 +111,14 @@ final class SimplifyListIndexRector extends AbstractRector implements Documented
             return true;
         }
 
-        $current_key = 0;
+        $currentKey = 0;
 
         foreach (array_keys($array) as $key) {
-            if ($key !== $current_key) {
+            if ($key !== $currentKey) {
                 return false;
             }
 
-            ++$current_key;
+            ++$currentKey;
         }
 
         return true;

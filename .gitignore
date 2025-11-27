@@ -8,13 +8,12 @@ vendor/
 
 .DS_Store
 .env
-.php-cs-fixer.cache
-.phpunit.result.cache
+.php-cs-fixer.php
 /*.zip
 /laravel
 /tests.*
-clover.xml
 composer.lock
+phpbench.json
+phpstan.neon
 phpunit.xml
-psalm.xml
 soar.log

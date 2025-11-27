@@ -19,7 +19,6 @@ declare(strict_types=1);
  */
 
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHP\Support\OS;
 
 it('can get help', function (): void {
     expect(Soar::make())->help()->toContain('-version');
@@ -27,7 +26,7 @@ it('can get help', function (): void {
 
 it('can get help snapshot', function (): void {
     expect(str(Soar::make()->help())->replace(Soar::make()->getBinary(), 'soar-binary'))->toMatchSnapshot();
-})->group(__DIR__, __FILE__)->skip(OS::isWindows());
+})->group(__DIR__, __FILE__)->skipOnWindows();
 
 it('can get version', function (): void {
     expect(Soar::make())->version()->toContain(
@@ -40,4 +39,4 @@ it('can get version', function (): void {
 
 it('can get version snapshot', function (): void {
     expect(Soar::make()->version())->toMatchSnapshot();
-})->group(__DIR__, __FILE__)->skip(OS::isWindows());
+})->group(__DIR__, __FILE__)->skipOnWindows();

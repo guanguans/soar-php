@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Guanguans\SoarPHP\Concerns;
 
-use Guanguans\SoarPHP\Support\OS;
+use Guanguans\SoarPHP\Support\OsHelper;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar
@@ -38,6 +38,6 @@ trait HasSudoPassword
 
     protected function shouldApplySudoPassword(): bool
     {
-        return $this->sudoPassword && OS::isUnix() && !\in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg', 'embed'], true);
+        return $this->sudoPassword && OsHelper::isUnix() && !\in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg', 'embed'], true);
     }
 }

@@ -18,20 +18,20 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-use Guanguans\SoarPHP\Support\OS;
+use Guanguans\SoarPHP\Support\OsHelper;
 
-it('can check OS', function (): void {
-    expect(OS::isUnix())->toBeBool()
-        ->and(OS::isWindows())->toBeBool()
-        ->and(OS::isMacOS())->toBeBool();
+it('can check OsHelper', function (): void {
+    expect(OsHelper::isUnix())->toBeBool()
+        ->and(OsHelper::isWindows())->toBeBool()
+        ->and(OsHelper::isMacOS())->toBeBool();
 })->group(__DIR__, __FILE__);
 
 it('can check arch', function (): void {
-    expect(OS::isArm())->toBeBool()
-        ->and(OS::isPPC())->toBeBool()
-        ->and(OS::isX86())->toBeBool();
+    expect(OsHelper::isArm())->toBeBool()
+        ->and(OsHelper::isPPC())->toBeBool()
+        ->and(OsHelper::isX86())->toBeBool();
 })->group(__DIR__, __FILE__);
 
 it('can get arch enum(', function (): void {
-    expect(OS::getArchEnum())->toBeString();
-})->group(__DIR__, __FILE__)->skip(OS::isWindows());
+    expect(OsHelper::getArchEnum())->toBeString();
+})->group(__DIR__, __FILE__)->skipOnWindows();

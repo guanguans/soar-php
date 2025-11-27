@@ -39,9 +39,7 @@ composer require guanguans/soar-php --ansi -v
 ```php
 <?php
 
-/** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlResolve */
-/** @noinspection SuspiciousAssignmentsInspection */
 
 declare(strict_types=1);
 

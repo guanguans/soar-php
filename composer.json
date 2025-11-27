@@ -41,7 +41,7 @@
     ],
     "require": {
         "php": ">=8.1",
-        "symfony/process": "^6.4 || ^7.0"
+        "symfony/process": "^6.4 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
@@ -80,8 +80,7 @@
         "staabm/phpstan-todo-by": "^0.3",
         "symfony/polyfill-php82": "^1.33",
         "symfony/thanks": "^1.4",
-        "symfony/var-dumper": "^6.4 || ^7.0",
-        "symplify/phpstan-extensions": "^12.0",
+        "symfony/var-dumper": "^6.4 || ^7.0 || ^8.0",
         "symplify/phpstan-rules": "^14.9",
         "tomasvotruba/class-leak": "^2.1",
         "tomasvotruba/cognitive-complexity": "^1.0",
@@ -211,8 +210,8 @@
             "@soar:check-binary",
             "@soar:dump-config",
             "@pest:bail",
-            "@rector:dry-run",
-            "@phpstan"
+            "@rector:process-dry-run",
+            "@phpstan:analyse"
         ],
         "class-leak": "@php vendor/bin/class-leak --ansi -v",
         "class-leak:check": "@class-leak check examples/ src/ --skip-type=\\Contracts\\Channel --skip-suffix=Channel --skip-path=Support/Rectors/",
@@ -269,8 +268,8 @@
             "@lint-md:prototype"
         ],
         "lint-md:fix": "@lint-md:prototype --fix",
-        "lint-md:prototype": "lint-md --config .lintmdrc --suppress-warnings *.md .github/ docs/",
-        "mago": "@php vendor/bin/mago --config=mago.toml",
+        "lint-md:prototype": "lint-md --suppress-warnings *.md .github/ docs/",
+        "mago": "@php vendor/bin/mago",
         "mago:format": "@mago format",
         "mago:format-dry-run": "@mago:format --dry-run",
         "mago:init": "@mago init",
@@ -320,13 +319,13 @@
         "pest:profile": "@pest --profile",
         "pest:type-coverage": "@pest --type-coverage",
         "pest:update-snapshots": "@pest --update-snapshots",
-        "php-cs-fixer": "@php vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --ansi -v",
+        "php-cs-fixer": "@php vendor/bin/php-cs-fixer --ansi -v",
         "php-cs-fixer:check": "@php-cs-fixer check --show-progress=dots --diff",
         "php-cs-fixer:describe": "@php-cs-fixer describe",
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
         "php-cs-fixer:list-files": "@php-cs-fixer list-files",
-        "php-cs-fixer:list-sets": "@php vendor/bin/php-cs-fixer list-sets --ansi -v",
+        "php-cs-fixer:list-sets": "@php-cs-fixer list-sets --ansi -v",
         "php-lint": [
             "@putenv:php",
             "for DIR in .; do find $DIR -maxdepth 1 -type f -name '*.php' -type f ! -name 'xxx.php' -exec $PHP81 -l {} \\; 2>&1 | (! grep -v '^No syntax errors detected'); done",
@@ -338,14 +337,17 @@
         "phpcs:help": "@phpcs --help",
         "phpcs:i": "@phpcs -i",
         "phpmnd": "@php vendor/bin/phpmnd src/ --exclude-path=Support/helpers.phpp --ignore-numbers=2,-1 --hint --progress --ansi -v",
-        "phpstan": "@php vendor/bin/phpstan analyse --ansi -v",
-        "phpstan:fix": "@phpstan --fix",
-        "phpstan:generate-baseline": "@phpstan --generate-baseline --allow-empty-baseline",
-        "phpstan:split-baseline": [
-            "@phpstan --generate-baseline=baselines/loader.neon --allow-empty-baseline",
+        "phpstan": "@php vendor/bin/phpstan --ansi -v",
+        "phpstan:analyse": "@phpstan analyse",
+        "phpstan:analyse-fix": "@phpstan:analyse --fix",
+        "phpstan:analyse-generate-baseline": "@phpstan:analyse --generate-baseline --allow-empty-baseline",
+        "phpstan:analyse-split-baseline": [
+            "@phpstan:analyse --generate-baseline=baselines/loader.neon --allow-empty-baseline",
             "find baselines/ -type f -not -name loader.neon -delete",
             "@php vendor/bin/split-phpstan-baseline baselines/loader.neon"
         ],
+        "phpstan:diagnose": "@phpstan diagnose",
+        "phpstan:dump-parameters": "@phpstan dump-parameters",
         "pint": [
             "@putenv:xdebug-off",
             "@php vendor/bin/pint --ansi -v"
@@ -372,16 +374,17 @@
         ],
         "readme-lint": "@php readme-lint --ansi -v",
         "rector": "@php vendor/bin/rector",
-        "rector:clear-cache": "@rector --clear-cache",
-        "rector:clear-cache-dry-run": "@rector:clear-cache --dry-run",
         "rector:custom-rule": "@rector custom-rule",
-        "rector:dry-run": "@rector --dry-run",
         "rector:list-rules": "@rector list-rules",
-        "rector:only": "@rector:clear-cache --only=Guanguans\\SoarPHP\\Support\\Rectors\\AddHasOptionsDocCommentRector",
-        "rector:only-dry-run": "@rector:only --dry-run",
+        "rector:process": "@rector process",
+        "rector:process-clear-cache": "@rector:process --clear-cache",
+        "rector:process-clear-cache-dry-run": "@rector:process-clear-cache --dry-run",
+        "rector:process-dry-run": "@rector:process --dry-run",
+        "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\SoarPHP\\Support\\Rectors\\AddHasOptionsDocCommentRector",
+        "rector:process-only-dry-run": "@rector:process-only --dry-run",
+        "rector:process-soar-options": "@rector:process-clear-cache --config=rector-soar-options.php",
+        "rector:process-soar-options-dry-run": "@rector:process-soar-options --dry-run",
         "rector:setup-ci": "@rector setup-ci",
-        "rector:soar-options": "@rector:clear-cache --config=rector-soar-options.php",
-        "rector:soar-options-dry-run": "@rector:soar-options --dry-run",
         "rule-doc-generator": [
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -v"
@@ -419,7 +422,7 @@
         ],
         "soar:dump-php-config": [
             "@soar:dump-php-config-prototype",
-            "@rector:soar-options --no-diffs",
+            "@rector:process-soar-options --no-diffs",
             "@php-cs-fixer:fix --quiet"
         ],
         "soar:dump-php-config-prototype": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
@@ -482,7 +485,6 @@
             "test:coverage"
         ],
         "phpbench": [
-            "bench",
             "benchmark"
         ]
     },

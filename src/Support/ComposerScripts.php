@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection EfferentObjectCouplingInspection */
+
 declare(strict_types=1);
 
 /**
@@ -80,7 +82,6 @@ final class ComposerScripts
 
     /**
      * @noinspection PhpUnused
-     * @noinspection DebugFunctionUsageInspection
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
@@ -121,10 +122,14 @@ final class ComposerScripts
     }
 
     /**
+     * @noinspection D
+     * @noinspection PhpFunctionCyclomaticComplexityInspection
+     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public static function resolveSoarHelp(): Collection
     {
+        /** @noinspection NullPointerExceptionInspection */
         return str(self::resolveSoarHelpContent())
             ->explode(\PHP_EOL)
             ->filter(static fn (string $option): bool => str_starts_with($option, ' '))

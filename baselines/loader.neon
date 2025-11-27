@@ -1,9 +1,9 @@
-# total 15 errors
+# total 6 errors
 
 includes:
+    - assign.propertyType.neon
     - callable.nonCallable.neon
     - complexity.functionLike.neon
     - disallowed.function.neon
-    - method.childParameterType.neon
     - new.static.neon
     - typePerfect.narrowPublicClassMethodParamType.neon

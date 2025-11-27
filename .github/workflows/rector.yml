@@ -36,4 +36,4 @@ jobs:
         run: composer install --no-interaction --prefer-dist --ansi -v
 
       - name: Run rector
-        run: composer rector:dry-run
+        run: composer rector:process-dry-run

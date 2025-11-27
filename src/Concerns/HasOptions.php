@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpClassHasTooManyDeclaredMembersInspection */
+
 /** @noinspection LongLine */
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 

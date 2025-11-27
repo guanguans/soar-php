@@ -9,7 +9,6 @@
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
-/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection SqlResolve */
 declare(strict_types=1);
 
@@ -23,7 +22,7 @@ declare(strict_types=1);
  */
 
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHP\Support\OS;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Pest\Expectation;
 use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 use function Spatie\Snapshots\assertMatchesTextSnapshot;
@@ -76,10 +75,10 @@ it('can get array scores', function (): void {
         ->arrayScores($queries)
         ->toBeArray()
         ->toBeTruthy()
-        ->when(OS::isWindows(), function (Expectation $expectation): void {
+        ->when(OsHelper::isWindows(), function (Expectation $expectation): void {
             dump($expectation->value);
         })
-        ->when(!OS::isWindows(), function (Expectation $expectation): void {
+        ->when(!OsHelper::isWindows(), function (Expectation $expectation): void {
             $scores = json_encode(
                 $expectation->value,
                 \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
@@ -94,7 +93,7 @@ it('can get json scores', function (): void {
         ->jsonScores('select * from foo')
         ->toBeJson()
         ->toBeTruthy()
-        ->when(!OS::isWindows(), function (Expectation $expectation): void {
+        ->when(!OsHelper::isWindows(), function (Expectation $expectation): void {
             assertMatchesJsonSnapshot($expectation->value);
             assertMatchesTextSnapshot($expectation->value);
         });
@@ -106,7 +105,7 @@ it('can get html scores', function (): void {
         ->toBeString()
         ->toBeTruthy()
         ->toContain('foo', '<h1>', '<p>', '<pre>', '<h2>', '<ul>', '<li>')
-        ->when(!OS::isWindows(), function (Expectation $expectation): void {
+        ->when(!OsHelper::isWindows(), function (Expectation $expectation): void {
             assertMatchesTextSnapshot($expectation->value);
         });
 })->group(__DIR__, __FILE__);
@@ -117,7 +116,7 @@ it('can get markdown scores', function (): void {
         ->toBeString()
         ->toBeTruthy()
         ->toContain('foo', '#', '```sql', '##', '*')
-        ->when(!OS::isWindows(), function (Expectation $expectation): void {
+        ->when(!OsHelper::isWindows(), function (Expectation $expectation): void {
             assertMatchesTextSnapshot($expectation->value);
         });
 });

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Guanguans\SoarPHP\Concerns;
 
 use Guanguans\SoarPHP\Exceptions\InvalidArgumentException;
-use Guanguans\SoarPHP\Support\OS;
+use Guanguans\SoarPHP\Support\OsHelper;
 
 /**
  * @mixin \Guanguans\SoarPHP\Soar
@@ -45,14 +45,14 @@ trait HasBinary
 
     public function defaultBinary(): string
     {
-        if (OS::isWindows()) {
+        if (OsHelper::isWindows()) {
             return __DIR__.'/../../bin/soar.windows-amd64';
         }
 
-        if (OS::isMacOS()) {
-            return OS::isArm() ? __DIR__.'/../../bin/soar.darwin-arm64' : __DIR__.'/../../bin/soar.darwin-amd64';
+        if (OsHelper::isMacOS()) {
+            return OsHelper::isArm() ? __DIR__.'/../../bin/soar.darwin-arm64' : __DIR__.'/../../bin/soar.darwin-amd64';
         }
 
-        return OS::isArm() ? __DIR__.'/../../bin/soar.linux-arm64' : __DIR__.'/../../bin/soar.linux-amd64';
+        return OsHelper::isArm() ? __DIR__.'/../../bin/soar.linux-arm64' : __DIR__.'/../../bin/soar.linux-amd64';
     }
 }

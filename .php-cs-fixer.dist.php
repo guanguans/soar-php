@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpUnusedAliasInspection */
-
 declare(strict_types=1);
 
 /**
@@ -283,7 +281,7 @@ return Factory::fromRuleSet(Php81::create()
         'static_private_method' => false,
     ])))
     ->setUsingCache(true)
-    ->setCacheFile(__DIR__.'/.build/php-cs-fixer/.php-cs-fixer.cache')
+    ->setCacheFile(\sprintf('%s/.build/php-cs-fixer/%s.cache', __DIR__, pathinfo(__FILE__, \PATHINFO_FILENAME)))
     ->setUnsupportedPhpVersionAllowed(true)
     ->setFinder(
         /**

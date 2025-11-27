@@ -1,8 +1,6 @@
 <?php
 
-/** @noinspection DebugFunctionUsageInspection */
 /** @noinspection PhpInternalEntityUsedInspection */
-/** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types=1);
 

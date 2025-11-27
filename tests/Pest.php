@@ -8,7 +8,6 @@
 /** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection PhpInconsistentReturnPointsInspection */
-/** @noinspection PhpInternalEntityUsedInspection */
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 declare(strict_types=1);
 
@@ -109,7 +108,7 @@ if (!\function_exists('fake')) {
 
 function running_in_github_action(): bool
 {
-    return getenv('GITHUB_ACTIONS') === 'true';
+    return 'true' === getenv('GITHUB_ACTIONS');
 }
 
 function soar_options(): array

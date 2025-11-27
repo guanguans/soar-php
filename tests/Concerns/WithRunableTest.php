@@ -9,6 +9,7 @@
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
+/** @noinspection PhpMissingParentCallCommonInspection */
 declare(strict_types=1);
 
 /**
@@ -21,7 +22,7 @@ declare(strict_types=1);
  */
 
 use Guanguans\SoarPHP\Soar;
-use Guanguans\SoarPHP\Support\OS;
+use Guanguans\SoarPHP\Support\OsHelper;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -44,7 +45,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
     (new class extends Soar {
         protected function shouldApplySudoPassword(): bool
         {
-            return OS::isUnix();
+            return OsHelper::isUnix();
         }
     })->withSudoPassword('foo')->help();
 })
