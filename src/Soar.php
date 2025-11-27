@@ -37,7 +37,7 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
     public function __construct(array $options = [], ?string $soarBinary = null)
     {
         $this->setOptions($options);
-        $this->setSoarBinary($soarBinary ?? $this->defaultSoarBinary());
+        $this->withSoarBinary($soarBinary ?? $this->defaultSoarBinary());
     }
 
     /**

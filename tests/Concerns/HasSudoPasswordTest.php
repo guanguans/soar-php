@@ -22,6 +22,6 @@ use Guanguans\SoarPHP\Soar;
 
 it('can set sudo password', function (): void {
     expect(Soar::make())
-        ->setSudoPassword($sudoPassword = 'foo')
+        ->withSudoPassword($sudoPassword = 'foo')
         ->getSudoPassword()->toBe($sudoPassword);
 })->group(__DIR__, __FILE__);

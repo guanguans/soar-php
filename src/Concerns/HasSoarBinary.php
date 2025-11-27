@@ -28,7 +28,7 @@ trait HasSoarBinary
         return $this->soarBinary;
     }
 
-    public function setSoarBinary(string $soarBinary): self
+    public function withSoarBinary(string $soarBinary): self
     {
         if (!is_file($soarBinary)) {
             throw new InvalidArgumentException("The [$soarBinary] is not a file.");

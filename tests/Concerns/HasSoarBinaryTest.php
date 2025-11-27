@@ -26,9 +26,9 @@ it('can get soar binary', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('will throw InvalidArgumentException when set not a file', function (): void {
-    Soar::make()->setSoarBinary('soar-binary');
+    Soar::make()->withSoarBinary('soar-binary');
 })->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'The [soar-binary] is not a file.');
 
 it('will throw InvalidArgumentException when set not a executable file', function (): void {
-    Soar::make()->setSoarBinary(__FILE__);
+    Soar::make()->withSoarBinary(__FILE__);
 })->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, \sprintf('The file [%s] is not executable.', __FILE__));

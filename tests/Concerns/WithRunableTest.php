@@ -46,7 +46,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
         {
             return OS::isUnix();
         }
-    })->setSudoPassword('foo')->help();
+    })->withSudoPassword('foo')->help();
 })
     ->group(__DIR__, __FILE__)
     ->throws(ProcessFailedException::class, implode(\PHP_EOL, [
@@ -61,7 +61,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
 it('can run soar process with tapper', function (): void {
     expect(Soar::make())
         ->withVersion(true)
-        ->setTap(static function (Process $process): void {
+        ->withTap(static function (Process $process): void {
             $process->setTimeout(3);
         })
         ->run(static function (string $type, string $line): void {

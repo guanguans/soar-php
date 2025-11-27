@@ -26,14 +26,14 @@ trait WithRunable
     /** @var null|callable(Process):void */
     protected $tap;
 
-    public function setPipe(?callable $pipe): self
+    public function withPipe(?callable $pipe): self
     {
         $this->pipe = $pipe;
 
         return $this;
     }
 
-    public function setTap(?callable $tap): self
+    public function withTap(?callable $tap): self
     {
         $this->tap = $tap;
 

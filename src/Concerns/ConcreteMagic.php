@@ -39,7 +39,7 @@ trait ConcreteMagic
     public function __unserialize(array $data): void
     {
         $this->setOptions($data['options']);
-        $this->setSoarBinary($data['soarBinary']);
+        $this->withSoarBinary($data['soarBinary']);
     }
 
     public function __debugInfo(): array
