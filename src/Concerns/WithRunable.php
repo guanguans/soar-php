@@ -20,12 +20,12 @@ use Symfony\Component\Process\Process;
  */
 trait WithRunable
 {
-    /** @var null|callable */
-    protected $processTapper;
+    /** @var null|callable(Process):void */
+    protected $tap;
 
-    public function setProcessTapper(?callable $processTapper): self
+    public function setTap(?callable $tap): self
     {
-        $this->processTapper = $processTapper;
+        $this->tap = $tap;
 
         return $this;
     }
@@ -52,8 +52,8 @@ trait WithRunable
             )
             : new Process([$this->soarBinary, ...$normalizedOptions]);
 
-        if (\is_callable($this->processTapper)) {
-            ($this->processTapper)($process);
+        if (\is_callable($this->tap)) {
+            ($this->tap)($process);
         }
 
         return $process;

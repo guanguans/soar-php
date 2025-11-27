@@ -61,7 +61,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
 it('can run soar process with tapper', function (): void {
     expect(Soar::make())
         ->withVersion(true)
-        ->setProcessTapper(static function (Process $process): void {
+        ->setTap(static function (Process $process): void {
             $process->setTimeout(3);
         })
         ->run(static function (string $type, string $line): void {
