@@ -20,10 +20,10 @@ use Symfony\Component\Process\Process;
  */
 trait WithRunable
 {
-    /** @var null|callable(Process):Process */
+    /** @var null|callable(Process): Process */
     protected $pipe;
 
-    /** @var null|callable(Process):void */
+    /** @var null|callable(Process): void */
     protected $tap;
 
     public function withPipe(?callable $pipe): self
@@ -53,7 +53,7 @@ trait WithRunable
      */
     protected function toProcess(): Process
     {
-        $command = [$this->soarBinary, ...$this->clone()->getNormalizedOptions()];
+        $command = [$this->binary, ...$this->clone()->getNormalizedOptions()];
 
         $process = $this->shouldApplySudoPassword()
             ? new Process(command: ['sudo', '-S', ...$command], input: $this->getSudoPassword())

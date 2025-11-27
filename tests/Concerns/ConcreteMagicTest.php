@@ -24,7 +24,7 @@ use Guanguans\SoarPHP\Soar;
 it('can serialize and unserialize', function (): void {
     expect(unserialize(serialize(Soar::make(soar_options()))))
         ->toBeInstanceOf(Soar::class)
-        ->getSoarBinary()->toBeTruthy()
+        ->getBinary()->toBeTruthy()
         ->getOptions()->toBeTruthy();
 })->group(__DIR__, __FILE__);
 
@@ -42,6 +42,6 @@ it('can export soar code block and eval it', function (): void {
             PHP
     );
     expect(require $path)->toBeInstanceOf(Soar::class)
-        ->getSoarBinary()->toBeTruthy()
+        ->getBinary()->toBeTruthy()
         ->getOptions()->toBeTruthy();
 })->group(__DIR__, __FILE__);

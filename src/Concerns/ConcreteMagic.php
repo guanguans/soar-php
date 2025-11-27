@@ -27,7 +27,7 @@ trait ConcreteMagic
     {
         return [
             'options' => $this->options,
-            'soarBinary' => $this->soarBinary,
+            'binary' => $this->binary,
         ];
     }
 
@@ -39,7 +39,7 @@ trait ConcreteMagic
     public function __unserialize(array $data): void
     {
         $this->setOptions($data['options']);
-        $this->withSoarBinary($data['soarBinary']);
+        $this->withBinary($data['binary']);
     }
 
     public function __debugInfo(): array
@@ -54,7 +54,7 @@ trait ConcreteMagic
      */
     public static function __set_state(array $properties): self
     {
-        return new self($properties['options'], $properties['soarBinary']);
+        return new self($properties['options'], $properties['binary']);
     }
 
     /**

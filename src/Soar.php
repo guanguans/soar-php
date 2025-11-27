@@ -15,8 +15,8 @@ namespace Guanguans\SoarPHP;
 
 use Guanguans\SoarPHP\Concerns\ConcreteMagic;
 use Guanguans\SoarPHP\Concerns\ConcreteScores;
+use Guanguans\SoarPHP\Concerns\HasBinary;
 use Guanguans\SoarPHP\Concerns\HasOptions;
-use Guanguans\SoarPHP\Concerns\HasSoarBinary;
 use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\Makeable;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
@@ -27,17 +27,17 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
 {
     use ConcreteMagic;
     use ConcreteScores;
+    use HasBinary;
     use HasOptions;
-    use HasSoarBinary;
     use HasSudoPassword;
     use Makeable;
     use WithDumpable;
     use WithRunable;
 
-    public function __construct(array $options = [], ?string $soarBinary = null)
+    public function __construct(array $options = [], ?string $binary = null)
     {
         $this->setOptions($options);
-        $this->withSoarBinary($soarBinary ?? $this->defaultSoarBinary());
+        $this->withBinary($binary ?? $this->defaultBinary());
     }
 
     /**

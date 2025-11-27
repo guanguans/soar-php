@@ -19,31 +19,31 @@ use Guanguans\SoarPHP\Support\OS;
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
-trait HasSoarBinary
+trait HasBinary
 {
-    protected string $soarBinary;
+    protected string $binary;
 
-    public function getSoarBinary(): string
+    public function getBinary(): string
     {
-        return $this->soarBinary;
+        return $this->binary;
     }
 
-    public function withSoarBinary(string $soarBinary): self
+    public function withBinary(string $binary): self
     {
-        if (!is_file($soarBinary)) {
-            throw new InvalidArgumentException("The [$soarBinary] is not a file.");
+        if (!is_file($binary)) {
+            throw new InvalidArgumentException("The [$binary] is not a file.");
         }
 
-        if (!is_executable($soarBinary)) {
-            throw new InvalidArgumentException("The file [$soarBinary] is not executable.");
+        if (!is_executable($binary)) {
+            throw new InvalidArgumentException("The file [$binary] is not executable.");
         }
 
-        $this->soarBinary = realpath($soarBinary);
+        $this->binary = realpath($binary);
 
         return $this;
     }
 
-    public function defaultSoarBinary(): string
+    public function defaultBinary(): string
     {
         if (OS::isWindows()) {
             return __DIR__.'/../../bin/soar.windows-amd64';

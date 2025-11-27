@@ -35,7 +35,7 @@ trait WithDumpable
      */
     public function dump(mixed ...$args): self
     {
-        $args[] = $this;
+        $args = [$this, ...$args];
         $varDumperExists = class_exists(VarDumper::class);
 
         foreach ($args as $arg) {
