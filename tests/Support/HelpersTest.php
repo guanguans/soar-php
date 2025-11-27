@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Collection;
 use function Guanguans\SoarPHP\Support\classes;
-use function Guanguans\SoarPHP\Support\escape_argument;
 use function Guanguans\SoarPHP\Support\str_snake;
 
 it('can get classes', function (): void {
@@ -30,10 +29,6 @@ it('can get classes', function (): void {
         ->toHaveCount(2);
 })->group(__DIR__, __FILE__);
 
-it('can escape argument', function (): void {
-    expect(escape_argument('foo bar baz'))->toBeString();
-})->group(__DIR__, __FILE__);
-
 it('can snake string', function (): void {
-    expect(str_snake(__FILE__))->toBe(str(__FILE__)->snake()->toString());
+    expect(str_snake(__FILE__))->toBe(str(__FILE__)->snake('-')->toString());
 })->group(__DIR__, __FILE__);

@@ -416,10 +416,10 @@ trait HasOptions
     {
         foreach (['set', 'with', 'get', 'only', 'except'] as $prefix) {
             if (str_starts_with($method, $prefix)) {
-                $name = '-'.str_snake(substr($method, \strlen($prefix)), '-');
-                $actionMethod = $prefix.'Option';
-
-                return $this->{$actionMethod}($name, ...$arguments);
+                return $this->{$prefix.'Option'}(
+                    '-'.str_snake(substr($method, \strlen($prefix))),
+                    ...$arguments
+                );
             }
         }
 
@@ -562,13 +562,11 @@ trait HasOptions
      */
     private function normalizeOptions(array $options): array
     {
-        $normalizedOptions = [];
-
         foreach ($options as $name => $value) {
-            $normalizedOptions[$name] = $this->normalizeOption($name, $value);
+            $options[$name] = $this->normalizeOption($name, $value);
         }
 
-        return $normalizedOptions;
+        return $options;
     }
 
     /**

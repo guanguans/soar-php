@@ -30,6 +30,7 @@
     "homepage": "https://github.com/guanguans/soar-php",
     "support": {
         "issues": "https://github.com/guanguans/soar-php/issues",
+        "source": "https://github.com/guanguans/soar-php",
         "discussions": "https://github.com/guanguans/soar-php/discussions"
     },
     "funding": [
@@ -121,8 +122,6 @@
             "phpstan/extension-installer": true,
             "symfony/thanks": true
         },
-        "apcu-autoloader": true,
-        "classmap-authoritative": false,
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true

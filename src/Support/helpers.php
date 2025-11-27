@@ -15,7 +15,6 @@ namespace Guanguans\SoarPHP\Support;
 
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Collection;
-use Symfony\Component\Process\Process;
 
 if (!\function_exists('Guanguans\SoarPHP\Support\classes')) {
     /**
@@ -69,26 +68,12 @@ if (!\function_exists('Guanguans\SoarPHP\Support\classes')) {
     }
 }
 
-if (!\function_exists('Guanguans\SoarPHP\Support\escape_argument')) {
-    /**
-     * Escapes a string to be used as a shell argument.
-     *
-     * @see https://github.com/johnstevenson/winbox-args
-     * @see https://github.com/composer/composer/blob/main/src/Composer/Util/ProcessExecutor.php
-     */
-    function escape_argument(?string $argument): string
-    {
-        return (fn (?string $argument): string => $this->escapeArgument($argument))->call(new Process([]), $argument);
-    }
-}
-
 if (!\function_exists('Guanguans\SoarPHP\Support\str_snake')) {
-    function str_snake(string $value, string $delimiter = '_'): string
+    function str_snake(string $value, string $delimiter = '-'): string
     {
-        $key = $value;
-
         /** @var array<string, array<string, string>> $snakeCache */
         static $snakeCache = [];
+        $key = $value;
 
         if (isset($snakeCache[$key][$delimiter])) {
             return $snakeCache[$key][$delimiter];
@@ -96,7 +81,6 @@ if (!\function_exists('Guanguans\SoarPHP\Support\str_snake')) {
 
         if (!ctype_lower($value)) {
             $value = preg_replace('/\s+/u', '', ucwords($value));
-
             $value = mb_strtolower((string) preg_replace('/(.)(?=[A-Z])/u', '$1'.$delimiter, (string) $value), 'UTF-8');
         }
 
