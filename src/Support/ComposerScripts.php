@@ -20,13 +20,18 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Rector\Config\RectorConfig;
 use Rector\DependencyInjection\LazyContainerFactory;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * @internal
+ *
+ * @method void configureIO(InputInterface $input, OutputInterface $output)
  */
 final class ComposerScripts
 {
@@ -38,19 +43,18 @@ final class ComposerScripts
     public static function checkSoarBinary(): int
     {
         // self::requireAutoload($event);
-        $symfonyStyle = self::makeSymfonyStyle();
 
         foreach ((array) glob(__DIR__.'/../../bin/soar.*-*') as $file) {
             if (!is_executable($file)) {
-                $symfonyStyle->error("The file [$file] is not executable.");
+                self::makeSymfonyStyle()->error("The file [$file] is not executable.");
 
                 exit(1);
             }
 
-            $symfonyStyle->comment("<info>OK</info> $file");
+            self::makeSymfonyStyle()->comment("<info>OK</info> $file");
         }
 
-        $symfonyStyle->success('No errors');
+        self::makeSymfonyStyle()->success('No errors');
 
         return 0;
     }
@@ -236,12 +240,39 @@ final class ComposerScripts
      */
     public static function makeRectorConfig(): RectorConfig
     {
-        return (new LazyContainerFactory)->create();
+        static $rectorConfig;
+
+        return $rectorConfig ??= (new LazyContainerFactory)->create();
     }
 
+    /**
+     * @see \Rector\Console\Style\SymfonyStyleFactory
+     */
     private static function makeSymfonyStyle(): SymfonyStyle
     {
-        return new SymfonyStyle(new ArgvInput, new ConsoleOutput);
+        static $symfonyStyle;
+
+        if ($symfonyStyle instanceof SymfonyStyle) {
+            return $symfonyStyle;
+        }
+
+        // to prevent missing argv indexes
+        if (!isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = [];
+        }
+
+        $argvInput = new ArgvInput;
+        $consoleOutput = new ConsoleOutput;
+
+        // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
+        (fn () => $this->configureIO($argvInput, $consoleOutput))->call(new Application);
+
+        // --debug is called
+        if ($argvInput->hasParameterOption(['--debug', '--xdebug'])) {
+            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
+        return $symfonyStyle = new SymfonyStyle($argvInput, $consoleOutput);
     }
 
     private static function requireAutoload(Event $event): void
