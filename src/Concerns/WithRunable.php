@@ -20,8 +20,18 @@ use Symfony\Component\Process\Process;
  */
 trait WithRunable
 {
+    /** @var null|callable(Process):Process */
+    protected $pipe;
+
     /** @var null|callable(Process):void */
     protected $tap;
+
+    public function setPipe(?callable $pipe): self
+    {
+        $this->pipe = $pipe;
+
+        return $this;
+    }
 
     public function setTap(?callable $tap): self
     {
@@ -43,19 +53,16 @@ trait WithRunable
      */
     protected function toProcess(): Process
     {
-        $normalizedOptions = $this->clone()->getNormalizedOptions();
+        $command = [$this->soarBinary, ...$this->clone()->getNormalizedOptions()];
 
         $process = $this->shouldApplySudoPassword()
-            ? new Process(
-                command: ['sudo', '-S', $this->soarBinary, ...$normalizedOptions],
-                input: $this->getSudoPassword()
-            )
-            : new Process([$this->soarBinary, ...$normalizedOptions]);
+            ? new Process(command: ['sudo', '-S', ...$command], input: $this->getSudoPassword())
+            : new Process($command);
 
         if (\is_callable($this->tap)) {
             ($this->tap)($process);
         }
 
-        return $process;
+        return \is_callable($this->pipe) ? ($this->pipe)($process) : $process;
     }
 }
