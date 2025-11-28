@@ -1,13 +1,15 @@
 {
     "require-dev": {
-        "guanguans/monorepo-builder-worker": "^2.1",
-        "peckphp/peck": "^0.2.0",
-        "symplify/monorepo-builder": "^12.0"
+        "php": ">=8.2",
+        "ergebnis/composer-normalize": "^2.48",
+        "peckphp/peck": "^0.2",
+        "theofidry/composer-inheritance-plugin": "^1.2"
     },
     "config": {
         "allow-plugins": {
-            "wikimedia/composer-merge-plugin": true,
-            "theofidry/composer-inheritance-plugin": true
+            "ergebnis/composer-normalize": true,
+            "theofidry/composer-inheritance-plugin": false,
+            "wikimedia/composer-merge-plugin": false
         },
         "sort-packages": true
     }

@@ -77,11 +77,21 @@ parameters:
             function: 'env_explode()'
             message: 'use config() instead'
     ignoreErrors:
+#        - identifier: arrayFilter.strict
+#        - identifier: assign.propertyType
+#        - identifier: cast.double
+#        - identifier: cast.int
 #        - identifier: cast.string
+#        - identifier: empty.notAllowed
 #        - identifier: encapsedStringPart.nonString
-#        - identifier: logicalAnd.resultUnused
+#        - identifier: foreach.valueOverwrite
+#        - identifier: logicalOr.resultUnused
+#        - identifier: new.static
+#        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: paramOut.type
 #        - identifier: return.void
-#        - identifier: symplify.noDynamicName
+#        - identifier: symplify.noReference
+#        - identifier: trait.unused
 #        - identifier: typePerfect.noMixedMethodCaller
         - identifier: argument.templateType
         - identifier: argument.type

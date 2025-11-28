@@ -24,7 +24,7 @@ use PhpBench\Attributes\Revs;
 #[Revs(10)]
 final class SoarBench
 {
-    private ?Soar $soar = null;
+    private Soar $soar;
 
     public function setUp(): void
     {

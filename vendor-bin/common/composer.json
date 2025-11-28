@@ -1,16 +1,14 @@
 {
     "require-dev": {
-        "symplify/rule-doc-generator": "^12.2",
-        "theofidry/composer-inheritance-plugin": "^1.2"
+        "php": ">=8.1",
+        "ergebnis/composer-normalize": "^2.48",
+        "symplify/rule-doc-generator": "^12.2"
     },
     "config": {
         "allow-plugins": {
-            "wikimedia/composer-merge-plugin": true,
-            "theofidry/composer-inheritance-plugin": true,
-            "pestphp/pest-plugin": false,
-            "symfony/thanks": false,
-            "ergebnis/composer-normalize": false,
-            "phpstan/extension-installer": false
+            "ergebnis/composer-normalize": true,
+            "theofidry/composer-inheritance-plugin": false,
+            "wikimedia/composer-merge-plugin": false
         },
         "sort-packages": true
     }

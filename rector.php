@@ -25,6 +25,7 @@ use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
+use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
@@ -190,6 +191,7 @@ return RectorConfig::configure()
         ExplicitBoolCompareRector::class,
         LogicalToBooleanRector::class,
         NewlineAfterStatementRector::class,
+        NewlineBetweenClassLikeStmtsRector::class,
         ReturnBinaryOrToEarlyReturnRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])

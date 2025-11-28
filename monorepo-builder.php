@@ -36,8 +36,6 @@ use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateReplaceReleaseWorker;
 
 return static function (MBConfig $mbConfig): void {
     require __DIR__.'/vendor/autoload.php';
-
-    require __DIR__.'/vendor-bin/php82/vendor/autoload.php';
     $mbConfig->defaultBranch('master');
     MBConfig::disableDefaultWorkers();
 
@@ -66,7 +64,8 @@ return static function (MBConfig $mbConfig): void {
             (new PhpExecutableFinder)->find(),
             (new ExecutableFinder)->find($composer = 'composer', $composer),
             'run',
-            'checks',
+            'checks:required',
+            '--ansi',
         ]))
             ->setEnv(['COMPOSER_MEMORY_LIMIT' => -1])
             ->setTimeout(600)
