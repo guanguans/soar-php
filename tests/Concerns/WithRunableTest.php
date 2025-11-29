@@ -56,7 +56,7 @@ it('will throw ProcessFailedException when sudo password is error', function ():
         'sudo: no password was provided',
         'sudo: 1 incorrect password attempt',
     ]))
-    ->skip()
+    ->skipOnMac()
     ->skip(running_in_github_action());
 
 it('can run soar process with pipe', function (): void {
