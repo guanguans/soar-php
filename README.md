@@ -514,7 +514,7 @@ $soar->withSudoPassword('your sudo password'); // With a sudo password to run th
 
 ### Or configure sudoers
 
-> On higher versions of macOS, it is possible that the fingerprint authentication window will pop up. You can configure sudoers to run `soar` commands without a password.
+> On higher versions of macOS, it is possible that the fingerprint authentication window will pop up. You can configure sudoers to run `soar` command without password.
 
 1. Edit Configuration file of sudoers:
 
@@ -534,8 +534,8 @@ guanguans ALL=(ALL) NOPASSWD: /Users/guanguans/Documents/develop/soar-php/bin/so
 ```shell
 composer benchmark
 composer checks:required
-composer soar:example-run
-composer soar:example-serve
+composer soar:usage-example-run
+composer soar:usage-example-serve
 composer test
 ```
 

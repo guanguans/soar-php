@@ -62,7 +62,12 @@ it('will throw ProcessFailedException when sudo password is error', function ():
 it('can run soar process with pipe', function (): void {
     expect(Soar::make())
         ->withVersion(true)
-        ->withPipe(static fn (Process $process): Process => $process->setTimeout(3))
+        ->withPipe(function (Process $process): Process {
+            expect($this)->toBeInstanceOf(Process::class);
+            expect($this->commandline)->toBeArray();
+
+            return $process->setTimeout(3);
+        })
         ->run(static function (string $type, string $line): void {
             // dump($type, $line);
         })
@@ -72,7 +77,10 @@ it('can run soar process with pipe', function (): void {
 it('can run soar process with tap', function (): void {
     expect(Soar::make())
         ->withVersion(true)
-        ->withTap(static function (Process $process): void {
+        ->withTap(function (Process $process): void {
+            expect($this)->toBeInstanceOf(Process::class);
+            expect($this->commandline)->toBeArray();
+
             $process->setTimeout(3);
         })
         ->run(static function (string $type, string $line): void {

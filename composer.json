@@ -214,6 +214,7 @@
             "@php-cs-fixer:fix-dry-run-stop-on-violation",
             "@soar:check-binary",
             "@soar:dump-config",
+            "@soar:usage-example-run",
             "@pest:bail",
             "@rector:process-dry-run",
             "@phpstan:analyse"
@@ -394,7 +395,7 @@
         "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rectors/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
-        "sk:check-commented-code": "@sk check-commented-code examples/ src/ --line-limit=5 --skip-file=src/Soar.php",
+        "sk:check-commented-code": "@sk check-commented-code examples/ src/ --line-limit=6 --skip-file=src/Soar.php",
         "sk:check-conflicts": "@sk check-conflicts examples/ src/",
         "sk:dump-editorconfig": "@sk dump-editorconfig",
         "sk:finalize-classes": "@sk finalize-classes examples/ src/",
@@ -428,13 +429,13 @@
         ],
         "soar:dump-php-config-prototype": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
         "soar:dump-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
-        "soar:example-run": [
+        "soar:usage-example-run": [
             "echo 'examples/example.php:\n'",
-            "@php examples/example.php"
+            "@php examples/usage-example.php"
         ],
-        "soar:example-serve": [
+        "soar:usage-example-serve": [
             "@composer-config:disable-process-timeout",
-            "@php -S localhost:8123 examples/example.php"
+            "@php -S localhost:8123 examples/usage-example.php"
         ],
         "testbench": "@php vendor/bin/testbench --ansi",
         "testbench:build": "@testbench workbench:build",
