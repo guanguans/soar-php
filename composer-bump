@@ -213,7 +213,7 @@ class ComposerBump
                     },
                 ];
 
-                sort($dependencyVersions);
+                sort($dependencyVersions, \SORT_NUMERIC);
 
                 $package['dependency_version'] = implode(' || ', $dependencyVersions);
                 $carry[$package['name']] = $package;

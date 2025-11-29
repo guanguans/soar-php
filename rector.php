@@ -116,6 +116,7 @@ return RectorConfig::configure()
         'PhpUndefinedClassInspection',
         'PhpUnhandledExceptionInspection',
         'PhpVoidFunctionResultUsedInspection',
+        'SqlResolve',
         'StaticClosureCanBeUsedInspection',
     ])
     ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [

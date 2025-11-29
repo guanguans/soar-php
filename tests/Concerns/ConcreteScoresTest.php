@@ -6,10 +6,10 @@
 /** @noinspection PhpUndefinedClassInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection PhpVoidFunctionResultUsedInspection */
+/** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection DebugFunctionUsageInspection */
 /** @noinspection ForgottenDebugOutputInspection */
-/** @noinspection SqlResolve */
 declare(strict_types=1);
 
 /**

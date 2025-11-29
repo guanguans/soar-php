@@ -20,20 +20,20 @@ use Symfony\Component\Process\Process;
  */
 trait WithRunable
 {
-    /** @var null|callable(Process): Process */
-    protected $pipe;
+    /** @var null|\Closure(Process): Process */
+    protected ?\Closure $pipe = null;
 
-    /** @var null|callable(Process): void */
-    protected $tap;
+    /** @var null|\Closure(Process): void */
+    protected ?\Closure $tap = null;
 
-    public function withPipe(?callable $pipe): self
+    public function withPipe(?\Closure $pipe): self
     {
         $this->pipe = $pipe;
 
         return $this;
     }
 
-    public function withTap(?callable $tap): self
+    public function withTap(?\Closure $tap): self
     {
         $this->tap = $tap;
 
@@ -59,10 +59,10 @@ trait WithRunable
             ? new Process(command: ['sudo', '-S', ...$command], input: $this->getSudoPassword())
             : new Process($command);
 
-        if (\is_callable($this->tap)) {
-            ($this->tap)($process);
+        if ($this->tap instanceof \Closure) {
+            $this->tap->call($process, $process);
         }
 
-        return \is_callable($this->pipe) ? ($this->pipe)($process) : $process;
+        return $this->pipe instanceof \Closure ? ($this->pipe)->call($process, $process) : $process;
     }
 }
