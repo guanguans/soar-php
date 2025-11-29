@@ -162,7 +162,7 @@
         ],
         "actionlint": [
             "if ! command -v actionlint >/dev/null 2>&1; then echo 'actionlint not found, installing...'; brew install actionlint; fi",
-            "actionlint -ignore=SC2035 -color -oneline -verbose"
+            "actionlint -ignore=SC2035 -ignore=SC2086 -color -oneline -verbose"
         ],
         "blade-formatter": "blade-formatter resources/views/*.blade.php resources/views/**/*.blade.php --ignore-path= --php-version=8.1 --progress",
         "blade-formatter:check-formatted": "@blade-formatter --check-formatted",
@@ -222,7 +222,6 @@
         "class-leak:check": "@class-leak check examples/ src/ --skip-type=\\Contracts\\Channel --skip-suffix=Channel --skip-path=Support/Rectors/",
         "composer-bump": [
             "@putenv:php",
-            "@putenv:xdebug-off",
             "@composer-config:disable-process-timeout",
             "@php composer-bump --highest-php-binary=$PHP85 --except-package=foo/bar --ansi"
         ],

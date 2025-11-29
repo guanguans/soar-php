@@ -30,7 +30,7 @@ file_exists($autoload = __DIR__.'/../../vendor/autoload.php') and require $autol
 
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection DuplicatedCode */
-$status = (new SingleCommandApplication)
+$statusCode = (new SingleCommandApplication)
     ->setName('Composer Bump')
     ->addOption('composer-json-path', null, InputOption::VALUE_OPTIONAL)
     ->addOption('php-binary', null, InputOption::VALUE_OPTIONAL)
@@ -52,6 +52,9 @@ $status = (new SingleCommandApplication)
         ))();
     })
     ->run();
+
+exit($statusCode);
+
 class ComposerBump
 {
     private readonly string $composerJsonPath;
@@ -271,5 +274,3 @@ class ComposerBump
         });
     }
 }
-
-exit($status);

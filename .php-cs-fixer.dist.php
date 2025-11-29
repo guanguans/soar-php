@@ -216,6 +216,8 @@ return Factory::fromRuleSet(Php81::create()
         'phpdoc_no_alias_tag' => [
             'replacements' => [
                 'link' => 'see',
+                // 'property-read' => 'property',
+                // 'property-write' => 'property',
                 'type' => 'var',
             ],
         ],

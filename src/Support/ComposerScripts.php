@@ -33,6 +33,8 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * @internal
  *
+ * @property \Symfony\Component\Console\Output\ConsoleOutput $output
+ *
  * @method void configureIO(InputInterface $input, OutputInterface $output)
  */
 final class ComposerScripts
@@ -42,21 +44,21 @@ final class ComposerScripts
      *
      * @noinspection PhpUnused
      */
-    public static function checkSoarBinary(): int
+    public static function checkSoarBinary(Event $event): int
     {
-        // self::requireAutoload($event);
+        self::requireAutoload($event);
 
         foreach ((array) glob(__DIR__.'/../../bin/soar.*-*') as $file) {
             if (!is_executable($file)) {
-                self::makeSymfonyStyle()->error("The file [$file] is not executable.");
+                $event->getIO()->error("The file [$file] is not executable.");
 
                 exit(1);
             }
 
-            self::makeSymfonyStyle()->comment("<info>OK</info> $file");
+            $event->getIO()->warning("// OK $file");
         }
 
-        self::makeSymfonyStyle()->success('No errors');
+        $event->getIO()->info('No errors');
 
         return 0;
     }
@@ -75,7 +77,7 @@ final class ComposerScripts
             Yaml::dump(self::resolveSoarConfig()->all(), 3, 2, Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE)
         );
 
-        self::makeSymfonyStyle()->success('No errors');
+        $event->getIO()->info('No errors');
 
         return 0;
     }
@@ -116,7 +118,7 @@ final class ComposerScripts
             )
         );
 
-        self::makeSymfonyStyle()->success('No errors');
+        $event->getIO()->info('No errors');
 
         return 0;
     }
@@ -240,9 +242,6 @@ final class ComposerScripts
             });
     }
 
-    /**
-     * @noinspection PhpUnused
-     */
     public static function makeRectorConfig(): RectorConfig
     {
         static $rectorConfig;
@@ -253,7 +252,7 @@ final class ComposerScripts
     /**
      * @see \Rector\Console\Style\SymfonyStyleFactory
      */
-    private static function makeSymfonyStyle(): SymfonyStyle
+    public static function makeSymfonyStyle(): SymfonyStyle
     {
         static $symfonyStyle;
 
@@ -283,6 +282,10 @@ final class ComposerScripts
     private static function requireAutoload(Event $event): void
     {
         require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
+
+        (function (): void {
+            $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        })->call($event->getIO());
     }
 
     /**

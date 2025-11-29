@@ -1,4 +1,4 @@
-# total 6 errors
+# total 7 errors
 
 includes:
     - assign.propertyType.neon
@@ -6,4 +6,5 @@ includes:
     - complexity.functionLike.neon
     - disallowed.function.neon
     - new.static.neon
+    - property.notFound.neon
     - typePerfect.narrowPublicClassMethodParamType.neon

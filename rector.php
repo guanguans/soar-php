@@ -101,12 +101,13 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_100,
     ])
     ->withRules([
+        AddDocCommentForHasOptionsRector::class,
+        SortAssociativeArrayByKeyRector::class,
+
         ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
-        SortAssociativeArrayByKeyRector::class,
-        AddDocCommentForHasOptionsRector::class,
     ])
     ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
         'AnonymousFunctionStaticInspection',
@@ -134,6 +135,18 @@ return RectorConfig::configure()
         new StaticCallToFuncCall(Str::class, 'of', 'str'),
     ])
     ->withConfiguredRule(
+        AnnotationToAttributeRector::class,
+        classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
+            ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
+                $reflectionClass->getShortName(),
+                $reflectionClass->getName(),
+                [],
+                true
+            ))
+            ->all(),
+    )
+    ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
         classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\SoarPHP'))
             ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
@@ -156,12 +169,10 @@ return RectorConfig::configure()
         [
             'Pest\Faker\fake' => 'fake',
             'Pest\Faker\faker' => 'fake',
-            'faker' => 'fake',
             'test' => 'it',
         ] + array_reduce(
             [
                 'classes',
-                'escape_argument',
                 'str_snake',
             ],
             static function (array $carry, string $func): array {
@@ -172,18 +183,6 @@ return RectorConfig::configure()
             },
             []
         )
-    )
-    ->withConfiguredRule(
-        AnnotationToAttributeRector::class,
-        classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
-            ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
-                $reflectionClass->getShortName(),
-                $reflectionClass->getName(),
-                [],
-                true
-            ))
-            ->all(),
     )
     ->withSkip([
         ChangeOrIfContinueToMultiContinueRector::class,

@@ -24,7 +24,6 @@ return RectorConfig::configure()
     ])
     ->withPhpVersion(PhpVersion::PHP_81)
     ->withoutParallel()
-    // ->withImportNames(importNames: false)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
     ->withRules([
         AddDocCommentForSoarOptionsRector::class,

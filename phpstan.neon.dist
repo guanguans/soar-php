@@ -38,7 +38,7 @@ parameters:
     phpVersion: 80100
     level: max
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
-#    errorFormat: friendly
+    errorFormat: friendly
     friendly:
         lineBefore: 3
         lineAfter: 3

@@ -59,14 +59,24 @@ it('will throw ProcessFailedException when sudo password is error', function ():
     ->skip()
     ->skip(running_in_github_action());
 
-it('can run soar process with tapper', function (): void {
+it('can run soar process with pipe', function (): void {
+    expect(Soar::make())
+        ->withVersion(true)
+        ->withPipe(static fn (Process $process): Process => $process->setTimeout(3))
+        ->run(static function (string $type, string $line): void {
+            // dump($type, $line);
+        })
+        ->toBeString();
+})->group(__DIR__, __FILE__);
+
+it('can run soar process with tap', function (): void {
     expect(Soar::make())
         ->withVersion(true)
         ->withTap(static function (Process $process): void {
             $process->setTimeout(3);
         })
         ->run(static function (string $type, string $line): void {
-            dump($type, $line);
+            // dump($type, $line);
         })
         ->toBeString();
 })->group(__DIR__, __FILE__);
