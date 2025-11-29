@@ -505,9 +505,27 @@ array:9 [
 <details>
 <summary><b>:warning: When running in a unix OS non-cli environment, may throw `Fatal error: ...Exit Code: 2(Misuse of shell builtins)...`</b></summary>
 
+### Configure sudo password
+
 ```php
 // Fatal error: Uncaught Symfony\Component\Process\Exception\ProcessFailedException: The command "'/Users/yaozm/Documents/develop/soar-php/bin/soar.darwin-arm64' '-report-type=json' '-query=SELECT * FROM `foo`;'" failed. Exit Code: 2(Misuse of shell builtins) Working directory: /Users/yaozm/Documents/develop/soar-php Output: ================ Error Output: ================ panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x2 addr=0x0 pc=0x104d22798] goroutine 1 [running]: github.com/pingcap/tidb/util/memory.MemTotalNormal() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:41 +0x68 github.com/pingcap/tidb/util/memory.init.0() pkg/mod/github.com/pingcap/tidb@v1.1.0-beta.0.20210601085537-5d7c852770eb/util/memory/meminfo.go:134 +0x184 in /Users/yaozm/Documents/develop/soar-php/vendor/symfony/process/Process.php:273
 $soar->withSudoPassword('your sudo password'); // With a sudo password to run the soar command with sudo to avoid the above errors.
+```
+
+### Or configure sudoers
+
+> On higher versions of macOS, it is possible that the fingerprint authentication window will pop up. You can configure sudoers to run `soar` commands without a password.
+
+1. Edit Configuration file of sudoers:
+
+```shell
+sudo visudo
+```
+
+2. Add rule [`{user name} ALL=(ALL) NOPASSWD: {soar binary(You can find it from the exception message.)}`]:
+
+```shell
+guanguans ALL=(ALL) NOPASSWD: /Users/guanguans/Documents/develop/soar-php/bin/soar.darwin-arm64
 ```
 </details>
 
