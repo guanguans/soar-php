@@ -8,6 +8,40 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="7.0.0"></a>
+## [7.0.0] - 2025-11-29
+### ✨ Features
+- **runable:** add setPipe method to support process piping ([7be4788](https://github.com/guanguans/soar-php/commit/7be4788))
+
+### 🎨 Styles
+- apply php-cs-fixer ([3413928](https://github.com/guanguans/soar-php/commit/3413928))
+
+### 💅 Code Refactorings
+- apply inspection ([90bbdf3](https://github.com/guanguans/soar-php/commit/90bbdf3))
+- rename setter methods to use 'with' prefix for clarity ([8640903](https://github.com/guanguans/soar-php/commit/8640903))
+- apply phpstan ([a98c0e8](https://github.com/guanguans/soar-php/commit/a98c0e8))
+- apply rector ([7012894](https://github.com/guanguans/soar-php/commit/7012894))
+- **ComposerScripts:** optimize makeSymfonyStyle method ([e71e044](https://github.com/guanguans/soar-php/commit/e71e044))
+- **WithRunable:** rename processTapper to tap for clarity ([31f316a](https://github.com/guanguans/soar-php/commit/31f316a))
+- **binary:** rename soarBinary to binary for consistency ([6972229](https://github.com/guanguans/soar-php/commit/6972229))
+- **core:** rename sqls to queries for clarity and consistency ([63741eb](https://github.com/guanguans/soar-php/commit/63741eb))
+- **helpers:** update str_snake function to use hyphen delimiter ([213c975](https://github.com/guanguans/soar-php/commit/213c975))
+
+### ✅ Tests
+- **ArchTest:** enforce prohibition of debugging functions usage ([b6024f2](https://github.com/guanguans/soar-php/commit/b6024f2))
+
+### 📦 Builds
+- **polyfill:** Remove Symfony polyfill PHP82 and update analyzer and phpstan config ([e451f2d](https://github.com/guanguans/soar-php/commit/e451f2d))
+
+### 🤖 Continuous Integrations
+- **composer:** add new scripts for blade-formatter, mago, php-cs-fixer, todo-lint, and zizmor ([a1f761e](https://github.com/guanguans/soar-php/commit/a1f761e))
+- **config:** Remove unused faker mappings and commented properties ([f44e52e](https://github.com/guanguans/soar-php/commit/f44e52e))
+- **config:** Update config files ([ecd2502](https://github.com/guanguans/soar-php/commit/ecd2502))
+- **config:** Update config files ([319bb6e](https://github.com/guanguans/soar-php/commit/319bb6e))
+- **config:** Update config files ([1c32d7f](https://github.com/guanguans/soar-php/commit/1c32d7f))
+- **config:** Add YAML formatter configuration and generate rule documentation ([1817898](https://github.com/guanguans/soar-php/commit/1817898))
+
+
 <a name="6.3.0"></a>
 ## [6.3.0] - 2025-11-21
 ### 💅 Code Refactorings
@@ -769,7 +803,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/6.3.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.0...HEAD
+[7.0.0]: https://github.com/guanguans/soar-php/compare/6.3.0...7.0.0
 [6.3.0]: https://github.com/guanguans/soar-php/compare/6.2.0...6.3.0
 [6.2.0]: https://github.com/guanguans/soar-php/compare/6.1.0...6.2.0
 [6.1.0]: https://github.com/guanguans/soar-php/compare/6.0.4...6.1.0
