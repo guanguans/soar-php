@@ -428,6 +428,14 @@
         ],
         "soar:dump-php-config-prototype": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
         "soar:dump-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
+        "soar:example-run": [
+            "echo 'examples/example.php:\n'",
+            "@php examples/example.php"
+        ],
+        "soar:example-serve": [
+            "@composer-config:disable-process-timeout",
+            "@php -S localhost:8123 examples/example.php"
+        ],
         "testbench": "@php vendor/bin/testbench --ansi",
         "testbench:build": "@testbench workbench:build",
         "testbench:clear": "@testbench package:purge-skeleton",

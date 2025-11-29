@@ -39,8 +39,6 @@ composer require guanguans/soar-php --ansi -v
 ```php
 <?php
 
-/** @noinspection SqlResolve */
-
 declare(strict_types=1);
 
 require __DIR__.'/vendor/autoload.php';
@@ -70,6 +68,7 @@ $queries = [
  * Examples of scoring.
  */
 $scores = Soar::make()->arrayScores($queries); // Basic scoring
+dump($scores);
 
 $scores = Soar::make() // Advanced scoring
     ->withTestDsn([
@@ -98,16 +97,17 @@ $scores = Soar::make() // Advanced scoring
  * Examples of running any soar command.
  */
 // Final run: '/.../bin/soar.darwin-arm64' '-report-type=fingerprint' '-query=SELECT * FROM `foo`;'
-$fingerprint = Soar::make()->withReportType('fingerprint')->withQuery($queries[1])->dump()->run();
+$fingerprint = Soar::make()->withReportType('fingerprint')->withQuery($queries[1])->run();
 
 // Final run: '/.../bin/soar.darwin-arm64' '-report-type=pretty' '-query=SELECT * FROM `foo`;'
-$pretty = Soar::make()->withReportType('pretty')->withQuery($queries[1])->dump()->run();
+$pretty = Soar::make()->withReportType('pretty')->withQuery($queries[1])->run();
 
 // Final run: '/.../bin/soar.darwin-arm64' '-version=true'
-$version = Soar::make()->withHelp(true)->setVersion(true)->dump()->run();
+$version = Soar::make()->withHelp(true)->setVersion(true)->run();
 
-// Final run: '/.../bin/soar.darwin-arm64' '-only-syntax-check=true' '-query=SELECT * FRO `foo`;'
-$syntaxCheck = Soar::make()->withOnlySyntaxCheck(true)->withQuery('SELECT * FRO `foo`;')->dump()->run();
+// Final run: '/.../bin/soar.darwin-arm64' '-only-syntax-check=true' '-query=SELECT * FROM `foo`;'
+// $syntaxCheck = Soar::make()->withOnlySyntaxCheck(true)->withQuery('SELECT * FRO `foo`;')->run();
+$syntaxCheck = Soar::make()->withOnlySyntaxCheck(true)->withQuery('SELECT * FROM `foo`;')->run();
 ```
 </details>
 
@@ -534,6 +534,8 @@ guanguans ALL=(ALL) NOPASSWD: /Users/guanguans/Documents/develop/soar-php/bin/so
 ```shell
 composer benchmark
 composer checks:required
+composer soar:example-run
+composer soar:example-serve
 composer test
 ```
 
