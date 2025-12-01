@@ -66,7 +66,6 @@ return RectorConfig::configure()
         // __DIR__.'/vendor/symplify/monorepo-builder/vendor/scoper-autoload.php',
     ])
     ->withSkip([
-        '**/__snapshots__/*',
         '**/Fixtures/*',
         __DIR__.'/_ide_helper.php',
         __DIR__.'/tests.php',

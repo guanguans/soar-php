@@ -97,7 +97,7 @@ it('can normalize options', function (): void {
                 return 'traditional';
             }
         },
-        '-explain-type' => new class {
+        '-explain-type' => new class implements Stringable {
             public function __toString(): string
             {
                 return 'extended';

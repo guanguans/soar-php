@@ -83,6 +83,9 @@ return Factory::fromRuleSet(Php81::create()
         '@PHPUnit10x0Migration:risky' => true,
     ]))
     ->withRules(Rules::fromArray([
+        'align_multiline_comment' => [
+            'comment_type' => 'phpdocs_only',
+        ],
         'attribute_empty_parentheses' => [
             'use_parentheses' => false,
         ],
@@ -294,7 +297,6 @@ return Factory::fromRuleSet(Php81::create()
         Finder::create()
             ->in(__DIR__)
             ->exclude([
-                '__snapshots__/',
                 'Fixtures/',
                 'vendor-bin/',
             ])

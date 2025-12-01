@@ -93,7 +93,7 @@
     "suggest": {
         "symfony/var-dumper": "Required to use the the trait [WithDumpable]."
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -254,9 +254,12 @@
         "facade:lint": "@facade:update --lint",
         "facade:update": "@php -f vendor/bin/facade.php -- Guanguans\\\\SoarPHP\\\\Facades\\\\SoarPHP",
         "git-chglog": "git-chglog $(git describe --tags $(git rev-list --tags --max-count=1))",
-        "gitleaks": "gitleaks git --baseline-path=gitleaks-baseline.json --report-path=.build/gitleaks-report.json -v",
+        "gitleaks": "gitleaks git --report-path=.build/gitleaks-report.json -v",
         "gitleaks:generate-baseline": "gitleaks git --report-path=gitleaks-baseline.json -v",
-        "grumphp": "@php vendor/bin/grumphp run --ansi -vv",
+        "grumphp": [
+            "@putenv:php",
+            "$PHP82 vendor/bin/grumphp run --ansi -vv"
+        ],
         "jack": "@php vendor/bin/jack --ansi -vv",
         "jack:breakpoint": "@jack breakpoint --limit=5",
         "jack:breakpoint-dev": "@jack:breakpoint --dev",
@@ -301,7 +304,7 @@
         "peck:init": "@peck --init",
         "pest": [
             "@putenv:xdebug-on",
-            "@php vendor/bin/pest --colors=always --min=61.8 --coverage --profile",
+            "@php vendor/bin/pest --colors=always --min=80 --coverage --profile",
             "@putenv:xdebug-off"
         ],
         "pest:bail": "@pest --bail",
@@ -395,7 +398,7 @@
         "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rectors/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
-        "sk:check-commented-code": "@sk check-commented-code examples/ src/ --line-limit=6 --skip-file=src/Soar.php",
+        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=5 --skip-file=src/Soar.php",
         "sk:check-conflicts": "@sk check-conflicts examples/ src/",
         "sk:dump-editorconfig": "@sk dump-editorconfig",
         "sk:finalize-classes": "@sk finalize-classes examples/ src/",

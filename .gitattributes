@@ -51,7 +51,6 @@
 /CHANGELOG.md                       export-ignore
 /composer-bump                      export-ignore
 /composer-dependency-analyser.php   export-ignore
-/gitleaks-baseline.json             export-ignore
 /monorepo-builder.php               export-ignore
 /peck.json                          export-ignore
 /phpbench.json.dist                 export-ignore

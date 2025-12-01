@@ -36,7 +36,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Run composer install
-        run: composer install --no-interaction --prefer-dist --ansi -v
+        run: composer install --no-interaction --ansi -v
 
       - name: Run phpstan
         run: composer phpstan:analyse
