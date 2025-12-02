@@ -73,7 +73,7 @@ final class ComposerScripts
         self::requireAutoload($event);
 
         file_put_contents(
-            __DIR__.'/../../examples/soar-options.yaml',
+            __DIR__.'/../../examples/options.yaml',
             Yaml::dump(self::resolveSoarConfig()->all(), 3, 2, Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE)
         );
 
@@ -92,7 +92,7 @@ final class ComposerScripts
         self::requireAutoload($event);
 
         file_put_contents(
-            __DIR__.'/../../examples/soar-options.php',
+            __DIR__.'/../../examples/options.php',
             \sprintf(
                 <<<'PHP'
                     <?php
@@ -223,7 +223,7 @@ final class ComposerScripts
                 return $option;
             })
             ->tap(static function () use (&$rules): void {
-                $rules = array_keys(require __DIR__.'/../../examples/soar-options-example.php');
+                $rules = array_keys(require __DIR__.'/../../examples/options-example.php');
             })
             ->sortKeysUsing(static function (string $a, string $b) use ($rules): int {
                 if (!\in_array($a, $rules, true) && \in_array($b, $rules, true)) {

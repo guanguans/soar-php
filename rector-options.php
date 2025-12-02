@@ -20,7 +20,7 @@ use Rector\ValueObject\PhpVersion;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__.'/examples/soar-options.php',
+        __DIR__.'/examples/options.php',
     ])
     ->withPhpVersion(PhpVersion::PHP_81)
     ->withoutParallel()

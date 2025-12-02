@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 return [
     // Config file path
-    '-config' => __DIR__.'/soar-options.yaml',
+    '-config' => __DIR__.'/options.yaml',
 
     // TestDSN, 测试环境数据库配置, username:********@tcp(ip:port)/schema (default "tcp/information_schema?timeout=3s&charset=utf8")
     '-test-dsn' => [
@@ -75,7 +75,7 @@ return [
     '-allow-online-as-test' => true,
 
     // 指定 blacklist 配置文件的位置，文件中的 SQL 不会被评审。一行一条SQL，可以是指纹，也可以是正则
-    '-blacklist' => __DIR__.'/soar.blacklist.example',
+    '-blacklist' => __DIR__.'/blacklist.example',
 
     // Explain, 是否开启Explain执行计划分析 (default true)
     '-explain' => true,

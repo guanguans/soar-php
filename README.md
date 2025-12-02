@@ -534,8 +534,8 @@ guanguans ALL=(ALL) NOPASSWD: /Users/guanguans/Documents/develop/soar-php/bin/so
 ```shell
 composer benchmark
 composer checks:required
-composer soar:usage-example-run
-composer soar:usage-example-serve
+composer soar:example-run
+composer soar:example-serve
 composer test
 ```
 

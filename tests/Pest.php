@@ -118,7 +118,7 @@ function soar_options(): array
     static $options;
 
     return $options ??= array_filter(
-        require __DIR__.'/../examples/soar-options.php',
+        require __DIR__.'/../examples/options.php',
         fn (mixed $value): bool => null !== $value
     );
 }
@@ -127,5 +127,5 @@ function soar_options_example(): array
 {
     static $options;
 
-    return $options ??= require __DIR__.'/../examples/soar-options-example.php';
+    return $options ??= require __DIR__.'/../examples/options-example.php';
 }

@@ -90,7 +90,7 @@ it('will throw InvalidOptionException when normalize invalid option', function (
 
 it('can normalize options', function (): void {
     $normalizedOptions = (fn (): array => $this->getNormalizedOptions())->call(Soar::make([
-        ...require __DIR__.'/../../examples/soar-options.php',
+        ...require __DIR__.'/../../examples/options.php',
         '-explain-format' => new class {
             public function __invoke(): string
             {

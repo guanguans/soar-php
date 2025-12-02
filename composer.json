@@ -214,7 +214,7 @@
             "@php-cs-fixer:fix-dry-run-stop-on-violation",
             "@soar:check-binary",
             "@soar:dump-config",
-            "@soar:usage-example-run",
+            "@soar:example-run",
             "@pest:bail",
             "@rector:process-dry-run",
             "@phpstan:analyse"
@@ -387,7 +387,7 @@
         "rector:process-dry-run": "@rector:process --dry-run",
         "rector:process-only": "@rector:process-clear-cache --only=Guanguans\\SoarPHP\\Support\\Rectors\\AddHasOptionsDocCommentRector",
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
-        "rector:process-soar-options": "@rector:process-clear-cache --config=rector-soar-options.php",
+        "rector:process-soar-options": "@rector:process-clear-cache --config=rector-options.php",
         "rector:process-soar-options-dry-run": "@rector:process-soar-options --dry-run",
         "rector:setup-ci": "@rector setup-ci",
         "rule-doc-generator": [
@@ -432,13 +432,13 @@
         ],
         "soar:dump-php-config-prototype": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
         "soar:dump-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
-        "soar:usage-example-run": [
+        "soar:example-run": [
             "echo 'examples/example.php:\n'",
-            "@php examples/usage-example.php"
+            "@php examples/example.php"
         ],
-        "soar:usage-example-serve": [
+        "soar:example-serve": [
             "@composer-config:disable-process-timeout",
-            "@php -S localhost:8123 examples/usage-example.php"
+            "@php -S localhost:8123 examples/example.php"
         ],
         "testbench": "@php vendor/bin/testbench --ansi",
         "testbench:build": "@testbench workbench:build",
