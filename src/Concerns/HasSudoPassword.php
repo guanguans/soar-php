@@ -38,6 +38,6 @@ trait HasSudoPassword
 
     protected function shouldApplySudoPassword(): bool
     {
-        return $this->sudoPassword && OsHelper::isUnix() && !\in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg', 'embed'], true);
+        return $this->sudoPassword && OsHelper::isUnix();
     }
 }
