@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="7.0.2"></a>
+## [7.0.2] - 2025-12-03
+### ✨ Features
+- **HasSudoPassword:** Add withoutSudoPassword method to clear sudo password ([2fd77fa](https://github.com/guanguans/soar-php/commit/2fd77fa))
+
+### 🐞 Bug Fixes
+- **HasSudoPassword:** Refine sudo password application condition ([842a824](https://github.com/guanguans/soar-php/commit/842a824))
+
+
 <a name="7.0.1"></a>
 ## [7.0.1] - 2025-12-03
 ### ✨ Features
@@ -825,7 +834,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.1...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.2...HEAD
+[7.0.2]: https://github.com/guanguans/soar-php/compare/7.0.1...7.0.2
 [7.0.1]: https://github.com/guanguans/soar-php/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/guanguans/soar-php/compare/6.3.0...7.0.0
 [6.3.0]: https://github.com/guanguans/soar-php/compare/6.2.0...6.3.0
