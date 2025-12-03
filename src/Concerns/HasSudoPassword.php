@@ -27,6 +27,11 @@ trait HasSudoPassword
         return $this->sudoPassword;
     }
 
+    public function withoutSudoPassword(): self
+    {
+        return $this->withSudoPassword(null);
+    }
+
     public function withSudoPassword(
         #[\SensitiveParameter]
         ?string $sudoPassword
