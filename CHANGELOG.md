@@ -8,6 +8,28 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="7.0.1"></a>
+## [7.0.1] - 2025-12-03
+### ✨ Features
+- **example:** Add example script for SoarPHP usage ([38433b9](https://github.com/guanguans/soar-php/commit/38433b9))
+
+### 🐞 Bug Fixes
+- **sudo:** Simplify sudo password application condition ([80bfc3f](https://github.com/guanguans/soar-php/commit/80bfc3f))
+
+### 📖 Documents
+- **README:** Add configuration instructions for sudo password ([5329bcd](https://github.com/guanguans/soar-php/commit/5329bcd))
+
+### 💅 Code Refactorings
+- **WithRunable:** Update callable types to Closure for better type safety ([59a703f](https://github.com/guanguans/soar-php/commit/59a703f))
+
+### ✅ Tests
+- **WithRunableTest:** Skip tests on macOS ([94ee75b](https://github.com/guanguans/soar-php/commit/94ee75b))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([cc27437](https://github.com/guanguans/soar-php/commit/cc27437))
+- **config:** Update composer.json and configuration files ([5305a63](https://github.com/guanguans/soar-php/commit/5305a63))
+
+
 <a name="7.0.0"></a>
 ## [7.0.0] - 2025-11-29
 ### ✨ Features
@@ -803,7 +825,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.1...HEAD
+[7.0.1]: https://github.com/guanguans/soar-php/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/guanguans/soar-php/compare/6.3.0...7.0.0
 [6.3.0]: https://github.com/guanguans/soar-php/compare/6.2.0...6.3.0
 [6.2.0]: https://github.com/guanguans/soar-php/compare/6.1.0...6.2.0
