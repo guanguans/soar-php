@@ -17,7 +17,7 @@ use ShipMonk\ComposerDependencyAnalyser\Config\ErrorType;
 return (new Configuration)
     ->addPathsToScan(
         [
-            __DIR__.'/src/',
+            // __DIR__.'/src/',
         ],
         false
     )

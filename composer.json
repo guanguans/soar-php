@@ -51,6 +51,7 @@
         "ergebnis/license": "^2.7",
         "ergebnis/php-cs-fixer-config": "^6.57",
         "ergebnis/rector-rules": "^1.7",
+        "fakerphp/faker": "^1.24",
         "guanguans/monorepo-builder-worker": "^2.1",
         "illuminate/support": "^10.49 || ^11.0 || ^12.0",
         "mockery/mockery": "^1.6",

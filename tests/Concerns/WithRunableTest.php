@@ -8,8 +8,6 @@
 /** @noinspection PhpVoidFunctionResultUsedInspection */
 /** @noinspection SqlResolve */
 /** @noinspection StaticClosureCanBeUsedInspection */
-/** @noinspection DebugFunctionUsageInspection */
-/** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpMissingParentCallCommonInspection */
 declare(strict_types=1);
 
