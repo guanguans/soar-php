@@ -44,6 +44,7 @@
         "symfony/process": "^6.4 || ^7.0 || ^8.0"
     },
     "require-dev": {
+        "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^2.0",
         "bamarni/composer-bin-plugin": "^1.8",
         "brainmaestro/composer-git-hooks": "^3.0",
         "composer/composer": "^2.9",

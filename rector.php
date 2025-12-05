@@ -137,8 +137,8 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         AnnotationToAttributeRector::class,
         classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
-            ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
+            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
+            ->map(static fn (\ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
                 $reflectionClass->getShortName(),
                 $reflectionClass->getName(),
                 [],
@@ -149,11 +149,11 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
         classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\SoarPHP'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
+            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
             ->map(
-                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
-                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
-                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
+                static fn (\ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(\ReflectionMethod::IS_PRIVATE))
+                    ->reject(static fn (\ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
+                    ->map(static fn (\ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
                         $reflectionClass->getName(),
                         $reflectionMethod->getName(),
                         Visibility::PROTECTED

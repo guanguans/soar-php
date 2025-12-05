@@ -20,7 +20,6 @@ use PhpParser\Node\ArrayItem;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -34,7 +33,7 @@ final class AddDocCommentForSoarOptionsRector extends AbstractRector implements 
     ) {}
 
     /**
-     * @throws PoorDocumentationException
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
      */
     public function getRuleDefinition(): RuleDefinition
     {
@@ -83,7 +82,7 @@ final class AddDocCommentForSoarOptionsRector extends AbstractRector implements 
     }
 
     /**
-     * @param Node\ArrayItem $node
+     * @param \PhpParser\Node\ArrayItem $node
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */

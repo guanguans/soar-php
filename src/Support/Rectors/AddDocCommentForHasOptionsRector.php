@@ -26,7 +26,6 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -41,7 +40,7 @@ final class AddDocCommentForHasOptionsRector extends AbstractRector implements D
     ) {}
 
     /**
-     * @throws PoorDocumentationException
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
      */
     public function getRuleDefinition(): RuleDefinition
     {
@@ -77,7 +76,7 @@ final class AddDocCommentForHasOptionsRector extends AbstractRector implements D
     }
 
     /**
-     * @param Trait_ $node
+     * @param \PhpParser\Node\Stmt\Trait_ $node
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */

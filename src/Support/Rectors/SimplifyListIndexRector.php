@@ -21,7 +21,6 @@ use PhpParser\Node\Scalar\Int_;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -35,7 +34,7 @@ final class SimplifyListIndexRector extends AbstractRector implements Documented
     ) {}
 
     /**
-     * @throws PoorDocumentationException
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
      */
     public function getRuleDefinition(): RuleDefinition
     {
@@ -70,7 +69,7 @@ final class SimplifyListIndexRector extends AbstractRector implements Documented
     }
 
     /**
-     * @param Array_ $node
+     * @param \PhpParser\Node\Expr\Array_ $node
      */
     public function refactor(Node $node): ?Node
     {
