@@ -39,37 +39,6 @@ final class AddDocCommentForHasOptionsRector extends AbstractRector implements D
         private readonly PhpDocInfoFactory $phpDocInfoFactory
     ) {}
 
-    /**
-     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Add doc comment for has options rector',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                        trait HasOptions
-                        {
-                        }
-                        CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                        /**
-                         * @method \Guanguans\SoarPHP\Soar exceptVerbose() // Verbose
-                         * @method \Guanguans\SoarPHP\Soar exceptVersion() // Print version info
-                         * @method \Guanguans\SoarPHP\Soar exceptHelp() // Help
-                         *
-                         * @mixin \Guanguans\SoarPHP\Soar
-                         */
-                        trait HasOptions
-                        {
-                        }
-                        CODE_SAMPLE,
-                ),
-            ],
-        );
-    }
-
     public function getNodeTypes(): array
     {
         return [Trait_::class];
@@ -132,5 +101,36 @@ final class AddDocCommentForHasOptionsRector extends AbstractRector implements D
         $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
         return $node;
+    }
+
+    /**
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'Add doc comment for has options rector',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+                        trait HasOptions
+                        {
+                        }
+                        CODE_SAMPLE,
+                    <<<'CODE_SAMPLE'
+                        /**
+                         * @method \Guanguans\SoarPHP\Soar exceptVerbose() // Verbose
+                         * @method \Guanguans\SoarPHP\Soar exceptVersion() // Print version info
+                         * @method \Guanguans\SoarPHP\Soar exceptHelp() // Help
+                         *
+                         * @mixin \Guanguans\SoarPHP\Soar
+                         */
+                        trait HasOptions
+                        {
+                        }
+                        CODE_SAMPLE,
+                ),
+            ],
+        );
     }
 }

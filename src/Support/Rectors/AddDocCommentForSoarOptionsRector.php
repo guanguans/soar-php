@@ -32,48 +32,6 @@ final class AddDocCommentForSoarOptionsRector extends AbstractRector implements 
         private readonly ValueResolver $valueResolver
     ) {}
 
-    /**
-     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Add doc comment for soar options rector',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                        return [
-                            '-allow-charsets' => [
-                                0 => 'utf8',
-                                1 => 'utf8mb4',
-                            ],
-                            '-allow-collates' => [
-                            ],
-                            '-allow-drop-index' => false,
-                        ];
-
-                        CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                        return [
-                             // AllowCharsets (default "utf8,utf8mb4")
-                            '-allow-charsets' => [
-                                0 => 'utf8',
-                                1 => 'utf8mb4',
-                            ],
-
-                             // AllowCollates
-                            '-allow-collates' => [
-                            ],
-
-                             // AllowDropIndex, 允许输出删除重复索引的建议
-                            '-allow-drop-index' => false,
-                        ];
-                        CODE_SAMPLE,
-                ),
-            ],
-        );
-    }
-
     public function getNodeTypes(): array
     {
         return [
@@ -118,5 +76,47 @@ final class AddDocCommentForSoarOptionsRector extends AbstractRector implements 
         ));
 
         return $node;
+    }
+
+    /**
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'Add doc comment for soar options rector',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+                        return [
+                            '-allow-charsets' => [
+                                0 => 'utf8',
+                                1 => 'utf8mb4',
+                            ],
+                            '-allow-collates' => [
+                            ],
+                            '-allow-drop-index' => false,
+                        ];
+
+                        CODE_SAMPLE,
+                    <<<'CODE_SAMPLE'
+                        return [
+                             // AllowCharsets (default "utf8,utf8mb4")
+                            '-allow-charsets' => [
+                                0 => 'utf8',
+                                1 => 'utf8mb4',
+                            ],
+
+                             // AllowCollates
+                            '-allow-collates' => [
+                            ],
+
+                             // AllowDropIndex, 允许输出删除重复索引的建议
+                            '-allow-drop-index' => false,
+                        ];
+                        CODE_SAMPLE,
+                ),
+            ],
+        );
     }
 }

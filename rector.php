@@ -24,13 +24,13 @@ use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForHasOptionsRector;
 use Illuminate\Support\Str;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
+use Rector\CodingStyle\Rector\ArrowFunction\ArrowFunctionDelegatingCallToFirstClassCallableRector;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
 use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
-use Rector\CodingStyle\Rector\FunctionLike\FunctionLikeToFirstClassCallableRector;
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
@@ -137,8 +137,8 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         AnnotationToAttributeRector::class,
         classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
-            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
-            ->map(static fn (\ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
+            ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
                 $reflectionClass->getShortName(),
                 $reflectionClass->getName(),
                 [],
@@ -149,11 +149,11 @@ return RectorConfig::configure()
     ->withConfiguredRule(
         ChangeMethodVisibilityRector::class,
         classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\SoarPHP'))
-            ->filter(static fn (\ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
+            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
             ->map(
-                static fn (\ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(\ReflectionMethod::IS_PRIVATE))
-                    ->reject(static fn (\ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
-                    ->map(static fn (\ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
+                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
+                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
+                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
                         $reflectionClass->getName(),
                         $reflectionMethod->getName(),
                         Visibility::PROTECTED
@@ -195,8 +195,7 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        FunctionLikeToFirstClassCallableRector::class => [
-            __DIR__.'/src/Support/helpers.php',
+        ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
             __DIR__.'/tests/Concerns/HasOptionsTest.php',
         ],
         StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
@@ -208,6 +207,7 @@ return RectorConfig::configure()
             __DIR__.'/examples/',
             __DIR__.'/src/',
             __DIR__.'/tests/',
+            __FILE__,
         ],
         AddNoinspectionsDocCommentToDeclareRector::class => [
             __DIR__.'/benchmarks/',

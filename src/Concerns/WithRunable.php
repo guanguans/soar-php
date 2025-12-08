@@ -63,6 +63,6 @@ trait WithRunable
             $this->tap->call($process, $process);
         }
 
-        return $this->pipe instanceof \Closure ? ($this->pipe)->call($process, $process) : $process;
+        return $this->pipe instanceof \Closure ? $this->pipe->call($process, $process) : $process;
     }
 }

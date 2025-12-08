@@ -33,34 +33,6 @@ final class SimplifyListIndexRector extends AbstractRector implements Documented
         private readonly ValueResolver $valueResolver
     ) {}
 
-    /**
-     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'Simplify list index',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-                        [
-                            0 => 'delimiter',
-                            1 => 'orderbynull',
-                            2 => 'groupbyconst',
-                        ]
-                        CODE_SAMPLE,
-                    <<<'CODE_SAMPLE'
-                        [
-                            'delimiter',
-                            'orderbynull',
-                            'groupbyconst',
-                        ]
-                        CODE_SAMPLE,
-                ),
-            ],
-        );
-    }
-
     public function getNodeTypes(): array
     {
         return [
@@ -98,6 +70,34 @@ final class SimplifyListIndexRector extends AbstractRector implements Documented
         }
 
         return $node;
+    }
+
+    /**
+     * @throws \Symplify\RuleDocGenerator\Exception\PoorDocumentationException
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'Simplify list index',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+                        [
+                            0 => 'delimiter',
+                            1 => 'orderbynull',
+                            2 => 'groupbyconst',
+                        ]
+                        CODE_SAMPLE,
+                    <<<'CODE_SAMPLE'
+                        [
+                            'delimiter',
+                            'orderbynull',
+                            'groupbyconst',
+                        ]
+                        CODE_SAMPLE,
+                ),
+            ],
+        );
     }
 
     private function isList(array $array): bool
