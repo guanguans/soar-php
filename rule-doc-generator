@@ -12,8 +12,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-namespace RuleDocGenerator202408;
-
 require __DIR__.'/vendor/autoload.php';
 
 require __DIR__.'/vendor-bin/common/vendor/symplify/rule-doc-generator/bin/rule-doc-generator.php';

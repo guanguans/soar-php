@@ -214,9 +214,9 @@
             "@composer:normalize-dry-run",
             "@composer-dependency-analyser",
             "@php-cs-fixer:fix-dry-run-stop-on-violation",
-            "@soar:check-binary",
-            "@soar:dump-config",
-            "@soar:example-run",
+            "@soar-php:check-binary",
+            "@soar-php:dump-config",
+            "@soar-php:example-run",
             "@pest:bail",
             "@rector:process-dry-run",
             "@phpstan:analyse"
@@ -422,23 +422,23 @@
             "ls -lh builds/soar-php.phar",
             "ls -lr builds/soar-php.phar"
         ],
-        "soar:check-binary": "Guanguans\\SoarPHP\\Support\\ComposerScripts::checkSoarBinary",
-        "soar:dump-config": [
-            "@soar:dump-yaml-config",
-            "@soar:dump-php-config"
+        "soar-php:check-binary": "Guanguans\\SoarPHP\\Support\\ComposerScripts::checkSoarBinary",
+        "soar-php:dump-config": [
+            "@soar-php:dump-yaml-config",
+            "@soar-php:dump-php-config"
         ],
-        "soar:dump-php-config": [
-            "@soar:dump-php-config-prototype",
+        "soar-php:dump-php-config": [
+            "@soar-php:dump-php-config-prototype",
             "@rector:process-options --no-diffs",
             "@php-cs-fixer:fix --quiet"
         ],
-        "soar:dump-php-config-prototype": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
-        "soar:dump-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
-        "soar:example-run": [
+        "soar-php:dump-php-config-prototype": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarPHPConfig",
+        "soar-php:dump-yaml-config": "Guanguans\\SoarPHP\\Support\\ComposerScripts::dumpSoarYamlConfig",
+        "soar-php:example-run": [
             "echo 'examples/example.php:\n'",
             "@php examples/example.php"
         ],
-        "soar:example-serve": [
+        "soar-php:example-serve": [
             "@composer-config:disable-process-timeout",
             "@php -S localhost:8123 examples/example.php"
         ],

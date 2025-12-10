@@ -281,7 +281,7 @@ final class ComposerScripts
 
     private static function requireAutoload(Event $event): void
     {
-        require_once $event->getComposer()->getConfig()->get('vendor-dir').'/autoload.php';
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
 
         (function (): void {
             $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
