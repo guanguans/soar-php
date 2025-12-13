@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 
 use Faker\Factory;
+use Faker\Generator;
 use Guanguans\SoarPHPTests\TestCase;
 use Pest\Expectation;
 

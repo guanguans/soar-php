@@ -44,7 +44,6 @@ if (!\function_exists('Guanguans\SoarPHP\Support\classes')) {
     function classes(?callable $filter = null): Collection
     {
         static $classes;
-
         $classes ??= collect(spl_autoload_functions())->flatMap(
             static fn (mixed $loader): array => \is_array($loader) && $loader[0] instanceof ClassLoader
                 ? $loader[0]->getClassMap()

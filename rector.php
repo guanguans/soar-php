@@ -108,22 +108,22 @@ return RectorConfig::configure()
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
     ])
-    ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
-        'AnonymousFunctionStaticInspection',
-        'NullPointerExceptionInspection',
-        'PhpPossiblePolymorphicInvocationInspection',
-        'PhpUndefinedClassInspection',
-        'PhpUnhandledExceptionInspection',
-        'PhpVoidFunctionResultUsedInspection',
-        'SqlResolve',
-        'StaticClosureCanBeUsedInspection',
-    ])
-    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
-        Throwable::class,
-    ])
-    ->withConfiguredRule(RemoveNamespaceRector::class, [
-        'Guanguans\SoarPHPTests',
-    ])
+    // ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
+    //     'AnonymousFunctionStaticInspection',
+    //     'NullPointerExceptionInspection',
+    //     'PhpPossiblePolymorphicInvocationInspection',
+    //     'PhpUndefinedClassInspection',
+    //     'PhpUnhandledExceptionInspection',
+    //     'PhpVoidFunctionResultUsedInspection',
+    //     'SqlResolve',
+    //     'StaticClosureCanBeUsedInspection',
+    // ])
+    // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
+    //     Throwable::class,
+    // ])
+    // ->withConfiguredRule(RemoveNamespaceRector::class, [
+    //     'Guanguans\SoarPHPTests',
+    // ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
         'codeCoverageIgnore',
         'inheritDoc',
@@ -209,34 +209,34 @@ return RectorConfig::configure()
             __DIR__.'/tests/',
             __FILE__,
         ],
-        AddNoinspectionsDocCommentToDeclareRector::class => [
-            __DIR__.'/benchmarks/',
-            __DIR__.'/examples/',
-            __DIR__.'/src/',
-            // __DIR__.'/tests/',
-            ...$rootFiles = array_filter(
-                glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
-                static fn (string $filename): bool => !\in_array(
-                    $filename,
-                    [
-                        __DIR__.'/_ide_helper.php',
-                        __DIR__.'/tests.php',
-                    ],
-                    true
-                )
-            ),
-            __DIR__.'/composer-bump',
-        ],
-        NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
-            __DIR__.'/src/Support/Rectors/',
-        ],
-        RemoveNamespaceRector::class => [
-            __DIR__.'/benchmarks/',
-            __DIR__.'/examples/',
-            __DIR__.'/src/',
-            // __DIR__.'/tests/',
-            ...$rootFiles,
-            __DIR__.'/composer-bump',
-            __DIR__.'/tests/TestCase.php',
-        ],
+        // AddNoinspectionsDocCommentToDeclareRector::class => [
+        //     __DIR__.'/benchmarks/',
+        //     __DIR__.'/examples/',
+        //     __DIR__.'/src/',
+        //     // __DIR__.'/tests/',
+        //     ...$rootFiles = array_filter(
+        //         glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
+        //         static fn (string $filename): bool => !\in_array(
+        //             $filename,
+        //             [
+        //                 __DIR__.'/_ide_helper.php',
+        //                 __DIR__.'/tests.php',
+        //             ],
+        //             true
+        //         )
+        //     ),
+        //     __DIR__.'/composer-bump',
+        // ],
+        // NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
+        //     __DIR__.'/src/Support/Rectors/',
+        // ],
+        // RemoveNamespaceRector::class => [
+        //     __DIR__.'/benchmarks/',
+        //     __DIR__.'/examples/',
+        //     __DIR__.'/src/',
+        //     // __DIR__.'/tests/',
+        //     ...$rootFiles,
+        //     __DIR__.'/composer-bump',
+        //     __DIR__.'/tests/TestCase.php',
+        // ],
     ]);
