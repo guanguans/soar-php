@@ -88,9 +88,6 @@
         "tomasvotruba/type-coverage": "^2.1",
         "yamadashy/phpstan-friendly-formatter": "^1.3"
     },
-    "conflict": {
-        "pestphp/pest": "^4.0"
-    },
     "suggest": {
         "symfony/var-dumper": "Required to use the the trait [WithDumpable]."
     },
