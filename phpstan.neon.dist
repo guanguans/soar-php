@@ -110,6 +110,7 @@ parameters:
         - identifier: symplify.noDynamicName
         - identifier: symplify.noReturnSetterMethod
         - identifier: symplify.requireExceptionNamespace
+        - message: '#^Call to an undefined method Composer\\IO\\IOInterface\:\:enableDebugging\(\)\.$#'
         -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/

@@ -260,11 +260,6 @@ final class ComposerScripts
             return $symfonyStyle;
         }
 
-        // to prevent missing argv indexes
-        if (!isset($_SERVER['argv'])) {
-            $_SERVER['argv'] = [];
-        }
-
         $argvInput = new ArgvInput;
         $consoleOutput = new ConsoleOutput;
 
@@ -272,20 +267,23 @@ final class ComposerScripts
         (fn () => $this->configureIO($argvInput, $consoleOutput))->call(new Application);
 
         // --debug is called
-        if ($argvInput->hasParameterOption(['--debug', '--xdebug'])) {
+        if ($argvInput->hasParameterOption(['--debug', '--xdebug'], true)) {
             $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
 
         return $symfonyStyle = new SymfonyStyle($argvInput, $consoleOutput);
     }
 
-    private static function requireAutoload(Event $event): void
+    /**
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
+    private static function requireAutoload(Event $event, ?bool $enableDebugging = null): void
     {
-        require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
+        $enableDebugging ??= (new ArgvInput)->hasParameterOption('-vvv', true);
+        $enableDebugging and $event->getIO()->enableDebugging(microtime(true));
+        (fn () => $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG))->call($event->getIO());
 
-        (function (): void {
-            $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
-        })->call($event->getIO());
+        require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
     }
 
     /**

@@ -195,20 +195,6 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
-            __DIR__.'/tests/Concerns/HasOptionsTest.php',
-        ],
-        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
-            __DIR__.'/tests/',
-        ],
-        StaticClosureRector::class => $staticClosureSkipPaths,
-        SortAssociativeArrayByKeyRector::class => [
-            __DIR__.'/benchmarks/',
-            __DIR__.'/examples/',
-            __DIR__.'/src/',
-            __DIR__.'/tests/',
-            __FILE__,
-        ],
         // AddNoinspectionsDocCommentToDeclareRector::class => [
         //     __DIR__.'/benchmarks/',
         //     __DIR__.'/examples/',
@@ -239,4 +225,17 @@ return RectorConfig::configure()
         //     __DIR__.'/composer-bump',
         //     __DIR__.'/tests/TestCase.php',
         // ],
+        ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
+            __DIR__.'/tests/Concerns/HasOptionsTest.php',
+        ],
+        SortAssociativeArrayByKeyRector::class => [
+            __DIR__.'/benchmarks/',
+            __DIR__.'/examples/',
+            __DIR__.'/src/',
+            __DIR__.'/tests/',
+        ],
+        StaticArrowFunctionRector::class => $staticClosureSkipPaths = [
+            __DIR__.'/tests/',
+        ],
+        StaticClosureRector::class => $staticClosureSkipPaths,
     ]);
