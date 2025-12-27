@@ -8,6 +8,22 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="7.0.3"></a>
+## [7.0.3] - 2025-12-24
+### 🎨 Styles
+- apply php-cs-fixer ([aa0b8ec](https://github.com/guanguans/soar-php/commit/aa0b8ec))
+- **namespaces:** Prefix global class references with leading backslashes ([b9fd990](https://github.com/guanguans/soar-php/commit/b9fd990))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([4002af3](https://github.com/guanguans/soar-php/commit/4002af3))
+- **config:** Update config files ([441750f](https://github.com/guanguans/soar-php/commit/441750f))
+- **deps:** Add new dependencies to composer.json ([f0e6e5e](https://github.com/guanguans/soar-php/commit/f0e6e5e))
+- **tests:** Update PHP version in CI configuration ([a1ab5dc](https://github.com/guanguans/soar-php/commit/a1ab5dc))
+
+### Pull Requests
+- Merge pull request [#184](https://github.com/guanguans/soar-php/issues/184) from guanguans/dependabot/github_actions/actions/cache-5
+
+
 <a name="7.0.2"></a>
 ## [7.0.2] - 2025-12-03
 ### ✨ Features
@@ -834,7 +850,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.2...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.3...HEAD
+[7.0.3]: https://github.com/guanguans/soar-php/compare/7.0.2...7.0.3
 [7.0.2]: https://github.com/guanguans/soar-php/compare/7.0.1...7.0.2
 [7.0.1]: https://github.com/guanguans/soar-php/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/guanguans/soar-php/compare/6.3.0...7.0.0
