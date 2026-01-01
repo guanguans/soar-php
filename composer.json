@@ -69,7 +69,7 @@
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "povils/phpmnd": "^3.6",
-        "rector/jack": "^0.4 || ^0.5",
+        "rector/jack": "^0.5",
         "rector/rector": "^2.3",
         "rector/swiss-knife": "^2.3",
         "rector/type-perfect": "^2.1",
@@ -182,7 +182,6 @@
             "@jack:open-versions-dry-run",
             "@jack:raise-to-installed-dry-run",
             "@jsonlint",
-            "@php-cs-fixer:custom-fix-dry-run",
             "@phpmnd",
             "@phpstan:analyse",
             "@rector:process-dry-run",
@@ -201,7 +200,9 @@
             "@gitleaks",
             "@lint-md",
             "@peck",
-            "@rule-doc-generator:rector-generate",
+            "@php-cs-fixer:custom-fix-dry-run",
+            "@php-cs-fixer:custom-ln-config",
+            "@rule-doc-generator:generate",
             "@zhlint"
         ],
         "checks:required": [
@@ -324,7 +325,10 @@
             "@php-cs-fixer:custom-fix --dry-run"
         ],
         "php-cs-fixer:custom-list-files": "@php-cs-fixer:custom list-files",
-        "php-cs-fixer:custom-ln-config": "ln -f vendor/guanguans/php-cs-fixer-custom-fixers/.php-cs-fixer-custom.php .php-cs-fixer-custom.php",
+        "php-cs-fixer:custom-ln-config": [
+            "ln -f vendor/guanguans/php-cs-fixer-custom-fixers/.php-cs-fixer-custom.php .php-cs-fixer-custom.php",
+            "YEAR=$(date +%Y); sed -i '' -e 's|guanguans/php-cs-fixer-custom-fixers|guanguans/soar-php|g' -e \"s|2025-$YEAR|2019-$YEAR|g\" -e \"s|2025|2019-$YEAR|g\" .php-cs-fixer-custom.php"
+        ],
         "php-cs-fixer:fix": "@php-cs-fixer fix --show-progress=dots --diff",
         "php-cs-fixer:fix-dry-run": "@php-cs-fixer:fix --dry-run",
         "php-cs-fixer:list-files": "@php-cs-fixer list-files",
@@ -381,8 +385,8 @@
             "@putenv:php",
             "$PHP82 rule-doc-generator --ansi -vv"
         ],
-        "rule-doc-generator:rector-generate": "@rule-doc-generator generate src/Support/Rectors/ --output-file=src/Support/Rectors/rector-rules-overview.md --categorize=rector",
-        "rule-doc-generator:rector-validate": "@rule-doc-generator validate src/Support/Rectors/",
+        "rule-doc-generator:generate": "@rule-doc-generator generate src/Support/Rectors/ --output-file=src/Support/Rectors/rules-overview.md",
+        "rule-doc-generator:validate": "@rule-doc-generator validate src/Support/Rectors/",
         "sk": "@php vendor/bin/swiss-knife --ansi -vv",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
         "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=5 --skip-file=src/Soar.php",
