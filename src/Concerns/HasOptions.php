@@ -582,10 +582,10 @@ trait HasOptions
     }
 
     /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     *
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     private function normalizeValue(string $name, mixed $value): ?string
     {

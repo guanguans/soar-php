@@ -13,8 +13,8 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
+use Guanguans\RectorRules\Rector\Array_\SimplifyListIndexRector;
 use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForSoarOptionsRector;
-use Guanguans\SoarPHP\Support\Rectors\SimplifyListIndexRector;
 use Rector\Config\RectorConfig;
 use Rector\ValueObject\PhpVersion;
 

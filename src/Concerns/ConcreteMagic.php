@@ -48,9 +48,9 @@ trait ConcreteMagic
     }
 
     /**
-     * @noinspection MagicMethodsValidityInspection
-     *
      * @param array<string, mixed> $properties
+     *
+     * @noinspection MagicMethodsValidityInspection
      */
     public static function __set_state(array $properties): self
     {
@@ -58,9 +58,9 @@ trait ConcreteMagic
     }
 
     /**
-     * @noinspection MagicMethodsValidityInspection
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     *
+     * @noinspection MagicMethodsValidityInspection
      */
     public function __toString(): string
     {

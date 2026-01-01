@@ -79,6 +79,7 @@ parameters:
     ignoreErrors:
 #        - identifier: arrayFilter.strict
 #        - identifier: assign.propertyType
+#        - identifier: binaryOp.invalid
 #        - identifier: cast.double
 #        - identifier: cast.int
 #        - identifier: cast.string
@@ -93,9 +94,9 @@ parameters:
 #        - identifier: symplify.noReference
 #        - identifier: trait.unused
 #        - identifier: typePerfect.noMixedMethodCaller
+
         - identifier: argument.templateType
         - identifier: argument.type
-        - identifier: binaryOp.invalid
         - identifier: logicalAnd.resultUnused
         - identifier: method.childParameterType
         - identifier: method.dynamicName

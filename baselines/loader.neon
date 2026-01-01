@@ -1,8 +1,7 @@
-# total 8 errors
+# total 7 errors
 
 includes:
     - assign.propertyType.neon
-    - callable.nonCallable.neon
     - complexity.functionLike.neon
     - disallowed.function.neon
     - new.static.neon

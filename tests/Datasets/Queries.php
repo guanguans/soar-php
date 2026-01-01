@@ -19,8 +19,6 @@ declare(strict_types=1);
  * @see https://github.com/guanguans/soar-php
  */
 
-namespace Guanguans\PackageSkeletonTests\Datasets;
-
 dataset('queries', [
     [
         <<<'QUERIES'

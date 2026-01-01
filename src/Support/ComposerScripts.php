@@ -64,9 +64,9 @@ final class ComposerScripts
     }
 
     /**
-     * @noinspection PhpUnused
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     *
+     * @noinspection PhpUnused
      */
     public static function dumpSoarYamlConfig(Event $event): int
     {
@@ -83,9 +83,9 @@ final class ComposerScripts
     }
 
     /**
-     * @noinspection PhpUnused
-     *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     *
+     * @noinspection PhpUnused
      */
     public static function dumpSoarPHPConfig(Event $event): int
     {
@@ -124,10 +124,10 @@ final class ComposerScripts
     }
 
     /**
+     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
+     *
      * @noinspection D
      * @noinspection PhpFunctionCyclomaticComplexityInspection
-     *
-     * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
     public static function resolveSoarHelp(): Collection
     {

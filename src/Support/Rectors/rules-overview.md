@@ -1,4 +1,4 @@
-# 3 Rules Overview
+# 2 Rules Overview
 
 ## AddDocCommentForHasOptionsRector
 
@@ -42,25 +42,6 @@ Add doc comment for soar options rector
 +     // AllowDropIndex, 允许输出删除重复索引的建议
      '-allow-drop-index' => false,
  ];
-```
-
-<br>
-
-## SimplifyListIndexRector
-
-Simplify list index
-
-- class: [`Guanguans\SoarPHP\Support\Rectors\SimplifyListIndexRector`](SimplifyListIndexRector.php)
-
-```diff
- [
--    0 => 'delimiter',
--    1 => 'orderbynull',
--    2 => 'groupbyconst',
-+    'delimiter',
-+    'orderbynull',
-+    'groupbyconst',
- ]
 ```
 
 <br>

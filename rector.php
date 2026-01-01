@@ -16,12 +16,16 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
-use Guanguans\MonorepoBuilderWorker\Support\Rectors\AddNoinspectionsDocCommentToDeclareRector;
-use Guanguans\MonorepoBuilderWorker\Support\Rectors\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
-use Guanguans\MonorepoBuilderWorker\Support\Rectors\RemoveNamespaceRector;
+use Guanguans\RectorRules\Rector\Array_\SimplifyListIndexRector;
+use Guanguans\RectorRules\Rector\Class_\UpdateRectorRefactorParamDocblockFromNodeTypesRector;
+use Guanguans\RectorRules\Rector\Declare_\AddNoinspectionDocblockToDeclareRector;
+use Guanguans\RectorRules\Rector\Name\RenameToPsrNameRector;
+use Guanguans\RectorRules\Rector\Namespace_\RemoveNamespaceRector;
+use Guanguans\RectorRules\Rector\New_\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
 use Guanguans\SoarPHP\Contracts\Throwable;
 use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForHasOptionsRector;
 use Illuminate\Support\Str;
+use PhpParser\NodeVisitor\ParentConnectingVisitor;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Rector\ArrowFunction\ArrowFunctionDelegatingCallToFirstClassCallableRector;
@@ -58,18 +62,10 @@ return RectorConfig::configure()
         __DIR__.'/composer-bump',
     ])
     ->withRootFiles()
-    ->withAutoloadPaths([
-        // (new ReflectionClass(Throwable::class))->getFileName(),
-    ])
-    ->withBootstrapFiles([
-        // __DIR__.'/vendor/symplify/monorepo-builder/vendor/autoload.php',
-        // __DIR__.'/vendor/symplify/monorepo-builder/vendor/scoper-autoload.php',
-    ])
     ->withSkip([
         '**/Fixtures/*',
         __DIR__.'/_ide_helper.php',
         __DIR__.'/tests.php',
-        // __FILE__,
     ])
     ->withCache(__DIR__.'/.build/rector/')
     // ->withoutParallel()
@@ -101,29 +97,34 @@ return RectorConfig::configure()
     ])
     ->withRules([
         AddDocCommentForHasOptionsRector::class,
+        RemoveNamespaceRector::class,
+        SimplifyListIndexRector::class,
         SortAssociativeArrayByKeyRector::class,
+        UpdateRectorRefactorParamDocblockFromNodeTypesRector::class,
 
         ArraySpreadInsteadOfArrayMergeRector::class,
         JsonThrowOnErrorRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
     ])
-    // ->withConfiguredRule(AddNoinspectionsDocCommentToDeclareRector::class, [
-    //     'AnonymousFunctionStaticInspection',
-    //     'NullPointerExceptionInspection',
-    //     'PhpPossiblePolymorphicInvocationInspection',
-    //     'PhpUndefinedClassInspection',
-    //     'PhpUnhandledExceptionInspection',
-    //     'PhpVoidFunctionResultUsedInspection',
-    //     'SqlResolve',
-    //     'StaticClosureCanBeUsedInspection',
-    // ])
-    // ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [
-    //     Throwable::class,
-    // ])
-    // ->withConfiguredRule(RemoveNamespaceRector::class, [
-    //     'Guanguans\SoarPHPTests',
-    // ])
+    ->withConfiguredRule(AddNoinspectionDocblockToDeclareRector::class, [
+        '*/tests/*' => [
+            'AnonymousFunctionStaticInspection',
+            'NullPointerExceptionInspection',
+            'PhpPossiblePolymorphicInvocationInspection',
+            'PhpUndefinedClassInspection',
+            'PhpUnhandledExceptionInspection',
+            'PhpVoidFunctionResultUsedInspection',
+            'SqlResolve',
+            'StaticClosureCanBeUsedInspection',
+        ],
+    ])
+    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [Throwable::class])
+    ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
+    ->withConfiguredRule(RenameToPsrNameRector::class, [
+        'assertMatches*Snapshot',
+        'MIT',
+    ])
     ->withConfiguredRule(RemoveAnnotationRector::class, [
         'codeCoverageIgnore',
         'inheritDoc',
@@ -164,26 +165,11 @@ return RectorConfig::configure()
             // ->dd()
             ->all(),
     )
-    ->withConfiguredRule(
-        RenameFunctionRector::class,
-        [
-            'Pest\Faker\fake' => 'fake',
-            'Pest\Faker\faker' => 'fake',
-            'test' => 'it',
-        ] + array_reduce(
-            [
-                'classes',
-                'str_snake',
-            ],
-            static function (array $carry, string $func): array {
-                /** @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Support/functions.php */
-                $carry[$func] = "Guanguans\\SoarPHP\\Support\\$func";
-
-                return $carry;
-            },
-            []
-        )
-    )
+    ->withConfiguredRule(RenameFunctionRector::class, [
+        'Pest\Faker\fake' => 'fake',
+        'Pest\Faker\faker' => 'fake',
+        'test' => 'it',
+    ])
     ->withSkip([
         ChangeOrIfContinueToMultiContinueRector::class,
         EncapsedStringsToSprintfRector::class,
@@ -195,36 +181,6 @@ return RectorConfig::configure()
         WrapEncapsedVariableInCurlyBracesRector::class,
     ])
     ->withSkip([
-        // AddNoinspectionsDocCommentToDeclareRector::class => [
-        //     __DIR__.'/benchmarks/',
-        //     __DIR__.'/examples/',
-        //     __DIR__.'/src/',
-        //     // __DIR__.'/tests/',
-        //     ...$rootFiles = array_filter(
-        //         glob(__DIR__.'/{*,.*}.php', \GLOB_BRACE),
-        //         static fn (string $filename): bool => !\in_array(
-        //             $filename,
-        //             [
-        //                 __DIR__.'/_ide_helper.php',
-        //                 __DIR__.'/tests.php',
-        //             ],
-        //             true
-        //         )
-        //     ),
-        //     __DIR__.'/composer-bump',
-        // ],
-        // NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class => [
-        //     __DIR__.'/src/Support/Rectors/',
-        // ],
-        // RemoveNamespaceRector::class => [
-        //     __DIR__.'/benchmarks/',
-        //     __DIR__.'/examples/',
-        //     __DIR__.'/src/',
-        //     // __DIR__.'/tests/',
-        //     ...$rootFiles,
-        //     __DIR__.'/composer-bump',
-        //     __DIR__.'/tests/TestCase.php',
-        // ],
         ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
             __DIR__.'/tests/Concerns/HasOptionsTest.php',
         ],
