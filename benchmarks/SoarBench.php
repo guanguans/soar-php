@@ -20,7 +20,7 @@ use Guanguans\SoarPHP\Soar;
 use PhpBench\Attributes\BeforeMethods;
 use PhpBench\Attributes\Revs;
 
-#[BeforeMethods('setUp')]
+#[BeforeMethods(['setUp'])]
 #[Revs(10)]
 final class SoarBench
 {

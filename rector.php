@@ -140,10 +140,10 @@ return RectorConfig::configure()
         classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
             ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
             ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
-                $reflectionClass->getShortName(),
+                lcfirst($reflectionClass->getShortName()),
                 $reflectionClass->getName(),
-                [],
-                true
+                // [],
+                // true
             ))
             ->all(),
     )
