@@ -26,6 +26,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 file_exists($autoload = __DIR__.'/../../vendor/autoload.php') and require $autoload;
+is_file($composer = __DIR__.'/vendor/bin/composer') and unlink($composer);
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -97,7 +98,8 @@ final class ComposerBump
     public function __invoke(): void
     {
         $this
-            // ->updateComposerPackages()
+            ->updateOutdatedComposerPackages()
+            ->updateComposerPackages()
             ->updateOutdatedComposerPackages()
             ->updateComposerPackages()
             ->normalizeComposerJson()
@@ -121,7 +123,8 @@ final class ComposerBump
 
     private function updateComposerPackages(): self
     {
-        $this->mustRunCommand("$this->composer update --with-all-dependencies");
+        // $this->mustRunCommand("$this->composer update --with-all-dependencies --no-security-blocking");
+        $this->mustRunCommand("$this->composer update --no-security-blocking");
 
         return $this;
     }
@@ -280,7 +283,7 @@ final class ComposerBump
 
         $this->symfonyStyle->warning("The command [{$process->getCommandLine()}] is running in the working directory [$cwd] .");
 
-        return $process->mustRun(function (string $type, string $buffer): void {
+        return $process->mustRun(function (string $_, string $buffer): void {
             $this->symfonyStyle->isVerbose() and $this->symfonyStyle->write($buffer);
         });
     }
