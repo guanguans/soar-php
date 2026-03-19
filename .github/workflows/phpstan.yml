@@ -5,6 +5,13 @@ on:
   push:
   pull_request:
 
+env:
+  COMPOSER_NO_SECURITY_BLOCKING: 1
+
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   phpstan:
     name: phpstan
@@ -36,6 +43,20 @@ jobs:
 
       - name: Run composer install
         run: composer install --no-interaction --ansi -v
+
+      - name: Run phpstan with sarif error format
+        continue-on-error: true
+        run: composer phpstan:analyse-error-format-sarif
+
+      - name: Upload the analysis results of sarif to GitHub
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: .build/phpstan/results.sarif
+          wait-for-processing: true
+
+      - name: Run phpstan with annotate-pull-request error format
+        continue-on-error: true
+        run: composer phpstan:analyse-error-format-annotate-pull-request
 
       - name: Run phpstan
         run: composer phpstan:analyse
