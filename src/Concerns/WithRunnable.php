@@ -18,7 +18,7 @@ use Symfony\Component\Process\Process;
 /**
  * @mixin \Guanguans\SoarPHP\Soar
  */
-trait WithRunable
+trait WithRunnable
 {
     /** @var null|\Closure(Process): Process */
     protected ?\Closure $pipe = null;

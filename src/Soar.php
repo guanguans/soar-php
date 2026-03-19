@@ -20,7 +20,7 @@ use Guanguans\SoarPHP\Concerns\HasOptions;
 use Guanguans\SoarPHP\Concerns\HasSudoPassword;
 use Guanguans\SoarPHP\Concerns\Makeable;
 use Guanguans\SoarPHP\Concerns\WithDumpable;
-use Guanguans\SoarPHP\Concerns\WithRunable;
+use Guanguans\SoarPHP\Concerns\WithRunnable;
 use Symfony\Component\Process\Process;
 
 class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
@@ -32,7 +32,7 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
     use HasSudoPassword;
     use Makeable;
     use WithDumpable;
-    use WithRunable;
+    use WithRunnable;
 
     public function __construct(array $options = [], ?string $binary = null)
     {

@@ -5,7 +5,7 @@
             "sudo",
             "makeable",
             "dumpable",
-            "runable"
+            "runnable"
         ],
         "paths": []
     }
