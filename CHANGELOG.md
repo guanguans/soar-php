@@ -8,6 +8,25 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="7.1.0"></a>
+## [7.1.0] - 2026-03-19
+### 🎨 Styles
+- apply php-cs-fixer ([fec02b3](https://github.com/guanguans/soar-php/commit/fec02b3))
+
+### 💅 Code Refactorings
+- apply rector ([b151111](https://github.com/guanguans/soar-php/commit/b151111))
+- **Concerns:** Rename WithRunable to WithRunnable ([0887d3c](https://github.com/guanguans/soar-php/commit/0887d3c))
+- **SoarBench:** Update BeforeMethods attribute syntax ([3108cf3](https://github.com/guanguans/soar-php/commit/3108cf3))
+
+### 🤖 Continuous Integrations
+- **ci:** Update action references and enhance CI configurations ([b23c7c8](https://github.com/guanguans/soar-php/commit/b23c7c8))
+- **config:** Update config files ([59f40d0](https://github.com/guanguans/soar-php/commit/59f40d0))
+
+### Pull Requests
+- Merge pull request [#186](https://github.com/guanguans/soar-php/issues/186) from guanguans/dependabot/composer/shipmonk/dead-code-detector-tw-0.14or-tw-0.15
+- Merge pull request [#185](https://github.com/guanguans/soar-php/issues/185) from guanguans/dependabot/composer/rector/jack-tw-0.4or-tw-0.5
+
+
 <a name="7.0.3"></a>
 ## [7.0.3] - 2025-12-24
 ### 🎨 Styles
@@ -850,7 +869,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/7.0.3...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/7.1.0...HEAD
+[7.1.0]: https://github.com/guanguans/soar-php/compare/7.0.3...7.1.0
 [7.0.3]: https://github.com/guanguans/soar-php/compare/7.0.2...7.0.3
 [7.0.2]: https://github.com/guanguans/soar-php/compare/7.0.1...7.0.2
 [7.0.1]: https://github.com/guanguans/soar-php/compare/7.0.0...7.0.1
