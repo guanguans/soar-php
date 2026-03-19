@@ -16,15 +16,11 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Arrays\SortAssociativeArrayByKeyRector;
-use Guanguans\RectorRules\Rector\Array_\SimplifyListIndexRector;
-use Guanguans\RectorRules\Rector\Class_\UpdateRectorRefactorParamDocblockFromNodeTypesRector;
-use Guanguans\RectorRules\Rector\Declare_\AddNoinspectionDocblockToDeclareRector;
-use Guanguans\RectorRules\Rector\Name\RenameToPsrNameRector;
-use Guanguans\RectorRules\Rector\Namespace_\RemoveNamespaceRector;
-use Guanguans\RectorRules\Rector\New_\NewExceptionToNewAnonymousExtendsExceptionImplementsRector;
-use Guanguans\SoarPHP\Contracts\Throwable;
+use Ergebnis\Rector\Rules\Faker\GeneratorPropertyFetchToMethodCallRector;
+use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
+use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
+use Guanguans\RectorRules\Set\SetList;
 use Guanguans\SoarPHP\Support\Rectors\AddDocCommentForHasOptionsRector;
-use Illuminate\Support\Str;
 use PhpParser\NodeVisitor\ParentConnectingVisitor;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
@@ -34,6 +30,7 @@ use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
+use Rector\CodingStyle\Rector\Enum_\EnumCaseToPascalCaseRector;
 use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
 use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
@@ -41,17 +38,8 @@ use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
-use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
-use Rector\Php80\ValueObject\AnnotationToAttribute;
-use Rector\PHPUnit\Set\PHPUnitSetList;
-use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
-use Rector\Transform\ValueObject\StaticCallToFuncCall;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\SafeDeclareStrictTypesRector;
 use Rector\ValueObject\PhpVersion;
-use Rector\ValueObject\Visibility;
-use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
-use Rector\Visibility\ValueObject\ChangeMethodVisibility;
-use function Guanguans\SoarPHP\Support\classes;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -90,24 +78,24 @@ return RectorConfig::configure()
         naming: true,
         instanceOf: true,
         earlyReturn: true,
+        // strictBooleans: true,
         // carbon: true,
+        rectorPreset: true,
+        phpunitCodeQuality: true,
     )
-    ->withSets([
-        PHPUnitSetList::PHPUNIT_100,
-    ])
+    ->withSets([SetList::ALL])
     ->withRules([
         AddDocCommentForHasOptionsRector::class,
-        RemoveNamespaceRector::class,
-        SimplifyListIndexRector::class,
-        SortAssociativeArrayByKeyRector::class,
-        UpdateRectorRefactorParamDocblockFromNodeTypesRector::class,
-
         ArraySpreadInsteadOfArrayMergeRector::class,
+        EnumCaseToPascalCaseRector::class,
+        GeneratorPropertyFetchToMethodCallRector::class,
         JsonThrowOnErrorRector::class,
+        SafeDeclareStrictTypesRector::class,
+        SortAssociativeArrayByKeyRector::class,
         StaticArrowFunctionRector::class,
         StaticClosureRector::class,
     ])
-    ->withConfiguredRule(AddNoinspectionDocblockToDeclareRector::class, [
+    ->withConfiguredRule(AddNoinspectionDocblockToFileFirstStmtRector::class, [
         '*/tests/*' => [
             'AnonymousFunctionStaticInspection',
             'NullPointerExceptionInspection',
@@ -119,9 +107,8 @@ return RectorConfig::configure()
             'StaticClosureCanBeUsedInspection',
         ],
     ])
-    ->withConfiguredRule(NewExceptionToNewAnonymousExtendsExceptionImplementsRector::class, [Throwable::class])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
-    ->withConfiguredRule(RenameToPsrNameRector::class, [
+    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, [
         'assertMatches*Snapshot',
         'MIT',
     ])
@@ -131,44 +118,6 @@ return RectorConfig::configure()
         'phpstan-ignore',
         'phpstan-ignore-next-line',
         'psalm-suppress',
-    ])
-    ->withConfiguredRule(StaticCallToFuncCallRector::class, [
-        new StaticCallToFuncCall(Str::class, 'of', 'str'),
-    ])
-    ->withConfiguredRule(
-        AnnotationToAttributeRector::class,
-        classes(static fn (string $class): bool => str_starts_with($class, 'PhpBench\Attributes'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isInstantiable())
-            ->map(static fn (ReflectionClass $reflectionClass): AnnotationToAttribute => new AnnotationToAttribute(
-                lcfirst($reflectionClass->getShortName()),
-                $reflectionClass->getName(),
-                // [],
-                // true
-            ))
-            ->all(),
-    )
-    ->withConfiguredRule(
-        ChangeMethodVisibilityRector::class,
-        classes(static fn (string $class, string $file): bool => str_starts_with($class, 'Guanguans\SoarPHP'))
-            ->filter(static fn (ReflectionClass $reflectionClass): bool => $reflectionClass->isTrait())
-            ->map(
-                static fn (ReflectionClass $reflectionClass): array => collect($reflectionClass->getMethods(ReflectionMethod::IS_PRIVATE))
-                    ->reject(static fn (ReflectionMethod $reflectionMethod): bool => $reflectionMethod->isFinal() || $reflectionMethod->isInternal())
-                    ->map(static fn (ReflectionMethod $reflectionMethod): ChangeMethodVisibility => new ChangeMethodVisibility(
-                        $reflectionClass->getName(),
-                        $reflectionMethod->getName(),
-                        Visibility::PROTECTED
-                    ))
-                    ->all()
-            )
-            ->flatten()
-            // ->dd()
-            ->all(),
-    )
-    ->withConfiguredRule(RenameFunctionRector::class, [
-        'Pest\Faker\fake' => 'fake',
-        'Pest\Faker\faker' => 'fake',
-        'test' => 'it',
     ])
     ->withSkip([
         ChangeOrIfContinueToMultiContinueRector::class,

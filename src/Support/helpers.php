@@ -44,7 +44,7 @@ if (!\function_exists('Guanguans\SoarPHP\Support\classes')) {
      */
     function classes(?callable $filter = null): Collection
     {
-        $filter ??= static fn (string $class, string $file): bool => true;
+        $filter ??= static fn (string $_, string $__): bool => true;
 
         /** @var null|\Illuminate\Support\Collection $classes */
         static $classes;
@@ -56,7 +56,7 @@ if (!\function_exists('Guanguans\SoarPHP\Support\classes')) {
 
         return $classes
             ->filter(static fn (string $file, string $class): bool => $filter($class, $file))
-            ->mapWithKeys(static function (string $file, string $class): array {
+            ->mapWithKeys(static function (string $_, string $class): array {
                 try {
                     return [$class => new \ReflectionClass($class)];
                 } catch (\Throwable $throwable) {

@@ -1,10 +1,8 @@
 <?php
 
-/** @noinspection PhpClassHasTooManyDeclaredMembersInspection */
-
 /** @noinspection LongLine */
+/** @noinspection PhpClassHasTooManyDeclaredMembersInspection */
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
-
 declare(strict_types=1);
 
 /**
@@ -562,7 +560,7 @@ trait HasOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeOptions(array $options): array
+    protected function normalizeOptions(array $options): array
     {
         foreach ($options as $name => $value) {
             $options[$name] = $this->normalizeOption($name, $value);
@@ -574,7 +572,7 @@ trait HasOptions
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeOption(string $name, mixed $value): string
+    protected function normalizeOption(string $name, mixed $value): string
     {
         $normalizedValue = $this->normalizeValue($name, $value);
 
@@ -587,7 +585,7 @@ trait HasOptions
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection
      */
-    private function normalizeValue(string $name, mixed $value): ?string
+    protected function normalizeValue(string $name, mixed $value): ?string
     {
         if (\is_string($value) || null === $value) {
             return $value;
@@ -632,7 +630,7 @@ trait HasOptions
      *
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      */
-    private function normalizeDsn(string $name, array $dsn): ?string
+    protected function normalizeDsn(string $name, array $dsn): ?string
     {
         $dsn += $default = [
             // 'user' => '',

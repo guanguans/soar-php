@@ -2,7 +2,6 @@
     "preset": "base",
     "ignore": {
         "words": [
-            "php",
             "sudo",
             "makeable",
             "dumpable",
