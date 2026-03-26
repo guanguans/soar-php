@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
   bootstrap="vendor/autoload.php"
   cacheDirectory=".build/phpunit/"
   cacheResultFile=".build/phpunit/test-results"
@@ -13,6 +13,7 @@
 >
   <php>
     <ini name="error_reporting" value="-1"/>
+    <!--<env name="SYMFONY_DEPRECATIONS_HELPER" value="/PDO::MYSQL_ATTR_SSL_CA/"/>-->
     <env name="DUMP_LIGHT_ARRAY" value=""/>
     <env name="DUMP_STRING_LENGTH" value=""/>
     <env name="ENV" value="testing"/>
@@ -36,6 +37,7 @@
       <directory>tests/</directory>
     </testsuite>
   </testsuites>
+  <!--<source ignoreIndirectDeprecations="true">-->
   <source>
     <include>
       <directory>src/</directory>
@@ -45,15 +47,6 @@
       <file>src/Support/ComposerScripts.php</file>
     </exclude>
   </source>
-  <coverage>
-    <include>
-      <directory>src/</directory>
-    </include>
-    <exclude>
-      <directory>src/Support/Rectors/</directory>
-      <file>src/Support/ComposerScripts.php</file>
-    </exclude>
-  </coverage>
   <extensions>
     <!--<bootstrap class="Ergebnis\PHPUnit\SlowTestDetector\Extension"/>-->
   </extensions>

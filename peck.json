@@ -7,6 +7,9 @@
             "dumpable",
             "runnable"
         ],
-        "paths": []
+        "paths": [
+            "vendor/",
+            "vendor-bin/"
+        ]
     }
 }
