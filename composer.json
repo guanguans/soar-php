@@ -65,7 +65,6 @@
         "mrpunyapal/rector-pest": "^0.2",
         "nette/utils": "^4.1",
         "nicksdot/phpstan-phpstorm-error-identifiers": "^0.3",
-        "peckphp/peck": "^0.2",
         "pestphp/pest": "^3.8 || ^4.0",
         "pestphp/pest-plugin-arch": "^3.1 || ^4.0",
         "pestphp/pest-plugin-profanity": "^3.23 || ^4.0",

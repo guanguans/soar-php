@@ -1,0 +1,13 @@
+# total 2 errors
+
+parameters:
+    ignoreErrors:
+        -
+            message: '#^The statement contains side effects\: \[process_exit\]\.$#'
+            count: 1
+            path: ../src/Concerns/WithDumpable.php
+
+        -
+            message: '#^The statement contains side effects\: \[unknown_class\]\.$#'
+            count: 1
+            path: ../src/Concerns/WithDumpable.php

@@ -26,6 +26,7 @@ includes:
     - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
 #    - vendor/symplify/phpstan-rules/config/rector-rules.neon
 #    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
+#    - vendor/symplify/phpstan-rules/config/symfony-config-rules.neon
 
 services:
     # https://github.com/guanguans/notify/security/code-scanning
@@ -50,6 +51,7 @@ parameters:
         - vendor/composer/InstalledVersions.php
     excludePaths:
         - src/Support/ComposerScripts.php
+        - src/Support/Rectors/
         - tests/Fixtures/
     tmpDir: .build/phpstan/
     phpVersion: 80200
@@ -68,8 +70,8 @@ parameters:
         disallowedShortTernary: false
     ergebnis:
     guanguans:
-#        exceptionMustImplementNativeThrowable:
-#            nativeThrowable: Guanguans\MonorepoBuilderWorker\Contract\ThrowableContract
+        exceptionMustImplementNativeThrowable:
+            nativeThrowable: Guanguans\SoarPHP\Contracts\Throwable
 #    sidzIgnoreNumericStrings: true
     sidzIgnoreMagicNumbers: [0.9, 1, 2, 3, 5, 100, 600, 512, 1024, 1000, 0o755]
     cognitive_complexity:
@@ -168,23 +170,33 @@ parameters:
 #        - identifier: typePerfect.noMixedMethodCaller
 #        - message: '#^Unused Guanguans\\Notify\\Rector\\.*\\.*\:\:__construct$#'
 
-        - identifier: argument.templateType
-        - identifier: argument.type
-        - identifier: logicalAnd.resultUnused
-        - identifier: method.childParameterType
-        - identifier: method.dynamicName
-        - identifier: method.nonObject
-        - identifier: missingType.generics
-        - identifier: missingType.iterableValue
-        - identifier: return.type
+        - identifier: ergebnis.final
+        - identifier: ergebnis.noConstructorParameterWithDefaultValue
+        - identifier: ergebnis.noExtends
+        - identifier: ergebnis.noIsset
+        - identifier: ergebnis.noNamedArgument
+        - identifier: ergebnis.noNullableReturnTypeDeclaration
+        - identifier: ergebnis.noParameterWithNullableTypeDeclaration
+        - identifier: ergebnis.noParameterWithNullDefaultValue
+        - identifier: shipmonk.binaryOperationWithNull
         - identifier: shipmonk.deadMethod
+        - identifier: shipmonk.variableTypeOverwritten
         - identifier: symplify.explicitTraitSuffixName
         - identifier: symplify.forbiddenExtendOfNonAbstractClass
+        - identifier: symplify.forbiddenFuncCall
+        - identifier: symplify.forbiddenNode
         - identifier: symplify.forbiddenStaticClassConstFetch
         - identifier: symplify.noDynamicName
         - identifier: symplify.noReturnSetterMethod
         - identifier: symplify.requireExceptionNamespace
-        - message: '#^Call to an undefined method Composer\\IO\\IOInterface\:\:enableDebugging\(\)\.$#'
+
+        - identifier: argument.type
+        - identifier: logicalAnd.resultUnused
+        - identifier: method.childParameterType
+        - identifier: method.dynamicName
+        - identifier: missingType.generics
+        - identifier: missingType.iterableValue
+        - identifier: return.type
         -
             identifier: symplify.explicitInterfaceSuffixName
             path: src/Contracts/

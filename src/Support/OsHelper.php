@@ -21,6 +21,8 @@ use Guanguans\SoarPHP\Exceptions\RuntimeException;
  * @see https://github.com/jolicode/php-os-helper
  * @see https://github.com/loophp/phposinfo
  * @see https://github.com/utopia-php/system
+ *
+ * @api
  */
 class OsHelper
 {

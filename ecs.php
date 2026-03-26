@@ -40,7 +40,6 @@ return ECSConfig::configure()
     ->withPaths([
         __DIR__.'/src/',
         __DIR__.'/tests/',
-        __DIR__.'/.changelog',
         __DIR__.'/composer-bump',
     ])
     ->withRootFiles()

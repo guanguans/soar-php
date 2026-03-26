@@ -61,6 +61,9 @@ class Soar implements \ArrayAccess, \Stringable, Contracts\Soar
         return $this->clone()->setVersion(true)->run($callback);
     }
 
+    /**
+     * @api
+     */
     public function clone(): self
     {
         return clone $this;

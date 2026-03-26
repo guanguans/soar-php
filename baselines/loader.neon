@@ -2,8 +2,7 @@
 
 includes:
     - assign.propertyType.neon
-    - complexity.functionLike.neon
     - disallowed.function.neon
+    - guanguans.forbiddenSideEffects.neon
     - new.static.neon
-    - property.notFound.neon
     - typePerfect.narrowPublicClassMethodParamType.neon

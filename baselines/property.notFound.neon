@@ -1,8 +1,0 @@
-# total 1 error
-
-parameters:
-    ignoreErrors:
-        -
-            message: '#^Access to an undefined property Composer\\IO\\IOInterface\:\:\$output\.$#'
-            count: 1
-            path: ../src/Support/ComposerScripts.php
