@@ -8,6 +8,19 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="8.0.0"></a>
+## [8.0.0] - 2026-03-26
+### 💅 Code Refactorings
+- Simplify withSudoPassword method signature ([3156847](https://github.com/guanguans/soar-php/commit/3156847))
+- apply phpstan ([c4af07e](https://github.com/guanguans/soar-php/commit/c4af07e))
+- apply rector ([5f5a2e0](https://github.com/guanguans/soar-php/commit/5f5a2e0))
+- Upgrade PHP version to 8.2 in configuration files ([f0d1706](https://github.com/guanguans/soar-php/commit/f0d1706))
+
+### 🤖 Continuous Integrations
+- **config:** Update github config files ([d0bef39](https://github.com/guanguans/soar-php/commit/d0bef39))
+- **config:** Update config files ([206abd9](https://github.com/guanguans/soar-php/commit/206abd9))
+
+
 <a name="7.1.0"></a>
 ## [7.1.0] - 2026-03-19
 ### 🎨 Styles
@@ -869,7 +882,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/7.1.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/8.0.0...HEAD
+[8.0.0]: https://github.com/guanguans/soar-php/compare/7.1.0...8.0.0
 [7.1.0]: https://github.com/guanguans/soar-php/compare/7.0.3...7.1.0
 [7.0.3]: https://github.com/guanguans/soar-php/compare/7.0.2...7.0.3
 [7.0.2]: https://github.com/guanguans/soar-php/compare/7.0.1...7.0.2
