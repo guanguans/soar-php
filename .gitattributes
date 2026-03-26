@@ -57,6 +57,7 @@
 /phpbench.json.dist                 export-ignore
 /phpstan.neon.dist                  export-ignore
 /phpunit.xml.dist                   export-ignore
+/rector-*.php                       export-ignore
 /rector.dist.php                    export-ignore
 /rule-doc-generator                 export-ignore
 /testbench.yaml                     export-ignore

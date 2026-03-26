@@ -25,13 +25,11 @@ namespace Guanguans\SoarPHPTests;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\Attributes\Small;
-use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 #[Small]
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    use MatchesSnapshots;
     use MockeryPHPUnitIntegration;
     use PHPMock;
     use VarDumperTestTrait;

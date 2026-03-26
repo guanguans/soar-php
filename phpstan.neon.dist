@@ -16,11 +16,11 @@ includes:
 #    - vendor/shipmonk/dead-code-detector/rules.neon
 #    - vendor/staabm/phpstan-todo-by/extension.neon
 
-    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
+#    - vendor/symplify/phpstan-rules/config/code-complexity-rules.neon
 #    - vendor/symplify/phpstan-rules/config/configurable-rules.neon
-    - vendor/symplify/phpstan-rules/config/naming-rules.neon
-    - vendor/symplify/phpstan-rules/config/static-rules.neon
-#    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
+#    - vendor/symplify/phpstan-rules/config/naming-rules.neon
+#    - vendor/symplify/phpstan-rules/config/static-rules.neon
+    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
 
 #    - vendor/symplify/phpstan-rules/config/doctrine-rules.neon
     - vendor/symplify/phpstan-rules/config/phpunit-rules.neon
@@ -38,15 +38,18 @@ services:
             pretty: true
 #    errorFormatter.checkstyle:
 #        class: NickSdot\PhpStanPhpStormErrorIdentifiers\CheckstyleErrorFormatterPhpStorm
-#    errorFormatter.llm:
-#        class: NickSdot\PhpStanPhpStormErrorIdentifiers\LlmErrorFormatter
+    errorFormatter.llm:
+        class: NickSdot\PhpStanPhpStormErrorIdentifiers\LlmErrorFormatter
 
 parameters:
     paths:
         - src/
+    scanDirectories:
+#        - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/
     scanFiles:
         - vendor/composer/InstalledVersions.php
     excludePaths:
+        - src/Support/ComposerScripts.php
         - tests/Fixtures/
     tmpDir: .build/phpstan/
     phpVersion: 80200
@@ -63,6 +66,12 @@ parameters:
         allRules: true
         booleansInConditions: false
         disallowedShortTernary: false
+    ergebnis:
+    guanguans:
+#        exceptionMustImplementNativeThrowable:
+#            nativeThrowable: Guanguans\MonorepoBuilderWorker\Contract\ThrowableContract
+#    sidzIgnoreNumericStrings: true
+    sidzIgnoreMagicNumbers: [0.9, 1, 2, 3, 5, 100, 600, 512, 1024, 1000, 0o755]
     cognitive_complexity:
         class: 42
         function: 8
@@ -83,6 +92,13 @@ parameters:
         no_mixed: false
         no_mixed_property: true
         no_mixed_caller: false
+    unused_public:
+        constants: true
+        properties: true
+        methods: true
+        local_methods: true
+        template_paths:
+#            - resources/views/
     disallowedFunctionCalls:
         -
             function: 'env()'
@@ -91,23 +107,66 @@ parameters:
             function: 'env_explode()'
             message: 'use config() instead'
     ignoreErrors:
+#        - identifier: argument.templateType
+#        - identifier: argument.type
 #        - identifier: arrayFilter.strict
 #        - identifier: assign.propertyType
 #        - identifier: binaryOp.invalid
 #        - identifier: cast.double
 #        - identifier: cast.int
 #        - identifier: cast.string
+#        - identifier: class.extendsFinalByPhpDoc
+#        - identifier: disallowed.function
 #        - identifier: empty.notAllowed
 #        - identifier: encapsedStringPart.nonString
+#        - identifier: ergebnis.final
+#        - identifier: ergebnis.finalInAbstractClass
+#        - identifier: ergebnis.noAssignByReference
+#        - identifier: ergebnis.noConstructorParameterWithDefaultValue
+#        - identifier: ergebnis.noExtends
+#        - identifier: ergebnis.noIsset
+#        - identifier: ergebnis.noNamedArgument
+#        - identifier: ergebnis.noNullableReturnTypeDeclaration
+#        - identifier: ergebnis.noParameterPassedByReference
+#        - identifier: ergebnis.noParameterWithNullableTypeDeclaration
+#        - identifier: ergebnis.noParameterWithNullDefaultValue
 #        - identifier: foreach.valueOverwrite
+#        - identifier: guanguans.forbiddenSideEffects
+#        - identifier: logicalAnd.resultUnused
 #        - identifier: logicalOr.resultUnused
+#        - identifier: method.childParameterType
+#        - identifier: method.dynamicName
+#        - identifier: missingType.generics
+#        - identifier: missingType.iterableValue
 #        - identifier: new.static
 #        - identifier: offsetAccess.nonOffsetAccessible
+#        - identifier: offsetAccess.notFound
 #        - identifier: paramOut.type
+#        - identifier: phpstanApi.class
+#        - identifier: return.type
 #        - identifier: return.void
+#        - identifier: shipmonk.binaryOperationWithNull
+#        - identifier: shipmonk.checkedExceptionInCallable
+#        - identifier: shipmonk.forbiddenCast
+#        - identifier: shipmonk.iteratorToArrayWithoutPreserveKeys
+#        - identifier: shipmonk.nonNormalizedType
+#        - identifier: shipmonk.variableTypeOverwritten
+#        - identifier: symplify.explicitInterfaceSuffixName
+#        - identifier: symplify.explicitTraitSuffixName
+#        - identifier: symplify.forbiddenArrayMethodCall
+#        - identifier: symplify.forbiddenExtendOfNonAbstractClass
+#        - identifier: symplify.forbiddenFuncCall
+#        - identifier: symplify.forbiddenNode
+#        - identifier: symplify.forbiddenStaticClassConstFetch
+#        - identifier: symplify.noArrayMapWithArrayCallable
+#        - identifier: symplify.noDynamicName
+#        - identifier: symplify.noGlobalConst
 #        - identifier: symplify.noReference
+#        - identifier: symplify.noReturnSetterMethod
+#        - identifier: symplify.requireExceptionNamespace
 #        - identifier: trait.unused
 #        - identifier: typePerfect.noMixedMethodCaller
+#        - message: '#^Unused Guanguans\\Notify\\Rector\\.*\\.*\:\:__construct$#'
 
         - identifier: argument.templateType
         - identifier: argument.type

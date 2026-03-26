@@ -26,7 +26,8 @@ use Faker\Generator;
 use Guanguans\SoarPHPTests\TestCase;
 use Pest\Expectation;
 
-uses(TestCase::class)
+pest()
+    ->extend(TestCase::class)
     // ->compact()
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {})
