@@ -34,6 +34,7 @@ use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
 use Rector\CodingStyle\Rector\Enum_\EnumCaseToPascalCaseRector;
 use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
 use Rector\Config\RectorConfig;
+use Rector\DeadCode\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
@@ -134,6 +135,10 @@ return RectorConfig::configure()
     ->withSkip([
         ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
             __DIR__.'/tests/Concerns/HasOptionsTest.php',
+        ],
+        RemoveAnnotationRector::class => [
+            __DIR__.'/src/Concerns/HasBinary.php',
+            __DIR__.'/src/Concerns/WithDumpable.php',
         ],
         SortAssociativeArrayByKeyRector::class => [
             __DIR__.'/benchmarks/',

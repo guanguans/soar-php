@@ -21,6 +21,8 @@ use Symfony\Component\VarDumper\VarDumper;
 trait WithDumpable
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @noinspection PhpNoReturnAttributeCanBeAddedInspection
      */
     public function dd(mixed ...$args): void
@@ -35,11 +37,8 @@ trait WithDumpable
      */
     public function dump(mixed ...$args): self
     {
-        $args = [$this, ...$args];
-        $varDumperExists = class_exists(VarDumper::class);
-
-        foreach ($args as $arg) {
-            $varDumperExists ? VarDumper::dump($arg) : var_dump($arg);
+        foreach ([$this, ...$args] as $arg) {
+            class_exists(VarDumper::class) ? VarDumper::dump($arg) : var_dump($arg);
         }
 
         return $this;

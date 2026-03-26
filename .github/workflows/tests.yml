@@ -30,6 +30,7 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: xdebug
           # extensions: amqp,apcu,brotli,igbinary,intl,mbstring,memcached,redis,relay,zstd,:php-psr
+          extensions: intl,sodium
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

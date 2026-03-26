@@ -43,6 +43,9 @@ trait HasBinary
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function defaultBinary(): string
     {
         if (OsHelper::isWindows()) {

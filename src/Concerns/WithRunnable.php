@@ -56,7 +56,7 @@ trait WithRunnable
         $command = [$this->binary, ...$this->clone()->getNormalizedOptions()];
 
         $process = $this->shouldApplySudoPassword()
-            ? new Process(command: ['sudo', '-S', ...$command], input: $this->getSudoPassword())
+            ? new Process(command: ['sudo', '-S', ...$command], input: $this->getSudoPassword()) // @codeCoverageIgnore
             : new Process($command);
 
         if ($this->tap instanceof \Closure) {
