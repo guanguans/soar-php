@@ -22,7 +22,7 @@ return RectorConfig::configure()
     ->withPaths([
         __DIR__.'/examples/options.php',
     ])
-    ->withPhpVersion(PhpVersion::PHP_81)
+    ->withPhpVersion(PhpVersion::PHP_82)
     ->withoutParallel()
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
     ->withRules([

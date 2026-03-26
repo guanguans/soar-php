@@ -49,7 +49,7 @@ parameters:
     excludePaths:
         - tests/Fixtures/
     tmpDir: .build/phpstan/
-    phpVersion: 80100
+    phpVersion: 80200
     level: max
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     errorFormat: friendly
