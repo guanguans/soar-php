@@ -22,14 +22,6 @@ declare(strict_types=1);
 use Guanguans\SoarPHP\Concerns\WithDumpable;
 use Guanguans\SoarPHP\Support\ComposerScripts;
 
-/**
- * Copyright (c) 2019-2025 guanguans<ityaozm@gmail.com>.
- *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
- *
- * @see https://github.com/guanguans/soar-php
- */
 arch('will not use debugging functions')
     // ->throwsNoExceptions()
     ->group(__DIR__, __FILE__)

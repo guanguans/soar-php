@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection EfferentObjectCouplingInspection */
+/** @noinspection PhpUnused */
 
 declare(strict_types=1);
 
@@ -24,6 +25,7 @@ use Rector\Config\RectorConfig;
 use Rector\DependencyInjection\LazyContainerFactory;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,6 +41,12 @@ use Symfony\Component\Yaml\Yaml;
  */
 final class ComposerScripts
 {
+    /**
+     * @see \PhpCsFixer\Hasher
+     * @see \PhpCsFixer\Utils
+     */
+    private function __construct() {}
+
     /**
      * @see \Composer\Util\Silencer
      *
@@ -126,7 +134,6 @@ final class ComposerScripts
     /**
      * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
      *
-     * @noinspection D
      * @noinspection PhpFunctionCyclomaticComplexityInspection
      */
     public static function resolveSoarHelp(): Collection
@@ -250,40 +257,78 @@ final class ComposerScripts
     }
 
     /**
-     * @see \Rector\Console\Style\SymfonyStyleFactory
-     */
-    public static function makeSymfonyStyle(): SymfonyStyle
-    {
-        static $symfonyStyle;
-
-        if ($symfonyStyle instanceof SymfonyStyle) {
-            return $symfonyStyle;
-        }
-
-        $argvInput = new ArgvInput;
-        $consoleOutput = new ConsoleOutput;
-
-        // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        (fn () => $this->configureIO($argvInput, $consoleOutput))->call(new Application);
-
-        // --debug is called
-        if ($argvInput->hasParameterOption(['--debug', '--xdebug'], true)) {
-            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
-        }
-
-        return $symfonyStyle = new SymfonyStyle($argvInput, $consoleOutput);
-    }
-
-    /**
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
-    private static function requireAutoload(Event $event, ?bool $enableDebugging = null): void
+    public static function requireAutoload(Event $event, ?bool $enableDebugging = null): void
     {
         $enableDebugging ??= (new ArgvInput)->hasParameterOption('-vvv', true);
         $enableDebugging and $event->getIO()->enableDebugging(microtime(true));
         (fn () => $this->output->setVerbosity(OutputInterface::VERBOSITY_DEBUG))->call($event->getIO());
 
         require_once $event->getComposer()->getConfig()->get('vendor-dir').\DIRECTORY_SEPARATOR.'autoload.php';
+    }
+
+    /**
+     * @param null|list<string> $argv
+     */
+    public static function makeArgvInput(?array $argv = null, ?InputDefinition $inputDefinition = null): ArgvInput
+    {
+        static $argvInput;
+
+        return $argvInput ??= new ArgvInput($argv, $inputDefinition);
+    }
+
+    /**
+     * @see \Rector\Console\Style\SymfonyStyleFactory
+     */
+    public static function makeSymfonyStyle(?InputInterface $input = null, ?OutputInterface $output = null): SymfonyStyle
+    {
+        static $symfonyStyle;
+
+        if (
+            $symfonyStyle instanceof SymfonyStyle
+            && (
+                !$input instanceof InputInterface
+                || (string) \Closure::bind(
+                    static fn (SymfonyStyle $symfonyStyle): InputInterface => $symfonyStyle->input,
+                    null,
+                    SymfonyStyle::class
+                )($symfonyStyle) === (string) $input
+            )
+            && (
+                !$output instanceof OutputInterface
+                || \Closure::bind(
+                    static fn (SymfonyStyle $symfonyStyle): OutputInterface => $symfonyStyle->output,
+                    null,
+                    SymfonyStyle::class
+                )($symfonyStyle) === $output
+            )
+        ) {
+            return $symfonyStyle;
+        }
+
+        $input ??= new ArgvInput;
+        $output ??= new ConsoleOutput;
+
+        // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
+        (fn () => $this->configureIO($input, $output))->call(new Application);
+
+        // --debug or --xdebug is called
+        if ($input->hasParameterOption(['--debug', '--xdebug'], true)) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
+        // disable output for testing
+        if (self::isRunningInTesting()) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        }
+
+        return $symfonyStyle = new SymfonyStyle($input, $output);
+    }
+
+    public static function isRunningInTesting(): bool
+    {
+        return 'testing' === getenv('ENV');
     }
 
     /**

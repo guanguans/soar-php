@@ -584,6 +584,7 @@ trait HasOptions
      *
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection
+     * @noinspection MultipleReturnStatementsInspection
      */
     protected function normalizeValue(string $name, mixed $value): ?string
     {
