@@ -10,6 +10,7 @@
 /** @noinspection StaticClosureCanBeUsedInspection */
 /** @noinspection PhpInconsistentReturnPointsInspection */
 /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpUndefinedNamespaceInspection */
 declare(strict_types=1);
 
 /**
@@ -23,16 +24,27 @@ declare(strict_types=1);
 
 use Faker\Factory;
 use Faker\Generator;
+use Guanguans\SoarPHP\Soar;
 use Guanguans\SoarPHPTests\TestCase;
+use Illuminate\Database\Eloquent\Model;
 use Pest\Expectation;
 
+// pest()
+//     ->browser()
+//     // ->headed()
+//     // ->inFirefox()
+//     // ->inSafari()
+//     ->timeout(10000);
+// pest()->only();
+// pest()->printer()->compact();
+pest()->project()->github('guanguans/notify');
 pest()
     ->extend(TestCase::class)
-    // ->compact()
     ->beforeAll(function (): void {})
     ->beforeEach(function (): void {})
     ->afterEach(function (): void {})
     ->afterAll(function (): void {})
+    ->group(__DIR__)
     ->in(
         __DIR__,
         // __DIR__.'/Arch/',
@@ -53,7 +65,7 @@ pest()
 */
 
 /**
- * @see expect()->toBetween()
+ * @see Expectation::toBeBetween()
  */
 expect()->extend(
     'toAssert',
@@ -73,6 +85,43 @@ expect()->extend(
         ->toBeGreaterThanOrEqual($min)
         ->toBeLessThanOrEqual($max)
 );
+
+expect()->intercept('toBe', Model::class, function (Model $expected): void {
+    expect($this->value->id)->toBe($expected->id);
+});
+
+expect()->pipe('toBe', function (Closure $next, mixed $expected): ?Expectation {
+    if ($this->value instanceof Model) {
+        return expect($this->value->id)->toBe($expected->id);
+    }
+
+    return $next();
+});
+
+/**
+ * @see Expectation::toMatchSnapshot()
+ */
+expect()->pipe('toMatchSnapshot', function (Closure $next): void {
+    $flags = \JSON_INVALID_UTF8_IGNORE |
+        \JSON_INVALID_UTF8_SUBSTITUTE |
+        \JSON_PARTIAL_OUTPUT_ON_ERROR |
+        \JSON_PRESERVE_ZERO_FRACTION |
+        \JSON_PRETTY_PRINT |
+        \JSON_THROW_ON_ERROR |
+        \JSON_UNESCAPED_SLASHES |
+        \JSON_UNESCAPED_UNICODE;
+    $this->value = match (true) {
+        \is_string($this->value) => str($this->value)->replace(Soar::make()->getBinary(), 'soar-binary')->toString(),
+        // \is_object($this->value) && method_exists($this->value, '__toString') => (string) $this->value,
+        \is_array($this->value) => json_encode($this->value, $flags),
+        $this->value instanceof Traversable => json_encode(iterator_to_array($this->value), $flags),
+        $this->value instanceof JsonSerializable => json_encode($this->value->jsonSerialize(), $flags),
+        \is_object($this->value) && method_exists($this->value, 'toArray') => json_encode($this->value->toArray(), $flags),
+        default => $this->value,
+    };
+
+    $next();
+});
 
 /*
 |--------------------------------------------------------------------------

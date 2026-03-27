@@ -26,7 +26,7 @@ it('can get help', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('can get help snapshot', function (): void {
-    expect(str(Soar::make()->help())->replace(Soar::make()->getBinary(), 'soar-binary'))->toMatchSnapshot();
+    expect(Soar::make()->help())->toMatchSnapshot();
 })->group(__DIR__, __FILE__)->skipOnWindows();
 
 it('can get version', function (): void {

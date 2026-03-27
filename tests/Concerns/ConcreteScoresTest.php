@@ -78,10 +78,7 @@ it('can get array scores', function (): void {
         })
         ->unless(
             OsHelper::isWindows(),
-            fn (Expectation $expectation): Expectation => expect(json_encode(
-                $expectation->value,
-                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
-            ))->toMatchSnapshot()
+            fn (Expectation $expectation): Expectation => $expectation->toMatchSnapshot()
         );
 })->group(__DIR__, __FILE__);
 
