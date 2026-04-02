@@ -37,7 +37,7 @@ use Pest\Expectation;
 //     ->timeout(10000);
 // pest()->only();
 // pest()->printer()->compact();
-pest()->project()->github('guanguans/notify');
+pest()->project()->github('guanguans/soar-php');
 pest()
     ->extend(TestCase::class)
     ->beforeAll(function (): void {})
