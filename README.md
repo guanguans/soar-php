@@ -532,11 +532,11 @@ guanguans ALL=(ALL) NOPASSWD: /Users/guanguans/Documents/develop/soar-php/bin/so
 ## Composer scripts
 
 ```shell
+composer app:example-run
+composer app:example-serve
 composer benchmark
 composer checks:required
 composer php-cs-fixer:fix
-composer soar-php:example-run
-composer soar-php:example-serve
 composer test
 ```
 
