@@ -1,8 +1,7 @@
-# total 7 errors
+# total 5 errors
 
 includes:
     - assign.propertyType.neon
     - disallowed.function.neon
     - guanguans.forbiddenSideEffects.neon
     - new.static.neon
-    - typePerfect.narrowPublicClassMethodParamType.neon

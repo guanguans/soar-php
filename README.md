@@ -537,6 +537,7 @@ composer app:example-serve
 composer benchmark
 composer checks:required
 composer php-cs-fixer:fix
+composer ecs:fix
 composer test
 ```
 

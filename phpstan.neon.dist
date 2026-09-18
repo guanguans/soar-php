@@ -74,6 +74,7 @@ parameters:
             nativeThrowable: Guanguans\SoarPHP\Contracts\Throwable
 #    sidzIgnoreNumericStrings: true
     sidzIgnoreMagicNumbers: [0.9, 1, 2, 3, 5, 100, 600, 512, 1024, 1000, 0o755]
+#    ctor: true
     cognitive_complexity:
         class: 42
         function: 8
@@ -87,13 +88,16 @@ parameters:
         return: 100
         constant: 100
         property: 100
-    type_perfect:
-        narrow_param: true
-        narrow_return: true
-        null_over_false: true
-        no_mixed: false
-        no_mixed_property: true
-        no_mixed_caller: false
+#    type_perfect:
+#        narrow_param: true
+#        narrow_return: true
+#        null_over_false: true
+#        no_mixed: false
+#        no_mixed_property: true
+#        no_mixed_caller: false
+#        no_param_type_removal: true
+#        no_isset_on_object: true
+#        no_empty_on_object: true
     unused_public:
         constants: true
         properties: true

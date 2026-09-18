@@ -1,8 +1,8 @@
 <?php
 
+/** @noinspection D */
 /** @noinspection EfferentObjectCouplingInspection */
 /** @noinspection PhpUnused */
-
 declare(strict_types=1);
 
 /**
@@ -208,9 +208,9 @@ final class ComposerScripts
 
                 $option['type'] = collect([$option['type'], \gettype($option['default'])])
                     ->map(static fn (string $type): string => match ($type = strtolower($type)) {
-                        'integer' => 'int',
                         'boolean' => 'bool',
                         'double' => 'float',
+                        'integer' => 'int',
                         'resource (closed)' => 'resource',
                         'unknown type' => 'mixed',
                         default => $type,

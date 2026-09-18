@@ -28,9 +28,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddDocCommentForSoarOptionsRector extends AbstractRector implements DocumentedRuleInterface
 {
-    public function __construct(
-        private readonly ValueResolver $valueResolver
-    ) {}
+    public function __construct(private readonly ValueResolver $valueResolver) {}
 
     public function getNodeTypes(): array
     {
@@ -50,8 +48,6 @@ final class AddDocCommentForSoarOptionsRector extends AbstractRector implements 
             return null;
         }
 
-        $soarHelp = ComposerScripts::resolveSoarHelp();
-
         /**
          * @throws \Guanguans\SoarPHP\Exceptions\InvalidOptionException
          *
@@ -62,7 +58,7 @@ final class AddDocCommentForSoarOptionsRector extends AbstractRector implements 
          *     description: string,
          * } $help
          */
-        $help = $soarHelp->get($this->valueResolver->getValue($node->key));
+        $help = ComposerScripts::resolveSoarHelp()->get($this->valueResolver->getValue($node->key));
 
         if (!$help) {
             return null;

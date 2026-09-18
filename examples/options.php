@@ -97,8 +97,7 @@ return [
     ],
 
     // AllowCollates
-    '-allow-collates' => [
-    ],
+    '-allow-collates' => [],
 
     // AllowDropIndex, 允许输出删除重复索引的建议
     '-allow-drop-index' => false,

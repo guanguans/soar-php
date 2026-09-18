@@ -1,7 +1,6 @@
 <?php
 
 /** @noinspection PhpInternalEntityUsedInspection */
-
 declare(strict_types=1);
 
 /**
@@ -24,7 +23,7 @@ return RectorConfig::configure()
     ])
     ->withPhpVersion(PhpVersion::PHP_82)
     ->withoutParallel()
-    ->withImportNames(importDocBlockNames: false, importShortClasses: false)
+    ->withImportNames(importDocBlockNames: false, importShortClasses: false, removeUnusedImports: false)
     ->withRules([
         AddDocCommentForSoarOptionsRector::class,
         SimplifyListIndexRector::class,
