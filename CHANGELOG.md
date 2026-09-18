@@ -8,6 +8,26 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 
+<a name="8.0.1"></a>
+## [8.0.1] - 2026-09-18
+### 📦 Builds
+- **deps:** Bump dependencies in composer.json and update lint rules ([60d5d53](https://github.com/guanguans/soar-php/commit/60d5d53))
+
+### 🤖 Continuous Integrations
+- **config:** Update config files ([ad9c27f](https://github.com/guanguans/soar-php/commit/ad9c27f))
+- **config:** Update config files ([bba2b74](https://github.com/guanguans/soar-php/commit/bba2b74))
+- **config:** Update config files ([c9c012a](https://github.com/guanguans/soar-php/commit/c9c012a))
+
+### Pull Requests
+- Merge pull request [#204](https://github.com/guanguans/soar-php/issues/204) from guanguans/dependabot/github_actions/github/codeql-action-4.38.0
+- Merge pull request [#203](https://github.com/guanguans/soar-php/issues/203) from guanguans/dependabot/github_actions/github/codeql-action-4.37.9
+- Merge pull request [#202](https://github.com/guanguans/soar-php/issues/202) from guanguans/dependabot/github_actions/github/codeql-action-4.37.8
+- Merge pull request [#201](https://github.com/guanguans/soar-php/issues/201) from guanguans/dependabot/github_actions/github/codeql-action-4.37.7
+- Merge pull request [#200](https://github.com/guanguans/soar-php/issues/200) from guanguans/dependabot/github_actions/github/codeql-action-4.37.6
+- Merge pull request [#198](https://github.com/guanguans/soar-php/issues/198) from guanguans/dependabot/github_actions/github/codeql-action-4.37.4
+- Merge pull request [#197](https://github.com/guanguans/soar-php/issues/197) from guanguans/dependabot/github_actions/github/codeql-action-4.37.3
+
+
 <a name="8.0.0"></a>
 ## [8.0.0] - 2026-03-26
 ### 💅 Code Refactorings
@@ -882,7 +902,8 @@ All notable changes to this project will be documented in this file.
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2019-07-04
 
-[Unreleased]: https://github.com/guanguans/soar-php/compare/8.0.0...HEAD
+[Unreleased]: https://github.com/guanguans/soar-php/compare/8.0.1...HEAD
+[8.0.1]: https://github.com/guanguans/soar-php/compare/8.0.0...8.0.1
 [8.0.0]: https://github.com/guanguans/soar-php/compare/7.1.0...8.0.0
 [7.1.0]: https://github.com/guanguans/soar-php/compare/7.0.3...7.1.0
 [7.0.3]: https://github.com/guanguans/soar-php/compare/7.0.2...7.0.3
