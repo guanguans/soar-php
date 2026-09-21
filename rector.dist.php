@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 
 use Ergebnis\Rector\Rules\Expressions\Arrays\SortAssociativeArrayByKeyRector;
+use Guanguans\PhpCsFixerCustomFixers\Support\Utils;
 use Guanguans\RectorRules\NodeVisitor\ParentConnectingVisitor;
 use Guanguans\RectorRules\Rector\File\AddNoinspectionDocblockToFileFirstStmtRector;
 use Guanguans\RectorRules\Rector\Name\RenameToConventionalCaseNameRector;
@@ -38,10 +39,30 @@ return RectorConfig::configure()
         __DIR__.'/examples/',
         __DIR__.'/src/',
         __DIR__.'/tests/',
-        __DIR__.'/composer-bump',
+        ...Utils::defaultRootFiles(),
     ])
     ->withRootFiles()
-    ->withSkip(['*/Fixtures/*', __DIR__.'/tests.php'])
+    ->withSkip(['*/Fixtures/*'])
+    ->withSkip([
+        LogicalToBooleanRector::class,
+        NewlineBetweenClassLikeStmtsRector::class,
+        PreferPHPUnitThisCallRector::class,
+        SplitDoubleAssignRector::class,
+    ])
+    ->withSkip([
+        ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
+            __DIR__.'/tests/Concerns/HasOptionsTest.php',
+        ],
+        RenameParamToMatchTypeRector::class => [
+            __DIR__.'/tests/Pest.php',
+        ],
+        SortAssociativeArrayByKeyRector::class => [
+            /** @see vendor/rector/rector/src/PostRector/Rector/ */
+            __DIR__.'/examples/',
+            __DIR__.'/src/',
+            __DIR__.'/tests/',
+        ],
+    ])
     ->withCache(__DIR__.'/.build/rector/')
     // ->withoutParallel()
     ->withParallel()
@@ -92,24 +113,4 @@ return RectorConfig::configure()
         ],
     ])
     ->registerDecoratingNodeVisitor(ParentConnectingVisitor::class)
-    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT'])
-    ->withSkip([
-        LogicalToBooleanRector::class,
-        NewlineBetweenClassLikeStmtsRector::class,
-        PreferPHPUnitThisCallRector::class,
-        SplitDoubleAssignRector::class,
-    ])
-    ->withSkip([
-        ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
-            __DIR__.'/tests/Concerns/HasOptionsTest.php',
-        ],
-        RenameParamToMatchTypeRector::class => [
-            __DIR__.'/tests/Pest.php',
-        ],
-        SortAssociativeArrayByKeyRector::class => [
-            // __DIR__.'/benchmarks/',
-            __DIR__.'/examples/',
-            __DIR__.'/src/',
-            __DIR__.'/tests/',
-        ],
-    ]);
+    ->withConfiguredRule(RenameToConventionalCaseNameRector::class, ['MIT']);

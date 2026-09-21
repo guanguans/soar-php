@@ -101,6 +101,7 @@ final readonly class ComposerBump
     public function __invoke(): void
     {
         $this
+            ->updateComposerPackages()
             ->updateOutdatedComposerPackages()
             ->updateComposerPackages()
             ->updateOutdatedComposerPackages()

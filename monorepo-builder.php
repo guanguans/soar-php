@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnusedAliasInspection */
 /** @noinspection UsingInclusionReturnValueInspection */
-
 declare(strict_types=1);
 
 /**

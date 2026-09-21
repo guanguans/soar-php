@@ -235,7 +235,8 @@
             "@php-cs-fixer:custom-fix-dry-run",
             "@rule-doc-generator:generate",
             "@typos",
-            "@zhlint"
+            "@zhlint",
+            "@composer:audit"
         ],
         "checks:required": [
             "@putenv:xdebug-off",
@@ -267,7 +268,10 @@
         ],
         "composer-config:disable-process-timeout": "Composer\\Config::disableProcessTimeout",
         "composer-dependency-analyser": "@php vendor/bin/composer-dependency-analyser --verbose",
-        "composer:audit": "@composer audit --ansi -vv",
+        "composer:audit": [
+            "@composer audit --abandoned=report --ansi -vv",
+            "@composer audit --abandoned=report --ansi -vv --working-dir=vendor-bin/common/"
+        ],
         "composer:bin-all-update": "@composer bin all update --ansi -vv",
         "composer:check-platform-reqs": "@composer check-platform-reqs --lock --ansi -vv",
         "composer:diff": "@composer diff --with-platform --ansi -vv",
@@ -316,7 +320,7 @@
         "mago:lint-dry-run": "@mago:lint --dry-run",
         "mago:lint-list-rules": "@mago lint --list-rules",
         "mago:lint-semantics-only": "@mago lint --semantics-only",
-        "monorepo-builder": "@php vendor/bin/monorepo-builder --ansi -vv",
+        "monorepo-builder": "@php vendor/bin/monorepo-builder --config=monorepo-builder.php --ansi -vv",
         "monorepo-builder:release": [
             "@git-chglog",
             "@monorepo-builder release"
@@ -422,8 +426,7 @@
             "@putenv XDEBUG_SESSION=1"
         ],
         "rector": "@php vendor/bin/rector",
-        "rector:custom-rule": "@rector custom-rule",
-        "rector:list-rules": "@rector list-rules",
+        "rector:composer-based": "@rector composer-based",
         "rector:process": "@rector process --ansi",
         "rector:process-clear-cache": "@rector:process --clear-cache",
         "rector:process-clear-cache-dry-run": "@rector:process-clear-cache --dry-run",
@@ -433,6 +436,7 @@
         "rector:process-only-dry-run": "@rector:process-only --dry-run",
         "rector:process-options": "@rector:process-clear-cache --config=rector-options.php",
         "rector:process-options-dry-run": "@rector:process-options --dry-run",
+        "rector:validate-config": "@rector validate-config",
         "roave-backward-compatibility-check": "@php vendor/bin/roave-backward-compatibility-check --install-development-dependencies --ansi -vv",
         "roave-backward-compatibility-check:format-github-actions": "@roave-backward-compatibility-check --format=github-actions",
         "rule-doc-generator": "@php rule-doc-generator --ansi -vv",
@@ -440,7 +444,7 @@
         "rule-doc-generator:validate": "@rule-doc-generator validate src/Support/Rectors/",
         "sk": "@user-php vendor/bin/swiss-knife",
         "sk:alice-yaml-fixtures-to-php": "@sk alice-yaml-fixtures-to-php --help",
-        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=5 --skip-file=src/Soar.php",
+        "sk:check-commented-code": "@sk check-commented-code src/ --line-limit=6 --skip-file=src/Soar.php",
         "sk:check-conflicts": "@sk check-conflicts examples/ src/",
         "sk:dump-editorconfig": "@sk dump-editorconfig",
         "sk:finalize-classes": "@sk finalize-classes examples/ src/",

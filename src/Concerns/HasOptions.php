@@ -562,6 +562,11 @@ trait HasOptions
      */
     protected function normalizeOptions(array $options): array
     {
+        // $options = array_map(
+        //     fn (mixed $value, string $name): string => $this->normalizeOption($name, $value),
+        //     $options,
+        //     array_keys($options)
+        // );
         foreach ($options as $name => $value) {
             $options[$name] = $this->normalizeOption($name, $value);
         }

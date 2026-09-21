@@ -4,7 +4,6 @@
 /** @noinspection ForgottenDebugOutputInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 /** @noinspection SqlResolve */
-
 declare(strict_types=1);
 
 /**
